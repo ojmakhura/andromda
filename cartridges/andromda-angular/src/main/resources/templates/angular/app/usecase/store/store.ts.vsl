@@ -1,4 +1,5 @@
 #set ($serviceName = "$stringUtils.uncapitalize(${service.name})")
+
 import { inject } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -7,10 +8,19 @@ import { tapResponse } from '@ngrx/operators';
 import { Page } from '@app/model/page.model';
 import { SearchObject } from '@app/model/search-object';
 import { AppState } from '@app/store/app-state';
+import { SearchObject } from '@app/model/search-object';
+import { Page } from '@app/model/page.model';
+#foreach ($import in $service.imports)
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
+#end
 import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
 
 const initialState: AppState<any, any> = {
-  data: new any(),
+  data: null,
   dataList: [],
   dataPage: new Page<any>(),
   searchCriteria: new SearchObject<any>(),
@@ -31,19 +41,12 @@ export const ${service.name}Store = signalStore(
 #foreach ($operation in $service.allowedOperations)
 #set($methodParams = "void")
 #if(!$operation.arguments.empty)
-#if(!$operation.arguments.size() == 1)
-#set($methodParams = "void")
-#else
-#set($methodParams = "{ ")
-#foreach ($arg in $operation.arguments)
-#end
-#set($methodParams = "$methodParams }")
-#end
+#set($methodParams = "{$angularUtils.getMethodSignatureArguments($operation.arguments)}")
 #end
       ${operation.name}: rxMethod<$methodParams>(
         switchMap((#if(!$operation.arguments.empty)data#end) => {
           patchState(store, { loading: true });
-          return ${serviceName}.${operation.name}(#foreach($args in $service.arguments)data.${data.getterName}()#end).pipe(
+          return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
               next: (data) => {
                 // patchState(store, { data, loading: false, success: true });
@@ -54,7 +57,8 @@ export const ${service.name}Store = signalStore(
             }),
           );
         }),
-      )
+      ),
 #end
+    }
   }),
 );
