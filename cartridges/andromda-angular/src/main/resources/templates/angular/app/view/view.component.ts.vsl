@@ -20,6 +20,7 @@ import {
     EventEmitter, 
     AfterViewInit,
     signal,
+    Signal,
 #if($view.popup)
     Inject,
 #end
@@ -53,9 +54,10 @@ import {MatDialogRef} from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
-import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
-import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
-import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
+#foreach ($service in $view.useCase.controller.allRestControllers)
+import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
+#end
+import { ColumnModel } from '@app/model/column.model';
 
 ## Find all the fields in the actions of the view
 #set($fields = [])
@@ -145,17 +147,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     protected router: Router = inject(Router);
     protected formBuilder: FormBuilder = inject(FormBuilder);
     protected useCaseScope: UseCaseScope = inject(UseCaseScope);
-    protected store: Store<${view.useCase.storeName}State> = inject(Store);
+    // protected store: Store<${view.useCase.storeName}State> = inject(Store);
 ###if($targetModal)
     dialog: MatDialog = inject(MatDialog);
 ##end
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
+    readonly ${controller.variableName}Store = inject(${controller.name}Store);
 #end
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName} = inject(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.name} = inject(${service.name});
+    readonly $stringUtils.uncapitalize($service.name)Store = inject(${service.name}Store);
 #end
 #end
 #set ($formVars = "")
@@ -164,6 +167,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($formNameCaps = ${actionFormCaps})
 #set ($count = 1)
 #foreach ($field in $view.variables)
+// $field $field.table
 #if($field.component)
     @ViewChild('$field.name') ${field.name}Component?: $field.type.name;
     ${field.type.beanName}Form: FormGroup = new FormGroup({});
@@ -173,6 +177,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = $count + 1)
 #if($field.complex)
 #if($field.table) 
+// $field.tableFormActions
     @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName)?: $field.tableComponentImplementationName;
 #end
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -190,11 +195,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($columnName = $column)
 #end
         '$columnName',
+        new ColumnModel('$columnName', '$columnName', false),
 #end
     ];
 
     ${proId}ModalColumns = [
-        'actions',
+        new ColumnModel('actions', 'actions', false),
         ...this.${proId}Columns
     ];
 
@@ -225,14 +231,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${proId}SearchField: FormControl = new FormControl();
 
     ${proId}ModalColumns = [
-        'actions',
+        new ColumnModel('actions', 'actions', false),
 #foreach ($column in $attribute.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-        '$columnName',
+        new ColumnModel('$columnName', '$columnName', false),
 #end
     ];
 
@@ -275,19 +281,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #foreach($param in $finalParams)
 #if(!$param.component)
-    ${param.name}$: Observable<$param.angularTypeName>;
-    ${param.name}Subscription?: Subscription;
-#set ($rt = $subscriptions.add("${param.name}Subscription"))
+    ${param.name}$: Signal<$param.angularTypeName>;
 #end
 #end
-    messages: Observable<any>;
-    messagesSubscription?: Subscription;
-    success: Observable<boolean>;
-    successSubscription?: Subscription;
-    loading: Observable<boolean>;
-    loadingSubscription?: Subscription;
-    error: Observable<boolean>;
-    errorSubscription?: Subscription;
+    messages: Signal<any>;
+    success: Signal<boolean>;
+    loading: Signal<boolean>;
+    error: Signal<boolean>;
     selected: any = null;
 #foreach ($action in $view.actions)
 #if($action.displayCondition)
@@ -297,16 +297,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${view.formName}ValueSubscription?: Subscription;
 
-    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}) {
-#foreach($param in $finalParams)
-#if(!$param.table && !$param.component)
-        this.${param.name}$ = this.store.pipe(select(${view.useCase.storeName}Selectors.select$stringUtils.capitalize(${param.name})));
-#end
-#end
-        this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
-        this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
-        this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
-        this.messages = this.store.pipe(select(${view.useCase.storeName}Selectors.selectMessages));
+    constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any#{end}) {
+
 #foreach ($field in $view.variables)
 #if($field.complex)
 #foreach($attribute in $angularUtils.getTableAttributes($field))
@@ -344,7 +336,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${view.formName}Reset() {
 
-        this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+        ## this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
         this.${view.formName}.reset()
         this.${view.formName}.markAsPristine();
 
@@ -421,42 +413,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ngOnDestroy() { 
         this.doNgOnDestroy();
-
         if(this.${view.formName}ValueSubscription) {
             this.${view.formName}ValueSubscription.unsubscribe();
-        }
-        
-#if(!$view.popup)
-        this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
-#end
-#foreach($param in $finalParams)
-#if(!$param.component)
-        if(this.${param.name}Subscription) {
-            this.${param.name}Subscription.unsubscribe();
-        }
-        
-#end
-#end
-#foreach($subscription in $subscriptions)
-        if(this.${subscription}) {
-            this.${subscription}.unsubscribe();
-        }
-
-#end
-        if(this.messagesSubscription) {
-            this.messagesSubscription.unsubscribe();
-        }
-
-        if(this.successSubscription) {
-            this.successSubscription.unsubscribe();
-        }
-
-        if(this.loadingSubscription) {
-            this.loadingSubscription.unsubscribe();
-        }
-
-        if(this.errorSubscription) {
-            this.errorSubscription.unsubscribe();
         }
     }
 

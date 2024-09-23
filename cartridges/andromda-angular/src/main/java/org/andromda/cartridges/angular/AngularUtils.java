@@ -1802,6 +1802,16 @@ public class AngularUtils {
         return simple;
     }
 
+    public static String getRestServiceStoreName(AngularService service) {
+
+        return service.getName() + "Store";
+    }
+
+    public static String getRestServiceStoreFilePath(AngularService service) {
+
+        return "@app/store/" + service.getPackagePath() + '/' + service.getFileName() + ".store";
+    }
+
     public static String getTableColumnMessageKey(Object column, MetafacadeBase parent) {
 
         if (column instanceof AngularAttribute) {

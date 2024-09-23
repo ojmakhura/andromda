@@ -69,3 +69,43 @@ body {
 .readonly-wrapper .readonly-block {
   pointer-events: none;
 }
+
+
+.mat-modal {
+  max-height: 90vh;
+  // overflow: hidden;
+
+  .modal-dialog {
+      height: 100%;
+      // overflow: hidden;
+
+      .modal-content {
+          height: 100%;
+          // overflow: hidden;
+
+          .modal-body {
+              max-height: 70vh;
+              overflow: auto;
+
+              form {
+                  max-height: 100%;
+
+                  .container.row-container {
+                      max-height: 100%;
+                      position: relative;
+
+                      .row {
+                          max-height: 100%;
+                          overflow: auto;
+
+                          .group-label {
+                              height: auto;
+                              overflow-y: scroll;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

@@ -465,7 +465,8 @@
         path="templates/spring/SpringRepository.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -476,7 +477,8 @@
         path="templates/spring/SpringDao.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -488,7 +490,8 @@
         path="templates/spring/hibernate/SpringHibernateDaoBase.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>

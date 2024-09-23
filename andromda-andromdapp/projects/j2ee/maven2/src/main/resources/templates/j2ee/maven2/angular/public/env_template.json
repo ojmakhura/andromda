@@ -1,0 +1,15 @@
+{
+  "serverUrl": "/api",
+  "redirectUri": "<redirectUri>",
+  "keycloak": {
+    "issuer": "<keycloakIssuer>",
+    "clientId": "<clientId>",
+    "scope": "openid profile email offline_access",
+    "responseType": "code",
+    "realm": "<realmId>",
+    "disableAtHashCheck": true,
+    "showDebugInformation": true,
+    "requireHttps": false,
+    "checkLoginIframe": false
+  }
+}

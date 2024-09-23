@@ -1,3 +1,4 @@
+#if(!$entity.embeddableSuperclass)
 #set ($generatedFile = "${service.implementationPackagePath}/${service.baseName}.java")
 // license-header java merge-point
 //
@@ -439,3 +440,4 @@ $attribute.getDocumentation("     * ")
 
 // spring-service-base merge-point
 }
+#end

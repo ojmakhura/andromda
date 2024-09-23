@@ -3,16 +3,15 @@ package org.andromda.cartridges.spring;
 import org.andromda.core.profile.Profile;
 import org.andromda.metafacades.uml.UMLProfile;
 
-
 /**
- * The Spring profile. Contains the profile information (tagged values, and stereotypes) for the Spring cartridge.
+ * The Spring profile. Contains the profile information (tagged values, and
+ * stereotypes) for the Spring cartridge.
  *
  * @author Chad Brandon
  * @author Peter Friese
  */
 public class SpringProfile
-    extends UMLProfile
-{
+        extends UMLProfile {
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
@@ -25,12 +24,17 @@ public class SpringProfile
     public static final String STEREOTYPE_POST_CONSTRUCT_METHOD = PROFILE.get("POST_CONSTRUCT");
 
     /**
+     * 'MappedSuperclass' Specifies this class as a mapped/embeddable super class.
+     */
+    public static final String STEREOTYPE_MAPPED_SUPERCLASS = PROFILE.get("MAPPED_SUPERCLASS");
+    /**
      * Stores the service destroy-method stereotype.
      */
     public static final String STEREOTYPE_PRE_DESTROY_METHOD = PROFILE.get("PRE_DESTROY");
 
     /**
-     * 'PrePersist' Specifies the entity business operation as a pre-persist callback
+     * 'PrePersist' Specifies the entity business operation as a pre-persist
+     * callback
      */
     public static final String STEREOTYPE_PRE_PERSIST = PROFILE.get("PRE_PERSIST");
 
@@ -40,12 +44,14 @@ public class SpringProfile
     public static final String STEREOTYPE_POST_PERSIST = PROFILE.get("POST_PERSIST");
 
     /**
-     * 'PreRemove' Specifies the entity business operati operationre-remove operation
+     * 'PreRemove' Specifies the entity business operati operationre-remove
+     * operation
      */
     public static final String STEREOTYPE_PRE_REMOVE = PROFILE.get("PRE_REMOVE");
 
     /**
-     * 'PostRemove' Specifies the entity business operation as a post-remove operation
+     * 'PostRemove' Specifies the entity business operation as a post-remove
+     * operation
      */
     public static final String STEREOTYPE_POST_REMOVE = PROFILE.get("POST_REMOVE");
 
@@ -55,7 +61,8 @@ public class SpringProfile
     public static final String STEREOTYPE_PRE_UPDATE = PROFILE.get("PRE_UPDATE");
 
     /**
-     * 'PostUpdate' Specifies the entity business operation as a post-update operation
+     * 'PostUpdate' Specifies the entity business operation as a post-update
+     * operation
      */
     public static final String STEREOTYPE_POST_UPDATE = PROFILE.get("POST_UPDATE");
 
@@ -99,20 +106,20 @@ public class SpringProfile
     /**
      * Stores the criteria search order direction.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION =
-        PROFILE.get("HIBERNATE_CRITERIA_ORDER_DIRECTION");
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION = PROFILE
+            .get("HIBERNATE_CRITERIA_ORDER_DIRECTION");
 
     /**
      * Stores the criteria search order relevance.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE =
-        PROFILE.get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE = PROFILE
+            .get("HIBERNATE_CRITERIA_ORDER_RELEVANCE");
 
     /**
      * Stores whether or not criteria like comparator's should ignore case.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE =
-        PROFILE.get("HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE");
+    public static final String TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE = PROFILE
+            .get("HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE");
 
     /**
      * Stores a hibernate query.
@@ -125,7 +132,8 @@ public class SpringProfile
     public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = PROFILE.get("HIBERNATE_INHERITANCE");
 
     /**
-     * Define whether the marked finder will use named parameters or positional parameters.
+     * Define whether the marked finder will use named parameters or positional
+     * parameters.
      */
     public static final String TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS = PROFILE
             .get("HIBERNATE_USE_NAMED_PARAMETERS");
@@ -146,24 +154,27 @@ public class SpringProfile
     public static final String TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS = PROFILE.get("SPRING_SERVICE_INTERCEPTORS");
 
     /**
-     * Define whether we will render only the configuration, but not the service itself.
+     * Define whether we will render only the configuration, but not the service
+     * itself.
      */
     public static final String TAGGEDVALUE_SERVICE_CONFIG_ONLY = PROFILE.get("SPRING_SERVICE_CONFIG_ONLY");
 
     /**
-    * Define whether the service is private.
-    */
+     * Define whether the service is private.
+     */
     public static final String TAGGEDVALUE_SERVICE_PRIVATE = PROFILE.get("SPRING_SERVICE_PRIVATE");
 
     /**
      * Optimize acknowledge flag for ActiveMQ connections.
      */
-    public static final String TAGGEDVALUEVALUE_ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE = PROFILE.get("ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE");
+    public static final String TAGGEDVALUEVALUE_ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE = PROFILE
+            .get("ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE");
 
     /**
      * Session acknowledge mode for messaging (JMS).
      */
-    public static final String TAGGEDVALUEVALUE_MESSAGING_SESSION_ACKNOWLEDGE_MODE = PROFILE.get("MESSAGING_SESSION_ACKNOWLEDGE_MODE");
+    public static final String TAGGEDVALUEVALUE_MESSAGING_SESSION_ACKNOWLEDGE_MODE = PROFILE
+            .get("MESSAGING_SESSION_ACKNOWLEDGE_MODE");
 
     /* ----------------- Tagged Value Values ------------- */
 
@@ -175,8 +186,8 @@ public class SpringProfile
     /**
      * The "case insensitive like" comparator.
      */
-    public static final String TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR =
-        PROFILE.get("INSENSITIVE_LIKE_COMPARATOR");
+    public static final String TAGGEDVALUEVALUE_INSENSITIVE_LIKE_COMPARATOR = PROFILE
+            .get("INSENSITIVE_LIKE_COMPARATOR");
 
     /**
      * The "equals" comparator.
@@ -186,8 +197,8 @@ public class SpringProfile
     /**
      * The "greater of even" comparator.
      */
-    public static final String TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL =
-        PROFILE.get("GREATER_THAN_OR_EQUAL_COMPARATOR");
+    public static final String TAGGEDVALUEVALUE_COMPARATOR_GREATER_OR_EQUAL = PROFILE
+            .get("GREATER_THAN_OR_EQUAL_COMPARATOR");
 
     /**
      * The "greater" comparator.

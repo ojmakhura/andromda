@@ -29,6 +29,11 @@ public class UMLProfile {
         public static final String STEREOTYPE_ENTITY = profile.get("ENTITY");
 
         /**
+         * 'MappedSuperclass' Specifies this class as a mapped/embeddable super class.
+         */
+        public static final String STEREOTYPE_MAPPED_SUPERCLASS = profile.get("MAPPED_SUPERCLASS");
+
+        /**
          * 'EmbeddedValue'
          * Represents an embedded value (typically embedded with an entity as an
          * attribute).
@@ -299,6 +304,13 @@ public class UMLProfile {
          */
         public static final String TAGGEDVALUE_PERSISTENCE_IMMUTABLE = profile.get(
                         "PERSISTENCE_IMMUTABLE");
+
+        /**
+         * 'andromda_persistence_mapped_superclass' Indicates if a persistence type is
+         * a mapped super class.
+         */
+        public static final String TAGGEDVALUE_PERSISTENCE_PERSISTENCE_MAPPED_SUPERCLASS = profile.get(
+                        "PERSISTENCE_MAPPED_SUPERCLASS");
 
         /**
          * 'andromda_persistence_foreign_identifier'
@@ -636,7 +648,8 @@ public class UMLProfile {
          * Test annotations
          */
         public static final String TAGGEDVALUE_OPERATION_TEST_NAME = profile.get("ANDROMDA_OPERATION_TEST_NAME");
-        public static final String TAGGEDVALUE_OPERATION_TEST_DISPLAY_NAME = profile.get("ANDROMDA_OPERATION_TEST_DISPLAY_NAME");
+        public static final String TAGGEDVALUE_OPERATION_TEST_DISPLAY_NAME = profile
+                        .get("ANDROMDA_OPERATION_TEST_DISPLAY_NAME");
 
         /* ----------------- Data Types -------------------- */
 

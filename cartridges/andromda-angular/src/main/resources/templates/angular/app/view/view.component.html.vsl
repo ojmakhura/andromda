@@ -40,18 +40,18 @@
 			</section>
 #end
 #if ($view.nonTableVariablesPresent)
-			@if (success | async) {
+			@if (success()) {
 			<div class="alert alert-success" role="alert">
-				@for(message of messages | async; track message) {
+				@for(message of messages(); track message) {
 				<div>
 					{{ message }}
 				</div>
 				}
 			</div>
 			}
-			@if(error | async) {
-			<div *ngIf="error | async" class="alert alert-danger" role="alert">
-				@for(message of messages | async; track message) {
+			@if(error()) {
+			<div *ngIf="error()" class="alert alert-danger" role="alert">
+				@for(message of messages(); track message) {
 				<div>
 					{{ message }}
 				</div>
@@ -102,7 +102,8 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<app-$table.fileName #$stringUtils.uncapitalize($table.tableComponentName)>
+			<app-$table.fileName #$stringUtils.uncapitalize($table.tableComponentName) 
+					[dataColumns]="${table.name}Columns" [showActions]="true" [paged]="true">
 			</app-$table.fileName>
 		</mat-tab>
 #end

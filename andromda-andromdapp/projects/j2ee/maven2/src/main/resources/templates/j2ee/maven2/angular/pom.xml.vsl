@@ -55,6 +55,11 @@
                                 <include name="**/*"/>
                             </fileset>
                         </copy>
+                        <copy todir="${project.basedir}/target/${applicationId}/public" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/public">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
                         <copy todir="${project.basedir}/target/${applicationId}/cypress" overwrite="true" failonerror="false">
                             <fileset dir="${project.basedir}/cypress">
                                 <include name="**/*"/>

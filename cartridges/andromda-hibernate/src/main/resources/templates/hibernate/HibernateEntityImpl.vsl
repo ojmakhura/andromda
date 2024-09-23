@@ -1,3 +1,4 @@
+#if(!$entity.embeddableSuperclass)
 #set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.java")
 // license-header java merge-point
 #if ($entity.businessOperationsPresent)
@@ -61,3 +62,4 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 #end
 // HibernateEntityImpl.vsl merge-point
 }
+#end

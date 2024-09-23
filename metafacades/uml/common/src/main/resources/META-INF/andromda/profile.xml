@@ -17,6 +17,16 @@
                 <value>Entity</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="MAPPED_SUPERCLASS">
+                <documentation>
+                    Produces a POJO class annotated as a
+                    mapped/embeddable super class.  This
+                    can only be assigned to the root class
+                    in a hierarchy.
+                </documentation>
+                <value>MappedSuperclass</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="SERVICE">
                 <documentation>
                     Denotes this class represents a service that is implemented using the facade pattern.
@@ -322,6 +332,12 @@
                     Denotes this entity's property can only be set at construction time.
                 </documentation>
                 <value>andromda_persistence_immutable</value>
+            </element>
+            <element name="PERSISTENCE_MAPPED_SUPERCLASS">
+                <documentation>
+                    Denotes this entity is a mapped superclass.
+                </documentation>
+                <value>andromda_persistence_mapped_superclass</value>
             </element>
             <element name="PERSISTENCE_JOINCOLUMN_ORDER">
                 <documentation>

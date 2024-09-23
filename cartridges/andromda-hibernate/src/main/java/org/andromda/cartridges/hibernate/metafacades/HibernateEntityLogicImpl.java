@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,6 +53,15 @@ public class HibernateEntityLogicImpl
     {
         super(metaObject, context);
     }
+
+    /**
+     * The property that stores the pattern defining the entity
+     * composite primary key class name.
+     */
+    private static final String ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN = "entityCompositePrimaryKeyNamePattern";
+
+    public static final String ENTITY_EMBEDDABLE_NAME_PATTERN = "entityEmbeddableNamePattern";
+
 
     /** 
      * Value for one table per root class
@@ -923,5 +933,49 @@ public class HibernateEntityLogicImpl
         return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID) ||
                 this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID_STRING) ||
                 this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_UUID_HEX);
+    }
+
+    @Override
+    protected boolean handleIsEmbeddableSuperclassGeneralizationExists() {
+        return (this.getSuperEntity() != null && this.getSuperEntity().isEmbeddableSuperclass());
+    }
+
+    @Override
+    protected boolean handleIsEmbeddableSuperclass() {
+        boolean isEmbeddableSuperclass = this.hasStereotype(UMLProfile.STEREOTYPE_MAPPED_SUPERCLASS);
+
+        /**
+         * Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
+         */
+        return isEmbeddableSuperclass && isRoot();
+    }
+
+    @Override
+    protected boolean handleIsCompositePrimaryKeyPresent() {
+        boolean isCompositePK = false;
+        if (this.getIdentifiers().size() > 1)
+        {
+            isCompositePK = true;
+        }
+        return isCompositePK;
+    }
+    @Override
+    protected String handleGetEntityEmbeddableName() {
+        String embeddableSuperclassName =
+            (String)this.getConfiguredProperty(ENTITY_EMBEDDABLE_NAME_PATTERN);
+
+        return MessageFormat.format(
+            embeddableSuperclassName,
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    @Override
+    protected String handleGetEntityCompositePrimaryKeyName() {
+        String compPKPattern =
+            String.valueOf(this.getConfiguredProperty(ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN));
+
+        return MessageFormat.format(
+            compPKPattern,
+                StringUtils.trimToEmpty(this.getName()));
     }
 }

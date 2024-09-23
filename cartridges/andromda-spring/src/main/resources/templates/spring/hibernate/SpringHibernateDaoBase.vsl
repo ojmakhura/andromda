@@ -1,3 +1,4 @@
+#if(!$entity.embeddableSuperclass)
 ##==== Local Macros
 #macro(renderEvictCollection $theEntity)
 #if($theEntity.generalization)
@@ -2092,4 +2093,5 @@ $h3tab        return results;
 
     // spring-hibernate-dao-base merge-point
 }
+#end
 #end

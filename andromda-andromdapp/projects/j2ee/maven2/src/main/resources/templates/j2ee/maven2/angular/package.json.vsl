@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "build": "npm run write:env -s && ng build",
-    "start": "npm run write:env -s && ng serve --proxy-config proxy.conf.js",
+    "start": "ng serve",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
     "lint": "ng lint && stylelint \"src/**/*.scss\"",
     "test": "npm run write:env -s && ng test",
@@ -46,7 +46,7 @@
     "keycloak-js": "^25.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
     "@ctrl/ngx-csv": "^6.0.0",
     "chart.js": "^4.4.2",
     "chartjs-plugin-annotation": "^3.0.1",
@@ -55,7 +55,7 @@
     "jszip": "^3.10.1",
     "material-design-icons-iconfont": "^6.1.0",
     "ng2-charts": "^6.0.0",
-    "popper.js": "^1.16.1",
+    "popper.js": "^1.16.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.1.4",

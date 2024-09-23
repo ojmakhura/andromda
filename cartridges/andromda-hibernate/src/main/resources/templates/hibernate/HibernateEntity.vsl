@@ -8,6 +8,8 @@
 package $entity.packageName;
 #end
 
+// $entity.entityImplementationRequired  $entity.embeddableSuperclass
+
 #if(!$entity.generalization)
 import java.io.Serializable;
 
@@ -16,6 +18,9 @@ import java.io.Serializable;
 $entity.getDocumentation(" * ")
  */
 #if ($hibernateEntityAnnotations)
+#if($entity.embeddableSuperclass)
+@jakarta.persistence.MappedSuperclass
+#else
 @jakarta.persistence.Entity
 @jakarta.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
 ##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
@@ -76,6 +81,7 @@ $entity.getDocumentation(" * ")
 #else
 @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
+#end
 #end
 #end
 #foreach($annotation in $entity.additionalAnnotations)
