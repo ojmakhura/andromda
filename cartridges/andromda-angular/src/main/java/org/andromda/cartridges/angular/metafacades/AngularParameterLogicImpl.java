@@ -300,85 +300,103 @@ public class AngularParameterLogicImpl
         return services;
     }
 
-    @Override
-    public String getGetterSetterTypeName() {
-        String name = null;
-        if (this.getUpper() > 1 || this.getUpper() == -1)
-        {
-            final TypeMappings mappings = this.getLanguageMappings();
-            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
-            // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
-            /*if (this.handleIsUnique())
-            {
-                name =
-                    this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
-                                     : mappings.getTo(UMLProfile.SET_TYPE_NAME);
-            }
-            else
-            {*/
-                name =
-                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
-                                     : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
-            /*}*/
+    // @Override
+    // public String getGetterSetterTypeName() {
+    //     String name = null;
+    //     if (this.getUpper() > 1 || this.getUpper() == -1)
+    //     {
+    //         final TypeMappings mappings = this.getLanguageMappings();
+    //         //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
+    //         // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
+    //         /*if (this.handleIsUnique())
+    //         {
+    //             name =
+    //                 this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+    //                                  : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+    //         }
+    //         else
+    //         {*/
+    //             name =
+    //                 this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+    //                                  : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+    //         /*}*/
 
-            // set this attribute's type as a template parameter if required
-            if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
-            {
-                String type = this.getType().getName();
-                if (this.getType().isPrimitive() || this.getLower() > 0)
-                {
-                    // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = this.getType().getWrapperName();
-                    if (type == null)
-                    {
-                        // No wrapper name configured
-                        type = this.getType().getName();
-                    }
-                }
-                // Allow List<Type[]> implementations.
-                /*// Don't apply templating to modeled array types
-                if (this.getType().isArrayType())
-                {
-                    type = type.substring(0, type.length()-2);
-                }*/
-                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
-                if ((specializations != null && !specializations.isEmpty()))
-                {
-                    name += "<? extends " + type + '>';
-                }
-                else
-                {*/
-                    name += '<' + type + '>';
-                /*}*/
-            }
+    //         // set this attribute's type as a template parameter if required
+    //         if (BooleanUtils.toBoolean(
+    //                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+    //         {
+    //             String type = this.getType().getName();
+    //             if (this.getType().isPrimitive() || this.getLower() > 0)
+    //             {
+    //                 // Can't template primitive values, Objects only. Convert to wrapped.
+    //                 type = this.getType().getWrapperName();
+    //                 if (type == null)
+    //                 {
+    //                     // No wrapper name configured
+    //                     type = this.getType().getName();
+    //                 }
+    //             }
+    //             // Allow List<Type[]> implementations.
+    //             /*// Don't apply templating to modeled array types
+    //             if (this.getType().isArrayType())
+    //             {
+    //                 type = type.substring(0, type.length()-2);
+    //             }*/
+    //             /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+    //             if ((specializations != null && !specializations.isEmpty()))
+    //             {
+    //                 name += "<? extends " + type + '>';
+    //             }
+    //             else
+    //             {*/
+    //                 name += '<' + type + '>';
+    //             /*}*/
+    //         }
+    //     }
+    //     if (name == null && this.getType() != null)
+    //     {
+    //         name = this.getType().getName();
+    //         // Special case: lower bound overrides primitive/wrapped type declaration
+    //         // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+    //         if (this.getType().isBooleanType())
+    //         {
+    //             // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
+    //             if (this.getType().isPrimitive() && this.getLower() < 1 &&
+    //                 (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
+    //             {
+    //                 // Type is optional, should not be primitive
+    //                 name = this.getType().getWrapperName();
+    //                 if (name == null)
+    //                 {
+    //                     // No wrapper name configured
+    //                     name = this.getType().getName();
+    //                 }
+    //             }
+    //             /*else //if (this.getType().isPrimitive())
+    //             {
+    //                 // Type is required, should not be wrapped
+    //             }*/
+    //         }
+    //     }
+
+    //     return name;
+    // }    
+
+
+    @Override
+    public String getGetterSetterTypeName()
+    {
+        String name = super.getGetterSetterTypeName();
+
+        if(name.contains("<")) {
+            String tmp = name.substring(0, name.indexOf("<"));
+            name = tmp + "<" + getLanguageMappings().getTo(getType().getName()) + ">";
         }
-        if (name == null && this.getType() != null)
-        {
-            name = this.getType().getName();
-            // Special case: lower bound overrides primitive/wrapped type declaration
-            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (this.getType().isBooleanType())
-            {
-                // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
-                if (this.getType().isPrimitive() && this.getLower() < 1 &&
-                    (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
-                {
-                    // Type is optional, should not be primitive
-                    name = this.getType().getWrapperName();
-                    if (name == null)
-                    {
-                        // No wrapper name configured
-                        name = this.getType().getName();
-                    }
-                }
-                /*else //if (this.getType().isPrimitive())
-                {
-                    // Type is required, should not be wrapped
-                }*/
-            }
+
+        if(name.contains(".")) {
+            name = name.substring(name.lastIndexOf(".") + 1);
         }
 
         return name;
-    }    
+    }
 }

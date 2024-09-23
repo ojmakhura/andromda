@@ -95,6 +95,7 @@ public class ClassifierFacadeLogicImpl
             LOGGER.warn("classifierNameMask not found in " + this.toString());
             nameMask = "none";
         }*/
+        
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 

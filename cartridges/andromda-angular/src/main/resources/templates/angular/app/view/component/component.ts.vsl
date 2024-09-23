@@ -90,9 +90,9 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #foreach($attribute in $component.attributes)
 #if(!$attribute.inputButton)
 #if($attribute.component)
-    @ViewChild('${attribute.name}') ${attribute.name}Component: ${attribute.angularTypeName}Component;
+    @ViewChild('${attribute.name}') ${attribute.name}Component: ${attribute.getterSetterTypeName}Component;
 #else
-    @Input() ${attribute.name}?: ${attribute.angularTypeName}#if($attribute.many)[]#end;
+    @Input() ${attribute.name}?: ${attribute.getterSetterTypeName};
 #if($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute))
 #foreach($attr in $attribute.type.attributes)
 #set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
@@ -109,11 +109,11 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('${propertyId}ModalPaginator', {static: true}) ${propertyId}ModalPaginator: MatPaginator;
     @ViewChild('${propertyId}ModalSort', {static: true}) ${propertyId}ModalSort: MatSort;
 
-    $stringUtils.pluralize(${propertyId})$: Observable<${attr.angularTypeName}[]>;
+    $stringUtils.pluralize(${propertyId})$: Observable<${attr.getterSetterTypeName}>;
     ${propertyId}SearchField: FormControl = new FormControl([]);
-    ${propertyId}Select: ${attr.angularTypeName}#if($attr.many || $attr.type.collectionType)[] = []#else = new  ${attr.angularTypeName}()#end;
+    ${propertyId}Select: ${attr.getterSetterTypeName}#if($attr.many || $attr.type.collectionType)[] = []#else = new  ${attr.getterSetterTypeName}()#end;
 
-    $stringUtils.pluralize(${propertyId})DataSource = new MatTableDataSource<${attr.angularTypeName}>([]);
+    $stringUtils.pluralize(${propertyId})DataSource = new MatTableDataSource<${attr.getterSetterTypeName}>([]);
 
     ${propertyId}ModalColumns = [
         'actions',
@@ -132,7 +132,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #end
 #if($attribute.inputSelect || $attribute.inputMultibox || $attribute.type.enumeration)
 #if($attribute.type.enumeration)
-    ${attribute.name}T: any = $attribute.type.name;
+    ${attribute.name}T: any = $attribute.getterSetterTypeName;
     ${attribute.name}Options = Object.keys(this.${attribute.name}T);
 #end
     ${attribute.name}BackingList: SelectItem[] = [];
@@ -144,7 +144,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #end
 
 #if($angularUtils.isTable($attribute) && !$attribute.component)
-    ${attribute.name}DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
+    ${attribute.name}DataSource = new MatTableDataSource<${attribute.getterSetterTypeName}>([]);
 #set ($proId = "$attribute.name")
 #set ($cols = "")
     ${proId}Columns = [
@@ -169,10 +169,10 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
     @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
-    $stringUtils.pluralize(${proId})$: Observable<${attribute.angularTypeName}[]>;
-    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
+    $stringUtils.pluralize(${proId})$: Observable<${attribute.getterSetterTypeName}[]>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.getterSetterTypeName}>([]);
     ${proId}SearchField: FormControl = new FormControl([]);
-    ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
+    ${proId}Select: ${attribute.getterSetterTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 #end
 #if($attribute.inputType == "image" || $attribute.inputFile)
     ${attribute.name}Preview#if($attribute.many)s: any[]#{else}: any#end = #if($attribute.many)[]#else''#end;
@@ -266,7 +266,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #foreach($field in $fieldSet)
 #if(!$field.inputButton)
 #if($field.type)
-#set ($typeName = "$field.type.name")
+#set ($typeName = "$field.getterSetterTypeName")
 #else
 #set ($typeName = "$field.name")
 #end

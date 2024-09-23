@@ -25,7 +25,7 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
+    $attribute.name: ${attribute.getterSetterTypeName} = <${attribute.getterSetterTypeName}>{
 #foreach($attr in ${attribute.type.attributes})
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
 #set ($def = "new Array()")
@@ -43,8 +43,8 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if($attribute.many)
 #set ($default = "new Array()")
 #end
-    $attribute.name?: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else} = null#end#end;
-
+    $attribute.name?: $attribute.getterSetterTypeName | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else} = null#end#end;
+    
 #end
 #end
 #end

@@ -36,26 +36,8 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     importProvidersFrom(
       TranslateModule.forRoot(),
-#if($ngrx)
-      StoreModule.forRoot({}),
-      StoreDevtoolsModule.instrument({}),
-      EffectsModule.forRoot([]),
-#end
       ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     ),
-#if($ngrx)
-    provideStoreDevtools({ maxAge: 25, logOnly: false }),
-    provideEffects([
-#foreach ( $useCase in $useCases )
-      ${useCase.storeName}Effects,
-#end
-    ]),
-    provideStore({
-#foreach ( $useCase in $useCases )
-      ${stringUtils.uncapitalize(${useCase.storeName})}: ${stringUtils.uncapitalize(${useCase.storeName})}Reducer,
-#end
-    }),
-#end
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
     {
       provide: RouteReuseStrategy,

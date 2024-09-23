@@ -20,7 +20,7 @@ export abstract class $controller.name extends ControllerBase {
     actionToDialog: boolean = false;
 #if(!$controller.attributes.empty)
 #foreach($attribute in $controller.attributes)
-    $attribute.name: $attribute.angularTypeName;
+    $attribute.name: $attribute.getterSetterTypeName;
 #end
 
 #end
@@ -59,7 +59,7 @@ $operation.getDocumentation("     * ")
 #set ($collection = '[]')
 #end
 #set ($actionParams = "${actionParams}#if($actionParams.length() > 0), #end$field.name")
-#set ($actionParamsWithTypes = "${actionParamsWithTypes}#if($actionParamsWithTypes.length() > 0), #end$field.name: $angularUtils.getDatatype($field.type.name)$collection")
+#set ($actionParamsWithTypes = "${actionParamsWithTypes}#if($actionParamsWithTypes.length() > 0), #end$field.name: $field.getterSetterTypeName")
 #end
     /**
 #if($action.exitingInitialState)

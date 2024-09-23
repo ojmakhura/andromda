@@ -9,7 +9,7 @@
 #elseif ($field.type.fileType || $field.needsFileUpload)
 #set ($fieldTypeName = "$fileTypeName")
 #else
-#set ($fieldTypeName = ${field.angularTypeName})
+#set ($fieldTypeName = ${field.getterSetterTypeName})
 #end
 #end
 ##
@@ -41,7 +41,7 @@
 #elseif ($field.type.primitive)
 #set ($fieldWrapperTypeName = ${field.type.wrapperName})
 #else
-#set ($fieldWrapperTypeName = ${field.angularTypeName})
+#set ($fieldWrapperTypeName = ${field.getterSetterTypeName})
 #end
 #end
 ##

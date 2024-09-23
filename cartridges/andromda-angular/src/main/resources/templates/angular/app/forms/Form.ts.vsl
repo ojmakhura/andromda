@@ -33,7 +33,7 @@ export interface $operation.formName
 $field.getDocumentation("     * ")
      * @return $field.name
      */
-    ${field.getterName}(): $field.angularTypeName;
+    ${field.getterName}(): $field.getterSetterTypeName;
 ## - don't allow fields with default values to be set
 #if (!$field.defaultValuePresent)
 
@@ -41,7 +41,7 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      * @param $field.name
      */
-    ${field.setterName}($field.name: $field.angularTypeName): void;
+    ${field.setterName}($field.name: $field.getterSetterTypeName): void;
 #if ($field.selectable || $field.type.enumeration)
 #renderBackingListSupport($field "")
 #end

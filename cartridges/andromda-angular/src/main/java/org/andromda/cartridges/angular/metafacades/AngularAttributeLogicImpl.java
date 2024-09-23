@@ -10,7 +10,13 @@ import java.util.List;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Represents an attribute on a classifier used by a Angular application.
@@ -92,5 +98,22 @@ public class AngularAttributeLogicImpl
     @Override
     protected String handleGetImportFilePath() {
         return this.getPackagePath() + '/';
+    }
+
+    @Override
+    public String getGetterSetterTypeName()
+    {
+        String name = super.getGetterSetterTypeName();
+
+        if(name.contains("<")) {
+            String tmp = name.substring(0, name.indexOf("<"));
+            name = tmp + "<" + getLanguageMappings().getTo(getType().getName()) + ">";
+        }
+
+        if(name.contains(".")) {
+            name = name.substring(name.lastIndexOf(".") + 1);
+        }
+
+        return name;
     }
 }

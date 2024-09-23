@@ -19,8 +19,6 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
-import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
-import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
 
 #foreach ($import in $table.imports)
 #if(${import.hasStereotype("FrontEndComponent")})
@@ -61,10 +59,10 @@ export abstract class ${table.tableComponentName} implements OnInit, AfterViewIn
     ];
 
     totalElements = signal(0);
-    ${table.name}$: Observable<$table.angularTypeName>;
+    ${table.name}$: Observable<$table.getterSetterTypeName>;
     ${table.name}Subscription: Subscription;
 
-    ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
+    ${table.name}DataSource = new MatTableDataSource<$table.getterSetterTypeName>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 

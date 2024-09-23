@@ -2,7 +2,6 @@
 #set ($useCase = $controller.useCase)
 import { importProvidersFrom } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 import { Shell } from '@app/shell/shell.service';
 import { ${useCase.componentName}Component } from '@app/${useCase.path}.component';
@@ -40,7 +39,7 @@ export const routes: Routes = [
 #if($secure)
       canActivate: [AuthenticationGuard],
 #end
-      data: { title: marker('${useCase.titleValue}') },
+      data: { title: '${useCase.titleValue}' },
       providers: [
 #if($useCase.controller)
 #set ($controller = $useCase.controller)
@@ -62,7 +61,7 @@ export const routes: Routes = [
 #if($secure)
       canActivate: [AuthenticationGuard],
 #end
-      data: { title: marker('${stringUtils.toPhrase(${view.name})}') },
+      data: { title: '${stringUtils.toPhrase(${view.name})}' },
       providers: [ // $view.targetControllers
 #foreach($controller in $view.targetControllers)
       $controller.variableName: ${controller.implementationName};

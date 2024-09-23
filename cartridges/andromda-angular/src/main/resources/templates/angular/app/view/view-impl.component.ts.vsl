@@ -19,9 +19,6 @@ import { $view.componentName } from '@app/${view.filePath}';
 import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
-import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
-import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
-import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathRoot/${base}.actions';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 #if($view.popup)
