@@ -5,14 +5,7 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 #if($ngrx)
-import { StoreModule, provideStore } from '@ngrx/store';
 import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
-import { EffectsModule, provideEffects } from '@ngrx/effects';
-#foreach ( $useCase in $useCases )
-#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
-import { ${stringUtils.uncapitalize(${useCase.storeName})}Reducer } from '@app/store$useCase.pathRoot/${base}.reducers';
-import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
-#end
 #end
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@env/environment';
@@ -31,10 +24,9 @@ export const appConfig: ApplicationConfig = {
       errorHandlerInterceptor,
     ])),
     provideHttpClient(),
-    provideEffects(),
-    provideStore(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     importProvidersFrom(
+      StoreDevtoolsModule.instrument({}),
       TranslateModule.forRoot(),
       ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     ),

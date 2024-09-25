@@ -228,13 +228,6 @@
     public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
 
 #end
-    $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
-
-#end
-    /**
-$attribute.getDocumentation("     * ")
-     * @return this.${attribute.name} $typeName
-     */
 #if ($hibernateEntityAnnotations)
 #if($stringUtils.isNotBlank($entity.schema))
 #set($sequencePrefix = "${entity.schema}.")
@@ -390,6 +383,14 @@ $attribute.getDocumentation("     * ")
 ##    @jakarta.persistence.Id
 ##end
 #end
+    $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+
+#end
+#if(!$useLombok)
+    /**
+$attribute.getDocumentation("     * ")
+     * @return this.${attribute.name} $typeName
+     */
     $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
     {
 #if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
@@ -413,6 +414,7 @@ $attribute.getDocumentation("     * ")
     }
 
 #end
+#end
 ##
 ##  This macro will render the association annotations, value, and get/set methods
 ##  For each entity and embedded entity
@@ -429,16 +431,6 @@ $attribute.getDocumentation("     * ")
     public static final String ${attributeNameConstantPrefix}${target.name}="${target.name}";
 
 #end
-#if ($target.many)
-    $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
-#else
-    $visibility $target.getterSetterTypeName $target.name;
-#end
-
-    /**
-$target.getDocumentation("     * ")
-     * @return this.${target.name} $target.getterSetterTypeName
-     */
 #if ($hibernateEntityAnnotations)
 #if ($associationEnd.many2One)
 ## Default fetch type: EAGER
@@ -712,6 +704,19 @@ $target.getDocumentation("     * ")
 #*    *##end
 #end
 #end
+#if ($target.many)
+    $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
+    
+#else
+    $visibility $target.getterSetterTypeName $target.name;
+
+#end
+#if(!$useLombok)
+    /**
+$target.getDocumentation("     * ")
+     * @return this.${target.name} $target.getterSetterTypeName
+     */
+
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
@@ -727,6 +732,7 @@ $target.getDocumentation("     * ")
         this.${target.name} = ${target.name}In;
     }
 
+#end
 #end
 #if ($target.many)
 #if ($target.map)

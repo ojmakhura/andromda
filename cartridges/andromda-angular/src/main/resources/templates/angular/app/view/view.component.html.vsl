@@ -66,14 +66,16 @@
 #end
 #if($complex.size() > 0)
 #foreach ($variable in $complex)
-#if($variable.component)
+#if($variable.inputTable)
+			<app-table 
+				#${variable.name}>
+			</app-table>
+#elseif($variable.component)
 			<app-$variable.type.selectorName 
 				[${variable.type.beanName}Form]="${variable.type.beanName}Form"
 				#${variable.name}>
 			</app-$variable.type.selectorName>
 #else
-#set ($normals = $angularUtils.getStandardAttributes($variable))
-#set ($tables = $angularUtils.getTableAttributes($variable))
 #if($normals.size() > 0)
 			<div formGroupName="${variable.name}"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end>
 #foreach ($attribute in $normals)
@@ -102,9 +104,9 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<app-$table.fileName #$stringUtils.uncapitalize($table.tableComponentName) 
+			<app-table #$stringUtils.uncapitalize($table.tableComponentName) 
 					[dataColumns]="${table.name}Columns" [showActions]="true" [paged]="true">
-			</app-$table.fileName>
+			</app-table>
 		</mat-tab>
 #end
 	</mat-tab-group>

@@ -91,6 +91,7 @@
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
     <property reference="secure"/>
+    <property reference="useLombok"/>
     <!-- cartridge-property merge-point -->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
@@ -131,6 +132,7 @@
     <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->

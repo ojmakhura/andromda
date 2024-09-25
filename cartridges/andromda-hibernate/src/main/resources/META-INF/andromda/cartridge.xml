@@ -89,9 +89,11 @@
     <property reference="persistenceContextUnitName"/>
     <property reference="entityManagerName"/>
     <property reference="entityManagerJTADataSource"/>
+    <property reference="useLombok"/>
 
     <!-- cartridge-property merge-point-->
 
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="mapSubclassesInSeparateFile">$hibernateUtils.mapSubclassesInSeparateFile</condition>
     <condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
     <condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>

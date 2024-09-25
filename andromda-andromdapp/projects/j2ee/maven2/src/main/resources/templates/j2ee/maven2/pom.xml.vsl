@@ -1106,6 +1106,13 @@
 		        <version>9.0.30</version>
             </dependency>
 #end
+#if($useLombok)
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+            </dependency>
+#end
         </dependencies>
     </dependencyManagement>
     <build>
@@ -1252,6 +1259,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
+#if($useLombok)
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+#end
 				</configuration>
 			</plugin>
 #end

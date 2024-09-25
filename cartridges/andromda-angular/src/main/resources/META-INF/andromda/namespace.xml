@@ -439,6 +439,12 @@
                     Whether or not to use NgRX
                 </documentation>
             </property>
+            <property name="useLombok">
+                <default>true</default>
+                <documentation>
+                    Whether or not to use Lombok
+                </documentation>
+            </property>
             <property name="stateSavingMethod">
                 <default>client</default>
                 <documentation>

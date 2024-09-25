@@ -111,6 +111,14 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap-icons</artifactId>
         </dependency>
+#if($useLombok)
+    <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <optional>true</optional>
+        </dependency>
+#end
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -129,6 +129,7 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="applicationPackage">${application.package}</property>
             	<property name="applicationId">${application.id}</property>
+                <property name="useLombok">false</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>

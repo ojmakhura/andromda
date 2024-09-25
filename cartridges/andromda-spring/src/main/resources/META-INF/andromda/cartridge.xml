@@ -225,13 +225,15 @@
     <property reference="dateTimeGeneratedText"/>
     <property reference="spring-resources"/>
     <property reference="spring-target-resources"/>
-
+	<property reference="useLombok"/>
+    
     <!-- cartridge-property merge-point -->
 
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="daoInheritanceEnabled">
         #if ($daoInheritanceEnabled.equalsIgnoreCase("true") &amp;&amp; !$enableTemplating.equalsIgnoreCase("true"))true#end
     </condition>
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="serviceSecurity">$serviceSecurity.equalsIgnoreCase("true")</condition>
     <condition name="richClient">$richClient.equalsIgnoreCase("true")</condition>
     <condition name="ejbsEnabled">$stringUtils.isNotBlank($session-ejbs)</condition>

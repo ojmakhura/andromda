@@ -68,9 +68,10 @@
     <property reference="webserviceStack"/>
 	<property reference="secure"/>
 	<property reference="ngrx"/>
+	<property reference="useLombok"/>
 
     <!-- cartridge-property merge-point -->
-
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="angular">$componentSet.equalsIgnoreCase("angular")</condition>
     <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>

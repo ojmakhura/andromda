@@ -586,7 +586,7 @@ public class AngularUtils {
 
         for (Object tmp : attributes) {
             AngularAttribute attribute = (AngularAttribute) tmp;
-            if (!isTable(attribute)) {
+            if (!isTable(attribute) && !attribute.isInputTable()) {
                 standardAttributes.add(attribute);
             }
         }

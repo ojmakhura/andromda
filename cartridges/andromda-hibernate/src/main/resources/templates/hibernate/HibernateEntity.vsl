@@ -87,6 +87,9 @@ $entity.getDocumentation(" * ")
 #foreach($annotation in $entity.additionalAnnotations)
 @$annotation
 #end
+#if($useLombok)
+@lombok.Data
+#end
 // HibernateEntity.vsl annotations merge-point
 public class $entity.entityName
 #if($entity.generalization)
@@ -117,7 +120,7 @@ public class $entity.entityName
      */
     private int $versionProperty;
 
-    public int get$versionPropertyCapitalized()
+    public int get${versionPropertyCapitalized}()
     {
         return this.$versionProperty;
     }
