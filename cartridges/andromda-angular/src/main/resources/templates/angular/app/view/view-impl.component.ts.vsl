@@ -30,9 +30,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';
 import { MaterialModule } from '@app/material.module';
 import { CsvModule } from '@ctrl/ngx-csv';
+import { TableComponent } from '@app/components/table/table.component';
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
@@ -53,10 +53,10 @@ import { $import.name } from '@app/components/${import.filePath}';
     SharedModule,
     MaterialModule,
     CsvModule,
+    TableComponent,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif($import.tableComponentImplementationName)
-    $import.tableComponentImplementationName,
 #elseif($import.componentImplementationName)
     $import.componentImplementationName,
 #elseif(${import.hasStereotype("FrontEndComponent")})

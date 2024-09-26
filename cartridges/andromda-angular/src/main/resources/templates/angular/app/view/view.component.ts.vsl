@@ -175,8 +175,51 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = $count + 1)
 #if($field.complex)
 #if($field.table) 
-// $field.tableFormActions
     @ViewChild('$stringUtils.uncapitalize($field.tableComponentName)') $stringUtils.uncapitalize($field.tableComponentName)?: $field.tableComponentImplementationName;
+    $stringUtils.uncapitalize($field.tableComponentName)Signal = signal([]);
+    ${field.name}Columns = [
+#foreach($column in $field.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#set ($tableColumnActions = $field.getTableColumnActions($columnName))
+        new ColumnModel(
+            '$columnName',
+            '$field.getTableColumnMessageKey($columnName)', 
+#if($tableColumnActions.empty)
+            false
+#{else}
+            true
+#end
+        ),
+#end
+    ];
+    ${field.name}ColumnsActions = [
+#foreach($action in $field.tableFormActions)
+        {
+            id: '$action.name',
+            label: '$action.trigger.messageKey',
+            icon: '#if($action.icon)$action.icon#else$action.name#end',
+            tooltip: '${action.trigger.messageKey}',
+        },
+#end
+    ];
+
+#if(!$field.tableFormActions.empty)
+    // Should be overriden to handle the actions
+    $stringUtils.uncapitalize($field.tableComponentName)ActionClicked(event: any): void {
+        switch(event.name) {
+#foreach($action in $field.tableFormActions)
+            case '$action.name':
+                // TODO: Implement the action
+                break;
+#end
+        }
+    }
+#end
+
 #end
 #foreach($attribute in $angularUtils.getTableAttributes($field))
 #if($attribute.component)
@@ -192,15 +235,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #else
 #set($columnName = $column)
 #end
+#set ($tableColumnActions = $field.getTableColumnActions($columnName))
         '$columnName',
-        new ColumnModel('$columnName', '$columnName', false),
+        new ColumnModel('$columnName', '$columnName', #if($tableColumnActions.empty)false#{else}true#end),
 #end
     ];
 
-    ${proId}ModalColumns = [
-        new ColumnModel('actions', 'actions', false),
-        ...this.${proId}Columns
-    ];
+    ${proId}Actions = [];
 
     @ViewChild('${proId}Paginator', {static: true}) ${proId}Paginator?: MatPaginator;
     @ViewChild('${proId}Sort', {static: true}) ${proId}Sort?: MatSort;

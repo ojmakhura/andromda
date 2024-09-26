@@ -412,7 +412,7 @@
         </modelElements>
     </template>
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/table/table.component.ts.vsl"
         outputPattern="${table.filePath}.ts"
         outlet="views"
@@ -424,9 +424,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/table/table-impl.component.ts.vsl"
         outputPattern="${table.implementationFilePath}.ts"
         outlet="view-impls"
@@ -438,8 +438,8 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>	
-	<template
+    </template>	 -->
+	<!-- <template
         path="templates/angular/app/view/table/table.component.html.vsl"
         outputPattern="${table.filePath}.html"
         outlet="views"
@@ -451,8 +451,8 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>	
-	<template
+    </template>	 -->
+	<!-- <template
         path="templates/angular/app/view/table/table.component.spec.ts.vsl"
         outputPattern="${table.filePath}.spec.ts"
         outlet="views"
@@ -464,9 +464,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/table/table.component.scss.vsl"
         outputPattern="${table.filePath}.scss"
         outlet="views"
@@ -478,7 +478,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/app/view/component/component.ts.vsl"

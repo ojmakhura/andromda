@@ -104,8 +104,16 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<app-table #$stringUtils.uncapitalize($table.tableComponentName) 
-					[dataColumns]="${table.name}Columns" [showActions]="true" [paged]="true">
+			<app-table 
+					#$stringUtils.uncapitalize($table.tableComponentName) 
+					[dataColumns]="${table.name}Columns" 
+					[showActions]="#if($table.tableFormActions.empty)false#{else}true#end" 
+					[paged]="true"
+#if(!$table.tableFormActions.empty)
+					[actions]="${table.name}ColumnsActions" 
+#end
+					(actionClicked)="$stringUtils.uncapitalize($table.tableComponentName)ActionClicked($event)"
+					[dataSignal]="$stringUtils.uncapitalize($table.tableComponentName)Signal">
 			</app-table>
 		</mat-tab>
 #end

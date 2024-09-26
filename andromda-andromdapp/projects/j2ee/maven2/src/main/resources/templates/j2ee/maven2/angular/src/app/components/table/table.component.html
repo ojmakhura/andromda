@@ -38,7 +38,7 @@
         <mat-cell *matCellDef="let row">
           @for(action of actions; track action) {
 
-          <button mat-button matTooltip="Edit item template" (click)="onActionClicked(action.id, row.id)">
+          <button mat-button matTooltip="{{action.tooltip}}" (click)="onActionClicked(action.id, row.id)">
             @if(!action.icon) {
             {{action.label}}
             } @else {

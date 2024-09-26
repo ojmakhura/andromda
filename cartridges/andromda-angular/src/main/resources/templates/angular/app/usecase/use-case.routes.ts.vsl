@@ -5,14 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Shell } from '@app/shell/shell.service';
 import { ${useCase.componentName}Component } from '@app/${useCase.path}.component';
-#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
-#if($ngrx)
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
-import { ${stringUtils.uncapitalize(${useCase.storeName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
-import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
-#end
 
 #if($secure)
 import { AuthenticationGuard } from '@app/auth';
@@ -48,10 +40,6 @@ export const routes: Routes = [
         ${service.name},
 #end
 #end
-#if($ngrx)
-        importProvidersFrom(StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature)),
-        importProvidersFrom(EffectsModule.forFeature([ ${useCase.storeName}Effects ]))
-#end
       ] 
   },
 #foreach($view in $useCase.views)
@@ -72,10 +60,6 @@ export const routes: Routes = [
 #foreach($service in $controller.allRestControllers)
         ${service.name},
 #end
-#end
-#if($ngrx)
-        importProvidersFrom(StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature)),
-        importProvidersFrom(EffectsModule.forFeature([ ${useCase.storeName}Effects ]))
 #end
       ] 
   },
