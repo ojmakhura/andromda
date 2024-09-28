@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger, UntilDestroy, untilDestroyed } from '@shared';
+import { LoaderComponent, Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { AuthenticationService } from './authentication.service';
+import { MaterialModule } from '@app/material.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '@app/i18n/language-selector.component';
+import { CommonModule } from '@angular/common';
 
 const log = new Logger('Login');
 
@@ -13,7 +17,16 @@ const log = new Logger('Login');
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MaterialModule,
+    TranslateModule,
+    LanguageSelectorComponent,
+    LoaderComponent,
+    ReactiveFormsModule
+  ]
 })
 export class LoginComponent implements OnInit {
 

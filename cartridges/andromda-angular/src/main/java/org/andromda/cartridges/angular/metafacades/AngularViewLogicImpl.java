@@ -420,6 +420,33 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                 continue;
             }
 
+            action.getFormFields().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
+            action.getForwardParameters().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
             Iterator<FrontEndView> iter = action.getTargetViews().iterator();
             if(iter.hasNext()) {
                 FrontEndView targetView = iter.next();
@@ -450,12 +477,19 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                     if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
                         imports.add(attr.getType());
                     }
+
+                    if(attr.getType().isTemplateParametersPresent()) {
+                        imports.add(attr.getType());
+                        attr.getType().getTemplateParameters().forEach(template -> {
+                            imports.add(template.getType());
+                        });
+                    }
                 }
                 imports.add(variable.getType());
             }
         }
         
-        imports.addAll(this.getTables());
+        // imports.addAll(this.getTables());
 
         if(this.getUseCase() != null && this.getUseCase().getController() != null) {
             AngularController controller = (AngularController) this.getUseCase().getController();

@@ -10,11 +10,12 @@
  */
 import { Routes } from '@angular/router';
 import { Shell } from '@app/shell/shell.service';
+import { LoginComponent } from './auth/login.component';
 
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
+    component: LoginComponent,
   },
   Shell.childRoutes([
     {

@@ -4,26 +4,25 @@ import { RouteReuseStrategy, provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-#if($ngrx)
 import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
-#end
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@env/environment';
 import { UseCaseScope } from './utils/use-case-scope';
 import { withInterceptors, provideHttpClient } from '@angular/common/http';
 import { RouteReusableStrategy } from './@shared';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
-import { apiPrefixInterceptor, errorHandlerInterceptor } from './@core';
+import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
+import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     UseCaseScope,
     provideRouter(routes),
-    provideAnimations(),provideHttpClient(withInterceptors([
+    provideAnimations(),
+    provideHttpClient(withInterceptors([
       apiPrefixInterceptor,
       errorHandlerInterceptor,
     ])),
-    provideHttpClient(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     importProvidersFrom(
       StoreDevtoolsModule.instrument({}),
@@ -37,5 +36,3 @@ export const appConfig: ApplicationConfig = {
     },
   ],
 };
-
-

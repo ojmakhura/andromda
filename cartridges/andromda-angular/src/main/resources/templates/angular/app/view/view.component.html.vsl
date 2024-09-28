@@ -18,7 +18,7 @@
 	<div class="card-body">
     	<form [formGroup]="${view.formName}">
 #if(!$view.popup)
-			<section>
+			<div class="row">
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
@@ -37,7 +37,7 @@
 					</button>
 #end
 				</div>
-			</section>
+			</div>
 #end
 #if ($view.nonTableVariablesPresent)
 			@if (success()) {
@@ -72,7 +72,6 @@
 			</app-table>
 #elseif($variable.component)
 			<app-$variable.type.selectorName 
-				[${variable.type.beanName}Form]="${variable.type.beanName}Form"
 				#${variable.name}>
 			</app-$variable.type.selectorName>
 #else

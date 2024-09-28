@@ -262,6 +262,8 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
 
         builder.append(path);
 
+        StringBuilder queryParamsBuffer = new StringBuilder();
+
         for(ParameterFacade parameter : this.getArguments()) {
             if(parameter instanceof AngularServiceParameter) {
                 AngularServiceParameter param = (AngularServiceParameter)parameter;
@@ -272,6 +274,16 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                     builder.append("/${");
                     builder.append(parameter.getName());
                     builder.append("}");
+                } else if(paramType.contains("RequestParam")) {
+                    
+                    if(queryParamsBuffer.length() > 0) {
+                        queryParamsBuffer.append("&");
+                    }
+
+                    queryParamsBuffer.append(parameter.getName());
+                    queryParamsBuffer.append("=${");
+                    queryParamsBuffer.append(parameter.getName());
+                    queryParamsBuffer.append("}");
                 }
             }
         }
@@ -280,6 +292,11 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
 
         if(path.length() > 0 && path.charAt(0) != '/') {
             path = '/' + path;
+        }
+
+        if(queryParamsBuffer.length() > 0) {
+            path += "?";
+            path += queryParamsBuffer.toString();
         }
 
         return path;

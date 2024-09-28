@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.TemplateParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -100,20 +101,48 @@ public class AngularAttributeLogicImpl
         return this.getPackagePath() + '/';
     }
 
+    private String getDatatype(String raw) {
+
+        String type = raw;
+
+        if(type.contains("<")) {
+            type = type.substring(0, type.indexOf("<"));
+        } else {
+            if(type.contains(".")) {
+                type = type.substring(type.lastIndexOf(".") + 1);
+            }
+
+            type = getLanguageMappings().getTo(type);
+
+            return type;
+        }
+
+        if(type.contains(".")) {
+            type = type.substring(type.lastIndexOf(".") + 1);
+        }
+
+        type = getLanguageMappings().getTo(type);
+
+        String param = raw.substring(raw.indexOf("<")+1, raw.length()-1);
+
+        if(param.contains(".")) {
+            param = param.substring(param.lastIndexOf(".") + 1);
+        }
+
+        if(param.contains("<")) {
+            param = getDatatype(param);
+        }
+
+        param = getLanguageMappings().getTo(param);
+
+        return type + "<" + param + ">";
+    }
+
     @Override
     public String getGetterSetterTypeName()
     {
         String name = super.getGetterSetterTypeName();
 
-        if(name.contains("<")) {
-            String tmp = name.substring(0, name.indexOf("<"));
-            name = tmp + "<" + getLanguageMappings().getTo(getType().getName()) + ">";
-        }
-
-        if(name.contains(".")) {
-            name = name.substring(name.lastIndexOf(".") + 1);
-        }
-
-        return name;
+        return this.getDatatype(name);
     }
 }

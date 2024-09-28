@@ -76,7 +76,7 @@
     <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
 
-    <template
+    <!-- <template
         path="templates/angular/app/app.config.ts.vsl"
         outputPattern="app.config.ts"
         outlet="angularAppDir"
@@ -87,7 +87,7 @@
                 <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/translations/en-US.json.vsl"
