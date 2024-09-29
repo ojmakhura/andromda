@@ -46,6 +46,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderAngularActionInput $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
@@ -60,9 +61,8 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #if($stringUtils.isBlank($ownerParameter)) 
 #set ($propertyId = $parameter.name)
 #set ($valuePropertyName = $parameter.name)
-#set ($backingListName = $parameter.backingListName)
 #set ($backingValueName = $parameter.backingValueName)
-#if($stringUtils.isBlank($backingListName))
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
 #set ($backingListName = "${parameter.name}BackingList")
 #end
 #else
@@ -172,19 +172,27 @@ ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inp
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${valuePropertyName}Compare"#end formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
-${ident}        <mat-option></mat-option>
+${ident}        <mat-option>
+${ident}        </mat-option>
 ${ident}        @for(key of ${parameter.name}Options; track key) {
 ${ident}        <mat-option [value]="key">
 ${ident}            {{ ${parameter.name}T[key] }}
 ${ident}        </mat-option>
 ${ident}        }
 #else
-#if(!$parameter.required)
-${ident}        <mat-option></mat-option>
+${ident}        <mat-option>
+#if($isComplex)
+${ident}            <ngx-mat-select-search [placeholderLabel]="'Search'" [formControl]="${valuePropertyName}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${valuePropertyName})()"
+${ident}                     [noEntriesFoundLabel]="'No Entries Found'"></ngx-mat-select-search>
 #end
-${ident}        @for(item of ${backingListName}; track item) {
+${ident}        </mat-option>
+#if(!$parameter.required)
+${ident}        <mat-option>
+${ident}        </mat-option>
+#end
+${ident}        @for(item of ${valuePropertyName}FilteredList | async; track item) {
 ${ident}        <mat-option [value]="item.value">{{ item.label }}</mat-option>
 ${ident}        }
 #end

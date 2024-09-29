@@ -104,15 +104,15 @@
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
 			<app-table 
-					#$stringUtils.uncapitalize($table.tableComponentName) 
-					[dataColumns]="${table.name}Columns" 
+					#$stringUtils.uncapitalize($table.name)Table 
+					[dataColumns]="${table.name}TableColumns" 
 					[showActions]="#if($table.tableFormActions.empty)false#{else}true#end" 
-					[paged]="true"
+					[paged]="${table.name}TablePaged"
 #if(!$table.tableFormActions.empty)
-					[actions]="${table.name}ColumnsActions" 
+					[actions]="${table.name}TableColumnsActions" 
 #end
-					(actionClicked)="$stringUtils.uncapitalize($table.tableComponentName)ActionClicked($event)"
-					[dataSignal]="$stringUtils.uncapitalize($table.tableComponentName)Signal">
+					(actionClicked)="$stringUtils.uncapitalize($table.name)TableActionClicked($event)"
+					[dataSignal]="$stringUtils.uncapitalize($table.name)TableSignal">
 			</app-table>
 		</mat-tab>
 #end

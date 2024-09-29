@@ -2,6 +2,7 @@
 import {
   AfterViewInit,
   Component,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -102,8 +103,15 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     ${propertyId}SelectedFile#if($attr.many)s#end?: #if($attr.many)FileList#{else}File#end;
 #end
 #if($attr.inputSelect || $attr.inputMultibox)
-    ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: SelectItem[] = [];
-    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<SelectItem[]>;
+#if(!$attribute.type.enumeration)
+    ${attribute.name}$stringUtils.capitalize(${attr.name})FilterCtrl: FormControl = new FormControl();
+    filter${attribute.name}$stringUtils.capitalize(${attr.name})() {}
+    ${attribute.name}$stringUtils.capitalize(${attr.name})Compare(o1: any, o2: any) {
+        return false;
+    }
+#end
+    ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: ${attr.type.name}[] = [];
+    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<${attr.type.name}[]>;
     ${attribute.name}$stringUtils.capitalize(${attr.name})ChipControl: FormControl = new FormControl([]);
 #elseif($attr.type.attributes.size() > 0 && (!$attr.inputSelect || !$attr.inputMultibox))
 #set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
@@ -135,17 +143,20 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #if($attribute.type.enumeration)
     ${attribute.name}T: any = $attribute.getterSetterTypeName;
     ${attribute.name}Options = Object.keys(this.${attribute.name}T);
-#end
-    ${attribute.name}BackingList: SelectItem[] = [];
-    ${attribute.name}FilteredList$: Observable<SelectItem[]> = of([]);
-#if($attribute.inputSelect || $attribute.inputMultibox)
+#else
+    ${attribute.name}FilterCtrl: FormControl = new FormControl();
+    ${attribute.name}Compare(o1: any, o2: any) {
+        return false;
+    }
+    filter$stringUtils.capitalize(${attribute.name})() {}
+    ${attribute.name}BackingList: ${attr.type.name}[] = [];
+    ${attribute.name}FilteredList$: Observable<${attr.type.name}[]> = of([]);
     ${attribute.name}ChipControl: FormControl = new FormControl([]);
 #end
 #end
 #end
 
 #if($angularUtils.isTable($attribute) && !$attribute.component)
-    ${attribute.name}DataSource = new MatTableDataSource<${attribute.getterSetterTypeName}>([]);
 #set ($proId = "$attribute.name")
 #set ($cols = "")
     ${proId}Columns = [
@@ -181,8 +192,8 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #end
 #end
 
+    private formBuilder = inject(FormBuilder);
     constructor(
-      private formBuilder: FormBuilder
     ) {
 #foreach($attribute in $component.attributes)
 #set ($propertyId = $attribute.name)
@@ -271,8 +282,18 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #else
 #set ($typeName = "$field.name")
 #end
+
     create${typeName}Group(value?: $typeName): FormGroup {
         return this.formBuilder.group({
+#if($field.generalization)
+#foreach($attribute in $field.generalization.attributes)
+#if(!$attribute.inputButton)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+#end
+#end
 #foreach($attribute in $field.attributes)
 #if($angularUtils.isSimpleType($attribute))
             $attribute.name: [value?.$attribute.name],
