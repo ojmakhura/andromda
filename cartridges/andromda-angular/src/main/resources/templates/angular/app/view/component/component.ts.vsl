@@ -51,6 +51,8 @@ import { ${import.name} } from '@app/components/${import.filePath}';
 #end
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 import { $import.name } from '@app/${import.filePath}';
+#elseif(${import.hasStereotype("FrontEndComponent")})
+import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
 #elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
@@ -65,26 +67,10 @@ import { $import.name } from '@app/${import.filePath}';
 import { SearchObject } from '@app/model/search-object';
 
 @Component({
-  selector: "app-${component.selectorName}",
-  templateUrl: "./${component.selectorName}.component.html",
-  styleUrls: [],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    SharedModule,
-    MaterialModule,
-    CsvModule,
-#foreach($import in $component.imports)
-#if($metafacadeWebUtils.isComponent($import))
-    $import.name,
-#end
-#end
-  ]
+  selector: "app-${component.selectorName}-base",
+  template: "",
 })
-export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
+export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
     @Input() ${component.beanName}Form: FormGroup;
@@ -92,7 +78,7 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #foreach($attribute in $component.attributes)
 #if(!$attribute.inputButton)
 #if($attribute.component)
-    @ViewChild('${attribute.name}') ${attribute.name}Component: ${attribute.getterSetterTypeName}Component;
+    @ViewChild('${attribute.name}') ${attribute.name}: ${attribute.type.implementationName};
 #else
     @Input() ${attribute.name}?: ${attribute.getterSetterTypeName};
 #if($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute))
@@ -106,13 +92,18 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
 #if(!$attribute.type.enumeration)
     ${attribute.name}$stringUtils.capitalize(${attr.name})FilterCtrl: FormControl = new FormControl();
     filter${attribute.name}$stringUtils.capitalize(${attr.name})() {}
-    ${attribute.name}$stringUtils.capitalize(${attr.name})Compare(o1: any, o2: any) {
+    ${attribute.name}$stringUtils.capitalize(${attr.name})Compare(o1: ${attr.getterSetterTypeName} | any, o2: ${attr.getterSetterTypeName} | any) {
         return false;
     }
 #end
     ${attribute.name}$stringUtils.capitalize(${attr.name})BackingList: ${attr.type.name}[] = [];
-    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<${attr.type.name}[]>;
+    ${attribute.name}$stringUtils.capitalize(${attr.name})FilteredList$: Observable<${attr.type.name}[] | any[]>;
     ${attribute.name}$stringUtils.capitalize(${attr.name})ChipControl: FormControl = new FormControl([]);
+    ${attribute.name}$stringUtils.capitalize(${attr.name})Displays: string[] = [
+#if($attr.type.attributes.size() > 0)
+        '$attr.type.attributes.get(0).name'
+#end
+    ];
 #elseif($attr.type.attributes.size() > 0 && (!$attr.inputSelect || !$attr.inputMultibox))
 #set ($propertyId = "${attribute.name}${stringUtils.capitalize($attr.name)}")
     @ViewChild('${propertyId}ModalPaginator', {static: true}) ${propertyId}ModalPaginator: MatPaginator;
@@ -145,13 +136,18 @@ export class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
     ${attribute.name}Options = Object.keys(this.${attribute.name}T);
 #else
     ${attribute.name}FilterCtrl: FormControl = new FormControl();
-    ${attribute.name}Compare(o1: any, o2: any) {
+    ${attribute.name}Compare(o1: ${attribute.getterSetterTypeName} | any, o2: ${attribute.getterSetterTypeName} | any) {
         return false;
     }
     filter$stringUtils.capitalize(${attribute.name})() {}
-    ${attribute.name}BackingList: ${attr.type.name}[] = [];
-    ${attribute.name}FilteredList$: Observable<${attr.type.name}[]> = of([]);
+    ${attribute.name}BackingList: ${attribute.getterSetterTypeName}[] = [];
+    ${attribute.name}FilteredList$: Observable<${attribute.getterSetterTypeName}[] | any[]> = of([]);
     ${attribute.name}ChipControl: FormControl = new FormControl([]);
+    ${attribute.name}Displays: string[] = [
+#if($attribute.type.attributes.size() > 0)
+        '$attribute.type.attributes.get(0).name'
+#end
+    ];
 #end
 #end
 #end

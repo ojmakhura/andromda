@@ -72,12 +72,18 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetImplementationFileName()
     {
-        return null;
+        
+        String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-impl.component";
     }
 
     @Override
     public String getName() {
         return super.getName() + "Component";
+    }
+
+    protected String handleGetImplementationName() {
+        return super.getName() + "ImplComponent";
     }
 
     /**
@@ -87,7 +93,13 @@ public class AngularComponentLogicImpl
      */
     protected String handleGetImplementationFilePath()
     {
-        return null;
+        String path = (String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH);
+
+        if (StringUtilsHelper.isBlank(path)) {
+            path = this.getPackagePath();
+        }
+
+        return path + "/" + this.getImplementationFileName();
     }
 
     /**
@@ -98,6 +110,11 @@ public class AngularComponentLogicImpl
     protected String handleGetComponentName()
     {
         return this.getBeanName() + "Component";
+    }
+
+    protected String handleGetImplementationComponentName()
+    {
+        return this.getBeanName() + "ImplComponent";
     }
 
     /**

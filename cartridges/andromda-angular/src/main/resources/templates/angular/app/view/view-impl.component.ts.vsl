@@ -36,7 +36,7 @@ import { TableComponent } from '@app/components/table/table.component';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
-import { $import.name } from '@app/components/${import.filePath}';
+import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
 #end
 #end
 
@@ -60,7 +60,7 @@ import { $import.name } from '@app/components/${import.filePath}';
 #elseif($import.componentImplementationName)
     $import.componentImplementationName,
 #elseif(${import.hasStereotype("FrontEndComponent")})
-    $import.name,
+    $import.implementationName,
 #end
 #end
   ],

@@ -74,7 +74,7 @@ import { ColumnModel } from '@app/model/column.model';
 #end
 #end
 #if(${import.hasStereotype("FrontEndComponent")})
-import { $import.name } from '@app/components/${import.filePath}';
+import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
 #elseif ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #if(${import.filePath})
 import { $import.name } from '@app/${import.filePath}';
@@ -174,7 +174,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($count = 1)
 #foreach ($field in $view.variables)
 #if($field.component)
-    @ViewChild('$field.name') ${field.name}Component?: ${field.getterSetterTypeName}Component;
+    @ViewChild('$field.name') ${field.name}Component?: ${field.getterSetterTypeName}ImplComponent;
 #end
 #set ($formVars = "$formVars#if($count == 1), #{end}$field.name: $field.getterSetterTypeName")
 #set ($formVarNames = "$formVarNames#if($count == 1), #{end}${view.formName}$.$field.name")
@@ -307,6 +307,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: $field.getterSetterTypeName[] = [];
+    ${field.name}FilterCtrl: FormControl = new FormControl();
+    ${field.name}Compare(o1: ${field.getterSetterTypeName} | any, o2: ${field.getterSetterTypeName} | any) {
+        return false;
+    }
+    filter$stringUtils.capitalize(${field.name})() {}
+    ${field.name}FilteredList$: Observable<${field.getterSetterTypeName}[] | any[]> = of([]);
+    ${field.name}ChipControl: FormControl = new FormControl([]);
+    ${field.name}Displays: string[] = [
+#if($field.type.attributes.size() > 0)
+        '$field.type.attributes.get(0).name'
+#end
+    ];
 
 #elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
     ${field.name}Select: $field.getterSetterTypeName = null;
@@ -318,6 +330,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #elseif($field.inputSelect || $field.inputMultibox)
 #set($ret = $selections.add($field.type))
     ${field.backingListName}: $field.getterSetterTypeName = [];
+    ${field.name}FilterCtrl: FormControl = new FormControl();
+    ${field.name}Compare(o1: ${firld.getterSetterTypeName} | any, o2: ${field.getterSetterTypeName} | any) {
+        return false;
+    }
+    filter$stringUtils.capitalize(${field.name})() {}
+    ${field.name}FilteredList$: Observable<${field.getterSetterTypeName}[] | any[]> = of([]);
+    ${field.name}ChipControl: FormControl = new FormControl([]);
+    ${field.name}Displays: string[] = [
+#if($field.type.attributes.size() > 0)
+        '$field.type.attributes.get(0).name'
+#end
+    ];
 
 #elseif($angularUtils.isComplex($field) && !$field.type.enumeration && !$field.many)
     ${field.name}Select: $field.getterSetterTypeName = null;
@@ -329,10 +353,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${param.name}$: Signal<$param.getterSetterTypeName>;
 #end
 #end
-    messages: Signal<any>;
-    success: Signal<boolean>;
-    loading: Signal<boolean>;
-    error: Signal<boolean>;
+    messages: Signal<any> = signal();
+    success: Signal<boolean> = signal(false);
+    loading: Signal<boolean> = signal(false);
+    error: Signal<boolean> = signal(false);
     selected: any = null;
 #foreach ($action in $view.actions)
 #if($action.displayCondition)
@@ -929,12 +953,8 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #set($fieldSet = $angularUtils.getFacadeSet($fields))
 #foreach($field in $fieldSet)
-#if(!$field.inputButton)
-#if($field.type)
-#set ($typeName = "$field.getterSetterTypeName")
-#else
+#if(!${field.hasStereotype("FrontEndComponent")})
 #set ($typeName = "$field.name")
-#end
     create${typeName}Group(value?: $typeName): FormGroup { 
         return this.formBuilder.group({
 #foreach($attribute in $field.attributes)

@@ -192,8 +192,8 @@ ${ident}        </mat-option>
 ${ident}        <mat-option>
 ${ident}        </mat-option>
 #end
-${ident}        @for(item of ${valuePropertyName}FilteredList | async; track item) {
-${ident}        <mat-option [value]="item.value">{{ item.label }}</mat-option>
+${ident}        @for(item of ${valuePropertyName}FilteredList$ | async; track item) {
+${ident}        <mat-option [value]="item">{{ item[${valuePropertyName}Displays[0]] }}</mat-option>
 ${ident}        }
 #end
 ${ident}    </mat-select>

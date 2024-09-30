@@ -25,7 +25,7 @@ const initialState: AppState<any, any> = {
   error: null,
   loading: false,
   success: false,
-  messages: [];
+  messages: []
 };
 
 export const ${service.name}Store = signalStore(
@@ -48,10 +48,24 @@ export const ${service.name}Store = signalStore(
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
               next: (data) => {
-                // patchState(store, { data, loading: false, success: true, messages: [] });
+                //patchState(
+                  //store, { 
+                  //  data, 
+                  //  loading: false, 
+                  //  success: true, 
+                  //  messages: [] 
+                  //}
+                //);
               },
-              error: (error) => {
-                patchState(store, { error, loading: false, success: false, messages: error.error });
+              error: (error: any) => {
+                patchState(
+                  store, { 
+                    error, 
+                    loading: false, 
+                    success: false,
+                    messages: [error?.error ? error.error : error] 
+                  }
+                );
               },
             }),
           );
