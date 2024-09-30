@@ -353,7 +353,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${param.name}$: Signal<$param.getterSetterTypeName>;
 #end
 #end
-    messages: Signal<any> = signal();
+    messages: Signal<any> = signal({});
     success: Signal<boolean> = signal(false);
     loading: Signal<boolean> = signal(false);
     error: Signal<boolean> = signal(false);
