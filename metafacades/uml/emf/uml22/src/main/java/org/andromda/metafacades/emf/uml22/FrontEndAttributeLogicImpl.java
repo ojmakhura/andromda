@@ -1176,4 +1176,16 @@ public class FrontEndAttributeLogicImpl
 
         return MetafacadeWebUtils.getMappedComponent(this.getType());
     }
+
+    @Override
+    protected Boolean handleGetTree() {
+        
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TREE);
+    }
+
+    @Override
+    protected Collection<String> handleGetDisplayAttributes() {
+        
+        return MetafacadeWebUtils.getDisplayAttributes(this);
+    }
 }

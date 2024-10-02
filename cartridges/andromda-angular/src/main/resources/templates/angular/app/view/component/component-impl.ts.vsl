@@ -19,9 +19,18 @@ import {
   FormArray,
 } from "@angular/forms";
 import { SelectItem } from "@app/utils/select-item";
+#if($component.treePresent)
+import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
+import { TreeOption } from '@app/model/tree-option.model';
+import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
+import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
+#end
+#if($component.tableVariablesPresent)
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+#end
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -30,7 +39,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/mate
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
-import { Observable, map, of, startWith } from "rxjs";
+import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';

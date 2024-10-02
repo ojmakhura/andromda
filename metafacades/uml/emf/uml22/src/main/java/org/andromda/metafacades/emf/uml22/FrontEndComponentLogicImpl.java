@@ -346,4 +346,36 @@ public class FrontEndComponentLogicImpl
         return components;
     }
 
+    @Override
+    protected Boolean handleGetTreePresent() {
+        boolean present = false;
+        for (final AttributeFacade attribute : this.getAttributes()) {
+            
+            FrontEndAttribute frontEndAttribute = (FrontEndAttribute) attribute;
+
+            System.out.println("=====================> " + attribute.getName());
+            System.out.println(frontEndAttribute.getTree());
+
+            if (frontEndAttribute.getTree()) {
+                present = true;
+                break;
+            }
+        }
+        return present;
+    }
+
+    @Override
+    protected boolean handleIsTableVariablesPresent() {
+        boolean present = false;
+        for (final AttributeFacade attribute : this.getAttributes()) {
+            FrontEndAttribute frontEndAttribute = (FrontEndAttribute) attribute;
+
+            if (frontEndAttribute.isInputTable()) {
+                present = true;
+                break;
+            }
+        }
+        return present;
+    }
+
 }

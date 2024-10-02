@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -1201,6 +1202,14 @@ public class MetafacadeWebUtils {
         String component = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT)));
         
         return component;
+    }
+
+    public static Collection<String> getDisplayAttributes(ModelElementFacade modelElement) {
+        Collection<String> attributes = modelElement.findTaggedValues(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_DISPLAY_ATTRIBUTES).stream()
+                .map(Object::toString)
+                .collect(Collectors.toList());
+        
+        return attributes;
     }
 	
 }
