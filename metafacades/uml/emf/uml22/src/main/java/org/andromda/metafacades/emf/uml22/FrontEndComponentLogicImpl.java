@@ -353,9 +353,6 @@ public class FrontEndComponentLogicImpl
             
             FrontEndAttribute frontEndAttribute = (FrontEndAttribute) attribute;
 
-            System.out.println("=====================> " + attribute.getName());
-            System.out.println(frontEndAttribute.getTree());
-
             if (frontEndAttribute.getTree()) {
                 present = true;
                 break;

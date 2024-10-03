@@ -73,7 +73,42 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #end
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
-#if($parameter.inputButton)
+#if($parameter.tree)
+${ident}<mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl"
+${ident}      style="display: flex; flex-direction: column" [trackBy]="track${stringUtils.capitalize(${valuePropertyName})}By">
+${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
+${ident}        <div style="flex-direction: row">
+${ident}            @if ((node | asTreeNode).data.numberOfChildComponents > 0) {
+${ident}            <button mat-icon-button cdkTreeNodeToggle>
+${ident}                <mat-icon>
+${ident}                    @if (nestedTreeControl.isExpanded(node)) {
+${ident}                    expand_more
+${ident}                    } @else {
+${ident}                    chevron_right
+${ident}                    }
+${ident}                </mat-icon>
+${ident}            </button>
+${ident}            } @else {
+${ident}            <button disabled mat-icon-button>
+${ident}                <mat-icon></mat-icon>
+${ident}            </button>
+${ident}            }
+${ident}
+${ident}            <a type="button" (click)="componentId.set((node).data.id)">{{ (node |
+${ident}                        asTreeNode).data.name }}</a>
+${ident}            @if ((node | asTreeNode).loading()) {
+${ident}            <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
+${ident}            }
+${ident}        </div>
+${ident}        @if (nestedTreeControl.isExpanded(node)) {
+${ident}        <div style="display: flex; flex-direction: column; padding-left: 16px;">
+${ident}            <ng-container cdkTreeNodeOutlet>
+${ident}            </ng-container>
+${ident}        </div>
+${ident}                    }
+${ident}    </mat-nested-tree-node>
+${ident}</mat-tree>
+#elseif($parameter.inputButton)
 ${ident}<div class="mb-3">
 ${ident}    <button mat-flat-button color="primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
 ${ident}        <span translate>$parameter.messageKey</span>

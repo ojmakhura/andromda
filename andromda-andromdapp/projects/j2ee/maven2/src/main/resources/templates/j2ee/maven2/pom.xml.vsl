@@ -1105,12 +1105,10 @@
                 <artifactId>tomcat-dbcp</artifactId>
 		        <version>9.0.30</version>
             </dependency>
-#end
-#if($useLombok)
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <optional>true</optional>
+                <version>1.18.34</version>
             </dependency>
 #end
         </dependencies>

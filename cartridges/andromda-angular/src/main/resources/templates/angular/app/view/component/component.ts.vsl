@@ -360,7 +360,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
   }
 
   // Should be modified to load child nodes
-  protected handleLoad${stringUtils.capitalize($attribute.name)}ChildNodes(node: DynamicTreeNode) {
+  protected handleLoad${stringUtils.capitalize($attribute.name)}ChildNodes(node: DynamicTreeNode): Observable<any> {
     
     return of([]);
   }
@@ -393,7 +393,8 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
   }
 
   // Should be modified to suit context
-  protected handleLoadMore${stringUtils.capitalize($attribute.name)}(node: DynamicTreeNode) {
+  protected handleLoadMore${stringUtils.capitalize($attribute.name)}(node: DynamicTreeNode): Observable<any> {
+    return of([]);
 
   }
 
@@ -403,7 +404,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     node.loading.set(true);
     // Retrieve the next set of nodes from the server
     let childData = await firstValueFrom(
-      this.handleLoadMore${stringUtils.capitalize($attribute.name)}(node);
+      this.handleLoadMore${stringUtils.capitalize($attribute.name)}(node)
     );
     // Convert them to DynamicTreeNode. Set the parent of the new nodes (not this node, this nodes parent)
     let childNodes = childData.map(

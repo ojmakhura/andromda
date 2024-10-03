@@ -524,14 +524,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
         </dependency>
-#if($useLombok)
-    <dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
             <optional>true</optional>
         </dependency>
-#end
     </dependencies>
     <build>
         <plugins>
