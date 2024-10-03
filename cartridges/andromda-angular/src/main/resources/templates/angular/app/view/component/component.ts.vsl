@@ -39,7 +39,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/mate
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
-import { Observable, map, of, startWith } from "rxjs";
+import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';
@@ -236,7 +236,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #end
     }
 
-    #if($componet.treePresent)async #{end}ngOnInit() {
+    #if($component.treePresent)async #{end}ngOnInit() {
         if(!this.${component.beanName}Form) {
             this.initForm();
         }
@@ -258,7 +258,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     initForm() {
         this.${component.beanName}Form = this.formBuilder.group({
 #foreach($attribute in $component.attributes)
-#if(!$attribute.inputButton && !$attribute.component)
+#if(!$attribute.inputButton && !$attribute.component && !$attribute.tree)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
             $attribute.name: this.formBuilder.array(this.${attribute.name} ? this.${attribute.name} : []),
@@ -349,13 +349,13 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     // TODO: more methods
     private handle${stringUtils.capitalize($attribute.name)}TreeControl(change: SelectionChange<DynamicTreeNode>) {
     if (change.added) {
-      change.added.forEach((x) => this.toggleNode(x, true));
+      change.added.forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, true));
     }
     if (change.removed) {
       change.removed
         .slice()
         .reverse()
-        .forEach((x) => this.toggleNode(x, false));
+        .forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, false));
     }
   }
 
@@ -373,7 +373,6 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
         // Set the loading indicator to true
         node.loading.set(true);
         // Retrieve the new nodes from the server
-        this.componentTemplateController.getChildComponents(node.data.id).subscribe(d => console.log(d));
         let children = await firstValueFrom(
           this.handleLoad${stringUtils.capitalize($attribute.name)}ChildNodes(node)
         );
