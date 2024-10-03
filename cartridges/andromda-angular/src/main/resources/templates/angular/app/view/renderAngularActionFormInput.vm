@@ -74,14 +74,14 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #end
 #set ($formValuePropertyName = "${valuePropertyName}")
 #if($parameter.tree)
-${ident}<mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl"
+${ident}<mat-tree [dataSource]="nestedDataSource" [treeControl]="${stringUtils.capitalize(${valuePropertyName})}TreeControl"
 ${ident}      style="display: flex; flex-direction: column" [trackBy]="track${stringUtils.capitalize(${valuePropertyName})}By">
 ${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
 ${ident}        <div style="flex-direction: row">
 ${ident}            @if ((node | asTreeNode).data.numberOfChildComponents > 0) {
 ${ident}            <button mat-icon-button cdkTreeNodeToggle>
 ${ident}                <mat-icon>
-${ident}                    @if (nestedTreeControl.isExpanded(node)) {
+${ident}                    @if (n${stringUtils.capitalize(${valuePropertyName})}TreeControl.isExpanded(node)) {
 ${ident}                    expand_more
 ${ident}                    } @else {
 ${ident}                    chevron_right
@@ -100,7 +100,7 @@ ${ident}            @if ((node | asTreeNode).loading()) {
 ${ident}            <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
 ${ident}            }
 ${ident}        </div>
-${ident}        @if (nestedTreeControl.isExpanded(node)) {
+${ident}        @if (${stringUtils.capitalize(${valuePropertyName})}TreeControl.isExpanded(node)) {
 ${ident}        <div style="display: flex; flex-direction: column; padding-left: 16px;">
 ${ident}            <ng-container cdkTreeNodeOutlet>
 ${ident}            </ng-container>

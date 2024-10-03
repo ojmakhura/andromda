@@ -25,6 +25,7 @@ import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
 import { TreeOption } from '@app/model/tree-option.model';
 import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
 import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
+import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 #end
 #if($component.tableVariablesPresent)
 import { MatTableDataSource } from '@angular/material/table';
@@ -39,7 +40,7 @@ import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/mate
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
-import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
+import { firstValueFrom, Observable, map, of, startWith, Subscription } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '@app/@shared';
@@ -93,6 +94,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #if($attribute.tree)
     ${attribute.name}TreeControl: NestedTreeControl<DynamicTreeNode>;
     ${attribute.name}DataSource: MatTreeNestedDataSource<DynamicTreeNode>;
+    ${attribute.name}Subscription?: Subscription;
 #elseif($attribute.component)
     @ViewChild('${attribute.name}') ${attribute.name}: ${attribute.type.implementationName};
 #else
@@ -344,20 +346,35 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #foreach($attribute in $component.attributes)
 #if(!$attribute.inputButton && !$attribute.component)
 #if($attribute.tree)
-    load${stringUtils.capitalize($attribute.name)}RootNodes() {}
+    handleLoad${stringUtils.capitalize($attribute.name)}RootNodes(): Observable<any> {}
+
+    load${stringUtils.capitalize($attribute.name)}RootNodes() {
+        let rootNodes = await firstValueFrom(
+            this.handleLoad${stringUtils.capitalize($attribute.name)}RootNodes()
+        );
+        this.${attribute.name}DataSource.data = rootNodes.map((x) => new DynamicTreeNode(0, x));
+
+        this.${attribute.name}Subscription = this.${attribute.name}TreeControl.expansionModel.changed.subscribe(
+            (change) => {
+                if (change.added || change.removed) {
+                    this.handle${stringUtils.capitalize($attribute.name)}TreeControl(change);
+                }
+            }
+        );
+    }
 
     // TODO: more methods
     private handle${stringUtils.capitalize($attribute.name)}TreeControl(change: SelectionChange<DynamicTreeNode>) {
-    if (change.added) {
-      change.added.forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, true));
+        if (change.added) {
+            change.added.forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, true));
+        }
+        if (change.removed) {
+        change.removed
+            .slice()
+            .reverse()
+            .forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, false));
+        }
     }
-    if (change.removed) {
-      change.removed
-        .slice()
-        .reverse()
-        .forEach((x) => this.toggle${stringUtils.capitalize($attribute.name)}Node(x, false));
-    }
-  }
 
   // Should be modified to load child nodes
   protected handleLoad${stringUtils.capitalize($attribute.name)}ChildNodes(node: DynamicTreeNode): Observable<any> {

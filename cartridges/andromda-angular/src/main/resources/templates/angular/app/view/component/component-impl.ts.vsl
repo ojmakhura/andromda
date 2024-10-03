@@ -25,6 +25,7 @@ import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
 import { TreeOption } from '@app/model/tree-option.model';
 import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
 import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
+import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 #end
 #if($component.tableVariablesPresent)
 import { MatTableDataSource } from '@angular/material/table';
