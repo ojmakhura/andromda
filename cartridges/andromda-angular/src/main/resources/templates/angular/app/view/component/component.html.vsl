@@ -12,8 +12,8 @@
 #renderAngularActionInput($attribute "" "       ")
     </div>
 #elseif($attribute.inputTable)
- <!-- $attribute.name table -->
-    <app-table></app-table>
+ <!-- $attribute.name table  -->
+  <!--   <app-table></app-table>  -->
 #elseif($angularUtils.isComplex($attribute))
     <fieldset class="row form-group border p-3"#if($attribute.displayCondition) *ngIf="${attribute.displayCondition}"#end formGroupName="$attribute.name">
         <legend class="col-form-label col-sm-2 pt-0" translate>$attribute.messageKey</legend>

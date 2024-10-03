@@ -78,6 +78,7 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 import { SearchObject } from '@app/model/search-object';
 import { $component.name } from './${component.fileName}';
+import { TableComponent } from '@app/components/table/table.component';
 
 @Component({
   selector: "app-${component.selectorName}",
@@ -92,6 +93,7 @@ import { $component.name } from './${component.fileName}';
     SharedModule,
     MaterialModule,
     CsvModule,
+    TableComponent,
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
     $import.implementationName,
