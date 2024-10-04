@@ -3,6 +3,7 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/angular/app/appMacros.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularActionFormInput.vm"/>
+		<macrolibrary name="templates/angular/app/view/renderAngularTypescriptParams.vm"/>
 		<!-- <macrolibrary name="templates/angular/app/view/action/viewAction.vm"/> -->
 		<macrolibrary name="templates/angular/app/view/renderAngularActionCommandLinkParameter.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularTableCommandLinkParameters.vm"/>

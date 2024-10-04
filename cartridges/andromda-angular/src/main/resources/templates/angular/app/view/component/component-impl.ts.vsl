@@ -43,7 +43,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '@app/@shared';
 import { MaterialModule } from '@app/material.module';
 import { CsvModule } from '@ctrl/ngx-csv';
 #set($fields = [])
@@ -79,6 +78,7 @@ import { $import.name } from '@app/${import.filePath}';
 import { SearchObject } from '@app/model/search-object';
 import { $component.name } from './${component.fileName}';
 import { TableComponent } from '@app/components/table/table.component';
+import { SharedModule } from '@app/@shared';
 
 @Component({
   selector: "app-${component.selectorName}",
@@ -94,6 +94,9 @@ import { TableComponent } from '@app/components/table/table.component';
     MaterialModule,
     CsvModule,
     TableComponent,
+#if($component.treePresent)
+    AsTreeNodePipe,
+#end
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
     $import.implementationName,

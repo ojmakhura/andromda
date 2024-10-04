@@ -15,7 +15,6 @@ import {
 } from "@angular/forms";
 import { CommonModule, NgComponentOutlet } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '@app/@shared';
 import { MaterialModule } from '@app/material.module';
 import { ItemTemplateStore } from "@app/state/item/template/item-template.store";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";

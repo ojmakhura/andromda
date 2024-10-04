@@ -195,12 +195,12 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.eclipse.core</groupId>
           <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf</groupId>
           <artifactId>ecore</artifactId>
+          <groupId>org.eclipse.emf</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -211,8 +211,8 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.eclipse.core</groupId>
           <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
         </exclusion>
       </exclusions>
     </dependency>

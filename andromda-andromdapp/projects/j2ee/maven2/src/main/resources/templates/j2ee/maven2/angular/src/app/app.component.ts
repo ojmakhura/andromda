@@ -8,7 +8,6 @@ import { filter, map, switchMap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
-import { Logger, SharedModule, UntilDestroy, untilDestroyed } from '@shared';
 import { MaterialModule } from './material.module';
 import { ShellComponent } from './shell/shell.component';
 import { I18nService } from './i18n/i18n.service';
@@ -27,7 +26,6 @@ const log = new Logger('App');
     RouterModule,
     FormsModule,
     MaterialModule,
-    SharedModule,
     ShellComponent,
   ],
 })

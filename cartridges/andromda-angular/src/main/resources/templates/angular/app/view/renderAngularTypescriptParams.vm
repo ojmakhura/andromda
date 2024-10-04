@@ -1,0 +1,85 @@
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAngularTypescriptParams $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#set ($formValuePropertyName = "${valuePropertyName}")
+#if(!$parameter.inputButton)
+$ident
+#end
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAngularTypescriptConstructor $parameter $ownerParameter $ident)
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderInitForm $parameter $ownerParameter $ident)
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAttributeMethods $parameter $ownerParameter $ident)
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAttributeFormCreation $parameter $ownerParameter $ident)
+#end

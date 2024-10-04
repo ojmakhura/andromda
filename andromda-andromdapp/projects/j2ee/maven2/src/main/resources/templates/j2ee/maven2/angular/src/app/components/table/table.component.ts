@@ -17,7 +17,6 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { SharedModule } from '@app/@shared';
 import { MaterialModule } from '@app/material.module';
 import { ActionTemplate } from '@app/model/action-template';
 import { ColumnModel } from '@app/model/column.model';
