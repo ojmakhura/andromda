@@ -7,7 +7,7 @@
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 ##==========================
-#macro(renderAngularTypescriptParams $parameter $ownerParameter $ident)
+#macro(renderAngularTypescriptParams $parameter $ownerParameter $componentRender $ident)
 #set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
@@ -34,9 +34,87 @@
 #set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
 #end
 #end
-#set ($formValuePropertyName = "${valuePropertyName}")
+#set($append="")
+## If we are rendering a component, we should add 
+## @Input() before attributes
+#if($componentRender)
+#set($append="@Input()")
+#end
 #if(!$parameter.inputButton)
-$ident
+##
+## Rendering primary variables
+##
+#if($parameter.tree)
+$ident${valuePropertyName}TreeControl: NestedTreeControl<DynamicTreeNode>;
+$ident${valuePropertyName}DataSource: MatTreeNestedDataSource<DynamicTreeNode>;
+$ident${valuePropertyName}Subscription?: Subscription;
+#elseif($parameter.component)
+$ident@ViewChild('${valuePropertyName}') ${valuePropertyName}: ${parameter.type.implementationName};
+#else
+$ident$append ${valuePropertyName}?: ${parameter.getterSetterTypeName};
+#end
+##
+## Rendering backing variables
+##
+#if($parameter.type.enumeration)
+$ident${valuePropertyName}T: any = $parameter.type.name;
+$ident${valuePropertyName}Options = Object.keys(this.${valuePropertyName}T);
+## Drop down selection list
+#elseif($parameter.inputSelect || $parameter.inputMultibox )
+    ${valuePropertyName}FilterCtrl: FormControl = new FormControl();
+
+    ${valuePropertyName}Compare(o1: ${parameter.getterSetterTypeName} | any, o2: ${parameter.getterSetterTypeName} | any) {
+        return false;
+    }
+
+    filter$stringUtils.capitalize(${valuePropertyName})() {}
+
+    ${valuePropertyName}BackingList: ${parameter.getterSetterTypeName}[] = [];
+    ${valuePropertyName}FilteredList$: Observable<${parameter.getterSetterTypeName}[] | any[]> = of([]);
+    ${valuePropertyName}ChipControl: FormControl = new FormControl([]);
+
+    ${valuePropertyName}Displays: string[] = [
+#if($parameter.type.attributes.size() > 0)
+        '$parameter.type.attributes.get(0).name'
+#end
+    ];
+
+## Table
+#elseif($parameter.inputTable)
+#set ($cols = "")
+    ${valuePropertyName}Columns = [
+#foreach ($column in $parameter.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        '$columnName',
+#end
+    ];
+
+    ${valuePropertyName}ModalColumns = [
+        'actions',
+        ...this.${valuePropertyName}Columns
+    ];
+
+    @ViewChild('${valuePropertyName}Paginator', {static: true}) ${valuePropertyName}Paginator: MatPaginator;
+    @ViewChild('${valuePropertyName}Sort', {static: true}) ${valuePropertyName}Sort: MatSort;
+
+    @ViewChild('${valuePropertyName}ModalPaginator', {static: true}) ${valuePropertyName}ModalPaginator: MatPaginator;
+    @ViewChild('${valuePropertyName}ModalSort', {static: true}) ${valuePropertyName}ModalSort: MatSort;
+
+#set ($dollar = "$")
+    $stringUtils.pluralize(${valuePropertyName})$dollar : Observable<${parameter.getterSetterTypeName}[]>;
+    $stringUtils.pluralize(${valuePropertyName})DataSource = new MatTableDataSource<${parameter.getterSetterTypeName}>([]);
+    ${valuePropertyName}SearchField: FormControl = new FormControl([]);
+    ${valuePropertyName}Select: ${parameter.getterSetterTypeName}#if($parameter.many || $parameter.type.collectionType)[] = []#else = {}#end;
+
+#elseif($parameter.inputType == "image" || $parameter.inputFile)
+    ${valuePropertyName}Preview#if($parameter.many)s: any[]#{else}: any#end = #if($parameter.many)[]#else''#end;
+    ${valuePropertyName}SelectedFile#if($parameter.many)s#end?: #if($parameter.many)FileList#{else}File#end;
+
+#end
 #end
 #end
 ##==========================
@@ -48,7 +126,50 @@ $ident
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 ##==========================
-#macro(renderAngularTypescriptConstructor $parameter $ownerParameter $ident)
+#macro(renderAngularTypescriptConstructor $parameter $ownerParameter $renderComplex $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#if($parameter.tree)
+    this.${valuePropertyName}TreeControl = new NestedTreeControl<DynamicTreeNode>(
+      (node) => node.children
+    );
+    this.${valuePropertyName}DataSource = new MatTreeNestedDataSource<DynamicTreeNode>();
+
+#elseif($parameter.inputMultibox && !$parameter.component)
+
+        this.${valuePropertyName}FilteredList$ = this.${valuePropertyName}ChipControl.valueChanges.pipe(
+            startWith(null),
+            map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
+        );
+#elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.component && $renderComplex)
+#foreach($attribute in $parameter.type.attributes)
+#renderAngularTypescriptConstructor($attribute $parameter false "           ")
+#end
+#end
 #end
 ##==========================
 ##
@@ -60,6 +181,72 @@ $ident
 ##
 ##==========================
 #macro(renderInitForm $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+##
+## No need to generate reactive forms for buttons, components and trees 
+##
+#if(!$parameter.inputButton && !$parameter.component && !$parameter.tree)
+#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($angularUtils.isSimpleType($parameter.type))
+            $parameter.name: this.formBuilder.array(this.${parameter.name} ? this.${parameter.name} : []),
+#else
+            $parameter.name: this.create${parameter.type.name}Array(this.${parameter.name}),
+#end
+#elseif(!$angularUtils.isSimpleType($parameter.type))
+            $parameter.name: this.create${parameter.type.name}Group(this.${parameter.name}),
+#else
+#set ($validators = "")
+#if($parameter.required || $parameter.inputEmail || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max)
+#set ($validators = ", [")
+#if($parameter.required)
+#set ($validators = "${validators}Validators.required, ")
+#end
+#if($parameter.inputEmail)
+#set ($validators = "${validators}Validators.email, ")
+#end
+#if($parameter.minLength)
+#set ($validators = "${validators}Validators.minLength($parameter.minLength), ")
+#end
+#if($parameter.maxLength)
+#set ($validators = "${validators}Validators.maxLength($parameter.maxLength), ")
+#end
+#if($parameter.min)
+#set ($validators = "${validators}Validators.min($parameter.min), ")
+#end
+#if($parameter.max)
+#set ($validators = "${validators}Validators.max($parameter.max), ")
+#end
+#set ($validators = "$validators]")
+#end
+#set ($val = "${component.beanName}.${parameter.name}")
+            $parameter.name: [{value: this.${parameter.name}, disabled: false}$validators],
+#end
+#end
 #end
 ##==========================
 ##
@@ -71,6 +258,39 @@ $ident
 ##
 ##==========================
 #macro(renderAttributeMethods $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#if($parameter.inputButton)
+    on${stringUtils.capitalize(${attribute.name})}Click() {
+    }
+
+#else
+
+#end
 #end
 ##==========================
 ##
@@ -82,4 +302,30 @@ $ident
 ##
 ##==========================
 #macro(renderAttributeFormCreation $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
 #end

@@ -90,14 +90,14 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #end
 
 #foreach($attribute in $component.attributes)
-#renderAngularTypescriptParams($attribute "" "           ")
+#renderAngularTypescriptParams($attribute "" true "    ")
 #end
 
     private formBuilder = inject(FormBuilder);
     constructor(
     ) {
 #foreach($attribute in $component.attributes)
-#renderAngularTypescriptConstructor($attribute "" "           ")
+#renderAngularTypescriptConstructor($attribute "" true "           ")
 #end
     }
 
@@ -122,7 +122,9 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 
     initForm() {
         this.${component.beanName}Form = this.formBuilder.group({
+#foreach($attribute in $component.attributes)
 #renderInitForm($attribute "" "           ")
+#end
         });
     }
 #foreach($attribute in $component.attributes)
