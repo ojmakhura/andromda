@@ -290,6 +290,8 @@ $ident${valuePropertyName}Options = Object.keys(this.${valuePropertyName}T);
 
 #else
 
+
+
 #end
 #end
 ##==========================
@@ -327,5 +329,44 @@ $ident${valuePropertyName}Options = Object.keys(this.${valuePropertyName}T);
 #set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
 #set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
 #end
+#end
+
+#if(!$parameter.inputButton)
+#if($parameter.type)
+#set ($typeName = "$parameter.getterSetterTypeName")
+#else
+#set ($typeName = "$parameter.name")
+#end
+
+    create${typeName}Group(value?: $typeName): FormGroup {
+        return this.formBuilder.group({
+#if($parameter.generalization)
+#foreach($attribute in $parameter.generalization.attributes)
+#if(!$attribute.inputButton)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+#end
+#end
+#foreach($attribute in $parameter.attributes)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+        });
+    }
+
+    create${typeName}Array(values?: $typeName[]): FormArray {
+        if(values) {
+            let formArray: FormArray = this.formBuilder.array([]);
+            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+
+            return formArray;
+        } else {
+            return new FormArray([] as any);
+        }
+    }
+
 #end
 #end

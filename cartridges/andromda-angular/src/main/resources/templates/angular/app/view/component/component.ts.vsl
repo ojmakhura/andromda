@@ -127,7 +127,9 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #end
         });
     }
-#foreach($attribute in $component.attributes)
+
+#set($fieldSet = $angularUtils.getFacadeSet($fields))
+#foreach($attribute in $fieldSet)
 #renderAttributeFormCreation($attribute "" "           ")
 #end
 
