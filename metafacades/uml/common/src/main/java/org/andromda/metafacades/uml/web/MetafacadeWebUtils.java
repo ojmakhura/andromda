@@ -2,6 +2,7 @@ package org.andromda.metafacades.uml.web;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1204,10 +1205,37 @@ public class MetafacadeWebUtils {
         return component;
     }
 
-    public static Collection<String> getDisplayAttributes(ModelElementFacade modelElement) {
-        Collection<String> attributes = modelElement.findTaggedValues(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_DISPLAY_ATTRIBUTES).stream()
+    public static Collection<AttributeFacade> getDisplayAttributes(ModelElementFacade modelElement) {
+        List<String> attributeNames = modelElement.findTaggedValues(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_DISPLAY_ATTRIBUTES).stream()
                 .map(Object::toString)
                 .collect(Collectors.toList());
+
+        List<AttributeFacade> attributes = new ArrayList<>();
+
+        ClassifierFacade type = null;
+
+        if(modelElement instanceof AttributeFacade) {
+            type = ((AttributeFacade) modelElement).getType();
+        } else if(modelElement instanceof ParameterFacade) {
+            type = ((ParameterFacade) modelElement).getType();
+
+        }
+
+        if(type == null ) {
+            return attributes;
+        }
+
+        if(CollectionUtils.isEmpty(attributeNames)) {
+            return type.getAttributes();
+
+        }
+
+        for(String attributeName : attributeNames) {
+            AttributeFacade attribute = type.findAttribute(attributeName);
+            if(attribute != null) {
+                attributes.add(attribute);
+            }
+        }
         
         return attributes;
     }

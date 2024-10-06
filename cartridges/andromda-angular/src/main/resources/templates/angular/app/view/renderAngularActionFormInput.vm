@@ -71,16 +71,34 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
 #end
 #end
-#set ($formValuePropertyName = "${valuePropertyName}")
-#if($parameter.tree)
-${ident}<mat-tree [dataSource]="${valuePropertyName}DataSource" [treeControl]="${valuePropertyName}TreeControl"
-${ident}      style="display: flex; flex-direction: column" [trackBy]="track${stringUtils.capitalize(${valuePropertyName})}By">
+#if($parameter.inputTable || $parameter.table)
+#if($parameter.tableFormActions && !$parameter.tableFormActions.empty)
+#set ($hasActions = true)
+#else
+#set ($hasActions = false)
+#end
+    <hr>
+${ident}<h5 translate>$propertyId</h5>
+${ident}<app-table 
+					#${propertyId}Table 
+					[dataColumns]="${propertyId}TableColumns" 
+					[showActions]="show$stringUtils.capitalize($propertyId)Actions" 
+					[paged]="${propertyId}TablePaged"
+					[actions]="${propertyId}TableColumnsActions"
+#if($hasActions)
+					(actionClicked)="${propertyId}TableActionClicked($event)"
+#end
+					[dataSignal]="${propertyId}TableSignal">
+${ident}</app-table>
+#elseif($parameter.tree)
+${ident}<mat-tree [dataSource]="${propertyId}DataSource" [treeControl]="${propertyId}TreeControl"
+${ident}      style="display: flex; flex-direction: column" [trackBy]="track${stringUtils.capitalize(${propertyId})}By">
 ${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
 ${ident}        <div style="flex-direction: row">
 ${ident}            @if ((node | asTreeNode).data.numberOfChildComponents > 0) {
 ${ident}            <button mat-icon-button cdkTreeNodeToggle>
 ${ident}                <mat-icon>
-${ident}                    @if (${valuePropertyName}TreeControl.isExpanded(node)) {
+${ident}                    @if (${propertyId}TreeControl.isExpanded(node)) {
 ${ident}                    expand_more
 ${ident}                    } @else {
 ${ident}                    chevron_right
@@ -99,7 +117,7 @@ ${ident}            @if ((node | asTreeNode).loading()) {
 ${ident}            <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
 ${ident}            }
 ${ident}        </div>
-${ident}        @if (${valuePropertyName}TreeControl.isExpanded(node)) {
+${ident}        @if (${propertyId}TreeControl.isExpanded(node)) {
 ${ident}        <div style="display: flex; flex-direction: column; padding-left: 16px;">
 ${ident}            <ng-container cdkTreeNodeOutlet>
 ${ident}            </ng-container>
@@ -147,43 +165,6 @@ ${ident}    </mat-list>
 ${ident}    <input type="file" #if($parameter.inputType == "image")accept="image/*" #{end}id="${propertyId}FileInput" name="${propertyId}FileInput" (change)="${propertyId}SelectFile#if($parameter.many)s#{end}($event)" #if($parameter.many)multiple#end />
 #end
 ${ident}</mat-form-field>
-#elseif($angularUtils.isTable($parameter) && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
-${ident}	<div>
-${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
-${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
-${ident}        </button>
-${ident}		<mat-table matSort [dataSource]="${propertyId}" #${parameter.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-${ident}			<ng-container matColumnDef="actions">
-${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
-${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
-${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
-${ident}                    </button>
-${ident}                    <button mat-button color="accent" (click)="doEdit$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
-${ident}                        <mat-icon fontIcon="edit" aria-hidden="false" aria-label="Edit"></mat-icon>
-${ident}                    </button>
-${ident}                </mat-cell>
-${ident}			</ng-container>
-#foreach( $column in $parameter.tableColumnNames)
-#if($column.name)
-#set($columnName = $column.name)
-#else
-#set($columnName = $column)
-#end
-${ident}			<ng-container matColumnDef="$columnName">
-#if($column.name)
-${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat-header-cell>
-#else
-${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
-#end
-${ident}                <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
-${ident}			</ng-container>
-#end
-${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
-${ident}			<mat-row *matRowDef="let row; columns: ${propertyId}ModalColumns;"></mat-row>
-${ident}		</mat-table>
-${ident}		<mat-paginator #${propertyId}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
-${ident}	</div>
 #elseif ($parameter.inputRadio)
 ${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
@@ -206,19 +187,19 @@ ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inp
 ${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${valuePropertyName}Compare"#end form#if ($multiSelect)Array#{else}Control#{end}Name="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end form#if ($multiSelect)Array#{else}Control#{end}Name="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
 ${ident}        <mat-option>
 ${ident}        </mat-option>
-${ident}        @for(key of ${parameter.name}Options; track key) {
+${ident}        @for(key of ${parameter.type.name}Options; track key) {
 ${ident}        <mat-option [value]="key">
-${ident}            {{ ${parameter.name}T[key] }}
+${ident}            {{ ${parameter.type.name}T[key] }}
 ${ident}        </mat-option>
 ${ident}        }
 #else
 ${ident}        <mat-option>
 #if($isComplex)
-${ident}            <ngx-mat-select-search [placeholderLabel]="'Search'" [formControl]="${valuePropertyName}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${valuePropertyName})()"
+${ident}            <ngx-mat-select-search [placeholderLabel]="'Search'" [formControl]="${propertyId}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
 ${ident}                     [noEntriesFoundLabel]="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>
@@ -226,8 +207,8 @@ ${ident}        </mat-option>
 ${ident}        <mat-option>
 ${ident}        </mat-option>
 #end
-${ident}        @for(item of ${valuePropertyName}FilteredList$ | async; track item) {
-${ident}        <mat-option [value]="item">{{ item[${valuePropertyName}Displays[0]] }}</mat-option>
+${ident}        @for(item of ${propertyId}FilteredList$ | async; track item) {
+${ident}        <mat-option [value]="item">{{ item[${propertyId}Displays[0]] }}</mat-option>
 ${ident}        }
 #end
 ${ident}    </mat-select>
@@ -253,8 +234,8 @@ ${ident}         @for (item of ${propertyId}FilteredList$ | async; track item) {
 ${ident}            <mat-option [value]="item.value">{{item.label}}</mat-option>
 ${ident}         }
 ${ident}    </mat-autocomplete>
-#elseif($parameter.inputTable  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
-${ident}	<div>
+#elseif($parameter.inputTable || $parameter.table  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
+${ident}	<div> 
 ${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
@@ -392,6 +373,7 @@ ${ident}</fieldset>
 #else
 #set ($dataSource = "$stringUtils.pluralize(${propertyId})DataSource")
 #end
+222222222
 $ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)

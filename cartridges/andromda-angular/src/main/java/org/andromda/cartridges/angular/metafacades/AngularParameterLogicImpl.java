@@ -29,6 +29,7 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -175,6 +176,37 @@ public class AngularParameterLogicImpl
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        if (this.getType().getGeneralization() != null) {
+
+            GeneralizableElementFacade generalization = this.getType().getGeneralization();
+
+            if (generalization instanceof AngularModelLogic) {
+                AngularModelLogic modelElement = (AngularModelLogic) generalization;
+
+                modelElement.getAttributes().forEach(attr -> {
+                    if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                        imports.add(attr.getType());
+                    }
+                });
+
+                // Only going up 2 levels of generalization
+                if (modelElement.getGeneralization() != null) {
+
+                    GeneralizableElementFacade generalization2 = modelElement.getGeneralization();
+
+                    if (generalization2 instanceof AngularModelLogic) {
+                        AngularModelLogic modelElement2 = (AngularModelLogic) generalization2;
+
+                        modelElement2.getAttributes().forEach(attr -> {
+                            if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                imports.add(attr.getType());
+                            }
+                        });
+                    }
+                }
+            }
+        }
 
         for(AttributeFacade attribute : this.getType().getAttributes()) {
             if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {

@@ -546,6 +546,15 @@ public class AngularUtils {
 
     public static boolean isTable(AngularAttribute attribute) {
 
+
+        if(attribute.isInputSelect() || attribute.isInputRadio() || attribute.isInputCheckbox() || attribute.isInputText() || attribute.isInputTextarea() || attribute.isInputDate() || attribute.isInputTime() || attribute.isInputEmail() || attribute.isInputSecret() || attribute.isInputUrl() || attribute.isInputNumber() || attribute.isInputFile() || attribute.isInputHidden() || attribute.isInputButton()) {
+            return false;
+        }
+        
+        if(attribute.isInputTable()) {
+            return true;
+        }
+
         String columns = Objects
                 .toString(attribute.findTaggedValue("andromda_presentation_view_field_table_identifier_columns"), "")
                 .trim();

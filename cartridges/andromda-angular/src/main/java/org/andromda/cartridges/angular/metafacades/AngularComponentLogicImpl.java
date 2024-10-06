@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 
 /**
@@ -158,12 +159,56 @@ public class AngularComponentLogicImpl
             if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
                 imports.add(operation.getReturnType());
             }
+
+            operation.getParameters().forEach(param -> {
+                if(param.getType().isEnumeration() || !param.getType().getAttributes().isEmpty()) {
+                    imports.add(param.getType());
+                }
+            });
+
+            operation.getArguments().forEach(param -> {
+                if(param.getType().isEnumeration() || !param.getType().getAttributes().isEmpty()) {
+                    imports.add(param.getType());
+                }
+            });
         }
 
         for(AttributeFacade attribute : this.getAttributes()) {
 
             if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
                 imports.add(attribute.getType());
+
+                if(attribute.getType().getGeneralization() != null) {
+                    
+                    GeneralizableElementFacade generalization = attribute.getType().getGeneralization();
+
+                    if(generalization instanceof AngularModelLogic) {
+                        AngularModelLogic modelElement = (AngularModelLogic) generalization;
+
+                        modelElement.getAttributes().forEach(attr -> {
+                            if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                imports.add(attr.getType());
+                            }
+                        });
+
+                        // Only going up 2 levels of generalization
+                        if(modelElement.getGeneralization() != null) {
+
+                            GeneralizableElementFacade generalization2 = modelElement.getGeneralization();
+
+                            if(generalization2 instanceof AngularModelLogic) {
+                                AngularModelLogic modelElement2 = (AngularModelLogic) generalization2;
+
+                                modelElement2.getAttributes().forEach(attr -> {
+                                    if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                        imports.add(attr.getType());
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+
                 for(AttributeFacade attr : attribute.getType().getAttributes()) {
                     if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
                         imports.add(attr.getType());

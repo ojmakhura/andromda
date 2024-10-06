@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -1184,8 +1185,8 @@ public class FrontEndAttributeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetDisplayAttributes() {
-        
+    protected Collection<AttributeFacade> handleGetDisplayAttributes() {
+
         return MetafacadeWebUtils.getDisplayAttributes(this);
     }
 }

@@ -4,9 +4,11 @@ import {
   Component,
   inject,
   Input,
-  OnDestroy,
   OnInit,
   ViewChild,
+  signal,
+  Signal,
+  OnDestroy,
 } from "@angular/core";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {
@@ -28,10 +30,11 @@ import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
 import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 #end
 ## #if($component.tableVariablesPresent)
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+## import { MatTableDataSource } from '@angular/material/table';
+## import { MatPaginator } from '@angular/material/paginator';
+## import { MatSort } from '@angular/material/sort';
 import { TableComponent } from '@app/components/table/table.component';
+import { ColumnModel } from "@app/model/column.model";
 ## #end
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
@@ -88,9 +91,14 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     protected readonly TreeOption = TreeOption;
 
 #end
-
 #foreach($attribute in $component.attributes)
-#renderAngularTypescriptParams($attribute "" true "    ")
+#renderAngularTypescriptParams($attribute "" true true "    ")
+#end
+#foreach($import in $component.imports)
+#if($import.enumeration)
+    ${import.name}T: any = $import.name;
+    ${import.name}Options = Object.keys(this.${import.name}T);
+#end
 #end
 
     private formBuilder = inject(FormBuilder);
@@ -134,6 +142,6 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #end
 
 #foreach($attribute in $component.attributes)
-#renderAttributeMethods($attribute "" "           ")
+#renderAttributeMethods($attribute "" true "    ")
 #end
 }

@@ -1288,7 +1288,7 @@ public class FrontEndParameterLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetDisplayAttributes() {
+    protected Collection<AttributeFacade> handleGetDisplayAttributes() {
         
         return MetafacadeWebUtils.getDisplayAttributes(this);
     }

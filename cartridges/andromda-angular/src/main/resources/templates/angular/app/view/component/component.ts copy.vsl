@@ -453,7 +453,8 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     return ``;
   }
 
-#elseif($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
+#end
+#if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #set ($controlType = "FormArray")
 #elseif($angularUtils.isComplex($attribute) && !$attribute.component)
 #set ($controlType = "FormGroup")

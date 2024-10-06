@@ -47,7 +47,7 @@ export const ${service.name}Store = signalStore(
           patchState(store, { loading: true });
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
-              next: (data) => {
+              next: (data: $operation.returnTypeName) => {
                 //patchState(
                   //store, { 
                   //  data, 
