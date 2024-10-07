@@ -283,7 +283,6 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #set ($validators = "$validators]")
 #end
-#set ($val = "${component.beanName}.${parameter.name}")
             $parameter.name: [{value: this.${parameter.name}, disabled: false}$validators],
 #end
 #end
@@ -393,6 +392,10 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     }
   }
 
+  ${propertyId}Clicked(node: any) {
+
+  }
+
   // Should be modified to suit context
   protected handleLoadMore${stringUtils.capitalize($propertyId)}(node: DynamicTreeNode): Observable<any> {
     return of([]);
@@ -445,7 +448,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #set ($propertyId = $parameter.name)    
     get ${propertyId}Control(): $controlType {
-        return this.${component.beanName}Form?.get('$parameter.name') as $controlType;
+        return this.#if($parameter.view)$parameter.view.formName#{else}${component.beanName}Form#{end}?.get('$parameter.name') as $controlType;
     }
 
 #if($parameter.inputMultibox)

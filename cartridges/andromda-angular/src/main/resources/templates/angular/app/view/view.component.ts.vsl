@@ -177,6 +177,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #end
 #end
+
+#foreach($import in $view.imports)
+#if($import.enumeration)
+    ${import.name}T: any = $import.name;
+    ${import.name}Options = Object.keys(this.${import.name}T);
+#end
+#end
 ## #foreach($param in $finalParams)
 ## #if(!$param.component)
 ##    ${param.name}$: Signal<$param.getterSetterTypeName>;
@@ -255,7 +262,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
         return this.formBuilder.group({
 #if ($view.nonTableVariablesPresent)
 #foreach( $variable in $view.variables )
+#if(!$variable.table && !$variable.inputButton && !$variable.component && !$variable.inputTable)
 #renderInitForm($variable "" "           ")
+#end
 #end
 #end
 
@@ -395,6 +404,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach ($variable in $view.variables)
 #if(!$variable.table && !$variable.inputButton && !$variable.component)
 #renderAttributeFormCreation($variable "" "           ")
+#renderAttributeMethods($variable "" true "    ")
 #end
 #end
 #end
@@ -429,32 +439,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
 #set($fieldSet = $angularUtils.getFacadeSet($fields))
-#foreach($field in $fieldSet)
-#if(!${field.hasStereotype("FrontEndComponent")})
-#set ($typeName = "$field.name")
-    create${typeName}Group(value?: $typeName): FormGroup { 
-        return this.formBuilder.group({
-#foreach($attribute in $field.attributes)
-#if($angularUtils.isSimpleType($attribute) && !$attribute.inputButton)
-            $attribute.name: [value?.$attribute.name],
-#end
-#end
-        });
-    }
 
-    create${typeName}Array(values?: $typeName[]): FormArray {
-        if(values) {
-            let formArray: FormArray = this.formBuilder.array([]);
-            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
-
-            return formArray;
-        } else {
-            return new FormArray([] as any);
-        }
-    }
-
-#end
-#end
 #if($view.popup)
     handleCancelDialog(): void {}
 

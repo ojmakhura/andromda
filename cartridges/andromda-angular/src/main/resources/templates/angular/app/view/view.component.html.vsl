@@ -59,40 +59,30 @@
 			</div>
 			}
 #end
-#if($simple.size() > 0)
-#foreach ($variable in $simple)
-#renderAngularActionInput($variable "" "				")
-#end
-#end
-#if($complex.size() > 0)
-#foreach ($variable in $complex)
-#if($variable.inputTable)
-			<app-table 
-				#${variable.name}>
-			</app-table>
-#elseif($variable.component)
-			<app-$variable.type.selectorName 
+#foreach ($variable in $view.variables)
+#if(!$variable.inputHidden)
+#set($propertyId = $variable.name)
+#if($variable.component)
+			<app-$variable.type.selectorName id="$propertyId"
 				#${variable.name}>
 			</app-$variable.type.selectorName>
-#else
-#if($normals.size() > 0)
-			<div formGroupName="${variable.name}"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end>
-#foreach ($attribute in $normals)
-#if (!$attribute.inputHidden && !$variable.inputHidden)
-#renderAngularActionInput($attribute $variable "				")
+#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree || $variable.inputTable)
+    		<div class="row">
+#renderAngularActionInput($variable "" "       				")
+    		</div>
+## #elseif($variable.inputTable || $variable.table)
+## #renderAngularActionInput($variable "" "       		")
+#elseif($angularUtils.isComplex($variable) && !($variable.inputTable || $variable.table))
+			<fieldset class="row form-group border p-3"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end formGroupName="$variable.name">
+				<legend class="col-form-label col-sm-2 pt-0" translate>$variable.messageKey</legend>
+#foreach ($property in $variable.displayAttributes)
+#if(!$property.inputHidden)
+        		<div class="row">
+#renderAngularActionInput($property $variable "           		")
+        		</div>
 #end
 #end
-        	</div>
-#end
-#end
-#if ($tables.size() > 0)
-                <mat-tab-group animationDuration="0ms" class = "view-tabs">
-#foreach($table in $tables)
-                    <mat-tab label="{{'${table.messageKey}' | translate}}"#if($table.displayCondition) *ngIf="${table.displayCondition}"#end>
-#renderAngularActionInput($table $variable "		            ")
-                    </mat-tab>
-#end
-                </mat-tab-group>
+    		</fieldset>
 #end
 #end
 #end
@@ -103,17 +93,7 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<app-table 
-					#$stringUtils.uncapitalize($table.name)Table 
-					[dataColumns]="${table.name}TableColumns" 
-					[showActions]="#if($table.tableFormActions.empty)false#{else}true#end" 
-					[paged]="${table.name}TablePaged"
-#if(!$table.tableFormActions.empty)
-					[actions]="${table.name}TableColumnsActions" 
-#end
-					(actionClicked)="$stringUtils.uncapitalize($table.name)TableActionClicked($event)"
-					[dataSignal]="$stringUtils.uncapitalize($table.name)TableSignal">
-			</app-table>
+#renderAngularActionInput($table "" "       		")
 		</mat-tab>
 #end
 	</mat-tab-group>
