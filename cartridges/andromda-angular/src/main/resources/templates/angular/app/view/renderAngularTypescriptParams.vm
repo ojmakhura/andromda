@@ -335,7 +335,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 
     async load${stringUtils.capitalize($propertyId)}RootNodes() {
         let rootNodes = await firstValueFrom(
-            this.handleLoad${stringUtils.capitalize($parameterattribute.name)}RootNodes()
+            this.handleLoad${stringUtils.capitalize($propertyId)}RootNodes()
         );
         this.${propertyId}DataSource.data = rootNodes.map((x: any) => new DynamicTreeNode(0, x));
 
