@@ -1,0 +1,17 @@
+#if($component.treePresent)
+.source-tree-progress-bar {
+    margin-left: 30px;
+}
+
+
+.source-container {
+    height: auto;
+    margin: 10px;
+    border: 1px solid #555;
+    background: #eee;
+}
+
+.mat-drawer {
+    display: block;
+}
+#end

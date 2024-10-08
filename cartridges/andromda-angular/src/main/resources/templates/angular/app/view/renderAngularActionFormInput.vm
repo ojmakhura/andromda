@@ -91,7 +91,7 @@ ${ident}</app-table>
 #elseif($parameter.tree)
 ${ident}<mat-tree [dataSource]="${propertyId}DataSource" [treeControl]="${propertyId}TreeControl"
 ${ident}      style="display: flex; flex-direction: column" [trackBy]="track${stringUtils.capitalize(${propertyId})}By">
-${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
+${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="source-tree-node">
 ${ident}        <div style="flex-direction: row">
 ${ident}            @if ((node | asTreeNode).data.numberOfChildComponents > 0) {
 ${ident}            <button mat-icon-button cdkTreeNodeToggle>
@@ -112,7 +112,7 @@ ${ident}
 ${ident}            <a type="button" (click)="${propertyId}Clicked(node)">{{ (node |
 ${ident}                        asTreeNode).data.name }}</a>
 ${ident}            @if ((node | asTreeNode).loading()) {
-${ident}            <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
+${ident}            <mat-progress-bar mode="indeterminate" class="source-tree-progress-bar"></mat-progress-bar>
 ${ident}            }
 ${ident}        </div>
 ${ident}        @if (${propertyId}TreeControl.isExpanded(node)) {

@@ -134,16 +134,36 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 
 #end
 #if($hasActions)
+#foreach($action in $parameter.tableFormActions)
     // Should be overriden to handle the actions
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
+
+#end
     ${propertyId}TableActionClicked(event: any): void {
-        switch(event.name) {
+
+        let form: any = {};
+        let queryParams: any = {};
+        let params: any = {};
+
+        switch(event.action) {
 #foreach($action in $parameter.tableFormActions)
             case '$action.name':
                 // TODO: Implement the action
+                form = #renderAngularTableCommandLinkParametersForm()
+                queryParams = #renderAngularTableCommandLinkQueryParametersForm()
+                this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
+                params = this.do$stringUtils.capitalize(${action.triggerName})(event);
+                this.useCaseScope.pageVariables = Object.assign({}, params);
+                this.${action.controller.variableName}.${action.triggerName}(
+#foreach($param in $action.parameters)
+                    event.$param.name,
+#end
+                );
                 break;
 #end
         }
     }
+
 #end
 #elseif($parameter.inputType == "image" || $parameter.inputFile)
     ${propertyId}Preview#if($parameter.many)s: any[]#{else}: any#end = #if($parameter.many)[]#else''#end;

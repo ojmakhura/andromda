@@ -20,7 +20,7 @@ import {
 } from "@angular/forms";
 import { SelectItem } from "@app/utils/select-item";
 #if($component.treePresent)
-import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
+import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
 import { TreeOption } from '@app/model/tree-option.model';
 import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
@@ -96,6 +96,9 @@ import { SharedModule } from '@app/@shared';
     TableComponent,
 #if($component.treePresent)
     AsTreeNodePipe,
+    CdkTreeNodeToggle,
+    CdkTreeNodeOutlet,
+    CdkTreeNodeDef,
 #end
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))

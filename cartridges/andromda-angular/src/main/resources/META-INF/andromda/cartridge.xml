@@ -508,6 +508,19 @@
     </template>
 
     <template
+        path="templates/angular/app/view/component/component-impl.scss.vsl"
+        outputPattern="${component.filePath}.scss"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
         path="templates/angular/app/view/component/component.html.vsl"
         outputPattern="${component.filePath}.html"
         outlet="components"
