@@ -63,7 +63,7 @@
 #if(!$variable.inputHidden)
 #set($propertyId = $variable.name)
 #if($variable.component)
-			<app-$variable.type.selectorName id="$propertyId"
+			<app-$variable.type.selectorName
 				#${variable.name}>
 			</app-$variable.type.selectorName>
 #elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree || $variable.inputTable)

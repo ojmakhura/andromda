@@ -49,11 +49,12 @@ export const ${service.name}Store = signalStore(
             tapResponse({
               next: (data: $operation.returnTypeName) => {
                 //patchState(
-                  //store, { 
-                  //  data, 
-                  //  loading: false, 
-                  //  success: true, 
-                  //  messages: [] 
+                  //store, 
+                  // { 
+                  //    data, 
+                  //    loading: false, 
+                  //    success: true, 
+                  //    messages: [] 
                   //}
                 //);
               },

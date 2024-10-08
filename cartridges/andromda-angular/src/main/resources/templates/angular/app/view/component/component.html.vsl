@@ -4,7 +4,7 @@
 #if(!$attribute.inputHidden)
 #set($propertyId = $attribute.name)
 #if($attribute.component)
-    <app-$attribute.type.selectorName id="$propertyId"
+    <app-$attribute.type.selectorName
         #${attribute.name}>
     </app-$attribute.type.selectorName>
 #elseif(!$angularUtils.isComplex($attribute) || $attribute.inputMultibox || $attribute.inputSelect || $attribute.type.enumeration || $attribute.tree || $attribute.inputTable)
