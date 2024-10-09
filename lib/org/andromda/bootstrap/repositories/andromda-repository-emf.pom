@@ -172,20 +172,20 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.eclipse.core</groupId>
           <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf</groupId>
           <artifactId>ecore</artifactId>
+          <groupId>org.eclipse.emf</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf.ecore</groupId>
           <artifactId>xmi</artifactId>
+          <groupId>org.eclipse.emf.ecore</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf.mapping</groupId>
           <artifactId>ecore2xml</artifactId>
+          <groupId>org.eclipse.emf.mapping</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -196,20 +196,20 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.eclipse.core</groupId>
           <artifactId>runtime</artifactId>
+          <groupId>org.eclipse.core</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf</groupId>
           <artifactId>ecore</artifactId>
+          <groupId>org.eclipse.emf</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf.ecore</groupId>
           <artifactId>xmi</artifactId>
+          <groupId>org.eclipse.emf.ecore</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.eclipse.emf.mapping</groupId>
           <artifactId>ecore2xml</artifactId>
+          <groupId>org.eclipse.emf.mapping</groupId>
         </exclusion>
       </exclusions>
     </dependency>

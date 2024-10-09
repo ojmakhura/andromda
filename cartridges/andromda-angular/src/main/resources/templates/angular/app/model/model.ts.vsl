@@ -26,7 +26,7 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name: ${attribute.getterSetterTypeName} = <${attribute.getterSetterTypeName}>{
+    $attribute.name?: ${attribute.getterSetterTypeName} = <${attribute.getterSetterTypeName}>{
 #foreach($attr in ${attribute.type.attributes})
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
 #set ($def = "new Array()")
