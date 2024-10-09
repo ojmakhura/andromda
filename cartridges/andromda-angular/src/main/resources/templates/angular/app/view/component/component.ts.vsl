@@ -16,7 +16,6 @@ import {
   ReactiveFormsModule,
   FormGroup,
   FormControl,
-  FormBuilder,
   Validators,
   FormArray,
 } from "@angular/forms";
@@ -78,15 +77,16 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 import { SearchObject } from '@app/model/search-object';
+import { GenericComponent } from "@app/view/generic.component";
 
 @Component({
   selector: "app-${component.selectorName}-base",
   template: "",
 })
-export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewInit {
+export abstract class ${component.name} extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    @Input() ${component.beanName}Form: FormGroup;
+    ${component.beanName}Form: FormGroup = this.formGroupControl;
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;
 
@@ -101,16 +101,16 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
 #end
 #end
 
-    private formBuilder = inject(FormBuilder);
     constructor(
     ) {
+        super();
 #foreach($attribute in $component.attributes)
 #renderAngularTypescriptConstructor($attribute "" true "           ")
 #end
     }
 
     #if($component.treePresent)async #{end}ngOnInit() {
-        if(!this.${component.beanName}Form) {
+        if(!this.formGroupControl) {
             this.initForm();
         }
 #foreach($attribute in $component.attributes)
@@ -129,7 +129,7 @@ export abstract class ${component.name} implements OnInit, OnDestroy, AfterViewI
     }
 
     initForm() {
-        this.${component.beanName}Form = this.formBuilder.group({
+        this.formGroupControl = this.formBuilder.group({
 #foreach($attribute in $component.attributes)
 #renderInitForm($attribute "" "           ")
 #end

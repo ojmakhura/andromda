@@ -104,6 +104,7 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #if($hasPopup)
 import { MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from '@app/components/dialog/dialog.component';
 #end
 #if($view.popup)
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
@@ -307,6 +308,16 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($targetView = $iter.next())
 #end
 #if($hadNext && $targetView.popup)
+#foreach($targetAction in $targetView.actions)
+    ${targetAction.triggerName}(dialogData: any) {}
+
+#end
+    do${actionFormCaps}DialogDone(dialogData: any): void {
+    }
+
+    do${actionFormCaps}DialogCancel(dialogData: any): void {
+    }
+
     get${actionFormCaps}DialogConfig(#if(!$action.formFields.empty)data: any#{end}): any{
         return {
             data: {
@@ -375,19 +386,62 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($targetView = $iter.next())
 #end
 #if($hadNext && $targetView.popup)
-        let dialogConfig = this.get${actionFormCaps}DialogConfig(
-            {
+#set($isComponentDialog = $targetView.variables.size() == 1 && $targetView.variables.get(0).component)
+
+        const dialogRef = this.dialog.open(#if($isComponentDialog)DialogComponent<$targetView.variables.get(0).type.implementationName>#else$targetView.componentImplementationName#end, <MatDialogConfig>{
+#if($isComponentDialog)
+            hasBackdrop: true,
+            disableClose: false,
+            closeOnNavigation: true,
+            data: {
+                component: $targetView.variables.get(0).type.implementationName,
+                title: '$targetView.messageKey',
+                inputs: {
+#foreach($field in $action.forwardParameters)
+#if(!$field.inputButton)
+                    $field.name: this.${action.triggerName}${stringUtils.capitalize($field.name)},
+#end
+#end
+                },
+#if($targetView.actions.size() > 0)
+                actions: [
+#foreach($targetAction in $targetView.actions)
+#if(!$targetAction.tableLink)
+                    {
+                        id: '$targetAction.name',
+                        label: '$targetAction.messageKey',
+#if($targetAction.icon)
+                        icon: '$targetAction.icon',
+#end
+                    },
+#end
+#end
+                ]
+#end
+            }
+#else
 #foreach($field in $action.forwardParameters)
 #if(!$field.inputButton)
             $field.name: this.${action.triggerName}${stringUtils.capitalize($field.name)},
 #end
 #end
-            }
-        );
-        const dialogRef = this.dialog.open($targetView.componentImplementationName, dialogConfig);
+#end   
+        });
 
-        dialogRef.afterClosed().subscribe((result) => {
-            this.${afterAction}(result?.dialogData);
+        dialogRef.afterClosed().subscribe( {
+            next: (result: any) => {
+#if($isComponentDialog)
+#foreach($targetAction in $targetView.actions)
+                if(result?.action === '$targetAction.name') {
+                    this.${targetAction.triggerName}(result?.dialogData)
+                }
+#end
+#else
+                this.${afterAction}(result?.dialogData);
+#end
+            },
+            error: (error: any) => {
+            },
         });
 #else
         this.${afterAction}(form);

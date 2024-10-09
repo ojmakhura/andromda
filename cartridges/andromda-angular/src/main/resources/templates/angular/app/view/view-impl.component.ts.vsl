@@ -30,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { TableComponent } from '@app/components/table/table.component';
+import { SharedModule } from '@app/@shared';
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)

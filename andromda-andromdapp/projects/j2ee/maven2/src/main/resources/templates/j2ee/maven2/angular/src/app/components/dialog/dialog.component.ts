@@ -16,10 +16,7 @@ import {
 import { CommonModule, NgComponentOutlet } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
-import { ItemTemplateStore } from "@app/state/item/template/item-template.store";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FleetItemDTO } from "@app/model/item/fleet-item-dto";
-import { FleetItemTemplateEditorComponent } from "@app/view/item/template/editor/fleet-item-template-editor.component";
 import { GenericComponent } from "@app/view/generic.component";
 
 @Component({
@@ -42,8 +39,6 @@ export class DialogComponent<T extends GenericComponent> implements OnInit, OnDe
   readonly dialogRef = inject(MatDialogRef<DialogComponent<T>>);
   readonly data = inject(MAT_DIALOG_DATA);
 
-  // readonly store = inject(ItemTemplateStore);
-  // readonly itemTemplate = this.store.data;  
   @ViewChild(NgComponentOutlet, {static: false}) dialogChild: NgComponentOutlet | any;
   formValid = signal(false);
 

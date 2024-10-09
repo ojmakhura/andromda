@@ -468,7 +468,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #set ($propertyId = $parameter.name)    
     get ${propertyId}Control(): $controlType {
-        return this.#if($parameter.view)$parameter.view.formName#{else}${component.beanName}Form#{end}?.get('$parameter.name') as $controlType;
+        return this.#if($parameter.view)$parameter.view.formName#{else}formGroupControl#{end}?.get('$parameter.name') as $controlType;
     }
 
 #if($parameter.inputMultibox)
