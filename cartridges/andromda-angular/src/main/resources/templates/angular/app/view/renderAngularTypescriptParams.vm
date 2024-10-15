@@ -97,8 +97,8 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
 #set ($tableColumnActions = [])
 #end
-        new ColumnModel(
-            '$columnName',
+        new ColumnModel( // $parameter
+            '$columnName', // $column
 #if($parameter.getTableColumnMessageKey)
             '$parameter.getTableColumnMessageKey($columnName)', 
 #else

@@ -52,7 +52,7 @@ import { CsvModule } from '@ctrl/ngx-csv';
 #set($buttons = [])
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
-import { ${import.name} } from '@app/components/${import.filePath}';
+import { ${import.implementationName} } from '@app/components/${import.implementationFilePath}';
 #else
 #if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
 #if($import.type)

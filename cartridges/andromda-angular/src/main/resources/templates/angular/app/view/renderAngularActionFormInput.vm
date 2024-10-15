@@ -169,7 +169,7 @@ ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.me
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
-${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly || $ownerParameter.readOnly) (click)="$event.preventDefault()"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 ${ident}            <span translate>$parameter.messageKey</span>
 ${ident}        </mat-checkbox>
 ${ident}    </section>
