@@ -90,6 +90,7 @@
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
             <output>core/test/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vls</output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
+            <output>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -172,6 +173,10 @@
         <mapping>
             <from>core/ApplicationSpecifications.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationCoreTestApplication.java.java.vsl</from>
+            <to>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
