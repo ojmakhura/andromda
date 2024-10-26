@@ -31,12 +31,16 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
 #set ($def = "new Array()")
 #else
+#if (!$attr.many && $attr.defaultValuePresent)
+#set ($def = ${attr.defaultValue})
+#else
 #set ($def = "null")
+#end
 #end
 #if($angularUtils.isComplex($attr) && !$attr.many && !$angularUtils.isArray($attr.getterSetterTypeName) && !$attr.type.enumeration)
 #set ($def = "{} as any")
 #end
-        $attr.name: $def#if (!$attr.many && $attr.defaultValuePresent) = ${attr.defaultValue}#end,
+        $attr.name: $def,
 #end
     };
 #else

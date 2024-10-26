@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 
 const log = new Logger('Login');
 
-@UntilDestroy()
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

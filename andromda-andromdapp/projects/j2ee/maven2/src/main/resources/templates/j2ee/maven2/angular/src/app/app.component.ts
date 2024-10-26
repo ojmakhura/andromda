@@ -11,6 +11,7 @@ import { environment } from '@env/environment';
 import { MaterialModule } from './material.module';
 import { ShellComponent } from './shell/shell.component';
 import { I18nService } from './i18n/i18n.service';
+import { Logger, UntilDestroy, untilDestroyed } from './@shared';
 
 const log = new Logger('App');
 
