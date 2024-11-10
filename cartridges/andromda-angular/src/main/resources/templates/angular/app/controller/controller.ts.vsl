@@ -116,6 +116,14 @@ $action.trigger.getDocumentation("     * ")
 #foreach($field in $action.forwardParameters)
 #set ($params = "${params}#if($params.length() > 0), #{end}pageVariables?.$field.name")
 #end
+#else
+#foreach($field in $action.forwardParameters)
+        if($field.name)
+        {
+            this.useCaseScope.pageVariables['$field.name'] = $field.name;
+        }
+
+#end
 #end
         this.${action.triggerMethodName}($params);
 
@@ -138,6 +146,7 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         return forward;
 #else
+
         if(!this.actionToDialog && forward !== null) {
             this.router.navigate([forward], {queryParams: this.useCaseScope.queryParams});
         } 

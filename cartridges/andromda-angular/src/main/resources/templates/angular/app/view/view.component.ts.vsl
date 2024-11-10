@@ -375,9 +375,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$action.formFields.empty)
 #set($params = "")
 #foreach($field in $action.forwardParameters)
-#set ($params = "$params#if($params.length() > 0), #{end}form.${action.triggerName}${stringUtils.capitalize($field.name)}")
+#set ($params = "$params#if($params.length() > 0), #{end}form.${field.name}")
 #end
-        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.forwardParameters.empty)form#end);
+        this.${action.controller.variableName}.${action.triggerName}(#if(!$action.forwardParameters.empty)$params#end);
 #end
 #set ($iter = $action.targetViews.iterator())
 #set ($hadNext = false)
