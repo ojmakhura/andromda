@@ -102,7 +102,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #if($parameter.getTableColumnMessageKey)
             '$parameter.getTableColumnMessageKey($columnName)', 
 #else
-            '$columnName',
+            '$stringUtils.toResourceMessageKey($columnName)',
 #end
 #if($tableColumnActions.empty)
             false
@@ -277,7 +277,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
             $parameter.name: this.create${parameter.type.name}Array(this.${parameter.name}),
 #end
-#elseif(!$angularUtils.isSimpleType($parameter.type))
+#elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.inputSelect)
             $parameter.name: this.create${parameter.type.name}Group(this.${parameter.name}),
 #else
 #set ($validators = "")
@@ -461,7 +461,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #elseif(!$parameter.component)
 #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
 #set ($controlType = "FormArray")
-#elseif($angularUtils.isComplex($parameter) && !$parameter.component)
+#elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
 #set ($controlType = "FormGroup")
 #else
 #set ($controlType = "FormControl")
@@ -505,7 +505,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     addSelected$stringUtils.capitalize(${propertyId})(){}
 
 #end
-#if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes)
+#if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect)
 #foreach($attr in $parameter.type.attributes)
 #if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
 #set ($attrControlType = "FormArray")
