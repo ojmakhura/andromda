@@ -18,11 +18,11 @@ public interface ${entity.name}Repository extends
 #foreach($attribute in $entity.attributes)
 #if (!$attribute.transient)
 #if(!$attribute.many)
-#if($attribute.unique && $attribute.name != "id" && !$attribute.type.clobType && !$attribute.type.blobType && !$attribute.type.fileType)
+    // Generating pageable query method for $attribute.name
+#if($attribute.unique && $attribute.name != "id" && !$attribute.type.blobType && !$attribute.type.fileType)
     $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
 
 #end
-    // Generating pageable query method for $attribute.name
 #if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
     $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
 
