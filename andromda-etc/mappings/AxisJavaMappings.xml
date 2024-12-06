@@ -13,7 +13,7 @@
         <from>XSDDatatypes::date</from>
         <from>RoseAnalysisDatatypes::Date</from>
         <from>RoseJavaDatatypes::java::sql::Date</from>
-        <to>java.time.LocalDate</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>DateTime</from>
@@ -26,7 +26,7 @@
         <from>AndroMDADatatypes::datatype::Timestamp</from>
         <from>XSDDatatypes::time</from>
         <from>XSDDatatypes::dateTime</from>
-        <to>java.time.LocalDateTime</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>Time</from>
@@ -35,7 +35,7 @@
         <from>AndroMDADatatypes::datatype::Time</from>
         <from>XSDDatatypes::time</from>
         <from>RoseJavaDatatypes::java::sql::Time</from>
-        <to>java.time.LocalTime</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>LocalDate</from>

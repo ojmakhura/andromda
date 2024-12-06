@@ -8,8 +8,6 @@
 package $entity.packageName;
 #end
 
-// $entity.entityImplementationRequired  $entity.embeddableSuperclass
-
 #if(!$entity.generalization)
 import java.io.Serializable;
 
@@ -91,7 +89,7 @@ $entity.getDocumentation(" * ")
 @lombok.Data
 #end
 // HibernateEntity.vsl annotations merge-point
-public class $entity.entityName
+public #if($entity.embeddableSuperclass)abstract #{end}class $entity.entityName
 #if($entity.generalization)
 #if ($entity.generalization.fullyQualifiedEntityName)
 #set ($generalizationName = $entity.generalization.fullyQualifiedEntityName)
@@ -165,7 +163,10 @@ public class $entity.entityName
 #end
 ## Identifier attribute is automatically added to the list of attributes.
 #foreach ($attribute in $entity.attributes)
+## Skip the identifier attribute if it is an embeddable superclass
+#if (!($entity.embeddableSuperclass && $attribute.identifier))
 #renderAttribute($entity $attribute)
+#end
 #end
 #if (!$entity.navigableConnectingEnds.empty)
     // Generate $entity.navigableConnectingEnds.size() associations
@@ -203,7 +204,8 @@ $operation.getDocumentation("     * ")
     }
 
 #end
-#if ($generateEntityEqualsAndHashCode.equalsIgnoreCase('true'))
+#if ($generateEntityEqualsAndHashCode.equalsIgnoreCase('true') && !$entity.embeddableSuperclass)
+    // HibernateEntity.vsl equals and hashCode merge-point
 #set ($identifiers = $entity.getIdentifiers(false))
     /**
 #if ($identifiers.empty)
@@ -370,9 +372,11 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
     }
 
 #end
+#if(!$entity.embeddableSuperclass)
 #renderCompareToMethod($entity $entity.entityName $entity.identifiers)
 
 ## Don't want to render associations because we may get an infinite loop on bidirectional relationships. Can we render only the remote Entity IDs?
 #renderToStringMethod($entity $entity.entityName $entity.getAttributes(true))
+#end
 // HibernateEntity.vsl merge-point
 }
