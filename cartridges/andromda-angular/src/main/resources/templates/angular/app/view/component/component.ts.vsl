@@ -40,8 +40,6 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatChip, MatChipInput, MatChipInputEvent } from "@angular/material/chips";
 import {MatAutocompleteSelectedEvent, MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
@@ -88,7 +86,6 @@ import { GenericComponent } from "@app/view/generic.component";
 export abstract class ${component.name} extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    ${component.beanName}Form: FormGroup = this.formGroupControl;
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;
 

@@ -486,7 +486,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
         this.${propertyId}ChipControl.setValue(null);
     }
 
-    private _${propertyId}Filter(value: string): SelectItem[] {
+    private _${propertyId}Filter(value: string): SelectItem[] | any[] {
         const filterValue = value.toLowerCase();
     
         return this.${propertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));

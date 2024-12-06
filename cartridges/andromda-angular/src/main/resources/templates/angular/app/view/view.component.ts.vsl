@@ -146,6 +146,8 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
 
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
     dialogData: any;
