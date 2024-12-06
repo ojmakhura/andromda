@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { GenericComponent } from "@app/view/generic.component";
+import { SharedModule } from '@app/@shared/shared.module';
 
 @Component({
   selector: "app-dialog",
