@@ -27,7 +27,7 @@
 #if($field.many || $field.type.listType || $field.type.setType)
 #set ($collection = '[]')
 #end
-#set ($transitionParams = "${transitionParams}#if($transitionParams.length() > 0), #end$field.name")
+#set ($transitionParams = "${transitionParams}#if($transitionParams.length() > 0), #end#if($action.exitingInitialState)pageVariables?.#end$field.name")
 #end
 #if($action.exitingInitialState)  
         forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end($transitionParams);

@@ -489,7 +489,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     private _${propertyId}Filter(value: string): SelectItem[] {
         const filterValue = value.toLowerCase();
     
-        return this.${propertyId}BackingList.filter(item => item.label.toLowerCase().includes(filterValue));
+        return this.${propertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));
     }
 
 #end
@@ -540,7 +540,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     private _${attrPropertyId}Filter(value: string): SelectItem[] {
         const filterValue = value.toLowerCase();
     
-        return this.${attrPropertyId}BackingList.filter(item => item.label.toLowerCase().includes(filterValue));
+        return this.${attrPropertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));
     }
 
 #end

@@ -108,14 +108,14 @@ export abstract class ControllerBase
  
     //start/finish use case
     
-    protected abstract internalStartUseCase(pageVariables: any): string;
+    protected abstract internalStartUseCase(pageVariables: any): string | null;
 
     /**
      * Starts a use case
      *
      * @return the start use case
      */
-    startUseCase(): string
+    startUseCase(): string | null
     {
         let pageVariables: Object = Object.assign({}, this.useCaseScope.pageVariables);  
 

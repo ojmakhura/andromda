@@ -58,7 +58,7 @@ $operation.getDocumentation("     * ")
 #set ($collection = '[]')
 #end
 #set ($actionParams = "${actionParams}#if($actionParams.length() > 0), #end$field.name")
-#set ($actionParamsWithTypes = "${actionParamsWithTypes}#if($actionParamsWithTypes.length() > 0), #end$field.name: $field.getterSetterTypeName")
+#set ($actionParamsWithTypes = "${actionParamsWithTypes}#if($actionParamsWithTypes.length() > 0), #end$field.name: $field.getterSetterTypeName#if($field.component)Component#end")
 #end
     /**
 #if($action.exitingInitialState)
@@ -89,12 +89,12 @@ $action.trigger.getDocumentation("     * ")
      * @throws Throwable
      */
 #if($action.exitingInitialState)     
-    protected internalStartUseCase(pageVariables: any): string
+    protected internalStartUseCase(pageVariables: any): string | null
 #else
     public ${action.triggerName}($actionParamsWithTypes)
 #end
     {        
-        let forward: string#if(!$action.exitingInitialState) | null#end;
+        let forward: string | null;
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #if(${targetController.name} == $controller.name)
@@ -118,11 +118,11 @@ $action.trigger.getDocumentation("     * ")
 #end
 #else
 #foreach($field in $action.forwardParameters)
-        if($field.name)
-        {
-            this.useCaseScope.pageVariables['$field.name'] = $field.name;
-        }
-
+##        if($field.name)
+##        {
+##            this.useCaseScope.pageVariables['$field.name'] = $field.name;
+##        }
+##
 #end
 #end
         this.${action.triggerMethodName}($params);
