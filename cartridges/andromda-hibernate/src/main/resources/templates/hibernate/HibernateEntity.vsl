@@ -260,7 +260,7 @@ $operation.getDocumentation("     * ")
 #renderHashCodeMethod($entity $entity.entityName $identifiers)
 
 #end
-#if (!$entity.abstract)
+#if (!$entity.abstract && !$entity.embeddableSuperclass)
     /**
      * Constructs new instances of {@link ${entity.fullyQualifiedName}}.
      */
