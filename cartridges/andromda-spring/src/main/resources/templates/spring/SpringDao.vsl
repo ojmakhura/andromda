@@ -450,6 +450,7 @@ public interface $entity.daoName
     public void remove($entityCollectionType entities);
 
 #foreach ($operation in $entity.queryOperations)
+#if($stringUtils.isBlank($operation.query))
 #set ($returnType = "${operation.getterSetterReturnTypeName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
 $operation.getDocumentation("     * ")
@@ -630,6 +631,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility org.springframework.data.domain.Page<$entity.name> ${operation.name}(final org.springframework.data.domain.Pageable pageable#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 #end
 
+#end
 #end
 #end
 #end

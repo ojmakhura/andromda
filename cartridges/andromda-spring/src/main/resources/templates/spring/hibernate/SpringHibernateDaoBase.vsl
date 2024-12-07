@@ -1001,6 +1001,7 @@ $oldXmlIndent        }
 #end
 ##
 #foreach ($finder in $queryOperations)
+#if($stringUtils.isBlank($finder.query))
 #set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 ##    // ${finder.getterSetterReturnTypeName} $finder.returnTypePresent $returnType
     /**
@@ -1012,7 +1013,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
     @SuppressWarnings({"unchecked"})
 #end
     $finder.visibility $returnType $finder.signature
@@ -1035,7 +1036,7 @@ $oldXmlIndent        }
 ## #if ($enableAnnotations)
 ##     @Override
 ## #end
-## #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+## #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
 ##     @SuppressWarnings({"unchecked"})
 ## #end
 ##     $finder.visibility $returnType ${finder.name}(#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
@@ -1050,14 +1051,14 @@ $oldXmlIndent        }
 ##         #if ($finder.returnTypePresent)return#end $finderCall
 ##     }
 
-#if ($finder.returnType.collectionType || $finder.many)
+#if ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many)
     /**
      * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
 #end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
     @SuppressWarnings({"unchecked"})
 #end
     $finder.visibility $returnType ${finder.name}(final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
@@ -1103,7 +1104,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
     @SuppressWarnings("unchecked")
 #end
     $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
@@ -1150,14 +1151,14 @@ $h3tab          specifications = specifications.and(${entity.name}Specifications
 #end
 #end
 
+#if ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many)
 $h3tab        org.springframework.data.domain.Pageable pageable = null;
-#if ($finder.returnType.collectionType || $finder.many)
 $h3tab        if (pageNumber > 0 && pageSize > 0)
 $h3tab        {
 $h3tab            pageable = org.springframework.data.domain.PageRequest.of(pageNumber, pageSize);
 $h3tab        }
 #end
-#if ($finder.returnType.collectionType || $finder.many)
+#if ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many)
 
 $h3tab        java.util.Collection results = null;
 $h3tab        if(pageable == null) {
@@ -1174,7 +1175,7 @@ $h3tab          results = ${repositoryName}.findAll(specifications, pageable).ge
 #end
 $h3tab        }
 #end
-#if (!($finder.returnType.collectionType || $finder.many))
+#if (!($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
 
 $h3tab        Object result = null;
 $h3tab        if (results.size() > 1)
@@ -1273,14 +1274,14 @@ $h3tab        return results;
     }
 
 ## If this criteria method returns a collection, provide methods for returnin a Page object
-#if ($finder.returnType.collectionType || $finder.many)
+#if ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many)
     /**
      * {@inheritDoc}
      */
 #if ($enableAnnotations)
     @Override
 #end
-#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
+#if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
     @SuppressWarnings("unchecked")
 #end
     $finder.visibility org.springframework.data.domain.Page<$entity.name> ${finder.name}(final org.springframework.data.domain.Pageable pageable#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end) {
@@ -1417,6 +1418,7 @@ $h3tab        return results;
         return specifications;
     }
 
+#end
 #end
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
