@@ -54,11 +54,11 @@ import { $import.implementationName } from '@app/components/${import.implementat
     TableComponent,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+#elseif(${import.hasStereotype("FrontEndComponent")})
+    $import.implementationName,
 #elseif($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)
     $import.componentImplementationName,
-#elseif(${import.hasStereotype("FrontEndComponent")})
-    $import.implementationName,
 #end
 #end
   ],

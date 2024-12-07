@@ -4,8 +4,9 @@ import { finalize } from 'rxjs/operators';
 import { QuoteService } from './quote.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoaderComponent, SharedModule } from '@app/@shared';
 import { MaterialModule } from '@app/material.module';
+import { SharedModule } from '@app/@shared/shared.module';
+import { LoaderComponent } from '@app/@shared';
 
 @Component({
   selector: 'app-home',

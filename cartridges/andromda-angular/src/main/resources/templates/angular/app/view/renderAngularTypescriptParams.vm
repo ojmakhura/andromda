@@ -769,14 +769,14 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #end
 
-#if(!$parameter.inputButton)
+#if(!$parameter.inputButton && $isComplex)
 #if($parameter.type)
 #set ($typeName = "$parameter.getterSetterTypeName")
 #else
 #set ($typeName = "$parameter.name")
 #end
 
-    create${typeName}Group(value?: $typeName): FormGroup {
+    create${typeName}Group(value?: $typeName): FormGroup { // $parameter.primitive
         return this.formBuilder.group({
 #if($parameter.generalization)
 #foreach($attribute in $parameter.generalization.attributes)
