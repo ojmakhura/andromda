@@ -232,7 +232,7 @@ $attribute.getDocumentation("     * ")
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
 #end
-#if (!$attribute.derived && ($attribute.required || $attribute.readOnly))
+#if (!$attribute.derived && !$attribute.primitive && ($attribute.required || $attribute.readOnly))
     @lombok.NonNull
 #end
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;

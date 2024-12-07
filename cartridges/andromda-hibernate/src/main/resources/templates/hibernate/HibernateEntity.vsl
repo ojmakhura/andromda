@@ -98,7 +98,7 @@ public #if($entity.embeddableSuperclass)abstract #{end}class $entity.entityName
 #end
     extends $generalizationName
 #else
-    implements Serializable, Comparable<${entity.entityName}>
+    implements Serializable#if(!$entity.embeddableSuperclass), Comparable<${entity.entityName}>#end
 #if (!$entity.interfaceAbstractions.empty)
         , $entity.implementedInterfaceList
 #end
