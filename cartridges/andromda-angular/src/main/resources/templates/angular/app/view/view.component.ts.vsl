@@ -178,7 +178,21 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($formNameCaps = ${actionFormCaps})
 #set ($count = 1)
 #foreach ($field in $view.variables)
-#renderAngularTypescriptParams($field "" true true "    ")
+#set ($renderInput = false)
+#if(!$field.component)
+#set ($renderInput = true)
+#end
+#if(!$angularUtils.isSimpleType($field.type) && !$field.component && !$field.hasStereotype("FrontEndComponent") && !($field.table || $angularUtils.isTable($field) || $field.inputTable) && !$field.inputButton && !$field.hasStereotype("FrontEndField"))
+#if($field.generalization)
+#foreach($attribute in $field.generalization.attributes)
+#renderAngularTypescriptParams($attribute $field true false "   ")
+#end
+#end
+#foreach($attribute in $field.type.attributes)
+#renderAngularTypescriptParams($attribute $field true false "    ")
+#end
+#end
+#renderAngularTypescriptParams($field "" true $renderInput "    ")
 
 #end
 #end

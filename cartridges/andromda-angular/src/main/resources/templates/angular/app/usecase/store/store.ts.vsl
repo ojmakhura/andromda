@@ -31,7 +31,7 @@ const initialState: AppState<any, any> = {
 export const ${service.name}Store = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withMethods((store) => {
+  withMethods((store: any) => {
     const ${serviceName} = inject(${service.name});
     return {
       reset: () => {
@@ -43,7 +43,7 @@ export const ${service.name}Store = signalStore(
 #set($methodParams = "{$angularUtils.getMethodSignatureArguments($operation.arguments)}")
 #end
       ${operation.name}: rxMethod<$methodParams>(
-        switchMap((#if(!$operation.arguments.empty)data#end) => {
+        switchMap((#if(!$operation.arguments.empty)data: any#end) => {
           patchState(store, { loading: true });
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
