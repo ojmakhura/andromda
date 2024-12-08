@@ -350,8 +350,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     /**
      * This method may be overwritten
      */
+#if($field.component)
+#set ($typeName = $field.type.implementationName)
+#else
 #set ($typeName = $angularUtils.getDatatype($field.getterSetterTypeName))
-    get ${action.triggerName}${stringUtils.capitalize($field.name)}(): $typeName {
+#end
+    get ${action.triggerName}${stringUtils.capitalize($field.name)}(): $typeName { 
 #set ($matchingParam = $angularUtils.getActionMatchingParameter($field, $action))
 #if($matchingParam)
         return {} as $typeName;
