@@ -505,7 +505,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     addSelected$stringUtils.capitalize(${propertyId})(){}
 
 #end
-#if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect)
+#if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
 #foreach($attr in $parameter.type.attributes)
 #if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
 #set ($attrControlType = "FormArray")
@@ -771,12 +771,12 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 
 #if(!$parameter.inputButton && $isComplex)
 #if($parameter.type)
-#set ($typeName = "$parameter.getterSetterTypeName")
+#set ($typeName = "$parameter.type.name")
 #else
 #set ($typeName = "$parameter.name")
 #end
 
-    create${typeName}Group(value?: $typeName): FormGroup { // $parameter.primitive
+    create${typeName}Group(value?: $typeName): FormGroup { 
         return this.formBuilder.group({
 #if($parameter.generalization)
 #foreach($attribute in $parameter.generalization.attributes)

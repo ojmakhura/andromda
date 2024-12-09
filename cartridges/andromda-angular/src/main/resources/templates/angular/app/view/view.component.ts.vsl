@@ -498,7 +498,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     set$stringUtils.capitalize(${view.formName})Value(form: any) {
 #foreach($variable in $view.variables)
-#if(!$variable.table && !$variable.inputButton && !$variable.component)
+#if(!$variable.table && !$variable.inputTable && !$variable.inputButton && !$variable.component)
         if(form.$variable.name) {
 #if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
             this.${view.formName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
