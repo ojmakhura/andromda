@@ -114,13 +114,17 @@ public interface ${entity.name}Repository extends
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #set ($typedAttributes = "")
     @org.springframework.data.jpa.repository.Query(
-        value = $finder.getQuery($entity)
+        value = """
+            $finder.getQuery($entity)
+        """
     )
     $returnType $finder.getSignature(true);
 
 #if ($finder.returnType.collectionType || $finder.returnParameter.many)
     @org.springframework.data.jpa.repository.Query(
-        value = $finder.getQuery($entity)
+        value = """
+            $finder.getQuery($entity)
+        """
     )
     org.springframework.data.domain.Page<$finder.returnType.name> ${finder.name}($finder.typedArgumentList#if($finder.arguments.size() > 0), #{end}org.springframework.data.domain.Pageable pageable);
 

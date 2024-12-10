@@ -122,10 +122,10 @@ public class SpringQueryOperationLogicImpl
             Object value = this.findTaggedValue(CartridgeHibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
             if (value != null) {
                 // remove any excess whitespace
-                builder.append('\"' + ((String) value).replaceAll("[$\\s]+", " ") + '\"');
+                builder.append(((String) value).replaceAll("[$\\s]+", " "));
             }
         } else {
-            builder.append('\"' + queryString + '\"');
+            builder.append(queryString);
         }
 
         // if there wasn't any stored query, create one by default.
