@@ -63,6 +63,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
 #end
 import { ColumnModel } from '@app/model/column.model';
+import { ActionTemplate } from '@app/model/action-template';
 
 ## Find all the fields in the actions of the view
 #set($fields = [])

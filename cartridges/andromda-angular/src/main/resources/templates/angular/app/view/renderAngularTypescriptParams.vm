@@ -85,7 +85,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     ${propertyId}TableSignal: Signal<any>;
     ${propertyId}TablePaged: boolean = true;
     
-    ${propertyId}TableColumns = [
+    ${propertyId}TableColumns: ColumnModel[] = [
 #foreach($column in $parameter.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
@@ -113,7 +113,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
     ];
 
-    ${propertyId}TableColumnsActions = [
+    ${propertyId}TableColumnsActions: ActionTemplate[] = [
 #foreach($action in $parameter.tableFormActions)
         {
             id: '$action.name',

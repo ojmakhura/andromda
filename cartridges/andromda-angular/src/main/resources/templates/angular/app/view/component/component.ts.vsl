@@ -34,6 +34,7 @@ import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collec
 ## import { MatSort } from '@angular/material/sort';
 import { TableComponent } from '@app/components/table/table.component';
 import { ColumnModel } from "@app/model/column.model";
+import { ActionTemplate } from '@app/model/action-template';
 ## #end
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
