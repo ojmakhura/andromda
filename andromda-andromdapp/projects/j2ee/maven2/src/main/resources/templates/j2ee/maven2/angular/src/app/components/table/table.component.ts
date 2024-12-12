@@ -80,14 +80,13 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.allColumns = this.dataColumns.map((column) => column.id);
-    if (this.actions) {
+    if (this.showActions) {
       this.allColumns.push('actions');
     }
 
     if (this.selectionType !== SelectionType.NONE) {
       this.allColumns.unshift('selection');
     }
-    // console.log(this.dataColumns);
   }
 
   ngOnDestroy(): void { }

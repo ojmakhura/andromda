@@ -113,6 +113,10 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
     ];
 
+// $parameter
+
+// $tableColumnActions
+
     ${propertyId}TableColumnsActions: ActionTemplate[] = [
 #foreach($action in $parameter.tableFormActions)
         {

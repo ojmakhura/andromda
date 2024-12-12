@@ -25,20 +25,20 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header><span translate>{{col.label}}</span></mat-header-cell>
         <mat-cell *matCellDef="let row">
           @if(col?.link) {
-          <a type="button" (click)="onActionClicked(col.id, row.id)">{{ row[col.id] }}</a>
+          <a type="button" (click)="onActionClicked(col.actionId ? col.actionId : col.id, row.id, row.id)">{{ row[col.id] }}</a>
           } @else {
           {{ row[col.id] }}
           }
         </mat-cell>
       </ng-container>
       }
-      @if(actions) {
+      @if(showActions) {
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
         <mat-cell *matCellDef="let row">
           @for(action of actions; track action) {
 
-          <button mat-button matTooltip="{{action.tooltip}}" (click)="onActionClicked(action.id, row.id)">
+          <button mat-flat-button color="primary" matTooltip="{{action.tooltip}}" (click)="onActionClicked(action.id, row.id)">
             @if(!action.icon) {
             {{action.label}}
             } @else {

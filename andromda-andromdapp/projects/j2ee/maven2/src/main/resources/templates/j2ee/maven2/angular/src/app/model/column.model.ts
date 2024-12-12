@@ -1,6 +1,7 @@
 export class ColumnModel {
     id: string;
     label: string;
+    actionId?: string;
     link: boolean = false;
     
     constructor(id: string, label: string, link: boolean | false) {

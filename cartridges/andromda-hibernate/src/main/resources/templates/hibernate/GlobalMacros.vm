@@ -314,6 +314,8 @@
 #*      *##else
 #if($attribute.many)
     @jakarta.persistence.ElementCollection
+    @jakarta.persistence.CollectionTable(name = "${entity.tableName}_${attribute.columnName}", joinColumns = @jakarta.persistence.JoinColumn(name = "${entity.tableName}_ID"))
+    @jakarta.persistence.Column(name = "${attribute.columnName}")
 #else
     @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
