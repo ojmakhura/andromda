@@ -251,13 +251,6 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                 }
                 builder.append(parts[i]);
             }
-            path = builder.toString();
-    
-            if(path.length() > 0 && path.charAt(0) != '/') {
-                path = '/' + path;
-            }
-
-            return path;
         }
 
         builder.append(path);
@@ -268,7 +261,7 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
             if(parameter instanceof AngularServiceParameter) {
                 AngularServiceParameter param = (AngularServiceParameter)parameter;
                 String paramType = param.getRestParamType();
-                if(paramType.contains("PathParam")) {
+                if(paramType.contains("PathParam") && !this.getRestPathStatic()) {
                     builder.append("/");
                     builder.append(parameter.getName());
                     builder.append("/${");

@@ -313,7 +313,7 @@
         <from>datatype::Set</from>
         <from>AndroMDADatatypes::datatype::Set</from>
         <from>RoseJavaDatatypes::java::util::Set</from>
-        <to>Set</to>
+        <to>Array</to>
     </mapping>
     <mapping>
         <from>HashSet</from>
@@ -321,7 +321,7 @@
         <from>datatype::HashSet</from>
         <from>AndroMDADatatypes::datatype::HashSet</from>
         <from>RoseJavaDatatypes::java::util::HashSet</from>
-        <to>Set</to>
+        <to>Array</to>
     </mapping>
     <mapping>
         <from>SortedSet</from>
@@ -329,7 +329,7 @@
         <from>datatype::SortedSet</from>
         <from>AndroMDADatatypes::datatype::SortedSet</from>
         <from>RoseJavaDatatypes::java::util::SortedSet</from>
-        <to>Set</to>
+        <to>Array</to>
     </mapping>
     <mapping>
         <from>TreeSet</from>
@@ -337,7 +337,7 @@
         <from>datatype::TreeSet</from>
         <from>AndroMDADatatypes::datatype::TreeSet</from>
         <from>RoseJavaDatatypes::java::util::TreeSet</from>
-        <to>Set</to>
+        <to>Array</to>
     </mapping>
     <mapping>
         <from>Clob</from>
