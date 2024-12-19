@@ -72,6 +72,15 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #end
 #end
 #if($parameter.inputTable || $parameter.table)
+#set ($allColumnActions = [])
+#foreach($column in $parameter.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
+#end
 #if($parameter.tableFormActions && !$parameter.tableFormActions.empty)
 #set ($hasActions = true)
 #else
@@ -83,7 +92,7 @@ ${ident}<app-table
 					[showActions]="show$stringUtils.capitalize($propertyId)Actions" 
 					[paged]="${propertyId}TablePaged"
 					[actions]="${propertyId}TableColumnsActions"
-#if($hasActions)
+#if($hasActions || $allColumnActions.size() > 0)
 					(actionClicked)="${propertyId}TableActionClicked($event)"
 #end
 					[dataSignal]="${propertyId}TableSignal">
