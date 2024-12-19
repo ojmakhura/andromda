@@ -86,18 +86,15 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     ${propertyId}TablePaged: boolean = true;
     
     ${propertyId}TableColumns: ColumnModel[] = [
+#set ($allColumnActions = [])
 #foreach($column in $parameter.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-#if($parameter.getTableColumnActions)
 #set ($tableColumnActions = $parameter.getTableColumnActions($columnName))
-#else
-#set ($tableColumnActions = [])
-#end
-        new ColumnModel( 
+        new ColumnModel(
             '$columnName', 
 #if($parameter.getTableColumnMessageKey)
             '$parameter.getTableColumnMessageKey($columnName)', 
@@ -107,18 +104,23 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #if($tableColumnActions.empty)
             false
 #{else}
+#set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
             true
 #end
         ),
 #end
     ];
 
-// $parameter
-
-// $tableColumnActions
-
     ${propertyId}TableColumnsActions: ActionTemplate[] = [
 #foreach($action in $parameter.tableFormActions)
+        {
+            id: '$action.name',
+            label: '$action.trigger.messageKey',
+            icon: '#if($action.icon)$action.icon#else$action.name#end',
+            tooltip: '${action.trigger.messageKey}',
+        },
+#end
+#foreach($action in $allColumnActions)
         {
             id: '$action.name',
             label: '$action.trigger.messageKey',
@@ -137,8 +139,16 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     show$stringUtils.capitalize($propertyId)Actions = false;
 
 #end
+#if(!$allColumnActions.empty)
+#set ($hasActions = true)
+#end
 #if($hasActions)
 #foreach($action in $parameter.tableFormActions)
+    // Should be overriden to handle the actions
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
+
+#end
+#foreach($action in $allColumnActions)
     // Should be overriden to handle the actions
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
@@ -151,6 +161,21 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 
         switch(event.action) {
 #foreach($action in $parameter.tableFormActions)
+            case '$action.name':
+                // TODO: Implement the action
+                form = #renderAngularTableCommandLinkParametersForm()
+                queryParams = #renderAngularTableCommandLinkQueryParametersForm()
+                this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
+                params = this.do$stringUtils.capitalize(${action.triggerName})(event);
+                this.useCaseScope.pageVariables = Object.assign({}, params);
+                this.${action.controller.variableName}.${action.triggerName}(
+#foreach($param in $action.parameters)
+                    event.$param.name,
+#end
+                );
+                break;
+#end
+#foreach($action in $allColumnActions)
             case '$action.name':
                 // TODO: Implement the action
                 form = #renderAngularTableCommandLinkParametersForm()
