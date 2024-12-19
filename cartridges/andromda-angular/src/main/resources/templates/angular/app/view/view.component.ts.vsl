@@ -204,11 +204,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${import.name}Options = Object.keys(this.${import.name}T);
 #end
 #end
-## #foreach($param in $finalParams)
-## #if(!$param.component)
-##    ${param.name}$: Signal<$param.getterSetterTypeName>;
-## #end
-## #end
+    loaderMessage: Signal<string> = signal('');
     messages: Signal<any> = signal({});
     success: Signal<boolean> = signal(false);
     loading: Signal<boolean> = signal(false);

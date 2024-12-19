@@ -1,4 +1,7 @@
-<div [hidden]="!isLoading">
-  <mat-progress-spinner mode="indeterminate" [strokeWidth]="2" [diameter]="32 * size"></mat-progress-spinner>
-  <span class="message">{{message}}</span>
+
+<div [hidden]="!isLoading" id="overlay">
+  <div id="spinner">
+    <mat-progress-spinner mode="indeterminate" [strokeWidth]="2" [diameter]="32 * size"></mat-progress-spinner>
+    <span class="message">{{ message }}</span>
+  </div>
 </div>

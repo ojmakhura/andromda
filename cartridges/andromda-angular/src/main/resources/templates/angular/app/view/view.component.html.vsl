@@ -39,6 +39,11 @@
 				</div>
 			</div>
 #end
+			@if (loading()) {
+			<div>
+				<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
+			</div>
+			}
 #if ($view.nonTableVariablesPresent)
 			@if (success()) {
 			<div class="alert alert-success" role="alert">

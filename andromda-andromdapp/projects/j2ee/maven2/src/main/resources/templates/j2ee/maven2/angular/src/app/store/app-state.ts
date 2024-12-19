@@ -10,4 +10,5 @@ export type AppState<T, L> = {
     loading: boolean;
     success: boolean;
     messages: string[];
+    loaderMessage: string;
 };
