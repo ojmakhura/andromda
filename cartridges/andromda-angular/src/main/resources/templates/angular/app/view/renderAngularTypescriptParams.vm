@@ -101,7 +101,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
             '$stringUtils.toResourceMessageKey($columnName)',
 #end
-#if($tableColumnActions.empty)
+#if($parameter.getTableColumnActions($columnName).empty)
             false
 #{else}
 #set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
