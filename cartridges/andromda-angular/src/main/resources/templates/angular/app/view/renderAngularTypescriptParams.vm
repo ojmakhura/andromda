@@ -94,15 +94,9 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
 #set($columnName = $column)
 #end
-<<<<<<< HEAD
 #set ($tableColumnActions = $parameter.getTableColumnActions($columnName))
         new ColumnModel(
             '$columnName', 
-=======
-#set ($ret = $tableColumnActions.addAll($parameter.getTableColumnActions($columnName)))
-        new ColumnModel(
-            '$columnName',
->>>>>>> b042af967 (finished rendering column action events)
 #if($parameter.getTableColumnMessageKey)
             '$parameter.getTableColumnMessageKey($columnName)', 
 #else
@@ -111,15 +105,11 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #if($parameter.getTableColumnActions($columnName).empty)
             false,
 #{else}
-<<<<<<< HEAD
 #set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
-            true
-=======
             true,
 #end
 #if(!$parameter.getTableColumnActions($columnName).empty)
             '$parameter.getTableColumnActions($columnName).get(0).name'
->>>>>>> b042af967 (finished rendering column action events)
 #end
         ),
 #end
@@ -153,30 +143,20 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     show$stringUtils.capitalize($propertyId)Actions = false;
 
 #end
-<<<<<<< HEAD
 #if(!$allColumnActions.empty)
 #set ($hasActions = true)
 #end
 #if($hasActions)
 #foreach($action in $parameter.tableFormActions)
-=======
-#set ($ret = $tableColumnActions.addAll($parameter.tableFormActions))
-#if(!$tableColumnActions.empty)
-#foreach($action in $tableColumnActions)
->>>>>>> b042af967 (finished rendering column action events)
     // Should be overriden to handle the actions
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
 #end
-<<<<<<< HEAD
 #foreach($action in $allColumnActions)
     // Should be overriden to handle the actions
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
 #end
-=======
-
->>>>>>> b042af967 (finished rendering column action events)
     ${propertyId}TableActionClicked(event: any): void {
 
         let form: any = {};
