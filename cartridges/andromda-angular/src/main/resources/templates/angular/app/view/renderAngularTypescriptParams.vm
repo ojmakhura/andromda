@@ -85,6 +85,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     ${propertyId}TableSignal: Signal<any>;
     ${propertyId}TablePaged: boolean = true;
     
+#set ($tableColumnActions = [])
     ${propertyId}TableColumns: ColumnModel[] = [
 #set ($allColumnActions = [])
 #foreach($column in $parameter.tableColumnNames)
@@ -93,19 +94,32 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
 #set($columnName = $column)
 #end
+<<<<<<< HEAD
 #set ($tableColumnActions = $parameter.getTableColumnActions($columnName))
         new ColumnModel(
             '$columnName', 
+=======
+#set ($ret = $tableColumnActions.addAll($parameter.getTableColumnActions($columnName)))
+        new ColumnModel(
+            '$columnName',
+>>>>>>> b042af967 (finished rendering column action events)
 #if($parameter.getTableColumnMessageKey)
             '$parameter.getTableColumnMessageKey($columnName)', 
 #else
             '$stringUtils.toResourceMessageKey($columnName)',
 #end
 #if($parameter.getTableColumnActions($columnName).empty)
-            false
+            false,
 #{else}
+<<<<<<< HEAD
 #set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
             true
+=======
+            true,
+#end
+#if(!$parameter.getTableColumnActions($columnName).empty)
+            '$parameter.getTableColumnActions($columnName).get(0).name'
+>>>>>>> b042af967 (finished rendering column action events)
 #end
         ),
 #end
@@ -139,20 +153,30 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
     show$stringUtils.capitalize($propertyId)Actions = false;
 
 #end
+<<<<<<< HEAD
 #if(!$allColumnActions.empty)
 #set ($hasActions = true)
 #end
 #if($hasActions)
 #foreach($action in $parameter.tableFormActions)
+=======
+#set ($ret = $tableColumnActions.addAll($parameter.tableFormActions))
+#if(!$tableColumnActions.empty)
+#foreach($action in $tableColumnActions)
+>>>>>>> b042af967 (finished rendering column action events)
     // Should be overriden to handle the actions
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
 #end
+<<<<<<< HEAD
 #foreach($action in $allColumnActions)
     // Should be overriden to handle the actions
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
 #end
+=======
+
+>>>>>>> b042af967 (finished rendering column action events)
     ${propertyId}TableActionClicked(event: any): void {
 
         let form: any = {};
@@ -160,7 +184,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
         let params: any = {};
 
         switch(event.action) {
-#foreach($action in $parameter.tableFormActions)
+#foreach($action in $tableColumnActions)
             case '$action.name':
                 // TODO: Implement the action
                 form = #renderAngularTableCommandLinkParametersForm()
