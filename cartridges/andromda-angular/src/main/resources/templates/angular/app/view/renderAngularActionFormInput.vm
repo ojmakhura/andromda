@@ -79,7 +79,9 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #else
 #set($columnName = $column)
 #end
-#set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
+#foreach($t in $parameter.getTableColumnActions($columnName))
+#set ($ret = $allColumnActions.add($t))
+#end
 #end
 #if($parameter.tableFormActions && !$parameter.tableFormActions.empty)
 #set ($hasActions = true)
