@@ -102,16 +102,15 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #else
             '$stringUtils.toResourceMessageKey($columnName)',
 #end
-#if($parameter.getTableColumnActions($columnName).empty)
+#if(!$parameter.getTableColumnActions($columnName) || $parameter.getTableColumnActions($columnName).empty)
             false,
 #{else}
-###set ($ret = $allColumnActions.addAll($parameter.getTableColumnActions($columnName)))
 #foreach($t in $parameter.getTableColumnActions($columnName))
 #set ($ret = $allColumnActions.add($t))
 #end
             true,
 #end
-#if(!$parameter.getTableColumnActions($columnName).empty)
+#if($parameter.getTableColumnActions($columnName) && !$parameter.getTableColumnActions($columnName).empty)
             '$parameter.getTableColumnActions($columnName).get(0).name'
 #end
         ),
