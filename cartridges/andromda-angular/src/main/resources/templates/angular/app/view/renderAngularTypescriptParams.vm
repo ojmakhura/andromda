@@ -166,8 +166,8 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
         let params: any = {};
 
         switch(event.action) {
-#foreach($action in $tableColumnActions)
-            case '$action.name':
+#foreach($action in $parameter.tableFormActions)
+            case '$action.name': 
                 // TODO: Implement the action
                 form = #renderAngularTableCommandLinkParametersForm()
                 queryParams = #renderAngularTableCommandLinkQueryParametersForm()

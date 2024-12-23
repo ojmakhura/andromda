@@ -489,12 +489,48 @@ public class AngularViewLogicImpl extends AngularViewLogic {
             }
         }
         
-        // imports.addAll(this.getTables());
-
         if(this.getUseCase() != null && this.getUseCase().getController() != null) {
             AngularController controller = (AngularController) this.getUseCase().getController();
             imports.add(controller);
             imports.addAll(controller.getAllRestControllers());
+        }
+
+        for(FrontEndAction action : this.getActions()) {
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        imports.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
+
+            if(action.getTargetViews() != null) {
+                for(FrontEndView view : action.getTargetViews()) {
+                    if(view.isPopup()) {
+
+                        view.getVariables().forEach(variable -> {
+                            if(variable.isComplex() || variable.getType().isEnumeration()) {
+                                for(Object _attr : variable.getAttributes()){
+                                    AngularAttribute attr = (AngularAttribute) _attr;
+                                    if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                        imports.add(attr.getType());
+                                    }
+
+                                    if(attr.getType().isTemplateParametersPresent()) {
+                                        imports.add(attr.getType());
+                                        attr.getType().getTemplateParameters().forEach(template -> {
+                                            imports.add(template.getType());
+                                        });
+                                    }
+                                }
+                                imports.add(variable.getType());
+                            }
+                        });
+                    }
+                }
+            }
         }
 
         return imports;
