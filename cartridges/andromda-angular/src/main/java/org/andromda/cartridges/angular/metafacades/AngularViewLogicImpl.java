@@ -22,6 +22,7 @@ import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
@@ -560,7 +561,6 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetImplementationFilePath() {
-        // return this.getFilePath() + ".impl";
         return getViewPath() + "/" + this.getImplementationFileName();
     }
 
@@ -572,7 +572,18 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetRouterPath() {
-        return MetafacadeWebUtils.toWebResourceName(this.getName());
+
+        String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
+
+        if (StringUtils.isBlank(path)) {
+            path = MetafacadeWebUtils.toWebResourceName(this.getName());
+        }
+
+        while(path.startsWith("/")) { /// remove leading '/'s
+            path = path.substring(1);
+        }
+
+        return path;
     }
 
     @Override

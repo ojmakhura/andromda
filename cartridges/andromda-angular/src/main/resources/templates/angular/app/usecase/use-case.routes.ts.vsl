@@ -50,16 +50,13 @@ export const routes: Routes = [
       canActivate: [AuthenticationGuard],
 #end
       data: { title: '${stringUtils.toPhrase(${view.name})}' },
-      providers: [ // $view.targetControllers
+      providers: [ 
 #foreach($controller in $view.targetControllers)
       $controller.variableName: ${controller.implementationName};
 #end   
 #if($useCase.controller)
 #set ($controller = $useCase.controller)
         ${useCase.controller.implementationName},
-#foreach($service in $controller.allRestControllers)
-        ${service.name},
-#end
 #end
       ] 
   },
