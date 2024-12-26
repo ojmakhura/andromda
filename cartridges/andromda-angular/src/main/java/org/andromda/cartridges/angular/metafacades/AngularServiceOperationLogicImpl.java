@@ -240,18 +240,18 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         /**
          * 
          */
-        if(this.getRestPathStatic()) {
+        // if(this.getRestPathStatic()) {
 
-            String[] parts = path.split("\\{");
+        //     String[] parts = path.split("\\{");
 
-            for(int i = 0; i < parts.length; i++) {
-                if(i != 0){
-                    builder.append("$");
-                    builder.append(LBRACKET);
-                }
-                builder.append(parts[i]);
-            }
-        }
+        //     for(int i = 0; i < parts.length; i++) {
+        //         if(i != 0){
+        //             builder.append("$");
+        //             builder.append(LBRACKET);
+        //         }
+        //         builder.append(parts[i]);
+        //     }
+        // } 
 
         builder.append(path);
 
