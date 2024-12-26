@@ -228,7 +228,7 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         String path = (String) this.findTaggedValue(AngularGlobals.REST_PATH);
 
         if(StringUtils.isBlank(path)) {
-            path = "";
+            path = this.getName();
         }
 
         if(path.equals("/")) {
@@ -240,20 +240,20 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         /**
          * 
          */
-        // if(this.getRestPathStatic()) {
+        if(this.getRestPathStatic()) {
 
-        //     String[] parts = path.split("\\{");
+            String[] parts = path.split("\\{");
 
-        //     for(int i = 0; i < parts.length; i++) {
-        //         if(i != 0){
-        //             builder.append("$");
-        //             builder.append(LBRACKET);
-        //         }
-        //         builder.append(parts[i]);
-        //     }
-        // } 
-
-        builder.append(path);
+            for(int i = 0; i < parts.length; i++) {
+                if(i != 0){
+                    builder.append("$");
+                    builder.append(LBRACKET);
+                }
+                builder.append(parts[i]);
+            }
+        } else {
+            builder.append(path);
+        }
 
         StringBuilder queryParamsBuffer = new StringBuilder();
 
