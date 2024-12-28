@@ -75,7 +75,9 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 
     ${propertyId}Displays: string[] = [
 #if($parameter.type.attributes.size() > 0)
-        '$parameter.type.attributes.get(0).name'
+#foreach($da in $parameter.displayAttributes)
+        '$da.name',
+#end
 #end
     ];
 
@@ -379,7 +381,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #end
 #if($parameter.inputButton)
-    on${stringUtils.capitalize(${propertyId})}Click() {
+    on${stringUtils.capitalize(${propertyId})}Click() { //${stringUtils.capitalize(${propertyId})}
     }
 
 #elseif($parameter.tree)
