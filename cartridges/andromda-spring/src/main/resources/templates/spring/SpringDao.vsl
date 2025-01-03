@@ -700,7 +700,7 @@ $operation.getDocumentation("     * ")
 
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #foreach ($attribute in $attributes)
-#if ($attribute.unique)
+#if ($attribute.unique && !$attribute.type.fileType)
 #set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
     /**
      * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
