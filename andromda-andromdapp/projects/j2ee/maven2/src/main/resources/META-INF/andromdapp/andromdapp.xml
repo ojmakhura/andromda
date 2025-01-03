@@ -87,9 +87,10 @@
         <conditions>
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
+            <output>core/src/main/resources/db/db.changelog-master.xml.vsl </output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
-            <output>core/test/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}CoreTestApplication.java.vls</output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')//LiquibaseConfig.java.vsl</output>
             <output>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</output>
         </conditions>
         <conditions type="and">
@@ -167,6 +168,10 @@
             <to>core/src/main/resources/log4j.xml.vsl</to>
         </mapping>
         <mapping>
+            <from>core/db.changelog-master.xml.vsl</from>
+            <to>core/src/main/resources/db/db.changelog-master.xml.vsl</to>
+        </mapping>
+        <mapping>
             <from>core/SharedAutoConfiguration.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
         </mapping>
@@ -175,7 +180,11 @@
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
         </mapping>
         <mapping>
-            <from>core/ApplicationCoreTestApplication.java.java.vsl</from>
+            <from>core/LiquibaseConfig.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/LiquibaseConfig.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationCoreTestApplication.java.vsl</from>
             <to>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</to>
         </mapping>
         <mapping>
