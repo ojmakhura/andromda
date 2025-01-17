@@ -17,7 +17,9 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
 
-const initialState: AppState<any, any> = {
+export type ${service.name}State = AppState<any, any> & {};
+
+const initialState: ${service.name}State = {
   data: null,
   dataList: [],
   dataPage: new Page<any>(),
