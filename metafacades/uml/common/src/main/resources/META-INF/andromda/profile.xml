@@ -369,6 +369,18 @@
                     <value>false</value>
                 </allowedValues>
             </element>
+            <element name="COLUMN_DEFINITION">
+                <documentation>
+                    Specifies the SQL to create the DDL for the
+                    column or entity property.
+                </documentation>
+                <value>
+                    andromda_persistence_column_definition
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
             <element name="PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS">
                 <documentation>
                     Specifies the enumeration literal parameters which are

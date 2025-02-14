@@ -190,6 +190,7 @@
         {
 #end
 #*  *##foreach ($attribute in $attributes)
+// $attribute.name : $attribute.type.mapType
 ##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
 #*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
             if (this.${attribute.getterName}() != null)
@@ -384,6 +385,9 @@
 ##if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
 ##    @jakarta.persistence.Id
 ##end
+#end
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
 #end
     $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 

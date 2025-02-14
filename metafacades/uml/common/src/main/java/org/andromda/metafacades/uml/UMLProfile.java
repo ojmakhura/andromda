@@ -313,6 +313,12 @@ public class UMLProfile {
                         "PERSISTENCE_MAPPED_SUPERCLASS");
 
         /**
+         * 'andromda_persistence_column_definition' The tagged value indicating the SQL
+         * definition for a column.
+         */
+        public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION = profile.get("COLUMN_DEFINITION");
+
+        /**
          * 'andromda_persistence_foreign_identifier'
          * Used on an association end to indicate whether its owning entity should have
          * its identifier also be the foreign
