@@ -341,7 +341,43 @@
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
-                <version>2.3.7</version>
+                <version>3.0.18</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-jmx</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-json</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-templates</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-xml</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-console</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>3.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-ant</artifactId>
+                <version>3.0.18</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -979,7 +1015,7 @@
     </pluginRepositories>
     <properties>
         <andromda.version>4.0-SNAPSHOT</andromda.version>
-        <maven.version>3.8.6</maven.version>
+        <maven.version>2.2.1</maven.version>
         <!-- proguard in webservice-client does not yet support JDK8, see http://sourceforge.net/p/proguard/feature-requests/138 -->
         <!--<java.required.version>[1.6.0, 1.9.0)</java.required.version>-->
         <!--maven.test.failure.ignore>true</maven.test.failure.ignore -->

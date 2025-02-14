@@ -35,9 +35,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -53,8 +50,6 @@
                 </executions>
                 <configuration>
                     <installDirectory>${project.basedir}/../../../lib</installDirectory>
-                    <projectBootstrapGroupId>org.andromda.bootstrap</projectBootstrapGroupId>
-                    <projectGroupId>org.andromda</projectGroupId>
                 </configuration>
             </plugin>
             <plugin>

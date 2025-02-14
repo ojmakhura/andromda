@@ -581,15 +581,15 @@
     </prerequisites>
     <properties>
         <andromda.version>4.0-SNAPSHOT</andromda.version>
-        <java.runtime.version>11</java.runtime.version>
-        <java.required.version>11</java.required.version>
-        <java.source.version>11</java.source.version>
+        <java.runtime.version>1.8</java.runtime.version>
+        <java.required.version>1.8</java.required.version>
+        <java.source.version>1.8</java.source.version>
         <!-- compiler plugin displays all warnings as errors, configured in descendant will still use these settings unless property is overridden -->
         <compiler.debug>true</compiler.debug>
         <compiler.showDeprecation>true</compiler.showDeprecation>
         <compiler.showWarnings>true</compiler.showWarnings>
         <compiler.argument>-Xlint:cast,unchecked,fallthrough,finally,serial</compiler.argument>
-        <maven.version>3.8.6</maven.version>
+        <maven.version>3.5.3</maven.version>
         <require.maven.version>3.0.1</require.maven.version>
         <enforcer.fail>true</enforcer.fail>
         <checkstyle.configLocation>andromda/checkstyle_checks.xml</checkstyle.configLocation>
@@ -602,16 +602,16 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
         <!-- Plugin version definitions, may be different for maven v3 -->
         <plexus.util.version>3.1.0</plexus.util.version>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-        <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
-        <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
+        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <maven-archetype-plugin.version>3.0.1</maven-archetype-plugin.version>
+        <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
         <maven-changelog-plugin.version>2.3</maven-changelog-plugin.version>
         <maven-changes-plugin.version>2.12.1</maven-changes-plugin.version>
         <!-- v2.11 gives NPE, see http://jira.codehaus.org/browse/MCHECKSTYLE-205 -->
-        <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
-        <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.4.0</maven-dependency-plugin.version>
+        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.1.0</maven-dependency-plugin.version>
         <maven-doap-plugin.version>1.2</maven-doap-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-ear-plugin.version>3.0.0</maven-ear-plugin.version>
@@ -635,8 +635,8 @@
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <!-- V2.12 timetracker-ejb3 regression: The forked VM terminated without saying properly goodbye. VM crash or System.exit called: If persistence.xml entities wrong -->
-        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-        <maven-surefire-report-plugin.version>2.21.0</maven-surefire-report-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-surefire-report-plugin.version>3.0.0-M5</maven-surefire-report-plugin.version>
         <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
@@ -653,7 +653,7 @@
         <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
         <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.7</jacoco.version>
         <jacoco.append>true</jacoco.append>
         <jacoco.skip>false</jacoco.skip>
         <jacoco.includes>*</jacoco.includes>

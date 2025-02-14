@@ -11,6 +11,9 @@
     <packaging>pom</packaging>
     <name>AndroMDA Distribution</name>
     <description>Provides the assembly of the AndroMDA distribution</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>
