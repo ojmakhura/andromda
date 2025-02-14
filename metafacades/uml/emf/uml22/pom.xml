@@ -92,6 +92,8 @@
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
                 <configuration>
                     <installDirectory>${project.basedir}/../../../../lib</installDirectory>
+                    <projectBootstrapGroupId>org.andromda.bootstrap</projectBootstrapGroupId>
+                    <projectGroupId>org.andromda</projectGroupId>
                 </configuration>
             </plugin>
             <plugin>
@@ -159,6 +161,7 @@
         </resources>
     </build>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <namespace.name>emf-uml22</namespace.name>
     </properties>
 </project>

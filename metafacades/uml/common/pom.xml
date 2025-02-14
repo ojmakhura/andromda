@@ -17,6 +17,9 @@
         <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/andromda/svn/trunk/metafacades/uml/common</developerConnection>
         <url>http://svn.code.sf.net/p/andromda/svn/trunk/metafacades/uml/common/</url>
     </scm>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>
