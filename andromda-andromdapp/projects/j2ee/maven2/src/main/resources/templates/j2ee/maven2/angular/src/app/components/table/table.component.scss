@@ -1,0 +1,173 @@
+.card-body {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-header-row {
+  background-color: #263f47;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.table-header-cell {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.table-row {
+  background-color: white;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-row:hover {
+  background-color: #e0f7fa;
+}
+
+.table-cell {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.link-cell {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link-cell:hover {
+  text-decoration: underline;
+}
+
+.actions-cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 0;
+}
+
+.action-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #263f47;
+  color: white;
+  border-radius: 4px;
+  width: 60px;
+  height: 36px;
+  transition: background-color 0.3s ease;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+}
+
+.action-button:hover {
+  background-color: #263f47;
+}
+
+.action-button mat-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.mat-icon-button {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.action-button[color="primary"] {
+  background-color: transparent;
+  color: #263f47;
+}
+
+.action-button[color="primary"]:hover {
+  background-color: transparent;
+}
+
+.modern-paginator {
+  margin-top: 16px;
+}
+
+.modern-paginator .mat-paginator-range-label {
+  font-size: 14px;
+  color: #666666;
+}
+
+.modern-paginator .mat-paginator-icon {
+  color: #333333;
+}
+
+.modern-paginator button {
+  color: #263f47;
+}
+
+.modern-paginator button:hover {
+  background-color: #f5f5f5;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .table-header-cell,
+  .table-cell {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .action-button {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-body {
+    padding: 10px;
+  }
+
+  .table-header-cell,
+  .table-cell {
+    font-size: 10px;
+    padding: 6px;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .action-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .modern-paginator {
+    font-size: 12px;
+  }
+}

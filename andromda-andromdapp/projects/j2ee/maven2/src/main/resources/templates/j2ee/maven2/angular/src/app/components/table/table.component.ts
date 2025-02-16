@@ -30,11 +30,11 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
+  styleUrl: './table.component.scss',
   standalone: true,
   imports: [CommonModule, TranslateModule, SharedModule, MaterialModule],
 })
 export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
-
   @Input() paged: boolean = false;
   @Input() showActions: boolean = true;
   @Input() actions: ActionTemplate[];
@@ -59,8 +59,7 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
   constructor() {
     effect(() => {
-
-      if(!this.dataSignal) {
+      if (!this.dataSignal) {
         return;
       }
 
@@ -89,7 +88,7 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   ngAfterViewInit() {
     this.tablePaginator.page.subscribe({
@@ -104,26 +103,22 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onActionClicked(action: string, id: number) {
+  onActionClicked(action: string, id: string) {
     if (this.actionClicked) {
       this.actionClicked.emit({ action, id });
     }
   }
 
   radioSelected($event: MatRadioChange, row: any) {
-
     if ($event.value) {
       this.selectedItems = [row];
     }
   }
 
   checkboxSelected($event: MatCheckboxChange, row: any) {
-
     if ($event.checked) {
       this.selectedItems.push(row);
-
     } else {
-
       this.selectedItems = this.selectedItems.filter((item) => {
         let r = this.selectionFilter ? this.selectionFilter(item, row) : item.id !== row.id;
         return !r;

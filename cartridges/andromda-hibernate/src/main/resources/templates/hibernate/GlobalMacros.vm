@@ -190,9 +190,7 @@
         {
 #end
 #*  *##foreach ($attribute in $attributes)
-// $attribute.name : $attribute.type.mapType
-##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
-#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
+#*    *##if (!$attribute.type.mapType && !$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
             if (this.${attribute.getterName}() != null)
             {
 #if ($attribute.many)
@@ -318,7 +316,8 @@
     @jakarta.persistence.CollectionTable(name = "${entity.tableName}_${attribute.columnName}", joinColumns = @jakarta.persistence.JoinColumn(name = "${entity.tableName}_ID"))
     @jakarta.persistence.Column(name = "${attribute.columnName}")
 #else
-    @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+#set($columnDefinition = $attribute.findTaggedValue("andromda_persistence_column_definition"))
+    @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($columnDefinition), columnDefinition = "${columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
 #*      *##end
 #*      *##if (!$attribute.lob && $attribute.lazy && !$attribute.type.clobType && !$attribute.type.blobType)

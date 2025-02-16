@@ -806,7 +806,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #end
 
-#if(!$parameter.inputButton && $isComplex)
+#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration)
 #if($parameter.type)
 #set ($typeName = "$parameter.type.name")
 #else

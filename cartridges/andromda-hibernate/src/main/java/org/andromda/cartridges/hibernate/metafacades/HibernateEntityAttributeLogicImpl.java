@@ -248,9 +248,9 @@ public class HibernateEntityAttributeLogicImpl
     /**
      * @see EJB3AssociationEndFacadeLogic#handleGetColumnDefinition()
      */
-    @Override
-    protected String handleGetColumnDefinition()
-    {
-        return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
-    }
+    // @Override
+    // protected String handleGetColumnDefinition()
+    // {
+    //     return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
+    // }
 }
