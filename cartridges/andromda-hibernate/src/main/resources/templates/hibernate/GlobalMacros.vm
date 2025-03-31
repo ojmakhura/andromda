@@ -313,15 +313,13 @@
 #*      *##else
 
 #if($attribute.many)
-#set($columnDefinition = $attribute.findTaggedValue("andromda_persistence_column_definition"))
-#if (!$columnDefinition)
+#if (!$attribute.findTaggedValue("andromda_persistence_column_definition"))
     @jakarta.persistence.ElementCollection
     @jakarta.persistence.CollectionTable(name = "${entity.tableName}_${attribute.columnName}", joinColumns = @jakarta.persistence.JoinColumn(name = "${entity.tableName}_ID"))
 #end
-    @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($columnDefinition), columnDefinition = "${columnDefinition}"#end)
+    @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($attribute.findTaggedValue("andromda_persistence_column_definition")), columnDefinition = "${attribute.findTaggedValue("andromda_persistence_column_definition")}"#end)
 #else
-#set($columnDefinition = $attribute.findTaggedValue("andromda_persistence_column_definition"))
-    @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($columnDefinition), columnDefinition = "${columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+    @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.findTaggedValue("andromda_persistence_column_definition")), columnDefinition = "${attribute.findTaggedValue("andromda_persistence_column_definition")}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
 #*      *##end
 #*      *##if (!$attribute.lob && $attribute.lazy && !$attribute.type.clobType && !$attribute.type.blobType)
