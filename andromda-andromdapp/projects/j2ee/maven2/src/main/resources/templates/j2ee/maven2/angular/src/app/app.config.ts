@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode, importProvidersFrom } from '@angular/core';
-import { RouteReuseStrategy, provideRouter } from '@angular/router';
+import { RouteReuseStrategy, provideRouter, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -17,7 +17,7 @@ import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor'
 export const appConfig: ApplicationConfig = {
   providers: [
     UseCaseScope,
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideAnimations(),
     provideHttpClient(
       withInterceptorsFromDi(),

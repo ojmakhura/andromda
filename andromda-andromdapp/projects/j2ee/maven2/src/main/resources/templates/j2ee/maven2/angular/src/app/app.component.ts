@@ -11,33 +11,22 @@ import { environment } from '@env/environment';
 import { MaterialModule } from './material.module';
 import { ShellComponent } from './shell/shell.component';
 import { I18nService } from './i18n/i18n.service';
-import { Logger, UntilDestroy, untilDestroyed } from './@shared';
+import { Logger } from './@shared';
 
 const log = new Logger('App');
 
-@UntilDestroy()
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterModule,
-    FormsModule,
-    MaterialModule,
-    ShellComponent,
-  ],
+  imports: [CommonModule, RouterOutlet, RouterModule, FormsModule, MaterialModule, ShellComponent],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
   private titleService = inject(Title);
   private translateService = inject(TranslateService);
-  private i18nService = inject(I18nService)
-
+  private i18nService = inject(I18nService);
 
   ngOnInit() {
     // Setup logger
@@ -64,7 +53,6 @@ export class AppComponent implements OnInit, OnDestroy {
         }),
         filter((route) => route.outlet === 'primary'),
         switchMap((route) => route.data),
-        untilDestroyed(this),
       )
       .subscribe((event) => {
         const title = event['title'];

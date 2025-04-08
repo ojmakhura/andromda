@@ -48,7 +48,6 @@ import { firstValueFrom, Observable, map, of, startWith, Subscription } from "rx
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
-import { CsvModule } from '@ctrl/ngx-csv';
 #set($fields = [])
 #set($buttons = [])
 #foreach($import in $component.imports)

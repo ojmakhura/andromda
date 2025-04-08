@@ -44,7 +44,6 @@ import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
-import { CsvModule } from '@ctrl/ngx-csv';
 #set($fields = [])
 #set($buttons = [])
 #foreach($import in $component.imports)
@@ -90,7 +89,6 @@ import { TableComponent } from '@app/components/table/table.component';
     ReactiveFormsModule,
     TranslateModule,
     MaterialModule,
-    CsvModule,
     TableComponent,
 #if($component.treePresent)
     AsTreeNodePipe,
