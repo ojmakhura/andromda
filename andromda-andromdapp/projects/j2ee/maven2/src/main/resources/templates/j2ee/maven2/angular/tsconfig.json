@@ -13,16 +13,17 @@
     "sourceMap": true,
     "declaration": false,
     "module": "es2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "isolatedModules": true,
     "importHelpers": true,
     "target": "ES2022",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2022", "dom"],
     "baseUrl": "./",
     "paths": {
-      
+
       "@app/*": ["src/app/*"],
       "@service/*": ["src/app/service/*"],
       "@controller/*": ["src/app/controller/*"],
