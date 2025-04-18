@@ -149,6 +149,9 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
+#if ($view.nonTableVariablesPresent)
+    @Input() ${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName});
+#end
     
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
@@ -274,12 +277,12 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     }
 
-    newForm(#if ($view.nonTableVariablesPresent)${view.varsFormName}$: $stringUtils.capitalize(${view.varsFormName})#end): FormGroup {
+    newForm(#if ($view.nonTableVariablesPresent)${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName})#end): FormGroup {
         return this.formBuilder.group({
 #if ($view.nonTableVariablesPresent)
 #foreach( $variable in $view.variables )
 #if(!$variable.table && !$variable.inputButton && !$variable.component && !$variable.inputTable)
-#renderInitForm($variable "" "           ")
+#renderInitForm($variable ${view.varsFormName} "" "           ")
 #end
 #end
 #end

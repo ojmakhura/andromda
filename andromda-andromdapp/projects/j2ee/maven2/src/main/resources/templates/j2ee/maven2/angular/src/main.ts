@@ -13,6 +13,9 @@ import { environment } from '@env/environment';
 
 if (environment.production) {
   enableProdMode();
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/ngsw-worker.js');
+  }
 }
 
 bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));

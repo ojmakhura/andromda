@@ -51,7 +51,7 @@ $ident${propertyId}Subscription?: Subscription;
 #elseif($parameter.component)
 $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementationName};
 #else
-$ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
+## $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 ##
 ## Rendering backing variables
@@ -277,7 +277,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 ##==========================
-#macro(renderInitForm $parameter $ownerParameter $ident)
+#macro(renderInitForm $parameter $formName $ownerParameter $ident)
 #set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
@@ -310,12 +310,12 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #if(!$parameter.inputButton && !$parameter.component && !$parameter.tree)
 #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
 #if($angularUtils.isSimpleType($parameter.type))
-            $parameter.name: this.formBuilder.array(this.${parameter.name} ? this.${parameter.name} : []),
+            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
 #else
-            $parameter.name: this.create${parameter.type.name}Array(this.${parameter.name}),
+            $parameter.name: this.create${parameter.type.name}Array(this.${formName}.${parameter.name}),
 #end
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.inputSelect)
-            $parameter.name: this.create${parameter.type.name}Group(this.${parameter.name}),
+            $parameter.name: this.create${parameter.type.name}Group(this.${formName}.${parameter.name}),
 #else
 #set ($validators = "")
 #if($parameter.required || $parameter.inputEmail || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max)
@@ -340,7 +340,7 @@ $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
 #end
 #set ($validators = "$validators]")
 #end
-            $parameter.name: [{value: this.${parameter.name}, disabled: false}$validators],
+            $parameter.name: [{value: this.${formName}.${parameter.name}, disabled: false}$validators],
 #end
 #end
 #end

@@ -79,6 +79,13 @@ import { $import.name } from '@app/${import.filePath}';
 import { SearchObject } from '@app/model/search-object';
 import { GenericComponent } from "@app/view/generic.component";
 
+export class $stringUtils.capitalize(${component.formName}) {
+
+#foreach($attribute in $component.attributes)
+    ${attribute.name}?: ${parameter.getterSetterTypeName};
+#end
+}
+
 @Component({
   selector: "app-${component.selectorName}-base",
   template: "",
@@ -86,6 +93,8 @@ import { GenericComponent } from "@app/view/generic.component";
 export abstract class ${component.name} extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
+    @Input() ${component.formName}: $stringUtils.capitalize(${component.formName});
+
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;
 
@@ -130,7 +139,7 @@ export abstract class ${component.name} extends GenericComponent implements OnIn
     initForm() {
         this.formGroupControl = this.formBuilder.group({
 #foreach($attribute in $component.attributes)
-#renderInitForm($attribute "" "           ")
+#renderInitForm($attribute ${component.formName} "" "           ")
 #end
         });
     }
