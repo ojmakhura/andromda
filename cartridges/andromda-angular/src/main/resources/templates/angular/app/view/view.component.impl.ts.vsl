@@ -2,14 +2,14 @@
 ## Find all the fields in the actions of the view
 import { Component, Injector#if($view.popup), Inject#end } from '@angular/core';
 import { $view.componentName } from '@app/${view.filePath}';
-#foreach ($action in $view.actions)
-#if (!$action.tableLink)
-import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}';
-#end
-#end
-#if ($view.nonTableVariablesPresent)
-import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
-#end
+## #foreach ($action in $view.actions)
+## #if (!$action.tableLink)
+## import { $stringUtils.capitalize($action.formName) } from '@app/${view.filePath}';
+## #end
+## #end
+## #if ($view.nonTableVariablesPresent)
+## import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
+## #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 import { ${view.useCase.storeName}State } from '@app/store$view.useCase.pathRoot/${base}.state';
 import * as ${view.useCase.storeName}Selectors from '@app/store$view.useCase.pathRoot/${base}.selectors';
@@ -29,12 +29,6 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
 
     constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any, #{end}private injector: Injector) {
         super(#if($view.popup)data, #{end}injector);
-    }
-
-    override beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end{     
-#if ($view.nonTableVariablesPresent)
-        return form;
-#end
     }
 
     doNgOnDestroy(): void {

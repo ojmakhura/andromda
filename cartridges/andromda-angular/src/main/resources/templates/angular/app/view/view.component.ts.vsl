@@ -38,8 +38,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatTableDataSource } from '@angular/material/table';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { SelectItem } from '@app/utils/select-item';
+## import { LoaderComponent } from '@shared/loader/loader.component';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 ##if($targetModal)
@@ -65,7 +67,9 @@ import * as ${view.useCase.storeName}Actions from '@app/store$view.useCase.pathR
 #set ( $rt = $fields.add($import) )
 #end
 #end
-#if($import.tableComponentImplementationName)
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+import { $import.name } from '@app/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
@@ -82,7 +86,7 @@ import { $import.name } from '@app/${import.filePath}';
 #set ($targetView = $iter.next())
 #if($targetView.popup)
 #set ($hasPopup = true)
-import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+## import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
 #end
 #end
 #end
@@ -160,7 +164,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName};
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    $stringUtils.uncapitalize($service.name): ${service.name};
 #end
 #end
 #set ($formVars = "")
@@ -199,6 +203,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
 
     ${proId}$: Observable<${attribute.angularTypeName}[]>;
+    ${proId}DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}SearchField: FormControl;
     ${proId}Select: ${attribute.angularTypeName}#if($attribute.many || $attribute.type.collectionType)[] = []#else = {}#end;
 
@@ -206,7 +211,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($attribute in $field.attributes)
 #set ($proId = "$attribute.getFormPropertyId($field)")
 #if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+    @ViewChild('${proId}ModalPaginator', {static: true}) ${proId}ModalPaginator: MatPaginator;
+    @ViewChild('${proId}ModalSort', {static: true}) ${proId}ModalSort: MatSort;
+    
     $stringUtils.pluralize(${proId})$: Observable<Array<${attribute.angularTypeName}>>;
+    $stringUtils.pluralize(${proId})DataSource = new MatTableDataSource<${attribute.angularTypeName}>([]);
     ${proId}Select: $attribute.angularTypeName = new ${attribute.angularTypeName}();
     ${proId}SearchField: FormControl = new FormControl();
 
@@ -265,6 +274,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     messages: Observable<any>;
     success: Observable<boolean>;
     loading: Observable<boolean>;
+    loaderMessage: Observable<string>;
     error: Observable<boolean>;
     selected: any = null;
 
@@ -285,7 +295,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(${view.useCase.controller})
         this.${view.useCase.controller.variableName} = injector.get(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
 #end
 #foreach($controller in $view.targetControllers)
@@ -298,6 +308,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
         this.loading = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoading));
+        this.loaderMessage = this.store.pipe(select(${view.useCase.storeName}Selectors.selectLoaderMessage));
         this.success = this.store.pipe(select(${view.useCase.storeName}Selectors.selectSuccess));
         this.error = this.store.pipe(select(${view.useCase.storeName}Selectors.selectError));
         this.messages = this.store.pipe(select(${view.useCase.storeName}Selectors.selectMessages));
@@ -310,7 +321,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     }
 
-    abstract beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end;
+    beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end {
+#if ($view.nonTableVariablesPresent)
+        return form;
+#end
+    }
 	
     ngOnInit() {
         #if ($view.nonTableVariablesPresent)let form: $stringUtils.capitalize(${view.varsFormName}) = #{end}this.beforeOnInit(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
@@ -321,7 +336,36 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
                 this.handleFormChanges(change);
             }
         );
-        
+
+#if ($view.nonTableVariablesPresent)
+#foreach ($field in $view.variables)
+#if($field.complex)
+#foreach($attribute in $angularUtils.getTableAttributes($field))
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#set ($observe = "${proId}$")
+        this.${observe}?.subscribe(data => {
+            this.${proId}DataSource.data = data;
+            this.${proId}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${proId}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#foreach($attribute in $field.attributes)
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+#set ($plural = "$stringUtils.pluralize(${proId})")
+#set ($observe = "${plural}$")
+        this.${observe}?.subscribe(data => {
+            this.${plural}DataSource.data = data;
+            this.${plural}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${plural}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#end
+#end
+#end
+#end
         this.afterOnInit();
     }
 
@@ -332,6 +376,23 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     ${view.formName}Reset() {
 
         this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
+
+#foreach ($variable in $view.variables)
+#if(!$variable.table)
+#if($variable.complex )
+#foreach($attribute in $variable.attributes)
+#if($variable.many || $variable.type.collectionType)
+#set ($propertyId = $attribute.getFormPropertyId($variable))
+        this.${propertyId}Control.clear();
+#end
+#end
+#else
+#if($variable.inputMultibox)
+        this.${variable.name}Control.clear();
+#end
+#end
+#end
+#end
         this.${view.formName}.reset()
         this.${view.formName}.markAsPristine();
 
@@ -385,10 +446,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${view.varsFormName}$.$variable.name")
-##if ( $variable.inputDate || $variable.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($variable.inputDatetimeLocal), 'yyyy-MM-dd HH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $variable.name: [${view.varsFormName}$?.$variable.name ? ${val} : null$validators],
+            $variable.name: [{value: ${view.varsFormName}$?.$variable.name, disabled: false}$validators],
 #*  *##end
 #end
 #end
@@ -427,7 +485,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
         let form: $actionFormCaps = new ${actionFormCaps}();
 #foreach( $parameter in $action.parameters )
-#if(!$parameter.inputButton)
+#set ($exists = false)
+#foreach($var in $view.variables)
+#if($var.name == $parameter.name)
+#set ($exists = true)
+#end
+#end
+#if(!$parameter.inputButton && $exists)
         form.$parameter.name = this.${parameter.name};
 #end
 #end
@@ -564,7 +628,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #if(!$attribute.inputButton)
 #if($angularUtils.isTable($attribute) || $attribute.many || $attribute.type.collectionType)
 #if($angularUtils.isSimpleType($attribute.type))
-            $attribute.name: ${variable.name}?.$attribute.name ? this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []) : new FormArray([]),
+            $attribute.name: this.formBuilder.array(${variable.name}?.$attribute.name ? ${variable.name}.$attribute.name : []),
 #else
             $attribute.name: this.create${attribute.type.name}Array(${variable.name}?.$attribute.name),
 #end
@@ -595,10 +659,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set ($validators = "$validators]")
 #end
 #set ($val = "${variable.name}.${attribute.name}")
-##if ( $attribute.inputDate || $attribute.inputDatetimeLocal)
-##set ($val = "formatDate(${val}#if($attribute.inputDatetimeLocal), 'yyyy-MM-ddTHH:mm:ss.SSS'#else, 'yyyy-MM-dd'#end, 'en')")
-##end
-            $attribute.name: [${variable.name}?.$attribute.name ? $val : null$validators],
+            $attribute.name: [{value: ${variable.name}?.$attribute.name, disabled: false}$validators],
 #end
 #end
 #end
@@ -920,13 +981,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #if($view.popup)
-    handleCancelDialog(): void {}
-
-    cancelDialog() {
-        this.handleCancelDialog();
-        this.dialogRef.close({event: 'Cancel'});
-    }
-
     handleDialogDone(data: any): any {
         return data;
     }

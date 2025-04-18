@@ -32,7 +32,8 @@ export enum ${actionType} {
 #end
     $resetActionType = '[${useCase.storeName}] ${useCase.storeName} Reset',
     $failureActionType = '[${useCase.storeName}] ${useCase.storeName} Action Failure',
-    ${prefix}_LOADING = '[${useCase.storeName}] ${useCase.storeName} Loading'
+    ${prefix}_LOADING = '[${useCase.storeName}] ${useCase.storeName} Loading',
+    ${prefix}_LOADER_MESSAGE = '[${useCase.storeName}] ${useCase.storeName} Loader Message'
 }
 
 #foreach ($service in $controller.allRestControllers)
@@ -41,7 +42,7 @@ export enum ${actionType} {
 #set ($actionName = $web.replace('-', '_').toUpperCase())
 export const ${operation.name} = createAction(
     ${actionType}.${actionName},
-    props<{ #if (!$operation.arguments.empty)$angularUtils.getMethodSignatureArguments(${operation.getArguments()}),#end loading: boolean }>()
+    props<{ #if (!$operation.arguments.empty)$angularUtils.getMethodSignatureArguments(${operation.getArguments()}),#end loading: boolean, loaderMessage: string | undefined }>()
 );
 
 export const ${operation.name}Success = createAction(

@@ -2,9 +2,8 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card container">
+<div#if($view.popup) mat-dialog-content#end class="#if(!$view.popup)card #{end}container">
 ## Render non table variables
-#if ($view.nonTableVariablesPresent)
 #set ($complex = [])
 #set ($simple = [])
 #foreach ($variable in $view.variables)
@@ -28,10 +27,16 @@
 					</button>
 #end
 #end
+#if ($view.nonTableVariablesPresent)
 					<button color="accent" type="button" (click)="${view.formName}Reset()" class="btn btn-info" ><span translate>reset</span></button>
+#end
 				</div>
 			</section>
 #end
+			<div *ngIf="loading | async">
+				<app-loader [isLoading]="loading | async"></app-loader>
+			</div>
+#if ($view.nonTableVariablesPresent)
 			<div *ngIf="success | async" class="alert alert-success" role="alert">
 				<div *ngFor="let message of messages | async">
 					{{ message }}
@@ -42,6 +47,7 @@
 					{{ message }}
 				</div>
 			</div>
+#end
 #if($simple.size() > 0)
 #foreach ($variable in $simple)
 #renderAngularActionInput($variable "" "				")
@@ -73,7 +79,6 @@
 #end
     	</form>
 	</div>
-#end
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">
 #foreach ( $table in $view.tables )
@@ -87,8 +92,8 @@
 #end
 </div>
 #if($view.popup)
-<div mat-dialog-actions>
-	<button type="button" class="btn btn-info" color="accent" (click)="cancelDialog()" translate>action.cancel</button>
+<mat-dialog-actions align="end">
+	<button mat-dialog-close type="button" class="btn btn-primary" color="accent" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
 	<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info">
@@ -97,7 +102,7 @@
 #end
 #end
 	<button type="button" class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
-</div>
+</mat-dialog-actions>
 #end
 #foreach ($variable in $complex)
 #set ($tables = $angularUtils.getTableAttributes($variable))

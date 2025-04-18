@@ -98,7 +98,7 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat
 #else
 ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}			</ng-container>
 #end
 ${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
@@ -198,7 +198,7 @@ ${ident}				<mat-header-cell *matHeaderCellDef translate>$column.messageKey</mat
 #else
 ${ident}				<mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
 #end
-${ident}                <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}                <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}			</ng-container>
 #end
 ${ident}			<mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
@@ -216,7 +216,10 @@ ${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn 
 ${ident}            <mat-icon>clear</mat-icon>
 ${ident}        </button>
 ${ident}    </div>
-#foreach($column in $parameter.tableColumnNames)
+${ident}    <div class="row mb-3">
+${ident}        <table class="table">
+${ident}            <tbody>
+#foreach($column in $parameter.tableColumns)
 #if($column.name)
 #set ($columnName = $column.name)
 #else
@@ -224,13 +227,14 @@ ${ident}    </div>
 #end
 #set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
 #set ($cname = "$angularUtils.getLastProperty($columnName)")
-${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
-${ident}        <label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</label>
-${ident}        <div class="col-sm-10">
-${ident}            <input type="text" class="form-control" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.")}}" disabled>
-${ident}        </div>
-${ident}    </div>
+${ident}                <tr#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}                    <td scope="row"translate>$stringUtils.toResourceMessageKey($cname)</td>
+${ident}                    <td >{{ ${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.")#if(${column.inputDate} || ${column.type.dateType}) | date#end }}</td>
+${ident}                <tr>
 #end
+${ident}            </tbody>
+${ident}        </table>
+${ident}    </div>
 #else
 ${ident}    <input type="$parameter.inputType" id="${propertyId}" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.readOnly) readonly#{end}#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
@@ -291,16 +295,21 @@ ${ident}</fieldset>
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+## #if($parameter.many)
+## #set ($dataSource = "${propertyId}$")
+## #else
+## #set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+## #end
 #if($parameter.many)
-#set ($dataSource = "${propertyId}$")
+#set ($dataSource = "${propertyId}DataSource")
 #else
-#set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+#set ($dataSource = "$stringUtils.pluralize(${propertyId})DataSource")
 #end
-$ident<mat-table matSort [dataSource]="$dataSource | async" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
+$ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)
 #else
-#set ($columns = $parameter.attributes)
+#set ($columns = $parameter.type.attributes)
 #end
 ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
@@ -316,7 +325,7 @@ ${ident}        <mat-cell *matCellDef="let row; let i=index">
 #set ($columnName = $col)
 #end
 ${ident}            <mat-radio-group (change)="${propertyId}Selected($event, row)">
-${ident}                <mat-radio-button [value]="row" [checked]="${propertyId}Select.$columnName === row.$columnName"></mat-radio-button>
+${ident}                <mat-radio-button [value]="row" [checked]='${propertyId}Select.${stringUtils.replace("${columnName}", ".", "?.")} === row?.${stringUtils.replace("${columnName}", ".", "?.")}'></mat-radio-button>
 ${ident}            </mat-radio-group>
 #else
 ${ident}            <mat-checkbox (change)="${propertyId}Selected($event, row)"></mat-checkbox>
@@ -331,7 +340,7 @@ ${ident}    </ng-container>
 #end
 ${ident}    <ng-container matColumnDef="$columnName">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>$stringUtils.toResourceMessageKey($columnName)</mat-header-cell>
-${ident}        <mat-cell *matCellDef="let row"> {{ row.${columnName} }} </mat-cell>
+${ident}        <mat-cell *matCellDef="let row"> {{ row?.${stringUtils.replace("${columnName}", ".", "?.")} }} </mat-cell>
 ${ident}    </ng-container>
 #end
 ${ident}    <mat-header-row *matHeaderRowDef="${propertyId}ModalColumns"></mat-header-row>
