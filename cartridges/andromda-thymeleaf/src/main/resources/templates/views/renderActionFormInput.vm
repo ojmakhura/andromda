@@ -1,41 +1,71 @@
 
 #macro(renderTableColumnNames $parameter $ident)
+#if($parameter.tableColumnNames)
+#set ($columns = $parameter.tableColumnNames)
+#else
+#set ($columns = $parameter.type.attributes)
+#end
 ${ident}<thead>
 ${ident}   <tr>
-#if($parameter.inputTableIdentifierColumns)
-#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
-${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
-#end
+## #if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $columns)
+#if($column.name)
+#set ($columnName = $column.name)
 #else
-#foreach ($column in $parameter.type.attributes)
-${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+#set ($columnName = $column)
+#end 
+${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${columnName})}"></th>
 #end
-#end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## ${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+## #end
+## #end
 ${ident}    </tr>
 ${ident}</thead>
 #end
 ##==========================
 #macro(renderTableColumns $parameter $ident)
-#if($parameter.inputTableIdentifierColumns)
-#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
-#if(!$column.hidden && !$column.inputFile)
-#set ($value = "row.${column}")
-${ident}    <td id="column_${column}" th:text="${${value}}"></td>
-#end
-#end
+#if($parameter.tableColumnNames)
+#set ($columns = $parameter.tableColumnNames)
 #else
-#foreach ($column in $parameter.type.attributes)
+#set ($columns = $parameter.type.attributes)
+#end
+#foreach ($column in $columns)
 #if(!$column.hidden && !$column.inputFile)
-#set($noOfColumns=$noOfColumns+1)   
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end 
 #if($column.type.enumeration)
-#set($theValue="row.${column.name}.getValue()")
+#set($theValue="row.${columnName}.getValue()")
 #else
-#set($theValue="row.${column.name}")
+#set($theValue="row.${columnName}")
 #end
-${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+$ident      <td id="column_${column}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
 #end
 #end
-#end
+## #if($parameter.inputTableIdentifierColumns)
+## #foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+## #if(!$column.hidden && !$column.inputFile)
+## #set ($value = "row.${column}")
+## ${ident}    <td id="column_${column}" th:text="${${value}}"></td>
+## #end
+## #end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## #if(!$column.hidden && !$column.inputFile)
+## #set($noOfColumns=$noOfColumns+1)   
+## #if($column.type.enumeration)
+## #set($theValue="row.${column.name}.getValue()")
+## #else
+## #set($theValue="row.${column.name}")
+## #end
+## ${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+## #end
+## #end
+## #end
 #end
 ##==========================
 ##
@@ -102,11 +132,17 @@ ${ident}    <input type="checkbox" id="$propertyId"  class="form-control" th:fie
 ${ident}        <option th:each="${formValuePropertyName} : *{${backingListName}}" th:value="${${formValuePropertyName}.value}" th:text="${${formValuePropertyName}.label}"></option>
 ${ident}    </input>
 #elseif ($parameter.inputRadio)
-${ident}        <div class="form-check" th:each="item : *{${backingListName}}">
-${ident}            <label class="form-check-label" th:for="${item.value}" th:text="${item.label}"></label>
-${ident}            <input type="radio" id="$propertyId" class="form-check-input" th:field="*{${formValuePropertyName}}" th:value="${item.value}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
-${ident}        </div>
+${ident}    <div class="form-check" th:each="item : *{${backingListName}}">
+${ident}        <label class="form-check-label" th:for="${item.value}" th:text="${item.label}"></label>
+${ident}        <input type="radio" id="$propertyId" class="form-check-input" th:field="*{${formValuePropertyName}}" th:value="${item.value}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+${ident}    </div>
 #elseif($parameter.inputTable)
+${ident}<div>
+${ident}    <button type="button" id="${propertyId}" class="btn btn-lg btn-primary"
+${ident}            data-bs-toggle="modal" data-bs-target="#${propertyId}Add">
+${ident}        <i class="fa-solid fa-plus"></i>
+${ident}    </button>
+${ident}</div>
 ${ident}<table id="searchResult" class="table table-bordered" style="width: 100%">
 #renderTableColumnNames($parameter "${ident}    ")
 ${ident}    <tbody>
@@ -155,12 +191,164 @@ ${ident}        </tr>
 ${ident}    </tbody>
 ${ident}</table>
 #else
+#if($umlMetafacadeUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
+${ident}    <div class="col my-3 view-buttons">
+${ident}        <button type="button" (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}            Add
+${ident}        </button>
+${ident}        <button type="button" (click)="${propertyId}Clear()" class="btn btn-primary">
+${ident}            Clear
+${ident}        </button>
+${ident}    </div>
+#foreach($column in $parameter.tableColumns)
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end
+#set ($colId = "${propertyId}$stringUtils.capitalize($columnName)")
+#set ($cname = "$umlMetafacadeUtils.getLastProperty($columnName)")
+${ident}    <div class="row mb-3"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}        <label for="$colId" class="col-sm-2 col-form-label" th:text=#{$stringUtils.toResourceMessageKey($cname)}></label>
+${ident}        <div class="col-sm-10">
+${ident}            <input type="text" readonly class="form-control-plaintext" id="$colId" th:field="*{${formValuePropertyName}.${columnName}}">
+${ident}        </div>
+${ident}    </div>
+#end
+#else
 ${ident}    <input type="$parameter.inputType" id="$propertyId" class="form-#if($parameter.inputRange)range#{else}control#end" name="$parameter.name" th:field="*{${formValuePropertyName}}"#if($parameter.required) required#end#if($parameter.readOnly) readonly#end/>
+#end
 #end
 #if ($parameter.inputRadio)
 ${ident}    </div>
 ${ident}</fieldset>
 #else
 ${ident}</div>
+#end
+#end
+##==========================
+##
+## A macro that renders the appropriate table for the input
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderTableInput $parameter $ownerParameter $ident)
+#if($parameter.tableColumnNames)
+#set ($columns = $parameter.tableColumnNames)
+#else
+#set ($columns = $parameter.type.attributes)
+#end
+$ident<table>
+$ident  <thead>
+$ident      <tr>
+$ident          <th th:text="#{select}"></th>
+#foreach ($column in $columns)
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end 
+$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${columnName})}"></th>
+#end
+$ident      </tr>
+$ident  </thead>
+$ident  <tbody>
+$ident      <tr th:each="row : ${${ownerParameter.backingListName}}">
+$ident          <td id="column_select">
+#if($parameter.many)
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="checkbox">
+$ident              </div>
+#else
+$ident              <div class="form-check">
+$ident                <input class="form-check-input" type="radio">
+$ident              </div>
+#end
+$ident          </td>
+## #if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $columns)
+#if(!$column.hidden && !$column.inputFile)
+#if($column.name)
+#set ($columnName = $column.name)
+#else
+#set ($columnName = $column)
+#end 
+#if($column.type.enumeration)
+#set($theValue="row.${columnName}.getValue()")
+#else
+#set($theValue="row.${columnName}")
+#end
+$ident          <td id="column_${column}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+#end
+#end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## #if(!$column.hidden && !$column.inputFile)
+## #set($noOfColumns=$noOfColumns+1)   
+## #if($column.type.enumeration)
+## #set($theValue="row.${column.name}.getValue()")
+## #else
+## #set($theValue="row.${column.name}")
+## #end
+## $ident          <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+## #end
+## #end
+## #end
+$ident      </tr>
+$ident  </tbody>
+$ident</table>
+#end
+##==========================
+##
+## A macro that renders the appropriate input modal
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+#macro(renderModalInput $parameter $ownerParameter $ident)
+#if(!$parameter.inputHidden && !$ownerParameter.inputHidden)
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#else
+#set ($propertyId = $parameter.name)
+#end
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#end
+<div class="modal fade" id="${propertyId}Add" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="${propertyId}AddLabel">
+                    <span th:text="#{$parameter.messageKey}">
+                    </span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form>
+                        <div>
+                            <label class="form-check-label" th:for="${propertyId}SearchField">search</label>
+                            <input type="text" id="${propertyId}SearchField" class="form-check-input" />
+                        </div>
+                        <button type="button" class="btn btn-primary">
+                            Search
+                        </button>
+                    </form>
+                </div>
+#renderTableInput($parameter, $ownerParameter, "             ")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 #end
 #end

@@ -8,29 +8,21 @@
     <div class="container">
 #set ($actionParam = "param.action")
 		<h2 class="form-signin-heading"><span th:text="#{messages['login.text']}"></span></h2>
-		<div id="_loginErrorTitle" th:if="${${actionParam} == 'error'}" class="alert alert-danger">    
-        	#{messages['login.error']}
-        </div>
-		<div id="_loginErrorMessage" th:if="${${actionParam} == 'error'}" class="alert alert-danger">    
-        	#{messages['login.error.role']}
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success"> 
-            You have been logged out.
-        </div>
-		<form class="form-signin" method="POST" th:action="@{/login}">
-			<p>
-				<label for="j_username" value="#{messages['login.username']}:" />
-				<input type="text" id="j_username" name="j_username" class="form-control"
-					placeholder="Username" required autofocus>
-			</p>
-			<p>
-				<label for="j_password" class="sr-only">Password</label> 
-				<input type="password" id="j_password" name="j_password" class="form-control"
-					placeholder="Password" required>
-			</p>
-			<button type="submit" id="$triggerId" class="btn btn-lg btn-primary" onclick="document.forms[0].action='j_security_check';document.forms[0].submit(); return false;">
-                #{messages['login.submit']}
-            </button>
+		<form action="j_security_check" method="post">
+			<table border="0" cellspacing="5">
+				<tr>
+				<th align="right">Username:</th>
+				<td align="left"><input type="text" name="j_username"></td>
+				</tr>
+				<tr>
+				<th align="right">Password:</th>
+				<td align="left"><input type="password" name="j_password"></td>
+				</tr>
+				<tr>
+				<td align="right"><input type="submit" value="Log In"></td>
+				<td align="left"><input type="reset"></td>
+				</tr>
+			</table>
 		</form>
 
 #if (!$registrationUseCases.empty)

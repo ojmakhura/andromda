@@ -5,6 +5,7 @@ import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
@@ -904,5 +905,22 @@ public class EntityMetafacadeUtils
             //System.out.println("getTopLevelPackage pkgFacade=" + pkgFacade.getFullyQualifiedName());
         }
         return pkgFacade;
+    }
+
+    public String getUniqueGroupString(Collection<String> groupItems) {
+        StringBuilder builder = new StringBuilder();
+
+        Iterator<String> it = groupItems.iterator();
+
+        while(it.hasNext()) {
+            if(builder.length() > 0) {
+                builder.append(", ");
+            }
+            builder.append('"');
+            builder.append(it.next());
+            builder.append('"');
+        }
+
+        return builder.toString();
     }
 }

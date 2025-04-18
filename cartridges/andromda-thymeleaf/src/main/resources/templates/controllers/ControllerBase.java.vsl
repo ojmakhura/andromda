@@ -15,10 +15,24 @@ $controller.getDocumentation(" * ")
 #foreach($annotation in $controller.additionalAnnotations)
 @$annotation
 #end
-public abstract class ${controller.name}Base
-    extends ${managedBeansPackage}.ControllerBase
-    implements java.io.Serializable, ${controller.name}
-{
+public abstract class ${controller.name}Base extends ${managedBeansPackage}.ControllerBase
+    implements java.io.Serializable, ${controller.name} {
+
+#foreach ($service in $controller.allServices)
+	protected final $service.fullyQualifiedName $service.beanName;
+    
+#end
+#set ($iter = $controller.allServices.iterator())
+        public ${controller.name}Base(#foreach($ref in $controller.allServices)#set($serviceRef = $iter.next())$ref.fullyQualifiedName $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0),#end#end) {
+#foreach($ref in $controller.allServices)
+        this.$ref.beanName = $ref.beanName;
+#end
+#set ($iter = $controller.entityReferences.iterator())
+#foreach($ref in $controller.entityReferences)
+        this.$serviceRef.name = $serviceRef.name;
+        ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+#end         
+    }
     
     /**
      * Populate action form and page variables
@@ -64,7 +78,7 @@ public abstract class ${controller.name}Base
     }
     
 #foreach ($operation in $controller.operations)
-    $operation.handleFormSignature
+    $thymeleafUtils.addModelParameter($operation.handleFormSignature)
         throws Throwable;
 
     /**
@@ -74,7 +88,7 @@ $operation.getDocumentation("     * ")
      * @throws Throwable
      */
 #set ($formCall = "handle$stringUtils.capitalize($operation.formCall)")
-    $operation.implementationFormSignature throws Throwable {
+    $thymeleafUtils.addModelParameter($operation.implementationFormSignature) throws Throwable {
         #if($operation.returnType.name != "void")return #end$formCall;
     }
 
@@ -210,7 +224,7 @@ $action.trigger.getDocumentation("     * ")
 #end
 #end
         //trigger method execution
-        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form#end, model);
+        ${action.triggerMethodName}(#if($formPopulationOperationRequired)form, #{end}model);
 #if ($formPopulationOperationRequired)
         model.addAttribute("$action.formBeanName", form);
 #end
@@ -225,15 +239,21 @@ $action.trigger.getDocumentation("     * ")
 #if ($formPopulationOperationRequired)
 #set ($viewPath = "${action.source.path}.html")
         populateActionFormsAndPageVariables(#if($action.exitingInitialState)null#else"${viewPath}"#end, forward, form);
-#foreach($field in $action.formFields)
-#if(!$field.actionParameter)
-
+        
+#foreach ($field in $action.formFields)
         if(form.is${stringUtils.capitalize($field.name)}Set()) {
             model.addAttribute("$field.name", form.get${stringUtils.capitalize($field.name)}());
         }
-#end
-#end
 
+#end
+#foreach ($actionState in $action.actionStates)
+#foreach($act in $actionState.forward.target.formActions)
+#if(!$act.formFields.empty)
+        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
+
+#end
+#end
+#end
 #if(!$action.exitingInitialState && !$action.enteringFinalState)
         if(forward != null)
         {
@@ -243,6 +263,7 @@ $action.trigger.getDocumentation("     * ")
                 return forward;
             }
         }
+
 #end
 #end
 #end
@@ -318,8 +339,10 @@ ${ident}        ${controllerCall.name}(new ${controllerCall.interfaceName}());
 #end
 #if($actionState.forward.enteringView)
 #foreach($act in $actionState.forward.target.formActions)
-#if(!$act.actionFormFields.empty)
-${ident}        model.addAttribute("$act.formBeanName", this.get${stringUtils.capitalize($act.formBeanName)}());
+#foreach($param in $act.parameters)
+${ident}        if(form.is${stringUtils.capitalize($param.name)}Set()) {
+${ident}            model.addAttribute("$param.name", form.get${stringUtils.capitalize($param.name)}());
+${ident}        }
 #end
 #end
 #end
@@ -399,6 +422,7 @@ $decisionTransition.getDocumentation("     * ")
     protected String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form, #{end}org.springframework.ui.Model model)
         throws Throwable
     {
+        // $decisionTransition.operationCall
         final String value = String.valueOf($decisionTransition.operationCall.formCall);
         String forward = null;
 #set($outgoings = $decisionTransition.target.outgoings)
@@ -431,22 +455,6 @@ $decisionTransition.getDocumentation("     * ")
     }
 
 #end
-#foreach ($service in $controller.allServices)
-	@org.springframework.beans.factory.annotation.Autowired
-	protected $service.fullyQualifiedImplementationName $service.beanName;
-    
-#end
-## #foreach($cnt in $thymeleafUtils.getFacadeSet($controllers))
-## #if(!$controller.beanName.equals($cnt.beanName))
-##     protected ${cnt.fullyQualifiedName} $cnt.beanName;
-##
-##     @org.springframework.beans.factory.annotation.Autowired
-##     public void set${cnt.name}(@org.springframework.context.annotation.Lazy ${cnt.fullyQualifiedName} $cnt.beanName) {
-##         this.$cnt.beanName = $cnt.beanName;
-##     }
-## 
-## #end
-## #end
 #foreach ($sessionObjectRef in $controller.sessionObjectReferences)
 #set ($targetElement = $sessionObjectRef.targetElement)
 

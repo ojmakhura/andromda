@@ -49,18 +49,16 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($left = '{')
 #set ($right = '}')
 #set($form = $table.view.actions.get(0))
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <table id="searchResult" class="table" style="width: 100%">
-        <thead>
-            <tr>
+<table id="searchResult" class="table" style="width: 100%">
+    <thead>
+        <tr>
 #foreach ($column in $table.tableColumns)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-                <th th:text="#{$table.getTableColumnMessageKey($columnName)}"></th>
+        <th th:text="#{$table.getTableColumnMessageKey($columnName)}"></th>
 #end
 #foreach ($action in $table.tableFormActions)
 #if (!$action.tableLinkColumnName)
@@ -68,12 +66,12 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #end
 #end
 #if($renderActions)
-                <th th:text="Actions"></th>
+        <th th:text="Actions"></th>
 #end
-            </tr>
-        </thead>
-            <tbody>
-                <tr th:each="row : ${${table.name}}">
+    </tr>
+</thead>
+    <tbody>
+        <tr th:each="row : ${${table.name}}">
 #foreach ($column in $table.tableColumns)
 #if(!$column.hidden && !$column.inputFile)
 #if($column.name)
@@ -88,23 +86,23 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #else
 #set($theValue="row.${columnName}")
 #end
-                    <td id="column_${columnName}"#if ($tableColumnActions.empty) th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end#end>
+            <td id="column_${columnName}"#if ($tableColumnActions.empty) th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end#end>
 #if (!$tableColumnActions.empty)
 #set ($action = $tableColumnActions.iterator().next())
-                        <form method="POST" 
-                                    th:action="@{${action.controller.restPath}${action.restPath}(#if($column.name)$column.name#{else}$column#end=$dollar${left}row.$columnName${right})}">
-                            <button type="submit" id="${columnName}Action" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
-                            </button>
-                        </form>
+                <form method="POST" 
+                        th:action="@{${action.controller.restPath}${action.restPath}(#if($column.name)$column.name#{else}$column#end=$dollar${left}row.$columnName${right})}">
+                    <button type="submit" id="${columnName}Action" th:text="${#if($column.name)row.$column.name#{else}row.$column#end}">
+                    </button>
+                </form>
 #end
-                    </td>
+            </td>
 #end
 #end
 ## Render table actions
 #foreach ($action in $table.tableFormActions)
 #if (!$action.tableLinkColumnName)
-                    <td id="column_actions">
-                        <div class="col">
+            <td id="column_actions">
+                <div class="col">
 #set ($data = "{")
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
@@ -132,16 +130,15 @@ ${ident}<th th:text="#{$column.messageKey}"></th>
 #set ($urlParams = "$urlParams$parameter.name={$parameter.name}")
 #set ($paramValues = "$paramValues${parameter.name}=$dollar$left$parameterValue$right")
 #end
-                            <form method="POST" 
-                                    th:action="@{${action.controller.restPath}${action.restPath}$urlParams($paramValues)}">
-                                <button type="submit" id="${action.triggerName}Action" th:text="#{$action.trigger.messageKey}">
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                    <form method="POST" 
+                                th:action="@{${action.controller.restPath}${action.restPath}$urlParams($paramValues)}">
+                        <button type="submit" id="${action.triggerName}Action" th:text="#{$action.trigger.messageKey}">
+                        </button>
+                    </form>
+                </div>
+            </td>
 #end
 #end
-                </tr>
-            </tbody>
-    </table>
-</html>
+        </tr>
+    </tbody>
+</table>

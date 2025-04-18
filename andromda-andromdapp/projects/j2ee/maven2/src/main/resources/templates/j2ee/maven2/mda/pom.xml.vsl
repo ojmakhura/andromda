@@ -470,8 +470,9 @@
         <angular.css.dir>${project.basedir}/../angular/css</angular.css.dir>
         <angular.test.dir>${project.basedir}/../angular/test</angular.test.dir>
         <angular.manual.dir>${project.basedir}/../angular/src/app</angular.manual.dir>
-        <angular.ngrx.dir>${angular.manual.dir}/store</angular.ngrx.dir>
         <angular.generated.dir>${project.basedir}/../angular/target/src/app</angular.generated.dir>
+        <angular.ngrx.generated.dir>${angular.generated.dir}/store</angular.ngrx.generated.dir>
+        <angular.ngrx.manual.dir>${angular.manual.dir}/store</angular.ngrx.manual.dir>
         <angular.model.dir>${angular.generated.dir}</angular.model.dir>
         <angular.service.dir>${angular.generated.dir}</angular.service.dir>
         <angular.service.impl.dir>${angular.manual.dir}</angular.service.impl.dir>

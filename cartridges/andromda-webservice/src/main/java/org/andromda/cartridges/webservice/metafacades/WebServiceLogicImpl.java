@@ -1468,6 +1468,11 @@ public class WebServiceLogicImpl
                 path = path;
             }
         }
+
+        if(!path.startsWith(SLASH)) {
+            path = '/' + path;
+        }
+
         return path;
     }
 

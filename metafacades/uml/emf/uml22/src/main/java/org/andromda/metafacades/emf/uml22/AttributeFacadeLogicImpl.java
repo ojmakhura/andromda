@@ -91,7 +91,7 @@ public class AttributeFacadeLogicImpl
             {
                 defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ')';
             } else if(this.getType().isEnumeration()) {
-                defaultValue = this.getType().getName() + "." + defaultValue;
+                defaultValue = this.getType().getName() + "." + defaultValue.toUpperCase();
             }
         }
         if (defaultValue==null) {

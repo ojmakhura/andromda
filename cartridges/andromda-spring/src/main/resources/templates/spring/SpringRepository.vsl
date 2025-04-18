@@ -15,6 +15,7 @@ public interface ${entity.name}Repository extends
 
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #foreach($attribute in $entity.attributes)
+#if (!$attribute.transient)
 #if(!$attribute.many)
     // Generating pageable query method for $attribute.name
 #if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
@@ -79,7 +80,8 @@ public interface ${entity.name}Repository extends
     
     java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
     org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
-    
+
+#end
 #end
 ## Deal with query operations
 #if ($daoInheritance)

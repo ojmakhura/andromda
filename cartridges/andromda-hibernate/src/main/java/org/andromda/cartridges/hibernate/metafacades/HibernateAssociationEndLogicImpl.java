@@ -868,7 +868,7 @@ public class HibernateAssociationEndLogicImpl
                 entity.getTableName(),
                 this,
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                (short)30, // dá pau - Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)),
+                (short)30, // dï¿½ pau - Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)),
                 sufix,
                 this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR),
                 this.getConfiguredProperty(UMLMetafacadeProperties.SHORTEN_SQL_NAMES_METHOD));

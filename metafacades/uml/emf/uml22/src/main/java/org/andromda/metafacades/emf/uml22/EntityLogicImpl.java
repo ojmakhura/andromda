@@ -3,8 +3,10 @@ package org.andromda.metafacades.emf.uml22;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeException;
@@ -1155,5 +1157,47 @@ public class EntityLogicImpl
     public String handleGetIdentifierSetterName()
     {
         return "set"+StringUtils.capitalize(getIdentifierName());
+    }
+
+    @Override
+    protected Map handleGetUniqueConstraints() {
+
+        Map<String, Collection<String>> uniqueConstraints = new HashMap<>();
+
+        for(AttributeFacade attr : this.getAttributes()) {
+            if(attr instanceof EntityAttribute ) {
+                EntityAttribute attribute = (EntityAttribute)attr;
+                if(StringUtilsHelper.isNotBlank(attribute.getUniqueGroup())) {
+                    
+                    Collection<String> uqs = uniqueConstraints.get(attribute.getUniqueGroup());
+
+                    if(uqs == null) {
+                        uqs = new ArrayList<>();
+                        uniqueConstraints.put(attribute.getUniqueGroup(), uqs);
+                    }
+
+                    uqs.add(attribute.getColumnName());
+                }
+            }
+        }
+
+        for(AssociationEndFacade ae : getAssociationEnds()) {
+            if(ae instanceof EntityAssociationEnd) {
+
+                EntityAssociationEnd assEnd = (EntityAssociationEnd)ae.getOtherEnd();
+                if(StringUtilsHelper.isNotBlank(assEnd.getUniqueGroup())) {
+                    Collection<String> uqs = uniqueConstraints.get(assEnd.getUniqueGroup());
+
+                    if(uqs == null) {
+                        uqs = new ArrayList<>();
+                        uniqueConstraints.put(assEnd.getUniqueGroup(), uqs);
+                    }
+
+                    uqs.add(assEnd.getColumnName());
+                }
+            }
+        }
+
+        return uniqueConstraints.size() > 0 ? uniqueConstraints : null;
     }
 }

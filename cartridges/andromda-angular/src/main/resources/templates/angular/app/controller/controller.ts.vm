@@ -9,6 +9,7 @@
 #set($targetController = $transition.target.targetElement.controller)
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
+        console.log(this.useCaseScope?.pageVariables);
         forward = '${targetController.useCase.routerPath}';
 #else
         forward = '$controller.useCase.routerPath';

@@ -64,7 +64,8 @@ public class ThymeleafControllerOperationLogicImpl
      * @return formCall
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormCall()
      */
-    protected String handleGetFormCall() {
+    public String getFormCall() {
+        //System.out.println("=======================================================================");
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
@@ -422,31 +423,31 @@ public class ThymeleafControllerOperationLogicImpl
     //     return this.getHandleFormSignature(true);
     // }
 
-    // @Override
-    // protected String handleGetHandleFormSignatureImplementation() {
+    @Override
+    public String getHandleFormSignatureImplementation() {
 
-    //     return this.getHandleFormSignature(false);
-    // }
+        return this.getHandleFormSignature(false);
+    }
 
-    // /**
-    //  * Constructs the signature that takes the form for this operation.
-    //  *
-    //  * @param isAbstract whether or not the signature is abstract.
-    //  * @return the appropriate signature.
-    //  */
-    // private String getHandleFormSignature(boolean isAbstract) {
-    //     final StringBuilder signature = new StringBuilder();
-    //     signature.append(this.getVisibility() + ' ');
-    //     if (isAbstract) {
-    //         signature.append("abstract ");
-    //     }
-    //     final ModelElementFacade returnType = this.getReturnType();
-    //     signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
-    //     signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
-    //     if (!this.getFormFields().isEmpty()) {
-    //         signature.append(this.getFormName() + " form, ");
-    //     }
-    //     signature.append("org.springframework.ui.Model model)");
-    //     return signature.toString();
-    // }
+    /**
+     * Constructs the signature that takes the form for this operation.
+     *
+     * @param isAbstract whether or not the signature is abstract.
+     * @return the appropriate signature.
+     */
+    private String getHandleFormSignature(boolean isAbstract) {
+        final StringBuilder signature = new StringBuilder();
+        signature.append(this.getVisibility() + ' ');
+        if (isAbstract) {
+            signature.append("abstract ");
+        }
+        final ModelElementFacade returnType = this.getReturnType();
+        signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
+        signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
+        if (!this.getFormFields().isEmpty()) {
+            signature.append(this.getFormName() + " form, ");
+        }
+        signature.append("org.springframework.ui.Model model)");
+        return signature.toString();
+    }
 }

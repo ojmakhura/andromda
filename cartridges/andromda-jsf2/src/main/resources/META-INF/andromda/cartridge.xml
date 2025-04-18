@@ -192,7 +192,7 @@
 
     <!-- process templates on model elements -->
     
-    <template
+    <!-- <template
         path="templates/jsf2/configuration/web.xml.vsl"
         outputPattern="WEB-INF/web.xml"
         outlet="configuration"
@@ -211,7 +211,7 @@
                 <type name="org.andromda.metafacades.uml.Role"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/jsf2/configuration/securityfilter-config.xml.vsl"
@@ -382,7 +382,7 @@
 
     <template
         path="templates/jsf2/flow/ActionForward.java.vsl"
-        outputPattern="$action.fullyQualifiedActionClassPath"
+        outputPattern="${action.fullyQualifiedActionClassPath}.java"
         outlet="controllers"
         overwrite="true">
         <modelElements>
@@ -430,6 +430,18 @@
     <template
         path="templates/jsf2/utils/JsfUtils.java.vsl"
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/JsfUtils.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf2/utils/ViewScope.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/ViewScope.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf2/utils/Main.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/WebApplication.java"
         outlet="managed-beans"
         overwrite="true"/>
 

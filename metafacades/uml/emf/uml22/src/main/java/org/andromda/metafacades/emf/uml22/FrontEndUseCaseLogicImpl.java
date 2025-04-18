@@ -488,6 +488,42 @@ public class FrontEndUseCaseLogicImpl
                                     messages.put(
                                             attribute.getMessageKey(),
                                             attribute.getMessageValue());
+
+                                    if(attribute.isRequired()) {
+                                        messages.put(
+                                                attribute.getMessageKey() + ".required",
+                                                attribute.getMessageValue() + " is required.");
+                                    }
+
+                                    if(StringUtils.isNotBlank(attribute.getMinLength())) {
+                                        messages.put(
+                                                attribute.getMessageKey() + ".minlength",
+                                                attribute.getMessageValue()  + " must have at least " + attribute.getMinLength() + " characters.");
+                                    }
+
+                                    if(StringUtils.isNotBlank(attribute.getMaxLength())) {
+                                        messages.put(
+                                                attribute.getMessageKey() + ".maxlength",
+                                                attribute.getMessageValue() + " must have at most " + attribute.getMaxLength() + " characters.");
+                                    }
+
+                                    if(StringUtils.isNotBlank(attribute.getMin())) {
+                                        messages.put(
+                                                attribute.getMessageKey() + ".min",
+                                                attribute.getMessageValue()  + " value must be at least " + attribute.getMin() + ".");
+                                    }
+
+                                    if(StringUtils.isNotBlank(attribute.getMax())) {
+                                        messages.put(
+                                                attribute.getMessageKey() + ".max",
+                                                attribute.getMessageValue() + " value must be at most " + attribute.getMax() + ".");
+                                    }
+
+                                    if(attribute.isInputEmail()) {
+                                        messages.put(
+                                            attribute.getMessageKey() + ".email",
+                                            "Value is not valid email format.");
+                                    }
                                 }
                             }
                             final Collection associationEnds = parameter.getNavigableAssociationEnds();
@@ -505,6 +541,42 @@ public class FrontEndUseCaseLogicImpl
                                                 messages.put(
                                                         attribute.getMessageKey(),
                                                         attribute.getMessageValue());
+
+                                                if(attribute.isRequired()) {
+                                                    messages.put(
+                                                            attribute.getMessageKey() + ".required",
+                                                            attribute.getMessageValue() + " is required.");
+                                                }
+
+                                                if(StringUtils.isNotBlank(attribute.getMinLength())) {
+                                                    messages.put(
+                                                            attribute.getMessageKey() + ".minlength",
+                                                            attribute.getMessageValue()  + " must have at least " + attribute.getMinLength() + " characters.");
+                                                }
+            
+                                                if(StringUtils.isNotBlank(attribute.getMaxLength())) {
+                                                    messages.put(
+                                                            attribute.getMessageKey() + ".maxlength",
+                                                            attribute.getMessageValue() + " must have at most " + attribute.getMaxLength() + " characters.");
+                                                }
+
+                                                if(StringUtils.isNotBlank(attribute.getMin())) {
+                                                    messages.put(
+                                                            attribute.getMessageKey() + ".min",
+                                                            attribute.getMessageValue()  + " value must be at least " + attribute.getMin() + ".");
+                                                }
+            
+                                                if(StringUtils.isNotBlank(attribute.getMax())) {
+                                                    messages.put(
+                                                            attribute.getMessageKey() + ".max",
+                                                            attribute.getMessageValue() + " value must be at most " + attribute.getMax() + ".");
+                                                }
+
+                                                if(attribute.isInputEmail()) {
+                                                    messages.put(
+                                                        attribute.getMessageKey() + ".email",
+                                                        "Value is not valid email format.");
+                                                }
                                             }
                                         }
                                     }
@@ -516,6 +588,42 @@ public class FrontEndUseCaseLogicImpl
                             messages.put(
                                     parameter.getDocumentationKey(),
                                     parameter.getDocumentationValue());
+
+                            if(parameter.isRequired()) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".required",
+                                    parameter.getMessageValue() + " is required.");
+                            }
+
+                            if(StringUtils.isNotBlank(parameter.getMinLength())) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".minlength",
+                                    parameter.getMessageValue()  + " must have at least " + parameter.getMinLength() + " characters.");
+                            }
+
+                            if(StringUtils.isNotBlank(parameter.getMaxLength())) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".maxlength",
+                                    parameter.getMessageValue() + " must have at most " + parameter.getMaxLength() + " characters.");
+                            }
+
+                            if(StringUtils.isNotBlank(parameter.getMin())) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".min",
+                                    parameter.getMessageValue()  + " value must be at least " + parameter.getMin() + ".");
+                            }
+
+                            if(StringUtils.isNotBlank(parameter.getMax())) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".max",
+                                    parameter.getMessageValue() + " value must be at most " + parameter.getMax() + ".");
+                            }
+
+                            if(parameter.isInputEmail()) {
+                                messages.put(
+                                    parameter.getMessageKey() + ".email",
+                                    "Value is not valid email format.");
+                            }
 
                             // - submittable input table
                             if (parameter.isInputTable()) {
@@ -640,15 +748,15 @@ public class FrontEndUseCaseLogicImpl
 
     // @Override
     // protected String handleGetPath() {
-    //     String actionPath = null;
-    //     final FrontEndActivityGraph graph = this.getActivityGraph();
-    //     if (graph != null) {
-    //         final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
-    //         if (action != null) {
-    //             actionPath = action.getPath();
-    //         }
-    //     }
-    //     return actionPath;
+    // String actionPath = null;
+    // final FrontEndActivityGraph graph = this.getActivityGraph();
+    // if (graph != null) {
+    // final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
+    // if (action != null) {
+    // actionPath = action.getPath();
+    // }
+    // }
+    // return actionPath;
     // }
 
     @Override
@@ -844,26 +952,14 @@ public class FrontEndUseCaseLogicImpl
 
     @Override
     protected String handleGetPath() {
-        String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
-        if (StringUtils.isBlank(path)) {
-            path = EMPTY_STRING;
-        }
+        String path = null;
 
-        if (StringUtils.isBlank(path) || path.equals(DEFAULT)) {
-            path = StringUtils.replace(this.getPackageName(), ".", "/");
-        } else {
-
-            final FrontEndActivityGraph graph = this.getActivityGraph();
-            if (graph != null) {
-                final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
-                if (action != null) {
-                    path = action.getPath();
-                }
+        final FrontEndActivityGraph graph = this.getActivityGraph();
+        if (graph != null) {
+            final FrontEndAction action = (FrontEndAction) graph.getInitialAction();
+            if (action != null) {
+                path = action.getPath();
             }
-        }
-
-        if (!path.startsWith(SLASH)) {
-            path = SLASH + path;
         }
 
         return path;
@@ -926,5 +1022,22 @@ public class FrontEndUseCaseLogicImpl
     @Override
     protected Collection handleGetAllowedRoles() {
         return UMLMetafacadeUtils.getAllowedRoles(this);
+    }
+
+    @Override
+    protected String handleGetSubstitutionName() {
+        String name = StringUtils
+                .stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBSTITUTION_NAME)));
+        return name;
+    }
+
+    @Override
+    protected String handleGetIcon() {
+        return UMLMetafacadeUtils.getIcon(this);
+    }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        return UMLMetafacadeUtils.getDisplayCondition(this);
     }
 }

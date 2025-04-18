@@ -27,6 +27,11 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@service/*": ["src/app/service/*"],
+      "@controller/*": ["src/app/controller/*"],
+      "@model/*": ["src/app/model/*"],
+      "@store/*": ["src/app/store/*"],
+      "@view/*": ["src/app/view/*"],
       "@core": ["src/app/@core"],
       "@core/*": ["src/app/@core/*"],
       "@shared": ["src/app/@shared"],

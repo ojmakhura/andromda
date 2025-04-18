@@ -386,6 +386,18 @@
                 </documentation>
                 <value>andromda_presentation_rest_path</value>
             </element>
+            <element name="PRESENTATION_SUBSTITUTION_NAME">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_substitution_name</value>
+            </element>
+            <element name="PRESENTATION_IF">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_if</value>
+            </element>
             <element name="PRESENTATION_PATH">
                 <documentation>
                     File path for this presentation.
@@ -410,6 +422,12 @@
                 </documentation>
                 <value>andromda_presentation_access_roles</value>
             </element>
+            <element name="PRESENTATION_EXTRA_ROUTES">
+                <documentation>
+                    Extra routes for either the usecase or view.
+                </documentation>
+                <value>andromda_presentation_extra_routes</value>
+            </element>
             <element name="PRESENTATION_USECASE_ACTIVITY">
                 <documentation>
                     For tools that do not allow the placement of activity graphs inside of a use-case
@@ -417,6 +435,12 @@
                     denotes that the graphs specifies this use-case.
                 </documentation>
                 <value>andromda_presentation_usecase_activity</value>
+            </element>
+            <element name="PRESENTATION_ICON">
+                <documentation>
+                    The icon to be used for this item (Use Case, Action and View)
+                </documentation>
+                <value>andromda_presentation_icon</value>
             </element>
             <element name="PRESENTATION_TABLE_COLUMNS">
                 <documentation>

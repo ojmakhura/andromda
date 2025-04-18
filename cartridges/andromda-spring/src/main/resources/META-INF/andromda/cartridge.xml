@@ -27,7 +27,10 @@
     <!-- cartridge-templateObject merge-point-->
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
-
+    
+    <property reference="springSpecifications"/>
+    <property reference="applicationId"/>
+    <property reference="applicationPackage"/>
     <property reference="projectId"/>
     <property reference="projectName"/>
     <property reference="projectGroupId"/>
@@ -377,7 +380,7 @@
     </template> -->
 
     <!-- this configuration is supposed to be used by web components, typically Hessian or Burlap -->
-    <!-- <template
+    <template
         path="templates/spring/applicationContext-server.xml.vsl"
         outputPattern="${serviceRemoteContext}-servlet.xml"
         outlet="spring-configuration"
@@ -397,10 +400,10 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <!-- this configuration is supposed to be used by non-web components -->
-    <!-- <template
+    <template
         path="templates/spring/applicationContext-server.xml.vsl"
         outputPattern="$applicationContextServer"
         outlet="spring-configuration"
@@ -419,9 +422,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/remoting/client/applicationContext-client.xml.vsl"
         outputPattern="$applicationContextClient"
         outlet="client-config"
@@ -438,9 +441,9 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/richclient/applicationContext-server-authentication.xml.vsl"
         outputPattern="WEB-INF/$applicationContextServerAuthentication"
         outlet="server-config"
@@ -455,7 +458,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <!-- Daos and Persistence -->
     <template
@@ -689,7 +692,7 @@
         </modelElements>
     </template> -->
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/applicationContext-remoteEjb.xml.vsl"
         outputPattern="$applicationContextRemoteEjb"
         outlet="spring-configuration"
@@ -703,9 +706,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/applicationContext-localEjb.xml.vsl"
         outputPattern="$applicationContextLocalEjb"
         outlet="spring-configuration"
@@ -719,9 +722,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-ejbs"
@@ -737,9 +740,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="server-config"
@@ -755,9 +758,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
         outlet="session-ejbs"
@@ -773,9 +776,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
-    <!-- <template
+    <template
         path="templates/spring/ejb/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
         outlet="server-config"
@@ -791,7 +794,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <!-- <template
         path="templates/spring/beanRefFactory.xml.vsl"
@@ -1493,7 +1496,7 @@
             C R U D
     -->
 
-    <!-- <template
+    <template
         path="templates/spring/crud/applicationContext-manageable.xml.vsl"
         outputPattern="$applicationContextManageable"
         outlet="spring-configuration"
@@ -1505,7 +1508,7 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <!-- <template
         path="templates/spring/crud/SpringCrudServiceLocator.vsl"
