@@ -26,6 +26,7 @@ import org.andromda.cartridges.angular.metafacades.AngularModelLogic;
 import org.andromda.cartridges.angular.metafacades.AngularParameter;
 import org.andromda.cartridges.angular.metafacades.AngularService;
 import org.andromda.cartridges.angular.metafacades.AngularServiceOperation;
+import org.andromda.cartridges.angular.metafacades.AngularServiceParameter;
 import org.andromda.cartridges.angular.metafacades.AngularServiceParameterLogic;
 import org.andromda.cartridges.angular.metafacades.AngularView;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -44,6 +45,9 @@ import org.andromda.metafacades.uml.Service;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.ValueObject;
+import org.andromda.metafacades.uml.web.MetafacadeWebGlobals;
+import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
+import org.andromda.metafacades.uml.webservice.MetafacadeWebserviceGlobals;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -302,30 +306,35 @@ public class AngularUtils {
         
         StringBuilder builder = new StringBuilder();
 
-        for(ParameterFacade arg$ : arguments) {
+        for(ParameterFacade arg : arguments) {
             if(builder.length() > 0) {
                 
                 builder.append(", ");
             }
-
-            //AngularParameter arg = (AngularParameter) arg$.getType();
             
-            builder.append(arg$.getName());
+            builder.append(arg.getName());
             builder.append(": ");
 
-            if(arg$ instanceof AngularModel) {
+            if(arg instanceof AngularModel) {
 
-                AngularModel model = (AngularModel) arg$;
+                AngularModel model = (AngularModel) arg;
                 builder.append(model.getAngularTypeName());
                 
-            } else if(arg$.getType() instanceof AngularModel) {
+            } else if(arg.getType() instanceof AngularModel) {
 
-                AngularModel model = (AngularModel) arg$.getType();
+                AngularModel model = (AngularModel) arg.getType();
                 builder.append(model.getAngularTypeName());
 
             } else {
-                builder.append(getDatatype(arg$.getGetterSetterTypeName()));
+                String input = Objects.toString(arg.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TYPE));
+                
+                if(input != null && input.equals("file")) {
+                    builder.append("File");
+                } else {
+                    builder.append(getDatatype(arg.getGetterSetterTypeName()));
+                }
             }
+            builder.append(" | any ");
         }
             
         return builder.toString();
@@ -356,8 +365,70 @@ public class AngularUtils {
         }
     }
     
-    public static void addDefaultRole() {
-        
+
+    public static String getRequestParamString(AngularServiceOperation operation) {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(ParameterFacade parameter : operation.getArguments()) {
+
+            AngularServiceParameter param = (AngularServiceParameter)parameter;
+
+            String paramType = param.getRestParamType();
+            if(paramType.contains("RequestParam")) {
+                if(builder.length() > 0) {
+                    builder.append("&");
+
+                }
+                builder.append(param.getName());
+                builder.append("=${");
+                builder.append(param.getName());
+                builder.append("}");
+            }
+        }
+
+        if(builder.length() > 0) {
+            builder.insert(0, "?");
+        }
+
+        return builder.toString();
+    }
+
+    public static String getRequestBodyString(AngularServiceOperation operation) {
+
+
+        List<ParameterFacade> arguments = (List<ParameterFacade>) operation.getArguments();
+
+        if(arguments.size() == 1) {
+            AngularServiceParameter arg = (AngularServiceParameter)arguments.get(0);
+            String paramType = arg.getRestParamType();
+            if(StringUtilsHelper.isBlank(paramType) || paramType.contains("RequestBody")) {
+                return arg.getName();
+            }
+            return "{}";
+        } else {
+            StringBuilder builder = new StringBuilder();
+            
+            builder.append("{");
+            
+            for(int i = 0; i < arguments.size(); i++) {
+                
+                AngularServiceParameter arg = (AngularServiceParameter)arguments.get(i);
+                String paramType = arg.getRestParamType();
+                if(StringUtilsHelper.isBlank(paramType) || paramType.contains("RequestBody")) {
+                    if(i > 0) {
+                        builder.append(", ");
+                    }
+                    builder.append(arg.getName());
+                    builder.append(": ");
+                    builder.append(arg.getName());
+                }
+            }
+            
+            builder.append("}");
+
+            return builder.toString();
+        }
     }
     
     public static HashSet<String> getFacadeNameSet(List<UseCaseFacade> useCases) {
@@ -1875,7 +1946,7 @@ public class AngularUtils {
         }
         typeName = type.getFullyQualifiedName();
         if (type.isPrimitive() || typeName.startsWith("java.lang.") || typeName.startsWith("java.util.")
-            || !typeName.contains("."))
+            || !typeName.contains(".") || type.isEnumeration())
         {
             if (!many)
             {
@@ -1885,7 +1956,7 @@ public class AngularUtils {
         return simple;
     }
 
-    public static String handleGetTableColumnMessageKey(Object column, MetafacadeBase parent)
+    public static String getTableColumnMessageKey(Object column, MetafacadeBase parent)
     {
 
         if(column instanceof AngularAttribute) {
@@ -1925,5 +1996,12 @@ public class AngularUtils {
         }
 
         return null;
+    }
+
+    public static String getLastProperty(String source) {
+        
+        String[] splits = source.split("\\.");
+
+        return splits[splits.length - 1];
     }
 }

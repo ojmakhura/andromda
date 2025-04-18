@@ -350,6 +350,7 @@
                 <property name="service-interfaces">${core.generated.dir}</property>
                 <property name="criteria">${common.generated.dir}</property>
                 <property name="value-objects">${common.generated.dir}</property>
+                <property name="springSpecifications">${application.package}.$stringUtils.capitalize(${applicationId})Specifications</property>
 #if ($ear)
 #if ($ejb || $ejb3)
                 <property name="enableSpringTransactionsWhenEjbsEnabled">false</property>
@@ -592,7 +593,8 @@
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
 #if($ngrx)
-                <property name="ngrx-store">${angular.ngrx.dir}</property>
+                <property name="ngrx-store">${angular.ngrx.generated.dir}</property>
+                <property name="ngrx-store-impl">${angular.ngrx.manual.dir}</property>
                 <property name="ngrx">true</property>
 #end
             </properties>

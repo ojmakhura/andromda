@@ -196,6 +196,23 @@
                     Use ${project.parent.name} to get value from pom.xml files.
                 </documentation>
             </property>
+            <property name="applicationId" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>       
+            <property name="applicationPackage" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>         
+            <property name="springSpecifications" required="true">
+                <documentation>
+                    The fully qualified name of the general specifications.
+                </documentation>
+            </property>     
             <property name="projectGroupId">
                 <default>${project.parent.groupId}</default>
                 <documentation>

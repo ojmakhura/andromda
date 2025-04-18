@@ -72,9 +72,6 @@ package $entity.packageName;
  *
  * @see $entity.fullyQualifiedEntityName
  */
-#if($hibernate4or5)
-@org.springframework.stereotype.Repository
-#end
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
     extends $entity.generalization.fullyQualifiedDaoImplementationName
@@ -85,19 +82,41 @@ public abstract class $entity.daoBaseName
 {
 
 #if($hibernate4or5)
-    protected org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
+    protected final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(${entity.daoBaseName}.class);
 
 #end
 #set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
 #set($repositoryType = "${entity.fullyQualifiedName}Repository")
-    @org.springframework.beans.factory.annotation.Autowired
-    protected ${repositoryType} ${repositoryName};
+    protected final ${repositoryType} ${repositoryName};
 
 #foreach($entityRef in $entity.entityReferences)  
 #set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
 #set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
+    protected final ${refRepositoryType} ${refRepositoryName};
 
+#end
+    public ${entity.daoBaseName}(
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")  
+        ${refRepositoryType} $refRepositoryName,
+#end
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+#set($repositoryType = "${entity.fullyQualifiedName}Repository")
+        ${repositoryType} ${repositoryName}
+    ) {
+#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+        this.$repositoryName = $repositoryName;
+#foreach($entityRef in $entity.entityReferences) 
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+        this.$refRepositoryName = $refRepositoryName;
+#end
+    }
+
+#foreach($entityRef in $entity.entityReferences)  
+#set($refRepositoryName = "${stringUtils.uncapitalize(${entityRef.targetElement.entityName})}Repository")
+#set($refRepositoryType = "${entityRef.targetElement.fullyQualifiedName}Repository")
     /**
      * Sets the reference to <code>$entityRef.daoName</code>.
      * @param ${entityRef.daoName}In
@@ -107,7 +126,7 @@ public abstract class $entity.daoBaseName
     {
         this.$entityRef.daoName = ${entityRef.daoName}In;
     }
-
+    
     /**
      * Gets the reference to <code>$entityRef.daoName</code>.
      * @return ${entityRef.daoName}
@@ -115,18 +134,6 @@ public abstract class $entity.daoBaseName
     protected $entityRef.targetElement.fullyQualifiedDaoName ${entityRef.daoGetterName}()
     {
         return this.$entityRef.daoName;
-    }
-
-    protected ${refRepositoryType} ${refRepositoryName};
-
-    /**
-     * Sets the reference to <code>${refRepositoryName}</code>.
-     * @param ${refRepositoryName}In
-     */
-    @org.springframework.beans.factory.annotation.Autowired
-    public void set${entityRef.targetElement.name}Repository(@org.springframework.context.annotation.Lazy ${refRepositoryType} ${refRepositoryName}In)
-    {
-        this.${refRepositoryName} = ${refRepositoryName}In;
     }
 
     /**
@@ -139,6 +146,7 @@ public abstract class $entity.daoBaseName
     }
 
 #end
+
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * {@inheritDoc}
@@ -1072,7 +1080,7 @@ $oldXmlIndent        }
 #if ($enableAnnotations)
     @Override
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -1097,7 +1105,7 @@ $oldXmlIndent        }
 #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many))
     @SuppressWarnings("unchecked")
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if ($finder.returnType.collectionType || $finder.many), int pageNumber, int pageSize#end#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
 ## TODO: Exception is not actually thrown by this method
         throws $finder.exceptionList
@@ -1124,7 +1132,7 @@ $h3tab        if(${argument.name}.${id.getterName}() != null)
 $h3tab          if(specifications == null)
 $h3tab              specifications = ${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}());
 $h3tab          else
-$h3tab              specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}());
+$h3tab              specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)$stringUtils.capitalize($id.name)(${argument.name}.${id.getterName}()));
 #end
 #end
 #else
@@ -1134,12 +1142,13 @@ $h3tab        specifications = ${entity.name}Specifications.findBy$stringUtils.c
 $h3tab        if(specifications == null)
 $h3tab          specifications = ${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}());
 $h3tab        else
-$h3tab          specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}());
+$h3tab          specifications = specifications.and(${entity.name}Specifications.findBy$stringUtils.capitalize($argument.name)(${argument.name}()));
 #end
 #end
 #set ($count = $count + 1)
 #end
 #end
+
 $h3tab        org.springframework.data.domain.Pageable pageable = null;
 #if ($finder.returnType.collectionType || $finder.many)
 $h3tab        if (pageNumber > 0 && pageSize > 0)
@@ -1148,6 +1157,7 @@ $h3tab            pageable = org.springframework.data.domain.PageRequest.of(page
 $h3tab        }
 #end
 #if ($finder.returnType.collectionType || $finder.many)
+
 $h3tab        java.util.Collection results = null;
 $h3tab        if(pageable == null) {
 #if($stringUtils.isNotBlank($finder.query))
@@ -1164,6 +1174,7 @@ $h3tab          results = ${repositoryName}.findAll(specifications, pageable).ge
 $h3tab        }
 #end
 #if (!($finder.returnType.collectionType || $finder.many))
+
 $h3tab        Object result = null;
 $h3tab        if (results.size() > 1)
 $h3tab        {
@@ -1179,10 +1190,13 @@ $h3tab        }
 $h3tab        if(transform != $entity.daoNoTransformationConstantName){
 $h3tab            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
 $h3tab        }
+
 $h3tab        return result;
 #else
+
 $h3tab        transformEntities(transform, results);
 #if ($finder.returnTypePresent)
+
 $h3tab        return results;
 #end
 #end
@@ -1216,7 +1230,7 @@ $h3tab        return results;
 #set($criteriaArg = $arg)
 #end
 #end
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility java.util.Collection#if($enableTemplating)<?>#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
         throws $finder.exceptionList
 #end
@@ -1298,9 +1312,9 @@ $h3tab        return results;
 #if($i == 1)
         if($nullCheck) {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = Sort.by("$criteriaAttribute.name").descending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").descending();
 #else
-            sort = Sort.by("$criteriaAttribute.name").ascending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").ascending();
 #end
         }
 
@@ -1308,15 +1322,15 @@ $h3tab        return results;
 #else
         if($nullCheck) {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = Sort.by("$criteriaAttribute.name").descending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").descending();
 #else
-            sort = Sort.by("$criteriaAttribute.name").ascending();
+            sort = org.springframework.data.domain.Sort.by("$criteriaAttribute.name").ascending();
 #end
             } else {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = sort.by("$criteriaAttribute.name").descending();
+            sort = sort.by("$criteriaAttribute.attributeName").descending();
 #else
-            sort = sort.by("$criteriaAttribute.name").ascending();
+            sort = sort.by("$criteriaAttribute.attributeName").ascending();
 #end
         }
 
@@ -1327,10 +1341,9 @@ $h3tab        return results;
         return sort;
     }
 
-    private org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
+    public org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
-        org.springframework.data.jpa.domain.Specification<$entity.name> tmpSpec = null;
         
 #set ($args = "")
 #if($finder.criteriaFinder)
@@ -1341,33 +1354,57 @@ $h3tab        return results;
 #foreach($criteriaAttribute in $criteriaClass.getAttributes(true))
 #set ($specName = "${hibernateUtils.getCriteriaAttributeMethodName($criteriaAttribute)}")
 #set ($attributeName = $criteriaAttribute.attributeName)
-## #set ($getter = "${criteriaAttribute.getterName}()")
+#set($isJoin = $hibernateUtils.isJoin($criteriaAttribute.attributeName))
 #if($criteriaAttribute.type.stringType && !$criteriaAttribute.many)
 #set($nullCheck = "org.apache.commons.lang3.StringUtils.isNotBlank(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#elseif($criteriaAttribute.many)
+#set($nullCheck = "org.apache.commons.collections4.CollectionUtils.isNotEmpty(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
 #else
 #set($nullCheck = "${criteriaArgumentName}.${criteriaAttribute.getterName}() != null")
 #end
-        tmpSpec = ${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}());
+#set ($quotedAttribute = $hibernateUtils.getAttributeNameInQuotes($criteriaAttribute))
+#if($isJoin)
+#set ($spec = "${entity.name}Specifications.${specName}(${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#else
+#set ($spec = "${springSpecifications}.<${entity.fullyQualifiedName}, #if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>${specName}($quotedAttribute, ${criteriaArgumentName}.${criteriaAttribute.getterName}())")
+#end
 #if($criteriaAttribute.nullable)
 #set ($capitalised_ = $stringUtils.capitalize($hibernateUtils.getFirstJoinName($criteriaAttribute.attributeName)))
-#set ($specName_ = "findBy${capitalised_}Null")
-        tmpSpec = tmpSpec.or(${entity.name}Specifications.${specName_}());
+#set ($specName_ = "findByPropertyNull")
+#if($isJoin)
+#set ($specPrefix = "${entity.name}")
+#else
+#set ($specPrefix = "${springSpecifications}")
+#end
+#set ($spec = "${spec}.or(${specPrefix}Specifications.#if(!$isJoin)<#if($criteriaAttribute.type.primitive)$criteriaAttribute.type.wrapperName#else${criteriaAttribute.type.fullyQualifiedName}#end>#end${specName_}($quotedAttribute))")
 
 #end
 #if($i == 1)
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.getterSetterTypeName, "boolean"))
         if($nullCheck) {
-            specifications = tmpSpec;
+            specifications = $spec;
         }
+#else
+        specifications = $spec;
+#end
 
 #set ($i = $i + 1)
 #else
+#if(!$stringUtils.containsIgnoreCase($criteriaAttribute.type.name, "boolean"))
         if($nullCheck) {
             if(specifications == null) {
-                specifications = tmpSpec;
+                specifications = $spec;
             } else {
-                specifications = specifications.and(tmpSpec);
+                specifications = specifications.and($spec);
             }
         }
+#else
+        if(specifications == null) {
+            specifications = $spec;
+        } else {
+            specifications = specifications.and($spec);
+        }
+#end
 
 #end
 #end
@@ -1587,7 +1624,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
 #end
-    public final Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
+    public java.util.Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities)
     {
         if (entities == null)
         {
@@ -1610,7 +1647,7 @@ $h3tab        return results;
 #if ($enableTemplating)
     @SuppressWarnings({ "unchecked" })
 #end
-    public final ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
+    public ${valueObjectRef.targetElement.fullyQualifiedName}[] ${valueObjectRef.transformationToArrayMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
         ${valueObjectRef.targetElement.fullyQualifiedName}[] result = null;
         if (entities != null)
@@ -1672,7 +1709,7 @@ $h3tab        return results;
 #if ($enableAnnotations)
     @Override
 #end
-    public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
+    public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
     {
         if (instances != null)
         {
@@ -1719,7 +1756,12 @@ $h3tab        return results;
 #*      *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
 #*      *##if ($entityPropertyGetterValue)
 #*        *##if(${entityProperty.many} && !${property.type.arrayType})
-        target.${property.getterName}().clear();
+        if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${property.getterName}())){
+            target.${property.getterName}().clear();
+        } else {
+            target.${property.setterName}(new java.util.ArrayList<>());
+        }
+        
         if(null!=source.${entityProperty.getterName}()) {
             target.${property.getterName}().addAll(source.${entityProperty.getterName}());
         }
@@ -1783,7 +1825,11 @@ $h3tab        return results;
 #*              *##if(${entityProperty.many} && !${property.type.arrayType})
         if (copyIfNull || source.${property.getterName}() != null)
         {
-            target.${entityProperty.getterName}().clear();
+            if(org.apache.commons.collections4.CollectionUtils.isNotEmpty(target.${entityProperty.getterName}())){
+                target.${entityProperty.getterName}().clear();
+            } else {
+                target.${entityProperty.setterName}(new java.util.ArrayList<>());
+            }
             if(null != source.${property.getterName}()) {
                 target.${entityProperty.getterName}().addAll(source.${property.getterName}());
             }
@@ -1988,7 +2034,7 @@ $h3tab        return results;
     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
     {
 
-        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${entity.name}Specifications.findBy${stringUtils.capitalize(${attribute.name})}(${attribute.name});
+        org.springframework.data.jpa.domain.Specification<${entity.fullyQualifiedEntityName}> spec = ${springSpecifications}.<${entity.fullyQualifiedEntityName}, ${attribute.type.fullyQualifiedName}>findByAttribute("${attribute.name}", ${attribute.name});
         java.util.List<${entity.fullyQualifiedEntityName}> entities = ${stringUtils.uncapitalize(${entity.name})}Repository.findAll(spec, org.springframework.data.domain.Sort.by("${attribute.name}"));
         if(org.apache.commons.collections4.CollectionUtils.isEmpty(entities)) {
             return null;

@@ -320,7 +320,27 @@ public class SpringHibernateUtils
             return null;
         }
 
-        return splits[0];
+        return splits[1];
+    }
+
+    public String getLastJoinName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+        
+        String[] splits = name.split("\\.");
+        return splits[splits.length - 2];
+    }
+
+    public String getJoinAttributeName(String name) {
+
+        if(name == null || name.length() == 0) {
+            return null;
+        }
+        
+        String[] splits = name.split("\\.");
+        return splits[splits.length - 1];
     }
 
     public boolean isJoin(String attributeName) {
@@ -346,16 +366,31 @@ public class SpringHibernateUtils
         return joins;
     }
 
+    public String getAttributeNameInQuotes(SpringCriteriaAttributeLogic criteriaAttribute) {
+
+        return "\"" + criteriaAttribute.getAttributeName() + "\"";
+    }
+    
     public String getCriteriaAttributeMethodName(SpringCriteriaAttributeLogic criteriaAttribute) {
 
         StringBuilder builder = new StringBuilder();
         builder.append("findBy");
-        builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
+
+        if(isJoin(criteriaAttribute.getAttributeName())) {
+            if(joinLength(criteriaAttribute.getAttributeName()) > 1 && criteriaAttribute.getAttributeName().endsWith(".id")) {
+                builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
+            } else {
+                builder.append(StringUtils.capitalize(criteriaAttribute.getName()));
+            }
+            
+        } else {
+            builder.append("Attribute");
+        }
 
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
 
             if(criteriaAttribute.getComparator().equals("insensitive_like")
-                || criteriaAttribute.getComparatorConstant().equals("like")) {
+                || criteriaAttribute.getComparator().equals("like")) {
 
                 if(criteriaAttribute.getMatchMode().equals("end")) {
                     builder.append("EndingWithIgnoreCase");
@@ -379,24 +414,26 @@ public class SpringHibernateUtils
     }
 
     private String getMatchMode(SpringCriteriaAttributeLogic criteriaAttribute) {
-        if(criteriaAttribute.getComparator().equals("greater")) {
+        if(criteriaAttribute.getMatchMode().equals("greater")) {
 
             return "Greater";
 
-        } else if(criteriaAttribute.getComparator().equals("greater_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("greater_equal")) {
             return "GreaterThanEqual";
 
-        } else if(criteriaAttribute.getComparator().equals("less")) {
+        } else if(criteriaAttribute.getMatchMode().equals("less")) {
             return "Less";
 
-        } else if(criteriaAttribute.getComparator().equals("less_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("less_equal")) {
             return "LessThanEqual";
-        } else if(criteriaAttribute.getComparator().equals("not_equal")) {
+        } else if(criteriaAttribute.getMatchMode().equals("not_equal")) {
             return "NotEqual";
-        } else if(criteriaAttribute.getComparator().equals("in")) {
+        } else if(criteriaAttribute.getMatchMode().equals("in") || criteriaAttribute.isMany() || criteriaAttribute.getType().isCollectionType()) {
             return "In";
         }
 
         return "";
     }
+
+
 }

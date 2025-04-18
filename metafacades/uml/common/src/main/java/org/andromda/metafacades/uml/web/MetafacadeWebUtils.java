@@ -25,6 +25,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -1214,10 +1215,24 @@ public class MetafacadeWebUtils {
 
         return min;
     }
+    
     public static String getInputMax(ModelElementFacade modelElement) {
         String max = StringUtils.stripToNull(((String) modelElement.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_WEB_FIELD_MAX)));
 
         return max;
+    }
+    
+    public static Collection<?> getExtraRoutes(ModelElementFacade modelElement) {
+        return modelElement.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_EXTRA_ROUTES);
+    }
+
+    public static Object getColumnByIndex(List<Object> columns, int index) {
+
+        if(CollectionUtils.isEmpty(columns)) {
+            return null;
+        }
+
+        return columns.get(index);
     }
 }
 

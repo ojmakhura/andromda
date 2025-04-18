@@ -37,6 +37,7 @@ import { ShellModule } from './shell/shell.module';
 #set ($component = "component")
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SanitizeHtml } from './pipe/sanitize-html.pipe';
 #if($ngrx)
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -64,10 +65,10 @@ import { ${controller.implementationName} } from ${escTool.s}@app/${controller.i
 #end
 #end
 import { UseCaseScope } from '@app/utils/use-case-scope';
-#set ( $finalServices = $angularUtils.getFacadeSet($services) )
-#foreach ( $service in $finalServices )
-import { ${service.implementationName} } from ${escTool.s}@app/${service.implementationFilePath}${escTool.s};
-#end
+## #set ( $finalServices = $angularUtils.getFacadeSet($services) )
+## #foreach ( $service in $finalServices )
+## import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+## #end
 #if($secure)
 import { AuthModule } from './auth';
 #end
@@ -106,14 +107,14 @@ $secure
     ],
     providers: [
         UseCaseScope,
-#foreach ( $finalService in $finalServices )
-        ${finalService.implementationName},
-#end
-#foreach ( $useCase in $useCases )
-#if($useCase.controller)
-        ${useCase.controller.implementationName},
-#end
-#end
+## #foreach ( $finalService in $finalServices )
+##         ${finalservice.name},
+## #end
+## #foreach ( $useCase in $useCases )
+## #if($useCase.controller)
+##         ${useCase.controller.implementationName},
+## #end
+## #end
     ],
     bootstrap: [AppComponent]
 })

@@ -59,6 +59,8 @@ public class FrontEndControllerLogicImpl
         super(metaObject, context);
     }
 
+    private static final String DEFAULT = "default";
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndController#getServiceReferences()
      */
@@ -242,7 +244,7 @@ public class FrontEndControllerLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-                
+                        
         return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 

@@ -29,7 +29,7 @@
 #set ($restPath = $restPath + "uc")
 #end
             <li>
-                <a th:href="@{${pUseCase.controller.restPath}}">
+                <a th:href="@{${pUseCase.controller.restPath}}"> 
                     <span th:text="#{$pUseCase.titleKey}"></span>
                 </a>
             </li>
