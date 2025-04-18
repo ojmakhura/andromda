@@ -79,38 +79,8 @@ ${indent}</button>
 #end
 #else
 #foreach ($attribute in $parameter.attributes)
-#if(!$attribute.inputHidden && !$parameter.inputHidden)
-#if($attribute.inputTable)
-#if ($attribute.backingListName)
-#if ($parameter.type.hasStereotype('Entity'))
-#set ($propertyId = $attribute.getFormPropertyId($parameter))
-#else
-#set ($propertyId = $attribute.name)
-#end
-#else
-#set ($propertyId = $attribute.getFormPropertyId($parameter))
-#end
-<div class="modal fade" id="${propertyId}Add" tabindex="-1" aria-labelledby="${propertyId}AddLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="${propertyId}AddLabel">
-                    <span th:text="#{$parameter.messageKey}">
-                    </span>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-#renderTableInput($attribute, $parameter, "                 ")
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-#end
+#if(!$attribute.inputHidden && !$parameter.inputHidden && $umlMetafacadeUtils.isComplex($attribute) && !$attribute.type.enumeration)
+#renderModalInput($attribute $parameter "			" true)
 #end
 #end
 #end

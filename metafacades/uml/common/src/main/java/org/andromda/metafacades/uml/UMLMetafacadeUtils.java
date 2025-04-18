@@ -1296,10 +1296,6 @@ public class UMLMetafacadeUtils
         }
         else
         {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
                 path = path;
@@ -1330,10 +1326,6 @@ public class UMLMetafacadeUtils
         }
         else
         {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
                 path = path;
@@ -1383,5 +1375,47 @@ public class UMLMetafacadeUtils
         String url = StringUtils.stripToNull(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IF)));
         
         return url;
+    }
+	
+    public static Boolean isComplex(Object element) {
+        
+        // If this is a value object, then it's complex
+        if(element instanceof ValueObject) {
+            return true;
+        }
+        
+        Boolean complex = false;
+        ClassifierFacade type = null;
+		
+        if(element instanceof AttributeFacade) {
+            type = ((AttributeFacade)element).getType();
+        } else if(element instanceof ParameterFacade) {
+            type = ((ParameterFacade)element).getType();
+        } else if(element instanceof FrontEndParameter) {
+            type = ((FrontEndParameter)element).getType();
+        } 
+		
+        if (type != null)
+        {
+            if(type.isEnumeration()) { /// Enumerations are complex
+                complex = true;
+            } else {
+
+                complex = !type.getAttributes().isEmpty(); // If it has more than one attribute then it's complex
+                if (!complex)
+                {
+                    complex = !type.getAssociationEnds().isEmpty();
+                }
+            }
+        }
+		
+        return complex;
+    }
+    
+    public static String getLastProperty(String source) {
+        
+        String[] splits = source.split("\\.");
+
+        return splits[splits.length - 1];
     }
 }

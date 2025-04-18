@@ -34,6 +34,7 @@ export interface ${useCase.storeName}State {
 #foreach($param in $finalParams)
     $param.name: $param.angularTypeName | #if($param.many || $param.type.collectionType)Array<any>#{else}any#end;
 #end
+    loaderMessage: string | undefined;
     loading: boolean;
     success: boolean;
     error: boolean;
@@ -46,6 +47,7 @@ export const initialState: ${useCase.storeName}State = {
 #end
     loading: false,
     success: false,
+    loaderMessage: undefined,
     error: false,
     messages: []
 };

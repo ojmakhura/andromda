@@ -412,36 +412,7 @@ public class FrontEndControllerOperationLogicImpl
 
     @Override
     protected String handleGetRestPath() {
-        String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
-        if (StringUtils.isBlank(path))
-        {
-            path = EMPTY_STRING;
-        }
-
-        if (StringUtils.isBlank(path) || path.equals(DEFAULT))
-        {
-            path = MetafacadeWebUtils.toWebResourceName(this.getName());
-        }
-        else
-        {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
-            if (!path.endsWith(QUOTE) || path.length()<2)
-            {
-                path = path;
-            }
-            
-            if(path.endsWith(SLASH)) {
-                path = path.substring(0, path.length() - 1);
-            }
-        }
         
-        if(!path.startsWith(SLASH)) {
-            path = SLASH + path;
-        }
-        
-        return path;
+        return UMLMetafacadeUtils.getRestPath(this, this.getName());
     }
 }

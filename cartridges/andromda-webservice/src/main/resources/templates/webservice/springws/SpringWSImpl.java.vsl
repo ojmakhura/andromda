@@ -14,6 +14,7 @@ package ${service.packageName};
 
 @org.springframework.web.bind.annotation.RestController
 @org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
+@org.springframework.web.bind.annotation.CrossOrigin()
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end

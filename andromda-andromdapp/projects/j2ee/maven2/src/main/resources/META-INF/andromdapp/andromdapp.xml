@@ -58,7 +58,6 @@
             <condition id="thymeleaf" equal="true"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
-            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</output>
             <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
         </conditions>
         <conditions type="and">
@@ -85,6 +84,10 @@
         <conditions>
             <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
+        </conditions>
+        <conditions>
+            <condition id="spring" equal="true"/>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -163,6 +166,10 @@
         <mapping>
             <from>core/SharedAutoConfiguration.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationSpecifications.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
@@ -289,10 +296,6 @@
         <mapping>
             <from>thymeleaf/SelectItem.java.vsl</from>
             <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</to>
-        </mapping>
-        <mapping>
-            <from>thymeleaf/SpringFoxConfig.java.vsl</from>
-            <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringFoxConfig.java.vsl</to>
         </mapping>
         <mapping>
             <from>thymeleaf/application.properties.vsl</from>

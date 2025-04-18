@@ -15,6 +15,9 @@ package $class.packageName;
 /**
 $class.getDocumentation(" * ")
  */
+#foreach($annotation in $class.additionalAnnotations)
+@$annotation
+#end
 public class $class.name
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
@@ -165,6 +168,9 @@ $class.getDocumentation("     * ")
     }
 
 #foreach ( $attribute in $class.attributes )
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
+#end
     private $attribute.getterSetterTypeName $attribute.name;
 
     /**

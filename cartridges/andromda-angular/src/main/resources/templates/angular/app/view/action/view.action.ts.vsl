@@ -49,7 +49,7 @@ export abstract class ${action.componentName} implements OnInit {
     protected route: ActivatedRoute;
     protected router: Router;
 #foreach ($service in $action.controller.allRestControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    protected $stringUtils.uncapitalize($service.name): ${service.name};
 #end
 #if($action.controller)
     protected ${action.controller.variableName}: ${action.controller.implementationName};
@@ -90,7 +90,7 @@ export abstract class ${action.componentName} implements OnInit {
         this.router = injector.get(Router);
         this.useCaseScope = injector.get(UseCaseScope);
 #foreach ($service in $action.controller.allRestControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
 #if($action.controller)
         this.${action.controller.variableName} = injector.get(${action.controller.implementationName});
