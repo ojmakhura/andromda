@@ -7,15 +7,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared';
+import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 #foreach($view in $useCase.views)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
+#if(!$view.popup)
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}'; // 1
+#end
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}'; // 2
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}'; // 3
 #end
 #end
 #end
@@ -25,6 +28,13 @@ import { EffectsModule } from '@ngrx/effects';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
 import { ${stringUtils.uncapitalize(${useCase.storeName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
 import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
+#end
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+#foreach($service in $controller.allRestControllers)
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+#end
 #end
 
 @NgModule({
@@ -36,7 +46,9 @@ import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
+    CsvModule,
     ${useCase.routingModuleName},
+    SharedModule,
 #if($ngrx)
     StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature),
     EffectsModule.forFeature([ ${useCase.storeName}Effects ])
@@ -52,12 +64,17 @@ import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}
     $import.componentImplementationName,
 #end
 #end
-##if ($view.nonTableVariablesPresent)
-##    ${view.varsComponentImplementationName},
-##end
 #end
   ],
   entryComponents: [],
-  providers: [],
+  providers: [
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+    ${useCase.controller.implementationName},
+#foreach($service in $controller.allRestControllers)
+    ${service.name},
+#end
+#end
+  ],
 })
 export class ${useCase.moduleName} {}

@@ -79,7 +79,7 @@
         path="templates/angular/app/app.module.ts.vsl"
         outputPattern="app.module.ts"
         outlet="angularAppDir"
-        overwrite="true"
+        overwrite="false"
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">
@@ -202,8 +202,8 @@
     <template
         path="templates/angular/app/service/service.ts.vsl"
         outputPattern="${service.filePath}.ts"
-        outlet="services"
-        overwrite="true">
+        outlet="service-impls"
+        overwrite="false">
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularService">
@@ -213,7 +213,7 @@
         </modelElements>
     </template>
         
-    <template
+    <!-- <template
         path="templates/angular/app/service/service.impl.ts.vsl"
         outputPattern="${service.implementationFilePath}.ts"
         outlet="service-impls"
@@ -225,7 +225,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
     
     <template
         path="templates/angular/app/controller/controller.ts.vsl"

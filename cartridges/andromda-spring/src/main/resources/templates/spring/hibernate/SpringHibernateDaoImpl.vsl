@@ -26,6 +26,7 @@ package $entity.packageName;
  * @see $entity.fullyQualifiedName
  */
 @org.springframework.stereotype.Repository("$stringUtils.uncapitalize($entity.daoName)")
+@org.springframework.transaction.annotation.Transactional
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end

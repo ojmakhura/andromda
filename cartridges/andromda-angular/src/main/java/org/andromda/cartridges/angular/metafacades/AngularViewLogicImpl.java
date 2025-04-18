@@ -20,6 +20,7 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
@@ -417,6 +418,14 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
             if(action.isTableAction() || action.isTableLink()) {
                 continue;
+            }
+
+            Iterator<FrontEndView> iter = action.getTargetViews().iterator();
+            if(iter.hasNext()) {
+                FrontEndView targetView = iter.next();
+                if(targetView.isPopup()) {
+                    imports.add(targetView);
+                }
             }
 
             //imports.add(action);

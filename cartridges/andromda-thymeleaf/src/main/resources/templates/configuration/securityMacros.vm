@@ -18,6 +18,9 @@
 #foreach ($user in $useCase.roles)
             <role-name>$user.name</role-name>
 #end
+#foreach ($role in $useCase.allowedRoles)
+            <role-name>${role}</role-name>
+#end
         </auth-constraint>
 #end
         <user-data-constraint>
@@ -69,6 +72,13 @@
     <security-role>
         <role-name>$user.name</role-name>
     </security-role>
+#end
+#foreach ($useCase in $useCases)
+#foreach ($role in $useCase.allowedRoles)
+    <security-role>
+        <role-name>$role</role-name>
+    </security-role>
+#end
 #end
 #if ($stringUtils.isNotBlank($defaultRole))
     <security-role>

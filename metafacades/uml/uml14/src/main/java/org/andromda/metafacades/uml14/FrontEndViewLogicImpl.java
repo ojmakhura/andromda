@@ -405,4 +405,10 @@ public class FrontEndViewLogicImpl
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    protected Collection handleGetAttributes() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

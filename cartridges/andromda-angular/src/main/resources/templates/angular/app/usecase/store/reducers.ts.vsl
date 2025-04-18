@@ -26,11 +26,22 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
     initialState,
 #foreach ( $service in $controller.allRestControllers )
 #foreach($operation in $service.operations)
+    on(${actions}.${operation.name}, (state, action) => ({
+        ...state,
+#foreach($param in $finalParams)
+        $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
+#end
+        loaderMessage: action.loaderMessage,
+        loading: action.loading,
+        success: false,
+        messages: []
+    })),
     on(${actions}.${operation.name}Success, (state, action) => ({
         ...state,
 #foreach($param in $finalParams)
         $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
 #end
+        loaderMessage: undefined,
         loading: false,
         success: action.success,
         messages: action.messages
@@ -42,6 +53,7 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
 #foreach($param in $finalParams)
         $param.name: #if($param.many || $param.type.collectionType)[]#{else}null#end, 
 #end
+        loaderMessage: undefined,
         loading: false,
         success: false,
         error: false,
@@ -50,12 +62,14 @@ export const ${stringUtils.uncapitalize(${useCase.storeName})}Reducer = createRe
     on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Failure, (state, action) => ({
         ...state,
         loading: false,
+        loaderMessage: undefined,
         success: false,
         error: true,
         messages: action.messages
     })),
     on(${actions}.${stringUtils.uncapitalize(${useCase.storeName})}Loading, (state, action) => ({
         ...state,
+        loaderMessage: undefined,
         loading: action.loading,
         success: false
     }))
