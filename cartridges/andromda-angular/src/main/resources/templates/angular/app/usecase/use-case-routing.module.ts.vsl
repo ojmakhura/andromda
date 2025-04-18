@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
 import { Shell } from '@app/shell/shell.service';
-import { ${useCase.componentName} } from '@app/${useCase.path}.component';
+// import { ${useCase.componentName} } from '@app/${useCase.path}.component';
 
 #if($secure)
 import { AuthenticationGuard } from '@app/auth';
@@ -18,7 +18,7 @@ import { ${view.componentImplementationName} } from '@app/${view.implementationF
 const routes: Routes = [
   { 
       path: '', 
-      component: ${useCase.componentName}, 
+      component: ${useCase.initialView.componentImplementationName}, 
 #if($secure)
       canActivate: [AuthenticationGuard],
 #end

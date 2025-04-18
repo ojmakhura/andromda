@@ -2870,4 +2870,65 @@ public class AngularServiceUtils {
         
         return false;
     }
+
+    public static String getRequestParamString(AngularServiceOperation operation) {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(ParameterFacade parameter : operation.getArguments()) {
+
+            AngularServiceParameter param = (AngularServiceParameter)parameter;
+
+            System.out.println(param.getRestParamType());
+            String paramType = param.getRestParamType();
+            if(paramType.contains("RequestParam")) {
+                if(builder.length() > 0) {
+                    builder.append("&");
+
+                }
+                builder.append(param.getName());
+                builder.append("=${");
+                builder.append(param.getName());
+                builder.append("}");
+            }
+        }
+
+        if(builder.length() > 0) {
+            builder.insert(0, "?");
+        }
+
+        return builder.toString();
+    }
+
+    public static String getRequestBodyString(AngularServiceOperation operation) {
+
+
+        List<ParameterFacade> arguments = (List<ParameterFacade>) operation.getArguments();
+
+        if(arguments.size() == 1) {
+            return arguments.get(0).getName();
+        } else {
+            StringBuilder builder = new StringBuilder();
+            
+            builder.append("{");
+            
+            for(int i = 0; i < arguments.size(); i++) {
+                
+                AngularServiceParameter arg = (AngularServiceParameter)arguments.get(i);
+                String paramType = arg.getRestParamType();
+                if(paramType.contains("RequestBody")) {
+                    if(i > 0) {
+                        builder.append(", ");
+                    }
+                    builder.append(arg.getName());
+                    builder.append(": ");
+                    builder.append(arg.getName());
+                }
+            }
+            
+            builder.append("}");
+
+            return builder.toString();
+        }
+    }
 }

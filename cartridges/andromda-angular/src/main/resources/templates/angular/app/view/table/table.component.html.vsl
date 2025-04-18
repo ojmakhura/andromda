@@ -6,18 +6,33 @@
 <div class="card-body">
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
-    <div class="mat-elevation-z8">
-        <mat-table matSort [dataSource]="${table.name}.controls" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
-#foreach ($column in $table.tableColumns)
+    <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+        <div class="col my-3 view-buttons" *ngIf="${table.name}DataSource.data.length > 0">
+            <a type="button" color="accent" class="btn btn-info" csvLink
+                        [data]="get$stringUtils.capitalize($table.name)ExportData()" [filename]="'${table.name}'">
+                CSV
+            </a>
+        </div>
+        <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+#foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
 #else
 #set($columnName = $column)
 #end
-$table.getTableColumnActions($columnName)
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
             <ng-container matColumnDef="${columnName}">
-                <mat-header-cell *matHeaderCellDef translate>$table.getTableColumnMessageKey($columnName)</mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{ row.get('${columnName}').value }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header><span translate>$table.getTableColumnMessageKey($columnName)</span></mat-header-cell>
+                <mat-cell *matCellDef="let row"> 
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+                    <a routerLink=""  id="${columnName}Action" (click)='${action.triggerName}(row?.${stringUtils.replace("${columnName}", ".", "?.")})'>
+                        {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
+                    </a> 
+#else
+                    {{ row?.${stringUtils.replace("${columnName}", ".", "?.")}#if($column.inputDate || $column.type.dateType) | date#end }}
+#end
+                </mat-cell>
             </ng-container>
 #end
 #if ($table.tableFormActions.size() > 0)
@@ -50,7 +65,7 @@ $table.getTableColumnActions($columnName)
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
         </mat-table>
-        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 60, 70, 80, 90]" showFirstLastButtons></mat-paginator>
     </div>
 #end
 </div>

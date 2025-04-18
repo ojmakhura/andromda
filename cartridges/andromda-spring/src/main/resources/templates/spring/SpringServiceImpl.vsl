@@ -15,15 +15,42 @@
 #if ($stringUtils.isNotBlank($service.implementationPackageName))
 package $service.implementationPackageName;
 #end
+import org.springframework.context.MessageSource;
 
 /**
  * @see $service.fullyQualifiedName
  */
-## @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
 @org.springframework.stereotype.Service("$stringUtils.uncapitalize($service.name)")
+@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public#if($service.abstract) abstract#end class $service.implementationName
     extends $service.fullyQualifiedBaseName
 {
+    public ${service.implementationName}(
+#foreach($ref in $service.allServiceReferences)
+        @org.springframework.context.annotation.Lazy $ref.targetElement.fullyQualifiedName $ref.name,
+#end
+#foreach($ref in $service.entityReferences)
+        $ref.targetElement.fullyQualifiedDaoName $ref.name,
+#set ($ent = $ref.targetElement)
+        ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
+#end
+        MessageSource messageSource
+    ) {
+        
+        super(
+#foreach($ref in $service.allServiceReferences)
+            $ref.name,
+#end
+#foreach($ref in $service.entityReferences)
+            $ref.name,
+            ${stringUtils.uncapitalize($ref.name)}Repository,
+#end
+            messageSource
+        );
+    }
 
 #foreach ($operation in $service.implementationOperations)
     /**
@@ -31,11 +58,9 @@ public#if($service.abstract) abstract#end class $service.implementationName
      */
     @Override
 #set ($abstract = $service.abstract && $operation.abstract)
-    protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
-#if ($abstract)
-        throws Exception;
-#else
+    protected#if ($abstract) abstract#end $operation.implementationReturnTypeName $operation.implementationSignature
         throws Exception
+#if (!$abstract)
     {
         // ${toDoTag} implement protected  $operation.implementationReturnTypeName $operation.implementationSignature
         throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");

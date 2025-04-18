@@ -228,9 +228,6 @@
     public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
 
 #end
-// $attribute
-// $attribute.type
-// $attribute.type.enumeration
     $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
 #end
@@ -270,13 +267,18 @@ $attribute.getDocumentation("     * ")
 #*          *##end
 #*        *##end
 #*      *##end
-#*      *##if ($attribute.lob)
+#*      *##if ($attribute.lob || $attribute.type.clobType || $attribute.type.blobType)
 ##
 ## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
     @javax.persistence.Lob
+#*        *##if($attribute.type.blobType)
+    @org.hibernate.annotations.Type(type = "org.hibernate.type.BinaryType")
+###*        *##else
+##    @org.hibernate.annotations.Type(type = "org.hibernate.type.ClobType")
+#*        *##end
 #*        *##if ($attribute.eager)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
 #*        *##end
@@ -328,7 +330,7 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
 #*      *##end
-#*      *##if (!$attribute.lob && $attribute.lazy)
+#*      *##if (!$attribute.lob && $attribute.lazy && !$attribute.type.clobType && !$attribute.type.blobType)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
@@ -453,7 +455,7 @@ $target.getDocumentation("     * ")
 ##
 ##    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end#if(${target.unique}), unique = true#else, unique = false#end)
 #*      *##else
 #*        *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
@@ -502,7 +504,8 @@ $target.getDocumentation("     * ")
     @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
 
 #*      *##else
-    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+##    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL#set ($argExists = true)#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
 #*      *##end
 ##
 ## Set the JoinTable annotation to limit the association table name length.
@@ -584,7 +587,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
@@ -651,7 +654,7 @@ $target.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
-#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)        
+#if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)
 #set ($identifiers = $entity.getIdentifiers())
         joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
 #set ($identifiers = $target.type.getIdentifiers())

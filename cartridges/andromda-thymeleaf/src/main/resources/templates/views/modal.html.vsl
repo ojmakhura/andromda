@@ -1,0 +1,32 @@
+#set($d = "$")
+<div class="modal fade" id="${view.pageObjectBeanName}" tabindex="-1" aria-labelledby="${view.pageObjectBeanName}Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="${view.pageObjectBeanName}Label">
+                    <span th:text="#{$view.messageKey}">
+                    </span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+#if ($view.nonTableVariablesPresent)
+                <th:block th:replace="${view.path}-vars.html"></th:block>
+#end
+#foreach ($action in $view.actions)
+#if (!$action.tableLink)
+                <th:block th:replace="${action.viewFragmentPath}.html"></th:block>
+#end
+#end
+#foreach ($variable in $view.variables)
+#if ($variable.table)
+                <th:block th:replace="${view.path}-${variable.name}.html"></th:block>
+#end
+#end
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

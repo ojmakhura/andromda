@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.StateVertexFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang3.StringUtils;
 
@@ -481,6 +482,23 @@ public class FrontEndUseCaseLogicImpl
 
     @Override
     protected Collection handleGetAllowedRoles() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String handleGetSubstitutionName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String handleGetIcon() {
+        return UMLMetafacadeUtils.getIcon(this);
+    }
+
+    @Override
+    protected String handleGetDisplayCondition() {
         // TODO Auto-generated method stub
         return null;
     }

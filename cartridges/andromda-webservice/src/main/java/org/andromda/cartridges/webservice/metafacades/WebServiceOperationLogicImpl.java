@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
+import org.andromda.cartridges.web.CartridgeWebUtils;
 import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.core.metafacade.MetafacadeBase;
@@ -269,9 +270,17 @@ public class WebServiceOperationLogicImpl
     @Override
     protected String handleGetRestPath()
     {
-        String path = Objects.toString(this.findTaggedValue(WebServiceGlobals.REST_PATH), "");
-        if(StringUtils.isBlank(path)) {
+        String path = (String) this.findTaggedValue(WebServiceGlobals.REST_PATH);
+        if(path == null) {
+            path = CartridgeWebUtils.toWebResourceName(this.getName());
+        }
+
+        if(path.equals("/")) {
             path = "";
+        }
+
+        if(this.getRestPathStatic()) {
+            return path;
         }
 
         StringBuilder builder = new StringBuilder();
@@ -670,5 +679,15 @@ public class WebServiceOperationLogicImpl
             postAuth = null;
         }
         return postAuth;
+    }
+
+    @Override
+    protected Boolean handleGetRestPathStatic() {
+        String isStatic = (String)this.findTaggedValue(WebServiceGlobals.REST_PATH_STATIC);
+        if (StringUtils.isBlank(isStatic) || isStatic.equals(DEFAULT))
+        {
+            isStatic = BOOLEAN_FALSE;
+        }
+        return Boolean.valueOf(isStatic);
     }
 }

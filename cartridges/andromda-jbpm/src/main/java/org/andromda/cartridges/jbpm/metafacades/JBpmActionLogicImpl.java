@@ -1,7 +1,10 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
+import java.util.Collection;
+
 import org.andromda.cartridges.jbpm.JBpmProfile;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
@@ -205,5 +208,11 @@ public class JBpmActionLogicImpl
     protected boolean handleIsAssignment()
     {
         return this.getOperation() != null;
+    }
+
+    @Override
+    public Collection<AttributeFacade> getAttributes() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

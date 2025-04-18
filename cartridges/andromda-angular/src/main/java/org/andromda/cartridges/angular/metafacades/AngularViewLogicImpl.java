@@ -20,6 +20,7 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
@@ -419,6 +420,14 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                 continue;
             }
 
+            Iterator<FrontEndView> iter = action.getTargetViews().iterator();
+            if(iter.hasNext()) {
+                FrontEndView targetView = iter.next();
+                if(targetView.isPopup()) {
+                    imports.add(targetView);
+                }
+            }
+
             //imports.add(action);
             imports.addAll(action.getImports());
 
@@ -435,7 +444,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
         for(FrontEndParameter _variable : this.getVariables()) {
             AngularParameter variable = (AngularParameter) _variable;
-            if(variable.isComplex()) {
+            if(variable.isComplex() || variable.getType().isEnumeration()) {
                 for(Object _attr : variable.getAttributes()){
                     AngularAttribute attr = (AngularAttribute) _attr;
                     if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {

@@ -4,7 +4,9 @@ import { Injector } from '@angular/core';
 import { ControllerBase } from '@app/controller/utils/controller.base';
 
 #foreach($import in $controller.imports)
-#if(${import.implementationFilePath})
+#if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
+import { $import.name } from '@app/${import.filePath}';
+#elseif(${import.implementationFilePath})
 import { $import.implementationName } from '@app/${import.implementationFilePath}';
 #else
 import { $import.name } from '@app/${import.filePath}';
@@ -13,6 +15,7 @@ import { $import.name } from '@app/${import.filePath}';
 
 export abstract class $controller.name extends ControllerBase {
 
+    actionToDialog: boolean = false;
 #if(!$controller.attributes.empty)
 #foreach($attribute in $controller.attributes)
     $attribute.name: $attribute.angularTypeName;
@@ -20,14 +23,14 @@ export abstract class $controller.name extends ControllerBase {
 
 #end
 #foreach ($service in $controller.allRestControllers)
-    $stringUtils.uncapitalize($service.name): ${service.implementationName};
+    $stringUtils.uncapitalize($service.name): ${service.name};
 #end
     protected _injector: Injector;
 
     constructor(injector: Injector) {
         super(injector);
 #foreach ($service in $controller.allRestControllers)  
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.implementationName});
+        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
 #end
         this._injector = injector;
     }
@@ -89,6 +92,9 @@ $action.trigger.getDocumentation("     * ")
         forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else
+#if($actionState.forward.enteringView)
+        this.actionToDialog = $actionState.forward.target.popup;
+#end
         
         //trigger method execution
 #if($action.exitingInitialState)  
@@ -115,8 +121,8 @@ $action.trigger.getDocumentation("     * ")
 #if($action.exitingInitialState)
         return forward;
 #else
-        if(forward !== null) {
-            this.router.navigate([forward]);
+        if(!this.actionToDialog && forward !== null) {
+            this.router.navigate([forward], {queryParams: this.useCaseScope.queryParams});
         } 
 #end
     }
@@ -134,6 +140,9 @@ $actionState.getDocumentation("     * ")
     protected ${actionState.actionMethodName}#if (!$action.formFields.empty)${action.formImplementationName}#end(form: any): string
     {
         let forward: string = '';
+#if($actionState.forward.enteringView)
+        this.actionToDialog = $actionState.forward.target.popup;
+#end
 #if ($actionState.controllerCalls.empty && $actionState.serviceCalls.empty)
 ## TODO UMLMETA-106 uml22 StateVertex outgoing FinalState target returns null/unknown for Exception transition.
 ##        // actionState=$actionState controllerCalls=$actionState.controllerCalls.size()

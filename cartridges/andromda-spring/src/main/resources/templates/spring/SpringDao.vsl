@@ -9,6 +9,8 @@
 package $entity.packageName;
 #end
 
+import org.springframework.transaction.annotation.Transactional;
+
 #if ($entity.generalization)
 #set ($superclass = $entity.generalization)
 #set ($daoInheritance = $superclass && $daoInheritanceEnabled)
@@ -35,6 +37,7 @@ package $entity.packageName;
 $stringUtils.stripEnd($entity.getDocumentation(" * "),null)
  * @see $entity.fullyQualifiedEntityName
  */
+@Transactional
 public interface $entity.daoName
 #if ($daoInheritance)
     extends $superclass.fullyQualifiedDaoName
@@ -541,10 +544,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform, int pageNumber, int pageSize#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
 #end
@@ -564,10 +567,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #else
 #if ($operation.returnType.collectionType)
@@ -597,10 +600,10 @@ $operation.getDocumentation("     * ")
 #end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
         throws $operation.exceptionList;
 #else
-    $operation.visibility $returnType ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+    $operation.visibility java.util.Collection#if($enableTemplating)<?>#end ${operation.name}(final int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 
 #end
 #if ($operation.returnType.collectionType || $operation.many)

@@ -92,4 +92,10 @@ public class EventFacadeLogicImpl
         }
         return validationOwner;
     }
+
+    @Override
+    protected Collection handleGetAttributes() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

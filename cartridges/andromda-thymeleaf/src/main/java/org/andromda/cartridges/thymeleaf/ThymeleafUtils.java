@@ -1355,4 +1355,32 @@ public class ThymeleafUtils
 
         return false;
     }
+
+    public static String addModelParameter(String params) {
+    
+        String stripped = params.strip();
+        stripped = stripped.substring(0, stripped.length() - 1);
+        stripped = stripped.strip();
+
+        if(!stripped.endsWith("(")) {
+            stripped = stripped + ", ";
+        } 
+        stripped = stripped + "org.springframework.ui.Model model)";
+
+        return stripped;
+    }
+
+    public static String addModelArgument(String params) {
+    
+        String stripped = params.strip();
+        stripped = stripped.substring(0, stripped.length() - 1);
+        stripped = stripped.strip();
+        if(!stripped.endsWith("(")) {
+            stripped = stripped + ", ";
+        } 
+        
+        stripped = stripped + "model)";
+
+        return stripped;
+    }
 }

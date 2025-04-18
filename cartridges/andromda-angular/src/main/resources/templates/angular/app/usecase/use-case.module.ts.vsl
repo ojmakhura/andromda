@@ -5,27 +5,36 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 import { SharedModule } from '@shared';
+import { CsvModule } from '@ctrl/ngx-csv';
 import { MaterialModule } from '@app/material.module';
 import { ${useCase.routingModuleName} } from './${useCase.routingModuleFileName}';
 #foreach($view in $useCase.views)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
+#if(!$view.popup)
+import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}'; // 1
+#end
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}'; // 2
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@app/${import.implementationFilePath}'; // 3
 #end
 #end
 #end
 #if($ngrx)
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.name)}")
-import { ${stringUtils.uncapitalize(${useCase.actionClassName})}Feature } from '@app/store/$useCase.pathRoot/${base}.reducer';
-import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/${base}.effect';
+#set ($base = "${metafacadeWebUtils.toWebResourceName($useCase.storeName)}")
+import { ${stringUtils.uncapitalize(${useCase.storeName})}Feature } from '@app/store$useCase.pathRoot/${base}.reducers';
+import { ${useCase.storeName}Effects } from '@app/store$useCase.pathRoot/${base}.effects';
+#end
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+#foreach($service in $controller.allRestControllers)
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+#end
 #end
 
 @NgModule({
@@ -33,15 +42,16 @@ import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RxReactiveFormsModule,
     TranslateModule,
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
+    CsvModule,
     ${useCase.routingModuleName},
+    SharedModule,
 #if($ngrx)
-    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.actionClassName})}Feature),
-    EffectsModule.forFeature([ ${useCase.actionClassName}Effects ])
+    StoreModule.forFeature(${stringUtils.uncapitalize(${useCase.storeName})}Feature),
+    EffectsModule.forFeature([ ${useCase.storeName}Effects ])
 #end
   ],
   declarations: [
@@ -54,12 +64,17 @@ import { ${useCase.actionClassName}Effects } from '@app/store/$useCase.pathRoot/
     $import.componentImplementationName,
 #end
 #end
-##if ($view.nonTableVariablesPresent)
-##    ${view.varsComponentImplementationName},
-##end
 #end
   ],
   entryComponents: [],
-  providers: [],
+  providers: [
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+    ${useCase.controller.implementationName},
+#foreach($service in $controller.allRestControllers)
+    ${service.name},
+#end
+#end
+  ],
 })
 export class ${useCase.moduleName} {}

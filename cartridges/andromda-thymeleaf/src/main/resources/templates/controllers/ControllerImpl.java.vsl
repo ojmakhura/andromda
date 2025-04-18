@@ -23,6 +23,18 @@ public class $controller.implementationName
      */
     private static final long serialVersionUID = ${controller.controllerSerialVersionUID}L;
 
+    public ${controller.implementationName}(#set ($iter = $controller.allServices.iterator())#foreach($ref in $controller.allServices)#set($serviceRef = $iter.next())$ref.fullyQualifiedName $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0), #end#end) {
+        
+        super(
+#set ($iter = $controller.allServices.iterator())
+#foreach($ref in $controller.allServices)
+#set($serviceRef = $iter.next())
+            $ref.beanName#if($iter.hasNext() || $controller.entityReferences.size() > 0),
+#end
+#end
+        );
+    }
+
 #foreach ($operation in $controller.operations)
     /**
      * @see $controller.fullyQualifiedName#hash()$operation.signature

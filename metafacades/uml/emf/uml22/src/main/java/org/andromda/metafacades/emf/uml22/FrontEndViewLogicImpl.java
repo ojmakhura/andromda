@@ -489,4 +489,38 @@ public class FrontEndViewLogicImpl
         
         return UMLMetafacadeUtils.getPresentationClass(this);
     }
+
+    @Override
+    protected String handleGetIcon() {
+        
+        return UMLMetafacadeUtils.getIcon(this);
+    }
+
+    @Override
+    protected String handleGetDisplayCondition() {
+        return UMLMetafacadeUtils.getDisplayCondition(this);
+    }
+
+    @Override
+    protected Collection handleGetAttributes() {
+        final Map<String, ModelElementFacade> variablesMap = new LinkedHashMap<String, ModelElementFacade>();
+        final Collection<TransitionFacade> incoming = this.getIncomings();
+        for (final Iterator<TransitionFacade> iterator = incoming.iterator(); iterator.hasNext();)
+        {
+            final TransitionFacade transition = iterator.next();
+            final EventFacade trigger = transition.getTrigger();
+            if (trigger != null)
+            {
+                for (final Iterator<AttributeFacade> parameterIterator = trigger.getAttributes().iterator();
+                    parameterIterator.hasNext();)
+                {
+                    final ModelElementFacade modelElement = (ModelElementFacade)parameterIterator.next();
+                    variablesMap.put(
+                        modelElement.getName(),
+                        modelElement);
+                }
+            }
+        }
+        return new ArrayList<ModelElementFacade>(variablesMap.values());
+    }
 }

@@ -16,11 +16,15 @@
 
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
-<faces-config version="2.0"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+    <application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver
+		</el-resolver>
+	</application>
 
 #if($trinidad)
     <application>
@@ -43,59 +47,59 @@
 ## *** should go to the configuration
 #set($formsScopeValue="#{useCaseScope}")
     <managed-bean>
-        <managed-bean-name>viewVariables</managed-bean-name>
+        <managed-bean-name>useCaseScope</managed-bean-name>
         <managed-bean-class>java.util.HashMap</managed-bean-class>
-        <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 #foreach ($useCase in $useCases)
 #foreach ($action in $useCase.actions)
 #if (!$action.formFields.empty)
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>$action.formBeanName</managed-bean-name>
         <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
         <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 #end
 #end
 #end
 <!-- crud forms -->
 #foreach ($manageable in $manageables)
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>${manageable.formBeanName}</managed-bean-name>
         <managed-bean-class>${manageable.formBeanType}</managed-bean-class>
         <managed-bean-scope>${formsScopeValue}</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 #end
     <!-- controllers -->
 #foreach ($controller in $controllers)
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>$controller.beanName</managed-bean-name>
         <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
         <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 #end
 
     <!-- crud controllers -->
 
 #foreach ($manageable in $manageables)
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>${manageable.controllerBeanName}</managed-bean-name>
         <managed-bean-class>${manageable.controllerType}Impl</managed-bean-class>
         <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 #end
 ##Helpers
-    <managed-bean>
+    <!-- <managed-bean>
         <managed-bean-name>autocompleteHelper</managed-bean-name>
         <managed-bean-class>${managedBeansPackage}.AutocompleteHelper</managed-bean-class>
         <managed-bean-scope>${controllerScope}</managed-bean-scope>
-    </managed-bean>
+    </managed-bean> -->
 
 #if($trinidad)    
     <!-- menuModel nodes -->
 
 #foreach ($useCase in $useCases)
-    <managed-bean>
+    <!-- <managed-bean>
        <managed-bean-name>navItem_$stringUtils.replace($useCase.forwardName, '-', '_')</managed-bean-name>
        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
@@ -140,11 +144,11 @@
           </list-entries>
        </managed-property>
 #end
-    </managed-bean>
+    </managed-bean> -->
 #end
 
 #foreach ($manageable in $manageables)
-    <managed-bean>
+    <!-- <managed-bean>
        <managed-bean-name>navItem_$manageable.actionClassName</managed-bean-name>
        <managed-bean-class>${managedBeansPackage}.NavigationItem</managed-bean-class>
        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
@@ -177,12 +181,12 @@
           <property-name>outcome</property-name>
           <value>${manageable.viewFullPath}</value>
        </managed-property>
-    </managed-bean>
+    </managed-bean> -->
 
 #end
     <!-- setup the (root of the) treemodel -->
 
-    <managed-bean>
+    <!-- <managed-bean>
        <managed-bean-name>navTreeList</managed-bean-name>
        <managed-bean-class>
           java.util.ArrayList
@@ -219,11 +223,11 @@
          <property-name>wrappedData</property-name>
          <value>#{navTreeList}</value>
        </managed-property>
-    </managed-bean>
+    </managed-bean> -->
 
     <!-- setup the menuModel -->
 
-    <managed-bean>
+    <!-- <managed-bean>
        <managed-bean-name>viewIdMenuModel</managed-bean-name>
        <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
        <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
@@ -235,9 +239,9 @@
           <property-name>wrappedData</property-name>
           <value>#{navTreeModel}</value>
        </managed-property>
-    </managed-bean>
+    </managed-bean> -->
 
-    <managed-bean>
+    <!-- <managed-bean>
       <managed-bean-name>menuModel</managed-bean-name>
       <managed-bean-class>${managedBeansPackage}.MenuModelAdapter</managed-bean-class>
       <managed-bean-scope>${navigationBeanScope}</managed-bean-scope>
@@ -248,11 +252,11 @@
       <managed-property>
         <property-name>aliasList</property-name>
         <list-entries>
-          <value-class>java.lang.String</value-class>
+          <value-class>java.lang.String</value-class>-->
 #foreach ($useCase in $useCases)
           <!-- $useCase.titleValue views -->
 #foreach ($view in $useCase.views)
-          <value>${view.path}.${jsfUtils.viewExtension}</value>
+          <!-- <value>${view.path}.${jsfUtils.viewExtension}</value>
           <value>${useCase.path}.${jsfUtils.viewExtension}</value>
 #end
 #end
@@ -262,23 +266,23 @@
 #end
         </list-entries>
       </managed-property>
-    </managed-bean>
+    </managed-bean> -->
 #end
 
     <!-- global navigational-rules -->
 #if ($stringUtils.isNotBlank($securityRealm))
 
-    <navigation-rule>
+    <!-- <navigation-rule>
         <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule> -->
 #end
 
 #foreach ($enumeration in $enumerations)
-    <converter>
+    <!-- <converter>
         <converter-id>$enumeration.fullyQualifiedName</converter-id>
         <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
     </converter>
@@ -296,7 +300,7 @@
     <converter>
         <converter-for-class>$manageable.converterType</converter-for-class>
         <converter-class>$manageable.converterType</converter-class>
-    </converter>
+    </converter> -->
 #end
 
     <!-- faces-config merge-point -->

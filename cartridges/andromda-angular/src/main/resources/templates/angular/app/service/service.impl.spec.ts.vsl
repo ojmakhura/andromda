@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ${service.implementationName} } from '@app/${service.implementationFilePath}';
+import { ${service.name} } from '@app/${service.filePath}';
 
-describe('${service.implementationName}', () => {
+describe('${service.name}', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ${service.implementationName} = TestBed.get(${service.implementationName});
+    const service: ${service.name} = TestBed.get(${service.name});
     expect(service).toBeTruthy();
   });
 });
