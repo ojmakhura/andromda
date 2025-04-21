@@ -563,7 +563,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </conditions>
             </prompt>
             <prompt id="ngrx">
-                <text>Would you like to use NgRX in your angular frontend?</text>
+                <text>Would you like to use state management in your angular frontend?</text>
                 <shortText>NgRX</shortText>
                 <preconditions>
                     <condition id="angular" equal="true"/>

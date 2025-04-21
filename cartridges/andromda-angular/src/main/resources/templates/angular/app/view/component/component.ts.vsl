@@ -82,7 +82,7 @@ import { GenericComponent } from "@app/view/generic.component";
 export class $stringUtils.capitalize(${component.formName}) {
 
 #foreach($attribute in $component.attributes)
-    ${attribute.name}?: ${parameter.getterSetterTypeName};
+    ${attribute.name}?: ${attribute.getterSetterTypeName};
 #end
 }
 
@@ -93,7 +93,7 @@ export class $stringUtils.capitalize(${component.formName}) {
 export abstract class ${component.name} extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    @Input() ${component.formName}: $stringUtils.capitalize(${component.formName});
+    @Input() ${component.formName}: $stringUtils.capitalize(${component.formName}) = {};
 
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;

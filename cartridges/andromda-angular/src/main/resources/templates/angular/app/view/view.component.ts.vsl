@@ -117,7 +117,7 @@ import { ${view.componentImplementationName} } from '@app/${view.implementationF
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
 #if(!$variable.table && !$variable.inputButton && !$variable.component)
-    $variable.name: $variable.getterSetterTypeName | any#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end;
+    $variable.name?: $variable.getterSetterTypeName | any#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end;
 #end
 #end
 }
@@ -150,7 +150,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
 #if ($view.nonTableVariablesPresent)
-    @Input() ${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName});
+    @Input() ${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName}) = {};
 #end
     
 #if($view.popup)

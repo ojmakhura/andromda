@@ -45,6 +45,11 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 #macro(renderAngularActionInput $parameter $ownerParameter $ident)
+#if($view.varsFormName)
+#set ($formName = "$view.varsFormName")
+#else
+#set ($formName = "$component.formName")
+#end
 #set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
@@ -221,7 +226,7 @@ ${ident}    </mat-select>
 ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputMultibox)
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
-${ident}        @for (selectItem of ${propertyId}; track selectItem; let i = $index) {
+${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i)">
 ${ident}              {{ selectItem }}
 ${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem">
