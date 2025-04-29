@@ -13,6 +13,7 @@
 import { 
     Component, 
     OnInit, 
+    effect,
     inject, 
     ViewChild, 
     Input, 
@@ -112,6 +113,7 @@ import { DialogComponent } from '@app/components/dialog/dialog.component';
 #if($view.popup)
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
+import { ToastrService } from 'ngx-toastr';
 
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
@@ -166,6 +168,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ###if($targetModal)
     dialog: MatDialog = inject(MatDialog);
 ##end
+    toaster: ToastrService = inject(ToastrService);
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
     readonly ${controller.variableName}Store = inject(${controller.name}Store);
@@ -197,7 +200,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #renderAngularTypescriptParams($field "" true $renderInput "    ")
-
 #end
 #end
 
@@ -232,6 +234,18 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 #end
+
+    effect(() => {
+      let messages = this.messages();
+
+      if(this.success() && !this.loading()) {
+        this.toaster.success(messages[0]);
+      }
+
+      if (this.error() && !this.loading()) {
+        this.toaster.error(messages[0]);
+      }
+    })
     }
 
     abstract beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end;

@@ -13,12 +13,14 @@ import { RouteReusableStrategy } from './@shared';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
 import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     UseCaseScope,
     provideRouter(routes, withHashLocation()),
     provideAnimations(),
+    provideToastr(),
     provideHttpClient(
       withInterceptorsFromDi(),
       withInterceptors([

@@ -44,26 +44,6 @@
 				<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
 			</div>
 			}
-#if ($view.nonTableVariablesPresent)
-			@if (success()) {
-			<div class="alert alert-success" role="alert">
-				@for(message of messages(); track message) {
-				<div>
-					{{ message }}
-				</div>
-				}
-			</div>
-			}
-			@if(error()) {
-			<div *ngIf="error()" class="alert alert-danger" role="alert">
-				@for(message of messages(); track message) {
-				<div>
-					{{ message }}
-				</div>
-				}
-			</div>
-			}
-#end
 #foreach ($variable in $view.variables)
 #if(!$variable.inputHidden)
 #set($propertyId = $variable.name)
