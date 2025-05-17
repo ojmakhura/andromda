@@ -494,7 +494,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach ($variable in $view.variables)
 #if(!$variable.table && !$variable.inputButton && !$variable.component)
 #renderAttributeFormCreation($variable "" "           ")
-#renderAttributeMethods($variable "" true "    ")
+#renderAttributeMethods($variable "" ${view.formName} true "    ")
 #end
 #end
 #end

@@ -69,8 +69,8 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
     filter$stringUtils.capitalize(${propertyId})() {}
 
-    ${propertyId}BackingList: ${parameter.getterSetterTypeName}[] = [];
-    ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}[] | any[]> = of([]);
+    ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | SelectItem[] = [];
+    ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = of([]);
     ${propertyId}ChipControl: FormControl = new FormControl([]);
 
     ${propertyId}Displays: string[] = [
@@ -310,9 +310,11 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #if(!$parameter.inputButton && !$parameter.component && !$parameter.tree)
 #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
 #if($angularUtils.isSimpleType($parameter.type))
-            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
+//            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
+            $parameter.name: [{ value: this.${formName}.${parameter.name} || [], disabled: false }],
 #else
-            $parameter.name: this.create${parameter.type.name}Array(this.${formName}.${parameter.name}),
+//            $parameter.name: this.create${parameter.type.name}Array(this.${formName}.${parameter.name}),
+            $parameter.name: [{ value: this.${formName}.${parameter.name}, disabled: false }],
 #end
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.inputSelect)
             $parameter.name: this.create${parameter.type.name}Group(this.${formName}.${parameter.name}),
@@ -353,7 +355,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 ##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
 ##
 ##==========================
-#macro(renderAttributeMethods $parameter $ownerParameter $renderAttributes $ident)
+#macro(renderAttributeMethods $parameter $ownerParameter $formName $renderAttributes $ident)
 #set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
 #if ($ownerParameter.type.hasStereotype('Entity'))
@@ -497,7 +499,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
   }
 #elseif(!$parameter.component)
 #if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
-#set ($controlType = "FormArray")
+#set ($controlType = "FormControl")
 #elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
 #set ($controlType = "FormGroup")
 #else
@@ -509,21 +511,42 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     }
 
 #if($parameter.inputMultibox)
-    ${propertyId}Remove(i: number){
-        this.${propertyId}Control?.removeAt(i);
+    set${stringUtils.capitalize(${propertyId})}Control() {
+        let t: any[] = [];
+        this.${formName}.${propertyId}?.forEach((role: any) => {
+            t.push(role.value);
+        });
+
+        this.${propertyId}Control.setValue(t);
+    }
+
+    ${propertyId}Remove(i: number, selected: any){
+        this.${formName}.${propertyId}?.splice(i, 1);
+        this.${propertyId}BackingList.push(selected);
+        this.set${stringUtils.capitalize(${propertyId})}Control();
     }
 
     ${propertyId}Add(event: MatChipInputEvent){
-        this.${propertyId}Control.push(new FormControl());
         event.chipInput!.clear();
+        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
     }
     
     ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
-        this.${propertyId}Control.push(new FormControl([event.option.value]));
+        let item: SelectItem = event.option.value;
+
+        this.${formName}.${propertyId}?.push(event.option.value);
+        this.set${stringUtils.capitalize(${propertyId})}Control();
         this.${propertyId}ChipControl.setValue(null);
+
+        // remove the selected ro${propertyId}le from the list
+        this.${propertyId}BackingList = this.${propertyId}BackingList.filter((${propertyId}: any) => ${propertyId}.value !== item.value);
+        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
     }
 
     private _${propertyId}Filter(value: string): SelectItem[] | any[] {
+        if (!value) {
+            return this.${propertyId}BackingList;
+        }
         const filterValue = value.toLowerCase();
     
         return this.${propertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));
@@ -545,7 +568,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
 #foreach($attr in $parameter.type.attributes)
 #if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
-#set ($attrControlType = "FormArray")
+#set ($attrControlType = "FormControl")
 #elseif($angularUtils.isComplex($attr) && !$attr.component)
 #set ($attrControlType = "FormGroup")
 #else
@@ -557,24 +580,46 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     }
 
 #if($attr.inputMultibox)
+    set${stringUtils.capitalize(${attrPropertyId})}Control() {
+        let t: any[] = [];
+        this.${formName}.${attrPropertyId}?.forEach((role: any) => {
+            t.push(role.value);
+        });
+
+        this.${attrPropertyId}Control.setValue(t);
+    }
+
     ${attrPropertyId}Remove(index: number){
 
         if (index >= 0) {
-            this.${attrPropertyId}Control.removeAt(index);
+            this.${formName}.${attrPropertyId}?.splice(i, 1);
+            this.${attrPropertyId}BackingList.push(selected);
+            this.set${stringUtils.capitalize(${attrPropertyId})}Control();
         }
     }
 
     ${attrPropertyId}Add(event: MatChipInputEvent){
-        this.${attrPropertyId}Control.push(new FormControl([event.value]));
         event.chipInput!.clear();
+        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
     }
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
-        this.${attrPropertyId}Control.push(new FormControl([event.option.value]));
+
+        let item: SelectItem = event.option.value;
+
+        this.${formName}.${attrPropertyId}?.push(event.option.value);
+        this.set${stringUtils.capitalize(${attrPropertyId})}Control();
         this.${attrPropertyId}ChipControl.setValue(null);
+
+        // remove the selected ro${attrPropertyId}le from the list
+        this.${attrPropertyId}BackingList = this.${attrPropertyId}BackingList.filter((${attrPropertyId}: any) => ${attrPropertyId}.value !== item.value);
+        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
     }
 
     private _${attrPropertyId}Filter(value: string): SelectItem[] {
+        if (!value) {
+            return this.${attrPropertyId}BackingList;
+        }
         const filterValue = value.toLowerCase();
     
         return this.${attrPropertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));

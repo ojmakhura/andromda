@@ -313,7 +313,7 @@
         <from>datatype::Set</from>
         <from>AndroMDADatatypes::datatype::Set</from>
         <from>RoseJavaDatatypes::java::util::Set</from>
-        <to>Array</to>
+        <to>Set</to>
     </mapping>
     <mapping>
         <from>HashSet</from>
@@ -321,7 +321,7 @@
         <from>datatype::HashSet</from>
         <from>AndroMDADatatypes::datatype::HashSet</from>
         <from>RoseJavaDatatypes::java::util::HashSet</from>
-        <to>Array</to>
+        <to>Set</to>
     </mapping>
     <mapping>
         <from>SortedSet</from>
@@ -329,7 +329,7 @@
         <from>datatype::SortedSet</from>
         <from>AndroMDADatatypes::datatype::SortedSet</from>
         <from>RoseJavaDatatypes::java::util::SortedSet</from>
-        <to>Array</to>
+        <to>Set</to>
     </mapping>
     <mapping>
         <from>TreeSet</from>
@@ -337,7 +337,7 @@
         <from>datatype::TreeSet</from>
         <from>AndroMDADatatypes::datatype::TreeSet</from>
         <from>RoseJavaDatatypes::java::util::TreeSet</from>
-        <to>Array</to>
+        <to>Set</to>
     </mapping>
     <mapping>
         <from>Clob</from>
@@ -359,7 +359,7 @@
         <from>datatype::Map</from>
         <from>AndroMDADatatypes::datatype::Map</from>
         <from>RoseJavaDatatypes::java::util::Map</from>
-        <to>Map</to>
+        <to>any</to>
     </mapping>
     <mapping>
         <from>HashMap</from>
@@ -367,7 +367,7 @@
         <from>datatype::HashMap</from>
         <from>AndroMDADatatypes::datatype::HashMap</from>
         <from>RoseJavaDatatypes::java::util::HashMap</from>
-        <to>Map</to>
+        <to>any</to>
     </mapping>
     <mapping>
         <from>SortedMap</from>
@@ -375,7 +375,7 @@
         <from>datatype::SortedMap</from>
         <from>AndroMDADatatypes::datatype::SortedMap</from>
         <from>RoseJavaDatatypes::java::util::SortedMap</from>
-        <to>Map</to>
+        <to>any</to>
     </mapping>
     <mapping>
         <from>TreeMap</from>
@@ -383,7 +383,7 @@
         <from>datatype::TreeMap</from>
         <from>AndroMDADatatypes::datatype::TreeMap</from>
         <from>RoseJavaDatatypes::java::util::TreeMap</from>
-        <to>Map</to>
+        <to>any</to>
     </mapping>
     <mapping>
         <from>Object</from>
@@ -391,7 +391,7 @@
         <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
         <from>AndroMDADatatypes::datatype::Object</from>
-        <to>Object</to>
+        <to>any</to>
     </mapping>
     <mapping>
         <from>Void</from>
