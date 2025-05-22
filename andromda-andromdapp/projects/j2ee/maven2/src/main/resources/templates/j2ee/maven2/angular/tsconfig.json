@@ -32,8 +32,8 @@
       "@view/*": ["src/app/view/*"],
       "@core": ["src/app/@core"],
       "@core/*": ["src/app/@core/*"],
-      "@shared": ["src/app/@shared"],
-      "@shared/*": ["src/app/@shared/*"],
+      "@app/@shared": ["src/app/@shared"],
+      "@app/@shared/*": ["src/app/@shared/*"],
       "@env/*": ["src/environments/*"]
     },
     "useDefineForClassFields": false

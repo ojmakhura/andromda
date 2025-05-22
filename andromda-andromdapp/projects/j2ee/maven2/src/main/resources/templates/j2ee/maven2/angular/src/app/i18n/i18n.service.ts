@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { Logger } from '@shared';
+import { Logger } from '@app/@shared';
 import enUS from '../../translations/en-US.json';
 
 const log = new Logger('I18nService');

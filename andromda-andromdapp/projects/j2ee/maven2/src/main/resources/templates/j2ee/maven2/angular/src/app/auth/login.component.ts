@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { LoaderComponent, Logger } from '@shared';
+import { LoaderComponent, Logger } from '@app/@shared';
 import { AuthenticationService } from './authentication.service';
 import { MaterialModule } from '@app/material.module';
 import { TranslateModule } from '@ngx-translate/core';
