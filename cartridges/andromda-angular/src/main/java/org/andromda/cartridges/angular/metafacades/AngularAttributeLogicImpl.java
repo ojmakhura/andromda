@@ -135,6 +135,11 @@ public class AngularAttributeLogicImpl
 
         String type = raw;
 
+        if(this.getType().isMapType()) {
+
+            return "any" + (this.isMany() ? "[]" : "");
+        }
+
         if (type.contains("<")) {
             type = type.substring(0, type.indexOf("<"));
         } else {
