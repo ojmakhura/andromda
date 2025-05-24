@@ -48,7 +48,6 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if($attribute.many)
 #set ($default = "new Array()")
 #end 
-// 555 $attribute.type.mapType
     $attribute.name?: $attribute.getterSetterTypeName | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else} = null#end#end;
     
 #end

@@ -80,9 +80,9 @@ import { SearchObject } from '@app/model/search-object';
 import { GenericComponent } from "@app/view/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
-
 #foreach($attribute in $component.attributes)
-    ${attribute.name}?: ${attribute.getterSetterTypeName}#if($attribute.inputMultibox || $attribute.inputSelect) | SelectItem#if($attribute.many)[]#end#end;
+    ${attribute.name}?: ${attribute.getterSetterTypeName};
+
 #end
 }
 

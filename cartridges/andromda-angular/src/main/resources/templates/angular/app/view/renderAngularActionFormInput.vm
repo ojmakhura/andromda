@@ -228,7 +228,7 @@ ${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}"
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i, selectItem)">
-${ident}              {{ selectItem.label }}
+${ident}              {{ selectItem }}
 ${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem">
 ${ident}                <mat-icon fontIcon="cancel" aria-hidden="false" aria-label="Cancel"></mat-icon>
 ${ident}              </button>
@@ -241,7 +241,7 @@ ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
 ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
 ${ident}         @for (item of ${propertyId}FilteredList$ | async; track item) {
-${ident}            <mat-option [value]="item">{{item.label}}</mat-option>
+${ident}            <mat-option [value]="item">{{item}}</mat-option>
 ${ident}         }
 ${ident}    </mat-autocomplete>
 #elseif($parameter.inputTable || $parameter.table  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
@@ -383,7 +383,6 @@ ${ident}</fieldset>
 #else
 #set ($dataSource = "$stringUtils.pluralize(${propertyId})DataSource")
 #end
-222222222
 $ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="matSort" class="table table-bordered" style="width: 100%;">
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)

@@ -106,11 +106,13 @@
 
 #end
 ## Rendering modal with radio button
+#if($angularUtils.isComplex($variable) && !$variable.many && !$variable.type.enumeration && !$variable.inputSelect && !$variable.inputMultibox && !$angularUtils.isTable($variable))
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$angularUtils.isTable($attribute))
 <!-- Modal for $attribute.name -->
 #renderModalInput($attribute $variable "			" true)
 
+#end
 #end
 #end
 #end
