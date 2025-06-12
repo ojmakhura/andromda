@@ -140,11 +140,140 @@
         <spring.version>5.2.4.RELEASE</spring.version>
     </properties>
     <build>
+    <plugins>
+        <!-- Maven Shade Plugin to replace Antrun & JarJar -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.5.1</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <createDependencyReducedPom>false</createDependencyReducedPom>
+                        <shadedArtifactAttached>true</shadedArtifactAttached>
+                        <shadedClassifierName>shaded</shadedClassifierName>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>META-INF/*.SF</exclude>
+                                    <exclude>META-INF/*.DSA</exclude>
+                                    <exclude>META-INF/*.RSA</exclude>
+                                    <exclude>**/*.xsl</exclude>
+                                    <exclude>**/*.html</exclude>
+                                    <exclude>**/*.mar</exclude>
+                                    <exclude>**/axis2_default.xml</exclude>
+                                    <exclude>**/pom.xml</exclude>
+                                    <exclude>**/pom.properties</exclude>
+                                    <exclude>**/module.xml</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
+                        <relocations>
+                            <relocation>
+                                <pattern>org.apache.axis2</pattern>
+                                <shadedPattern>org.apache.axis2a</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>org.apache.axiom</pattern>
+                                <shadedPattern>org.apache.axioma</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>com.ctc.wstx</pattern>
+                                <shadedPattern>com.ctc.wstxa</shadedPattern>
+                            </relocation>
+                            <relocation>
+                                <pattern>com.ibm.wsdl.factory</pattern>
+                                <shadedPattern>com.ibm.wsdla.factory</shadedPattern>
+                            </relocation>
+                        </relocations>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- ProGuard Plugin -->
+        <plugin>
+            <groupId>com.github.wvengen</groupId>
+            <artifactId>proguard-maven-plugin</artifactId>
+            <version>2.7.0</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>proguard</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <obfuscate>true</obfuscate>
+                <proguardInclude>${project.basedir}/conf/proguard.conf</proguardInclude>
+                <assembly>
+                    <inclusions>
+                        <inclusion>
+                            <groupId>org.apache.axis2</groupId>
+                            <artifactId>axis2</artifactId>
+                            <filter>!javax/xml/namespace/QName*,!**/*.xsl</filter>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.apache.ws.commons.axiom</groupId>
+                            <artifactId>axiom-api</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.apache.ws.commons.axiom</groupId>
+                            <artifactId>axiom-impl</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>wsdl4j</groupId>
+                            <artifactId>wsdl4j</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.codehaus.woodstox</groupId>
+                            <artifactId>stax2-api</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>commons-codec</groupId>
+                            <artifactId>commons-codec</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-lang3</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>commons-beanutils</groupId>
+                            <artifactId>commons-beanutils</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>commons-httpclient</groupId>
+                            <artifactId>commons-httpclient</artifactId>
+                        </inclusion>
+                        <inclusion>
+                            <groupId>org.apache.ws.commons.schema</groupId>
+                            <artifactId>XmlSchema</artifactId>
+                        </inclusion>
+                    </inclusions>
+                </assembly>
+                <maxMemory>1024m</maxMemory>
+                <outjar>${project.build.directory}/webservice-client-obfuscated.jar</outjar>
+            </configuration>
+        </plugin>
+
+        <!-- Optional: source plugin -->
+        <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+        </plugin>
+    </plugins>
+    </build>
+    <!-- <build>
         <plugins>
             <plugin>
                 <groupId>com.github.wvengen</groupId>
                 <artifactId>proguard-maven-plugin</artifactId>
-                <version>2.0.8</version>
+                <version>2.7.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -179,11 +308,6 @@
                                 <groupId>org.codehaus.woodstox</groupId>
                                 <artifactId>stax2-api</artifactId>
                             </inclusion>
-                            <!--inclusion>
-                                <groupId>org.codehaus.woodstox</groupId>
-                                <artifactId>wstx-asl</artifactId>
-                                <filter>!javax/xml/namespace/QName*</filter>
-                            </inclusion-->
                             <inclusion>
                                 <groupId>commons-codec</groupId>
                                 <artifactId>commons-codec</artifactId>
@@ -207,9 +331,6 @@
                         </inclusions>
                     </assembly>
                     <maxMemory>1024m</maxMemory>
-                    <!--libs>
-                        <lib>${java.home}/lib/rt.jar</lib>
-                    </libs-->
                     <outjar>webservice-client.jar</outjar>
                 </configuration>
             </plugin>
@@ -271,5 +392,5 @@
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>
