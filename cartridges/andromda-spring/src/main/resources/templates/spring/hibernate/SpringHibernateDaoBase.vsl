@@ -149,847 +149,846 @@ public abstract class $entity.daoBaseName
 #end
 
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object get(final int transform, final ${identifierTypeName} ${identifierName})
-    {
-#set ($argument = ${identifierName})
-#if($identifierTypePrimitive && !$entity.compositeIdentifier)
-#set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
-#else
-        if ($argument == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.get - '$argument' can not be null");
-        }
-#end
-#if ($hibernateUtils.xmlPersistenceActive)
-#set ($xmlIndent = "    ")
-        if (transform == TRANSFORM_XML)
-        {
-            final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback<Object>()
-                    {
-                        public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
-                            throws ${hibernateUtils.basePackage}.HibernateException
-                        {
-                            ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                            return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
-                        }
-                    }${executeWithNativeSessionParameter});
-            return entity;
-        }
-        else
-        {
-#else
-#set ($xmlIndent = "")
-#end
-$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-$xmlIndent        return transformEntity(transform, entity.get());
-#if ($hibernateUtils.xmlPersistenceActive)
-        }
-#end
-    }
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType get(${identifierTypeName} ${identifierName})
-    {
-        return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object load(final int transform, final ${identifierTypeName} ${identifierName})
-    {
-#set ($argument = ${identifierName})
-#if($identifierTypePrimitive && !$entity.compositeIdentifier)
-#set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
-#else
-        if ($argument == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.load - '$argument' can not be null");
-        }
-#end
-#if ($hibernateUtils.xmlPersistenceActive)
-#set ($xmlIndent = "    ")
-        if (transform == TRANSFORM_XML)
-        {
-            final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                    new org.springframework.orm.hibernate3.HibernateCallback<Object>()
-                    {
-                        public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
-                            throws ${hibernateUtils.basePackage}.HibernateException
-                        {
-                            ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                            return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
-                        }
-                    }${executeWithNativeSessionParameter});
-            return entity;
-        }
-        else
-        {
-#else
-#set ($xmlIndent = "")
-#end
-#if($enableCaching)
-#set ($oldXmlIndent = $xmlIndent)
-$oldXmlIndent        try{
-#set ($xmlIndent = "    $xmlIndent")
-#end
-$xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
-$xmlIndent        return transformEntity(transform, entity.get());
-#if($enableCaching)
-$oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
-$oldXmlIndent            //No display error message caused by the cache L2 hibernate as stated in https://hibernate.atlassian.net/browse/HHH-4953 and https://hibernate.atlassian.net/browse/HHH-9028
-$oldXmlIndent            return null;
-$oldXmlIndent        }
-#end
-#if ($hibernateUtils.xmlPersistenceActive)
-        }
-#end
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType load(${identifierTypeName} ${identifierName})
-    {
-        return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, ${identifierName});
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating)
-    @SuppressWarnings({"unchecked"})
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $entityCollectionType loadAll()
-    {
-        return#if($enableTemplating) ($entityCollectionType)#end this.loadAll(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
-    {
-        return this.loadAll(transform, -1, -1);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##  @org.springframework.transaction.annotation.Transactional
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
-    {
-        return this.loadAll(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, pageNumber, pageSize);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
-    {
-#if($hibernate4or5)       
-		
-#set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
-        final java.util.Collection#if($enableTemplating)<?>#end results = ${repositoryName}.findAll();
-        this.transformEntities(transform, results);
-        return results;
-#else
-        try
-        {
-            final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession().createCriteria(${entity.fullyQualifiedEntityName}.class);
-            if (pageNumber > 0 && pageSize > 0)
-            {
-                criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
-                criteria.setMaxResults(pageSize);
-            }
-            criteria.setCacheable(true);
-            final java.util.Collection#if($enableTemplating)<?>#end results = criteria.list();
-            this.transformEntities(transform, results);
-            return results;
-        }
-        catch (${hibernateUtils.basePackage}.HibernateException ex)
-        {
-            throw super.convertHibernateAccessException(ex);
-        }
-#end
-    }
-
-    /**
-     * firstResult = (pageNumber - 1) * pageSize
-     * @param pageNumber
-     * @param pageSize
-     * @return firstResult
-     */
-    protected int calculateFirstResult(int pageNumber, int pageSize)
-    {
-        int firstResult = 0;
-        if (pageNumber > 0)
-        {
-            firstResult = (pageNumber - 1) * pageSize;
-        }
-        return firstResult;
-    }
-
-#if($enableCaching)
-    /**
-     * evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
-     * should not be generated when using hibernate annotations
-     */
-    protected void evictAllReferencingCollections() 
-    {
-        final org.hibernate.Cache cache=this.sessionFactory.getCache();
-        if(cache != null){
-#renderEvictCollection($entity)
-        }
-    }
-        
-#end
-    /**
-     * prePersist event - This method is called before creating the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _prePersist(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._prePersist($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.prePersist)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
-    /**
-     * postPersist event - This method is called after creating the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _postPersist(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._postPersist($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.postPersist)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
-    /**
-     * preUpdate event - This method is called before updating the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _preUpdate(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._preUpdate($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.preUpdate)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
-    /**
-     * postUpdate event - This method is called after updating the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _postUpdate(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._postUpdate($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.postUpdate)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
-    /**
-     * preRemove event - This method is called before deleting the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _preRemove(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._preRemove($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.preRemove)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
-    /**
-     * postRemove event - This method is called after deleting the entity
-     * @param $argumentName $entity.fullyQualifiedName
-     */
-    protected void _postRemove(final $entity.fullyQualifiedName $argumentName)
-    {
-#if ($daoInheritance)
-        super._postRemove($argumentName)
-#elseif($entity.daoBusinessOperations.empty)
-        // Abstract method - your implementation goes in the descendant
-#end
-#foreach ($operation in $entity.daoBusinessOperations)
-#if($operation.postRemove)
-        ${operation.name}($argumentName);
-#end
-#end
-    }
-
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public Object get(final int transform, final ${identifierTypeName} ${identifierName})
+##     {
+## #set ($argument = ${identifierName})
+## #if($identifierTypePrimitive && !$entity.compositeIdentifier)
+## #set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
+## #else
+##         if ($argument == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.get - '$argument' can not be null");
+##         }
+## #end
+## #if ($hibernateUtils.xmlPersistenceActive)
+## #set ($xmlIndent = "    ")
+##         if (transform == TRANSFORM_XML)
+##         {
+##             final Object entity =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.${executeWithNativeSessionMethodname}(
+##                     new org.springframework.orm.hibernate3.HibernateCallback<Object>()
+##                     {
+##                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+##                             throws ${hibernateUtils.basePackage}.HibernateException
+##                         {
+##                             ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+##                             return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
+##                         }
+##                     }${executeWithNativeSessionParameter});
+##             return entity;
+##         }
+##         else
+##         {
+## #else
+## #set ($xmlIndent = "")
+## #end
+## $xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+## $xmlIndent        return transformEntity(transform, entity.get());
+## #if ($hibernateUtils.xmlPersistenceActive)
+##         }
+## #end
+##     }
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType get(${identifierTypeName} ${identifierName})
+##     {
+##         return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public Object load(final int transform, final ${identifierTypeName} ${identifierName})
+##     {
+## #set ($argument = ${identifierName})
+## #if($identifierTypePrimitive && !$entity.compositeIdentifier)
+## #set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
+## #else
+##         if ($argument == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.load - '$argument' can not be null");
+##         }
+## #end
+## #if ($hibernateUtils.xmlPersistenceActive)
+## #set ($xmlIndent = "    ")
+##         if (transform == TRANSFORM_XML)
+##         {
+##             final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+##                     new org.springframework.orm.hibernate3.HibernateCallback<Object>()
+##                     {
+##                         public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+##                             throws ${hibernateUtils.basePackage}.HibernateException
+##                         {
+##                             ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+##                             return xmlSession.get(${entity.fullyQualifiedEntityName}.class, $argument);
+##                         }
+##                     }${executeWithNativeSessionParameter});
+##             return entity;
+##         }
+##         else
+##         {
+## #else
+## #set ($xmlIndent = "")
+## #end
+## #if($enableCaching)
+## #set ($oldXmlIndent = $xmlIndent)
+## $oldXmlIndent        try{
+## #set ($xmlIndent = "    $xmlIndent")
+## #end
+## $xmlIndent        java.util.Optional<$entity.fullyQualifiedName> entity = ${stringUtils.uncapitalize(${entity.entityName})}Repository.findById($argument);
+## $xmlIndent        return transformEntity(transform, entity.get());
+## #if($enableCaching)
+## $oldXmlIndent        }catch(org.hibernate.WrongClassException exc){
+## $oldXmlIndent            //No display error message caused by the cache L2 hibernate as stated in https://hibernate.atlassian.net/browse/HHH-4953 and https://hibernate.atlassian.net/browse/HHH-9028
+## $oldXmlIndent            return null;
+## $oldXmlIndent        }
+## #end
+## #if ($hibernateUtils.xmlPersistenceActive)
+##         }
+## #end
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType load(${identifierTypeName} ${identifierName})
+##     {
+##         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, ${identifierName});
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## #if ($enableTemplating)
+##     @SuppressWarnings({"unchecked"})
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $entityCollectionType loadAll()
+##     {
+##         return#if($enableTemplating) ($entityCollectionType)#end this.loadAll(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
+##     {
+##         return this.loadAll(transform, -1, -1);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##  @org.springframework.transaction.annotation.Transactional
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
+##     {
+##         return this.loadAll(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, pageNumber, pageSize);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
+##     {
+## #if($hibernate4or5)       
+##		
+## #set($repositoryName = "${stringUtils.uncapitalize(${entity.entityName})}Repository")
+##         final java.util.Collection#if($enableTemplating)<?>#end results = ${repositoryName}.findAll();
+##         this.transformEntities(transform, results);
+##         return results;
+## #else
+##         try
+##         {
+##             final ${hibernateUtils.basePackage}.Criteria criteria = this.getSession().createCriteria(${entity.fullyQualifiedEntityName}.class);
+##             if (pageNumber > 0 && pageSize > 0)
+##             {
+##                 criteria.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
+##                 criteria.setMaxResults(pageSize);
+##             }
+##             criteria.setCacheable(true);
+##             final java.util.Collection#if($enableTemplating)<?>#end results = criteria.list();
+##             this.transformEntities(transform, results);
+##             return results;
+##         }
+##         catch (${hibernateUtils.basePackage}.HibernateException ex)
+##         {
+##             throw super.convertHibernateAccessException(ex);
+##         }
+## #end
+##     }
+##
+##     /**
+##      * firstResult = (pageNumber - 1) * pageSize
+##      * @param pageNumber
+##      * @param pageSize
+##      * @return firstResult
+##      */
+##     protected int calculateFirstResult(int pageNumber, int pageSize)
+##     {
+##         int firstResult = 0;
+##         if (pageNumber > 0)
+##         {
+##             firstResult = (pageNumber - 1) * pageSize;
+##         }
+##         return firstResult;
+##     }
+##
+## #if($enableCaching)
+##     /**
+##      * evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+##      * should not be generated when using hibernate annotations
+##      */
+##     protected void evictAllReferencingCollections() 
+##     {
+##         final org.hibernate.Cache cache=this.sessionFactory.getCache();
+##         if(cache != null){
+## #renderEvictCollection($entity)
+##         }
+##     }
+##        
+## #end
+##     /**
+##      * prePersist event - This method is called before creating the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _prePersist(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._prePersist($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.prePersist)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
+##     /**
+##      * postPersist event - This method is called after creating the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _postPersist(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._postPersist($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.postPersist)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
+##     /**
+##      * preUpdate event - This method is called before updating the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _preUpdate(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._preUpdate($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.preUpdate)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
+##     /**
+##      * postUpdate event - This method is called after updating the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _postUpdate(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._postUpdate($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.postUpdate)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
+##     /**
+##      * preRemove event - This method is called before deleting the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _preRemove(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._preRemove($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.preRemove)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
+##     /**
+##      * postRemove event - This method is called after deleting the entity
+##      * @param $argumentName $entity.fullyQualifiedName
+##      */
+##     protected void _postRemove(final $entity.fullyQualifiedName $argumentName)
+##     {
+## #if ($daoInheritance)
+##         super._postRemove($argumentName)
+## #elseif($entity.daoBusinessOperations.empty)
+##         // Abstract method - your implementation goes in the descendant
+## #end
+## #foreach ($operation in $entity.daoBusinessOperations)
+## #if($operation.postRemove)
+##         ${operation.name}($argumentName);
+## #end
+## #end
+##     }
+##
 ## Only add these methods if the entity isn't abstract
-#if (!$entity.abstract)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
-    {
-        return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
-    }
+## #if (!$entity.abstract)
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
+##     {
+##         return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
+##     }
+##
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType create(org.dom4j.Element $argumentName)
+##     {
+##        return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## #if ($enableTemplating)
+##     @SuppressWarnings({"unchecked"})
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public Object create(int transform, final org.dom4j.Element $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.create - '$argumentName' can not be null");
+##         }
+## #if($hibernate4or5)
+##         return create(transform, entity);
+## #else
+##         Object newID = this.getHibernateTemplate().${executeWithNativeSessionMethodname}((
+##                 new org.springframework.orm.hibernate3.HibernateCallback<Object>()
+##                 {
+##                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+##                         throws ${hibernateUtils.basePackage}.HibernateException
+##                     {
+##                         ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+##                         return xmlSession.save("$entity.fullyQualifiedEntityName", $argumentName);
+##                     }
+##                 }${executeWithNativeSessionParameter});
+##
+##         return this.load(transform, (${identifierTypeName})newID);
+## #end
+##     }
+##
+## #end
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public Object create(final int transform, $entity.fullyQualifiedName $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.create - '$argumentName' can not be null");
+##         }
+##
+##         //prePersist event
+##         _prePersist($argumentName);
+##
+## #if($enableCaching)
+##         //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+##         //should not be generated when using hibernate annotations
+##         evictAllReferencingCollections();
+##        
+## #end
+## #if ($hibernateUtils.xmlPersistenceActive)
+## #set ($identifierProperty = "identifier")
+## #if($identifierTypePrimitive)
+## #set ($identifierProperty = "(($identifierTypeWrapperName)$identifierProperty).${identifierTypeName}Value()")
+## #else
+## #set ($identifierProperty = "($identifierTypeName)$identifierProperty")
+## #end
+##         Object identifier =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+##
+##         //postPersist event
+##         _postPersist($argumentName);
+##
+##         if (transform == TRANSFORM_XML)
+##           return this.load(TRANSFORM_XML, (($identifierProperty)));
+##         else
+##           return this.transformEntity(transform, $argumentName);
+## #else
+##         $argumentName = this.${repositoryName}.save($argumentName);
+##
+##         //postPersist event
+##         _postPersist($argumentName);
+##
+##         return this.transformEntity(transform, $argumentName);
+## #end
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## #if ($enableTemplating)
+##     @SuppressWarnings({"unchecked"})
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $entityCollectionType create(final $entityCollectionType entities)
+##     {
+##         return#if($enableTemplating) ($entityCollectionType)#end create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, entities);
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
+##     {
+##         if (entities == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.create - 'entities' can not be null");
+##         }
+## #if($hibernate4or5)
+##         java.util.Collection<Object> transformed = new java.util.ArrayList<Object>();
+##         for ($entity.fullyQualifiedEntityName entity : entities)
+##         {
+##             transformed.add(create(transform, entity));
+##         }
+##         return transformed;
+## #else
+##         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+##             new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
+##             {
+##                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
+##                     throws ${hibernateUtils.basePackage}.HibernateException
+##                 {
+## #if($enableTemplating)
+##                     for ($entity.fullyQualifiedEntityName entity : entities)
+##                     {
+##                         create(transform, entity);
+##                     }
+## #else
+##                     for (Object entity : entities)
+##                     {
+##                         create(transform, ($entity.fullyQualifiedEntityName)entity);
+##                     }
+## #end
+##                     return null;
+##                 }
+##             }${executeWithNativeSessionParameter});
+##         return entities;
+## #end
+##     }
+##
+## #if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
+## #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+## #if (!$attributes.empty)
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType create(
+## #foreach($attribute in $attributes)
+##         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
+##
+## #end
+##     {
+##         return ($rootEntityType)this.create(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, ${entity.getAttributeNameList(true, $entity.usingAssignedIdentifier)});
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public Object create(
+##         final int transform,
+## #foreach($attribute in $attributes)
+##         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
+##
+## #end
+##     {
+##         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
+## #if ($entity.usingForeignIdentifier)
+## #set ($entityIdentifiers=$entity.identifierAssociatinEnds)
+## #if (!$entityIdentifiers.empty)
+## #set ($entityIdentifier=$entityIdentifiers.get(0))
+## #end
+## ## Is it possible to have >1 identifier association? Assume one.
+## #end
+## #foreach ($attribute in $attributes)
+## ##        // $entity.identifierAssociationEnds.size() $entity.usingForeignIdentifier $attribute.identifier $entityIdentifier
+## #if ($entity.usingForeignIdentifier && $attribute.identifier)
+##         entity.$entityIdentifier.getterName().${attribute.setterName}($attribute.name);
+## #else
+##         entity.${attribute.setterName}($attribute.name);
+## #end
+## #end
+##         return this.create(transform, entity);
+##     }
+##
+## #end
+## #set ($requiredProperties = $entity.getRequiredProperties(true,false))
+## #if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public $rootEntityType create(
+## #foreach($property in $requiredProperties)
+##         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
+##
+## #end
+##     {
+##         return ($rootEntityType)this.create(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,false)});
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public Object create(
+##         final int transform,
+## #foreach($property in $requiredProperties)
+##         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
+##
+## #end
+##     {
+##         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
+## #foreach ($property in $requiredProperties)
+##         entity.${property.setterName}($property.name);
+## #end
+##         return this.create(transform, entity);
+##     }
+##
+## #end
+## #end
+## #end
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void update($entity.fullyQualifiedEntityName $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.update - '$argumentName' can not be null");
+##         }
 
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType create(org.dom4j.Element $argumentName)
-    {
-       return ($entity.fullyQualifiedEntityName)this.create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, $argumentName);
-    }
+##         //preUpdate event
+##         _preUpdate($argumentName);
 
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating)
-    @SuppressWarnings({"unchecked"})
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object create(int transform, final org.dom4j.Element $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.create - '$argumentName' can not be null");
-        }
-#if($hibernate4or5)
-        return create(transform, entity);
-#else
-        Object newID = this.getHibernateTemplate().${executeWithNativeSessionMethodname}((
-                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
-                {
-                    public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
-                        throws ${hibernateUtils.basePackage}.HibernateException
-                    {
-                        ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                        return xmlSession.save("$entity.fullyQualifiedEntityName", $argumentName);
-                    }
-                }${executeWithNativeSessionParameter});
-
-        return this.load(transform, (${identifierTypeName})newID);
-#end
-    }
-
-#end
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object create(final int transform, $entity.fullyQualifiedName $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.create - '$argumentName' can not be null");
-        }
-
-        //prePersist event
-        _prePersist($argumentName);
-
-#if($enableCaching)
-        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
-        //should not be generated when using hibernate annotations
-        evictAllReferencingCollections();
+## #if($enableCaching)
+##         //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+##         //should not be generated when using hibernate annotations
+##         evictAllReferencingCollections();
         
-#end
-#if ($hibernateUtils.xmlPersistenceActive)
-#set ($identifierProperty = "identifier")
-#if($identifierTypePrimitive)
-#set ($identifierProperty = "(($identifierTypeWrapperName)$identifierProperty).${identifierTypeName}Value()")
-#else
-#set ($identifierProperty = "($identifierTypeName)$identifierProperty")
-#end
-        Object identifier =#if($hibernate4or5) this.sessionFactory.getCurrentSession()#else this.getHibernateTemplate()#end.save($argumentName);
+## #end
+##         $argumentName = this.${repositoryName}.save($argumentName);
 
-        //postPersist event
-        _postPersist($argumentName);
+##         //postUpdate event
+##         _postUpdate($argumentName);
+##     }
 
-        if (transform == TRANSFORM_XML)
-          return this.load(TRANSFORM_XML, (($identifierProperty)));
-        else
-          return this.transformEntity(transform, $argumentName);
-#else
-        $argumentName = this.${repositoryName}.save($argumentName);
-
-        //postPersist event
-        _postPersist($argumentName);
-
-        return this.transformEntity(transform, $argumentName);
-#end
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-#if ($enableTemplating)
-    @SuppressWarnings({"unchecked"})
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $entityCollectionType create(final $entityCollectionType entities)
-    {
-        return#if($enableTemplating) ($entityCollectionType)#end create(${entity.fullyQualifiedDaoName}.${entity.daoNoTransformationConstantName}, entities);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
-    {
-        if (entities == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.create - 'entities' can not be null");
-        }
-#if($hibernate4or5)
-        java.util.Collection<Object> transformed = new java.util.ArrayList<Object>();
-        for ($entity.fullyQualifiedEntityName entity : entities)
-        {
-            transformed.add(create(transform, entity));
-        }
-        return transformed;
-#else
-        this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-            new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
-            {
-                public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
-                    throws ${hibernateUtils.basePackage}.HibernateException
-                {
-#if($enableTemplating)
-                    for ($entity.fullyQualifiedEntityName entity : entities)
-                    {
-                        create(transform, entity);
-                    }
-#else
-                    for (Object entity : entities)
-                    {
-                        create(transform, ($entity.fullyQualifiedEntityName)entity);
-                    }
-#end
-                    return null;
-                }
-            }${executeWithNativeSessionParameter});
-        return entities;
-#end
-    }
-
-#if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
-#set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
-#if (!$attributes.empty)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType create(
-#foreach($attribute in $attributes)
-        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
-
-#end
-    {
-        return ($rootEntityType)this.create(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, ${entity.getAttributeNameList(true, $entity.usingAssignedIdentifier)});
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object create(
-        final int transform,
-#foreach($attribute in $attributes)
-        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else)#end
-
-#end
-    {
-        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
-#if ($entity.usingForeignIdentifier)
-#set ($entityIdentifiers=$entity.identifierAssociatinEnds)
-#if (!$entityIdentifiers.empty)
-#set ($entityIdentifier=$entityIdentifiers.get(0))
-#end
-## Is it possible to have >1 identifier association? Assume one.
-#end
-#foreach ($attribute in $attributes)
-##        // $entity.identifierAssociationEnds.size() $entity.usingForeignIdentifier $attribute.identifier $entityIdentifier
-#if ($entity.usingForeignIdentifier && $attribute.identifier)
-        entity.$entityIdentifier.getterName().${attribute.setterName}($attribute.name);
-#else
-        entity.${attribute.setterName}($attribute.name);
-#end
-#end
-        return this.create(transform, entity);
-    }
-
-#end
-#set ($requiredProperties = $entity.getRequiredProperties(true,false))
-#if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public $rootEntityType create(
-#foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
-
-#end
-    {
-        return ($rootEntityType)this.create(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,false)});
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public Object create(
-        final int transform,
-#foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else)#end
-
-#end
-    {
-        $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
-#foreach ($property in $requiredProperties)
-        entity.${property.setterName}($property.name);
-#end
-        return this.create(transform, entity);
-    }
-
-#end
-#end
-#end
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void update($entity.fullyQualifiedEntityName $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.update - '$argumentName' can not be null");
-        }
-
-        //preUpdate event
-        _preUpdate($argumentName);
-
-#if($enableCaching)
-        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
-        //should not be generated when using hibernate annotations
-        evictAllReferencingCollections();
-        
-#end
-        $argumentName = this.${repositoryName}.save($argumentName);
-
-        //postUpdate event
-        _postUpdate($argumentName);
-    }
-
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void update(final org.dom4j.Element $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.update - '$argumentName' can not be null");
-        }
-#if($hibernate4or5)
-##        for ($entity.fullyQualifiedName entity : entities)
-##        {
-##            update(entity);
-##        }
-#else
-        this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
-                {
-                    public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
-                        throws ${hibernateUtils.basePackage}.HibernateException
-                    {
-                        ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                        xmlSession.update("$entity.fullyQualifiedEntityName", $argumentName);
-                        return null;
-                    }
-                }${executeWithNativeSessionParameter});
-#end
-    }
-
-#end
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void update(final $entityCollectionType entities)
-    {
-        if (entities == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.update - 'entities' can not be null");
-        }
-#if($hibernate4or5)
-        for ($entity.fullyQualifiedName entity : entities)
-        {
-            update(entity);
-        }
-#else
-        this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-            new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
-            {
-                public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
-                    throws ${hibernateUtils.basePackage}.HibernateException
-                {
-#if($enableTemplating)
-                    for ($entity.fullyQualifiedEntityName entity : entities)
-                    {
-                        update(entity);
-                    }
-#else
-                    for (Object entity : entities)
-                    {
-                        update(($entity.fullyQualifiedEntityName)entity);
-                    }
-#end
-                    return null;
-                }
-            }${executeWithNativeSessionParameter});
-#end
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void remove($entity.fullyQualifiedEntityName $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.remove - '$argumentName' can not be null");
-        }
-        //preRemove event
-        _preRemove($argumentName);
-
-#if($enableCaching)
-        //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
-        //should not be generated when using hibernate annotations
-        evictAllReferencingCollections();
-        
-#end
-        this.${repositoryName}.delete($argumentName);
-
-        //postRemove event
-        _postRemove($argumentName);
-    }
-
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void remove(final org.dom4j.Element $argumentName)
-    {
-        if ($argumentName == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.remove - '$argumentName' can not be null");
-        }
-#if($hibernate4or5)
-#else
-        this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
-                new org.springframework.orm.hibernate3.HibernateCallback<Object>()
-                {
-                    public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
-                        throws ${hibernateUtils.basePackage}.HibernateException
-                    {
-                        ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
-                        xmlSession.delete($argumentName);
-                        return null;
-                    }
-                }${executeWithNativeSessionParameter});
-#end
-    }
-
-#end
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void remove($identifierTypeName $identifierName)
-    {
-#set ($argument = $identifierName)
-#if($identifierTypePrimitive)
-#set ($argument = "new ${identifierTypeWrapperName}($identifierName)")
-#else
-        if ($argument == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.remove - '${identifierName}' can not be null");
-        }
-#end
-#set ($loadCall = "this.get($identifierName)")
-#if ($entity.generalization && $daoInheritance)
-#set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
-#end
-        $entity.fullyQualifiedEntityName entity = $loadCall;
-        if (entity != null)
-        {
-            this.remove(entity);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-##	@org.springframework.transaction.annotation.Transactional
-    public void remove($entityCollectionType entities)
-    {
-        if (entities == null)
-        {
-            throw new IllegalArgumentException(
-                "${entity.name}.remove - 'entities' can not be null");
-        }
-        for ($rootEntityType entity : entities)
-        {
-            //preRemove event
-            _preRemove(entity);
-
-#if($enableCaching)
-            //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
-            //should not be generated when using hibernate annotations
-            evictAllReferencingCollections();
-        
-#end
-            this.${repositoryName}.delete(entity);
-
-            //postRemove event
-            _postRemove(entity);
-        }
-    }
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void update(final org.dom4j.Element $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.update - '$argumentName' can not be null");
+##         }
+## #if($hibernate4or5)
+## ##        for ($entity.fullyQualifiedName entity : entities)
+## ##        {
+## ##            update(entity);
+## ##        }
+## #else
+##         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+##                 new org.springframework.orm.hibernate3.HibernateCallback<Object>()
+##                 {
+##                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+##                         throws ${hibernateUtils.basePackage}.HibernateException
+##                     {
+##                         ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+##                         xmlSession.update("$entity.fullyQualifiedEntityName", $argumentName);
+##                         return null;
+##                     }
+##                 }${executeWithNativeSessionParameter});
+## #end
+##     }
+##
+## #end
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void update(final $entityCollectionType entities)
+##     {
+##         if (entities == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.update - 'entities' can not be null");
+##         }
+## #if($hibernate4or5)
+##         for ($entity.fullyQualifiedName entity : entities)
+##         {
+##             update(entity);
+##         }
+## #else
+##         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+##             new ${hibernateUtils.springHibernatePackage}.HibernateCallback<Object>()
+##             {
+##                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
+##                     throws ${hibernateUtils.basePackage}.HibernateException
+##                 {
+## #if($enableTemplating)
+##                     for ($entity.fullyQualifiedEntityName entity : entities)
+##                     {
+##                         update(entity);
+##                     }
+## #else
+##                     for (Object entity : entities)
+##                     {
+##                         update(($entity.fullyQualifiedEntityName)entity);
+##                     }
+## #end
+##                     return null;
+##                 }
+##             }${executeWithNativeSessionParameter});
+## #end
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void remove($entity.fullyQualifiedEntityName $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.remove - '$argumentName' can not be null");
+##         }
+##         //preRemove event
+##         _preRemove($argumentName);
+##
+## #if($enableCaching)
+##         //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+##         //should not be generated when using hibernate annotations
+##         evictAllReferencingCollections();
+##        
+## #end
+##         this.${repositoryName}.delete($argumentName);
+##
+##         //postRemove event
+##         _postRemove($argumentName);
+##     }
+##
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void remove(final org.dom4j.Element $argumentName)
+##     {
+##         if ($argumentName == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.remove - '$argumentName' can not be null");
+##         }
+## #if($hibernate4or5)
+## #else
+##         this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+##                 new org.springframework.orm.hibernate3.HibernateCallback<Object>()
+##                 {
+##                     public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+##                         throws ${hibernateUtils.basePackage}.HibernateException
+##                     {
+##                         ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+##                         xmlSession.delete($argumentName);
+##                         return null;
+##                     }
+##                 }${executeWithNativeSessionParameter});
+## #end
+##     }
+##
+## #end
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void remove($identifierTypeName $identifierName)
+##     {
+## #set ($argument = $identifierName)
+## #if($identifierTypePrimitive)
+## #set ($argument = "new ${identifierTypeWrapperName}($identifierName)")
+## #else
+##         if ($argument == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.remove - '${identifierName}' can not be null");
+##         }
+## #end
+## #set ($loadCall = "this.get($identifierName)")
+## #if ($entity.generalization && $daoInheritance)
+## #set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
+## #end
+##         $entity.fullyQualifiedEntityName entity = $loadCall;
+##         if (entity != null)
+##         {
+##             this.remove(entity);
+##         }
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ##	@org.springframework.transaction.annotation.Transactional
+##     public void remove($entityCollectionType entities)
+##     {
+##         if (entities == null)
+##         {
+##             throw new IllegalArgumentException(
+##                 "${entity.name}.remove - 'entities' can not be null");
+##         }
+##         for ($rootEntityType entity : entities)
+##         {
+##             //preRemove event
+##             _preRemove(entity);
+##
+## #if($enableCaching)
+##             //evict all the dependent collections to avoid 'id not found' refers to https://hibernate.atlassian.net/browse/HHH-4910
+##             //should not be generated when using hibernate annotations
+##             evictAllReferencingCollections();
+##        
+## #end
+##             this.${repositoryName}.delete(entity);
+##
+##             //postRemove event
+##             _postRemove(entity);
+##         }
+##     }
 ##
 ## With daoInheritance disabled, only generate the finder methods defined on this entity; do NOT
 ## include those defined on any of the super-entities.
@@ -1030,27 +1029,6 @@ $oldXmlIndent        }
 
 #set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #if(!$finder.criteriaFinder)
-##     /**
-##      * {@inheritDoc} 2
-##      */
-## #if ($enableAnnotations)
-##     @Override
-## #end
-## #if ($enableTemplating && ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many))
-##     @SuppressWarnings({"unchecked"})
-## #end
-##     $finder.visibility $returnType ${finder.name}(#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
-## #if ($finder.exceptionsPresent)
-##         throws $finder.exceptionList
-## #end
-##     {
-## #set ($finderCall = "this.${finder.name}(${entity.fullyQualifiedDaoName}.$entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-## #if ((!$finder.returnType.collectionType || ($enableTemplating && $finder.returnType.collectionType)))
-## #set ($finderCall = "($returnType)$finderCall")
-## #end
-##         #if ($finder.returnTypePresent)return#end $finderCall
-##     }
-
 #if ($finder.returnType.collectionType || $finder.many || $finder.returnParameter.many)
     /**
      * {@inheritDoc}
@@ -2030,65 +2008,65 @@ $h3tab        return results;
 ## #end
 ##     }
 ##
-#set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
-#foreach ($attribute in $attributes)
-#if ($attribute.unique && !$attribute.type.fileType)
-#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
-    {
-
-        ${entity.fullyQualifiedEntityName} entity = ${repositoryName}.findBy${stringUtils.capitalize($attribute.name)}(${attribute.name});
-        
-        return entity;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-    public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name})
-    {
-        final ${entity.fullyQualifiedEntityName} entity=this.$searchUniqueMethod(${attribute.name});
-        if(entity == null)
-        {
-            return null;
-        }
-        return transformEntity(transform, entity);
-    }
-
-#end
-#end
-
-    /**
-     * Create or Update the <code>$argumentName</code> instance in the persistent store.
-     * @param $argumentName
-     */
-#if ($enableAnnotations)
-    @Override
-#end
-## @org.springframework.transaction.annotation.Transactional
-    public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
-    {
-        if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)
-        {
-#if ($entity.abstract)
-            throw new RuntimeException("Abstract entity $entity.fullyQualifiedEntityName cannot be created.");
-#else
-            return ($entity.fullyQualifiedEntityName)this.create(${entity.daoNoTransformationConstantName},$argumentName);
-#end
-        }
-        this.update($argumentName);
-        return $argumentName;
-    }
-
+## #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+## #foreach ($attribute in $attributes)
+## #if ($attribute.unique && !$attribute.type.fileType)
+## #set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name})
+##     {
+##
+##         ${entity.fullyQualifiedEntityName} entity = ${repositoryName}.findBy${stringUtils.capitalize($attribute.name)}(${attribute.name});
+##        
+##         return entity;
+##     }
+##
+##     /**
+##      * {@inheritDoc}
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+##    public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name})
+##    {
+##        final ${entity.fullyQualifiedEntityName} entity=this.$searchUniqueMethod(${attribute.name});
+##        if(entity == null)
+##        {
+##            return null;
+##        }
+##        return transformEntity(transform, entity);
+##    }
+##
+## #end
+## #end
+##
+##     /**
+##      * Create or Update the <code>$argumentName</code> instance in the persistent store.
+##      * @param $argumentName
+##      */
+## #if ($enableAnnotations)
+##     @Override
+## #end
+## ## @org.springframework.transaction.annotation.Transactional
+##     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName)
+##     {
+##         if(${argumentName}.${entity.identifiers.get(0).getterName}() == null)
+##         {
+## #if ($entity.abstract)
+##             throw new RuntimeException("Abstract entity $entity.fullyQualifiedEntityName cannot be created.");
+## #else
+##             return ($entity.fullyQualifiedEntityName)this.create(${entity.daoNoTransformationConstantName},$argumentName);
+## #end
+##         }
+##         this.update($argumentName);
+##         return $argumentName;
+##     }
+##
     // spring-hibernate-dao-base merge-point
 }
 #end

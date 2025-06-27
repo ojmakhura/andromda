@@ -142,312 +142,312 @@ public interface $entity.daoName
 #set($identifierTypeName="${entity.fullyQualifiedIdentifierTypeName}")
 #set($identifierName="${entity.identifierName}")
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
-    /**
-     * Gets an instance of $entity.fullyQualifiedEntityName from the persistent store.
-     * @param $identifierName
-     * @return $rootEntityType
-     */
-    public $rootEntityType get($identifierTypeName $identifierName);
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}get($identifierTypeName)} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
-     * optionally transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     *
-     * @param transform flag to determine transformation type.
-     * @param $identifierName the identifier of the entity to get.
-     * @return either the entity or the object transformed from the entity.
-     */
-    public Object get(int transform, $identifierTypeName $identifierName);
-
-    /**
-     * Loads an instance of ${entity.fullyQualifiedEntityName} from the persistent store.
-     * @param $identifierName
-     * @return $rootEntityType
-     */
-    public $rootEntityType load($identifierTypeName $identifierName);
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}load(${identifierTypeName})} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
-     * optionally transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     *
-     * @param transform flag to determine transformation type.
-     * @param $identifierName the identifier of the entity to load.
-     * @return either the entity or the object transformed from the entity.
-     */
-    public Object load(int transform, $identifierTypeName $identifierName);
-
-    /**
-     * Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
-     *
-     * @return the loaded entities.
-     */
-    public $entityCollectionType loadAll();
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}loadAll()} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     *
-     * @param transform the flag indicating what transformation to use.
-     * @return the loaded entities.
-     */
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform);
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}loadAll()} with an
-     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
-     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
-     * page retrieved.
-     * </p>
-     *
-     * @param pageNumber the page number to retrieve when paging results.
-     * @param pageSize the size of the page to retrieve when paging results.
-     * @return the loaded entities.
-     */
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize);
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}loadAll(int)} with an
-     * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
-     * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
-     * page retrieved.
-     * </p>
-     *
-     * @param transform the flag indicating what transformation to use.
-     * @param pageNumber the page number to retrieve when paging results.
-     * @param pageSize the size of the page to retrieve when paging results.
-     * @return the loaded entities.
-     */
-    public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize);
-
+##     /**
+##      * Gets an instance of $entity.fullyQualifiedEntityName from the persistent store.
+##      * @param $identifierName
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType get($identifierTypeName $identifierName);
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}get($identifierTypeName)} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
+##      * optionally transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      *
+##      * @param transform flag to determine transformation type.
+##      * @param $identifierName the identifier of the entity to get.
+##      * @return either the entity or the object transformed from the entity.
+##      */
+##     public Object get(int transform, $identifierTypeName $identifierName);
+##
+##     /**
+##      * Loads an instance of ${entity.fullyQualifiedEntityName} from the persistent store.
+##      * @param $identifierName
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType load($identifierTypeName $identifierName);
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}load(${identifierTypeName})} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
+##      * optionally transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      *
+##      * @param transform flag to determine transformation type.
+##      * @param $identifierName the identifier of the entity to load.
+##      * @return either the entity or the object transformed from the entity.
+##      */
+##     public Object load(int transform, $identifierTypeName $identifierName);
+##
+##     /**
+##      * Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
+##      *
+##      * @return the loaded entities.
+##      */
+##     public $entityCollectionType loadAll();
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}loadAll()} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      *
+##      * @param transform the flag indicating what transformation to use.
+##      * @return the loaded entities.
+##      */
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform);
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}loadAll()} with an
+##      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+##      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+##      * page retrieved.
+##      * </p>
+##      *
+##      * @param pageNumber the page number to retrieve when paging results.
+##      * @param pageSize the size of the page to retrieve when paging results.
+##      * @return the loaded entities.
+##      */
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize);
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}loadAll(int)} with an
+##      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
+##      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
+##      * page retrieved.
+##      * </p>
+##      *
+##      * @param transform the flag indicating what transformation to use.
+##      * @param pageNumber the page number to retrieve when paging results.
+##      * @param pageSize the size of the page to retrieve when paging results.
+##      * @return the loaded entities.
+##      */
+##     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize);
+##
 ## Only add these methods if the entity isn't abstract
-#if (!$entity.abstract)
-    /**
-     * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
-     * @param $argumentName
-     * @return $rootEntityType
-     */
-    public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName);
-
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
-     * and adds it to the persistent store.
-     * @param $argumentName
-     * @return $rootEntityType
-     */
-    public $rootEntityType create(org.dom4j.Element $argumentName);
-
-    /**
-     * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
-     * and adds it to the persistent store.
-     * @param transform
-     * @param $argumentName
-     * @return Object
-     */
-    public Object create(int transform, org.dom4j.Element $argumentName);
-
-#end
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}create(${entity.fullyQualifiedEntityName})} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     * @param transform
-     * @param $argumentName
-     * @return Object
-     */
-    public Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
-
-    /**
-     * Creates a new instance of ${entity.fullyQualifiedEntityName} and adds
-     * from the passed in <code>entities</code> collection
-     *
-     * @param entities the collection of $entity.fullyQualifiedEntityName
-     * instances to create.
-     *
-     * @return the created instances.
-     */
-    public $entityCollectionType create($entityCollectionType entities);
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}create($entity.fullyQualifiedEntityName)} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entities (into value objects for example). By default, transformation does
-     * not occur.
-     * </p>
-     * @param transform
-     * @param entities
-     * @return Collection
-     */
-    public java.util.Collection#if($enableTemplating)<?>#end create(int transform, $entityCollectionType entities);
-
-#if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
-#set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
-#if (!$attributes.empty)
-    /**
-     * <p>
-     * Creates a new <code>$entity.fullyQualifiedEntityName</code>
-     * instance from <strong>all</strong> attributes and adds it to
-     * the persistent store.
-     * </p>
-#foreach($attribute in $attributes)
-     * @param $attribute.name $attribute.getDocumentation("")
-#end
-     * @return $rootEntityType
-     */
-    public $rootEntityType create(
-#foreach($attribute in $attributes)
-        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
-
-#end
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}create($entity.getAttributeTypeList(true,false))} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     * @param transform
-#foreach($attribute in $attributes)
-     * @param $attribute.name $attribute.getDocumentation("")
-#end
-     * @return $rootEntityType
-     */
-    public Object create(
-        int transform,
-#foreach($attribute in $attributes)
-        $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
-
-#end
-
-#end
-#set ($requiredProperties = $entity.getRequiredProperties(true,false))
-#if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
-    /**
-     * <p>
-     * Creates a new <code>$entity.fullyQualifiedEntityName</code>
-     * instance from only <strong>required</strong> properties (attributes
-     * and association ends) and adds it to the persistent store.
-     * </p>
-#foreach($property in $requiredProperties)
-     * @param $property.name
-#end
-     * @return $rootEntityType
-     */
-    public $rootEntityType create(
-#foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
-
-#end
-
-    /**
-     * <p>
-     * Does the same thing as {@link ${esc.hash}create($entity.getRequiredAttributeTypeList(true,false))} with an
-     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
-     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
-     * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
-     * transform the entity (into a value object for example). By default, transformation does
-     * not occur.
-     * </p>
-     * @param transform flag to determine transformation type.
-#foreach($property in $requiredProperties)
-     * @param $property.name
-#end
-     * @return Object
-     */
-    public Object create(
-        int transform,
-#foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
-
-#end
-#end
-
-#end
-#end
-    /**
-     * Updates the <code>$argumentName</code> instance in the persistent store.
-     * @param $argumentName
-     */
-    public void update($entity.fullyQualifiedEntityName $argumentName);
-
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * Updates the <code>$argumentName</code> instance in the persistent store.
-     * @param $argumentName
-     */
-    public void update(org.dom4j.Element $argumentName);
-
-#end
-    /**
-     * Create or Update the <code>$argumentName</code> instance in the persistent store.
-     * @param $argumentName
-     * @return $entity.fullyQualifiedEntityName
-     */
-    public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName);
-
-    /**
-     * Updates all instances in the <code>entities</code> collection in the persistent store.
-     * @param entities
-     */
-    public void update($entityCollectionType entities);
-
-    /**
-     * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
-     * @param $argumentName
-     */
-    public void remove($entity.fullyQualifiedEntityName $argumentName);
-
-#if ($hibernateUtils.xmlPersistenceActive)
-    /**
-     * Removes the <code>$argumentName</code> instance in the persistent store.
-     * @param $argumentName
-     */
-    public void remove(org.dom4j.Element $argumentName);
-
-#end
-    /**
-     * Removes the instance of $entity.fullyQualifiedEntityName having the given
-     * <code>identifier</code> from the persistent store.
-     * @param $identifierName
-     */
-    public void remove($identifierTypeName $identifierName);
-
-    /**
-     * Removes all entities in the given <code>entities</code> collection.
-     * @param entities
-     */
-    public void remove($entityCollectionType entities);
+## #if (!$entity.abstract)
+##     /**
+##      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
+##      * @param $argumentName
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName);
+##
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
+##      * and adds it to the persistent store.
+##      * @param $argumentName
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType create(org.dom4j.Element $argumentName);
+##
+##     /**
+##      * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
+##      * and adds it to the persistent store.
+##      * @param transform
+##      * @param $argumentName
+##      * @return Object
+##      */
+##     public Object create(int transform, org.dom4j.Element $argumentName);
+##
+## #end
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}create(${entity.fullyQualifiedEntityName})} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      * @param transform
+##      * @param $argumentName
+##      * @return Object
+##      */
+##     public Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
+##
+##     /**
+##      * Creates a new instance of ${entity.fullyQualifiedEntityName} and adds
+##      * from the passed in <code>entities</code> collection
+##      *
+##      * @param entities the collection of $entity.fullyQualifiedEntityName
+##      * instances to create.
+##      *
+##      * @return the created instances.
+##      */
+##     public $entityCollectionType create($entityCollectionType entities);
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}create($entity.fullyQualifiedEntityName)} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entities (into value objects for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      * @param transform
+##      * @param entities
+##      * @return Collection
+##      */
+##     public java.util.Collection#if($enableTemplating)<?>#end create(int transform, $entityCollectionType entities);
+##
+## #if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
+## #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+## #if (!$attributes.empty)
+##     /**
+##      * <p>
+##      * Creates a new <code>$entity.fullyQualifiedEntityName</code>
+##      * instance from <strong>all</strong> attributes and adds it to
+##      * the persistent store.
+##      * </p>
+## #foreach($attribute in $attributes)
+##      * @param $attribute.name $attribute.getDocumentation("")
+## #end
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType create(
+## #foreach($attribute in $attributes)
+##         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
+##
+## #end
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}create($entity.getAttributeTypeList(true,false))} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      * @param transform
+## #foreach($attribute in $attributes)
+##      * @param $attribute.name $attribute.getDocumentation("")
+## #end
+##      * @return $rootEntityType
+##      */
+##     public Object create(
+##         int transform,
+## #foreach($attribute in $attributes)
+##         $attribute.getterSetterTypeName $attribute.name#if($velocityHasNext),#else);#end
+##
+## #end
+##
+## #end
+## #set ($requiredProperties = $entity.getRequiredProperties(true,false))
+## #if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
+##     /**
+##      * <p>
+##      * Creates a new <code>$entity.fullyQualifiedEntityName</code>
+##      * instance from only <strong>required</strong> properties (attributes
+##      * and association ends) and adds it to the persistent store.
+##      * </p>
+## #foreach($property in $requiredProperties)
+##      * @param $property.name
+## #end
+##      * @return $rootEntityType
+##      */
+##     public $rootEntityType create(
+## #foreach($property in $requiredProperties)
+##         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
+##
+## #end
+##
+##     /**
+##      * <p>
+##      * Does the same thing as {@link ${esc.hash}create($entity.getRequiredAttributeTypeList(true,false))} with an
+##      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+##      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+##      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
+##      * transform the entity (into a value object for example). By default, transformation does
+##      * not occur.
+##      * </p>
+##      * @param transform flag to determine transformation type.
+## #foreach($property in $requiredProperties)
+##      * @param $property.name
+## #end
+##      * @return Object
+##      */
+##     public Object create(
+##         int transform,
+## #foreach($property in $requiredProperties)
+##         $property.getterSetterTypeName $property.name#if($velocityHasNext),#else);#end
+##
+## #end
+## #end
+##
+## #end
+## #end
+##     /**
+##      * Updates the <code>$argumentName</code> instance in the persistent store.
+##      * @param $argumentName
+##      */
+##     public void update($entity.fullyQualifiedEntityName $argumentName);
+##
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * Updates the <code>$argumentName</code> instance in the persistent store.
+##      * @param $argumentName
+##      */
+##     public void update(org.dom4j.Element $argumentName);
+##
+## #end
+##     /**
+##      * Create or Update the <code>$argumentName</code> instance in the persistent store.
+##      * @param $argumentName
+##      * @return $entity.fullyQualifiedEntityName
+##      */
+##     public $entity.fullyQualifiedEntityName createOrUpdate($entity.fullyQualifiedEntityName $argumentName);
+##
+##     /**
+##      * Updates all instances in the <code>entities</code> collection in the persistent store.
+##      * @param entities
+##      */
+##     public void update($entityCollectionType entities);
+##
+##     /**
+##      * Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
+##      * @param $argumentName
+##      */
+##     public void remove($entity.fullyQualifiedEntityName $argumentName);
+##
+## #if ($hibernateUtils.xmlPersistenceActive)
+##     /**
+##      * Removes the <code>$argumentName</code> instance in the persistent store.
+##      * @param $argumentName
+##      */
+##     public void remove(org.dom4j.Element $argumentName);
+##
+## #end
+##     /**
+##      * Removes the instance of $entity.fullyQualifiedEntityName having the given
+##      * <code>identifier</code> from the persistent store.
+##      * @param $identifierName
+##      */
+##     public void remove($identifierTypeName $identifierName);
+##
+##     /**
+##      * Removes all entities in the given <code>entities</code> collection.
+##      * @param entities
+##      */
+##     public void remove($entityCollectionType entities);
 
 #foreach ($operation in $entity.queryOperations)
 #if($stringUtils.isBlank($operation.query))
@@ -470,26 +470,6 @@ $operation.getDocumentation("     * ")
 #end
 
 #if(!$operation.criteriaFinder)
-##     /**
-##      * <p>
-##      * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
-##      * additional argument called <code>queryString</code>. This <code>queryString</code>
-##      * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
-##      * </p> 11
-## #foreach ($argument in $operation.arguments)
-##      * @param $argument.name $argument.getDocumentation("")
-## #end
-##      * @return $returnType
-## #foreach ($exception in $operation.exceptions)
-##      * @throws $exception.fullyQualifiedName
-## #end
-##      */
-## #if ($operation.exceptionsPresent)
-##     $operation.visibility $returnType ${operation.name}(#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
-##         throws $operation.exceptionList;
-## #else
-##     $operation.visibility $returnType ${operation.name}(#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
-## #end
 
 #if ($operation.returnType.collectionType || $operation.many)
 #if($enableTemplating)
@@ -698,28 +678,28 @@ $operation.getDocumentation("     * ")
      */
     public void transformEntities(final int transform, final java.util.Collection#if($enableTemplating)<?>#end entities);
 
-#set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
-#foreach ($attribute in $attributes)
-#if ($attribute.unique && !$attribute.type.fileType)
-#set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
-    /**
-     * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
-     * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'
-     * @return a single instance of ${entity.fullyQualifiedEntityName}.
-     */
-    public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
-
-    /**
-     * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
-     * @param transform the transformation flag.
-     * @param ${attribute.name} the unique ${attribute.name} to be used in the search.
-     * @return a value object according the transformation flag.
-     */
-    public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name});
-
-#end
-#end
-
+## #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+## #foreach ($attribute in $attributes)
+## #if ($attribute.unique && !$attribute.type.fileType)
+## #set ($searchUniqueMethod = "searchUnique${stringUtils.capitalize($attribute.name)}")
+##     /**
+##      * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
+##      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.'
+##      * @return a single instance of ${entity.fullyQualifiedEntityName}.
+##      */
+##     public ${entity.fullyQualifiedEntityName} $searchUniqueMethod(final ${attribute.type.fullyQualifiedName} ${attribute.name});
+##
+##     /**
+##      * Searches for a single instance of ${entity.fullyQualifiedEntityName}.
+##      * @param transform the transformation flag.
+##      * @param ${attribute.name} the unique ${attribute.name} to be used in the search.
+##      * @return a value object according the transformation flag.
+##      */
+##     public Object $searchUniqueMethod(final int transform, final ${attribute.type.fullyQualifiedName} ${attribute.name});
+##
+## #end
+## #end
+##
     // spring-dao merge-point
 }
 #end

@@ -132,7 +132,8 @@ public class $entity.daoImplementationName
         }
         else
         {
-            return this.load(${stringUtils.uncapitalize($valueObjectRef.name)}.getId());
+            return this.${repositoryName}.findById(${stringUtils.uncapitalize($valueObjectRef.name)}.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found for id: " + ${stringUtils.uncapitalize($valueObjectRef.name)}.getId()));
         }
         */
     }
