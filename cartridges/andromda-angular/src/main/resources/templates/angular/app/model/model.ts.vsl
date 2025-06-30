@@ -1,7 +1,6 @@
 #set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
 #set($fileName = $angularUtils.getComponentFileName(${class.name}))
 #set ($attributes = [])
-import { inject, Injectable } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 #if($class.generalization)
 import {$class.generalization.name} from '@$class.generalization.filePath';
@@ -20,35 +19,18 @@ import {$import.name} from '@app/$import.filePath';
 #end
 #end
 #end
-@Injectable()
 export class $class.name#if($class.generalization) extends $class.generalization.name#end {
 #foreach ($attribute in $class.attributes)
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name?: ${attribute.getterSetterTypeName} = <${attribute.getterSetterTypeName}>{
-#foreach($attr in ${attribute.type.attributes})
-#if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "new Array()")
-#else
-#if (!$attr.many && $attr.defaultValuePresent)
-#set ($def = ${attr.defaultValue})
-#else
-#set ($def = "null")
-#end
-#end
-#if($angularUtils.isComplex($attr) && !$attr.many && !$angularUtils.isArray($attr.getterSetterTypeName) && !$attr.type.enumeration)
-#set ($def = "{} as any")
-#end
-        $attr.name: $def,
-#end
-    };
+    $attribute.name?: ${attribute.getterSetterTypeName} | undefined;
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
 #set ($default = "new Array()")
 #end 
-    $attribute.name?: $attribute.getterSetterTypeName | any#if($attribute.many)[]#end#if($attribute.many)[]#{else}#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#{else} = null#end#end;
+    $attribute.name?: $attribute.getterSetterTypeName | undefined#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
     
 #end
 #end
@@ -58,28 +40,4 @@ export class $class.name#if($class.generalization) extends $class.generalization
         super();
 #end
     }
-}
-
-@Injectable()
-export class ${class.name}FormGroup {
-  formBuilder = inject(FormBuilder);
-
-  createForm(value?: ${class.name}): any {
-    return this.formBuilder.group({
-#if($class.generalization)
-#foreach($attribute in $class.generalization.attributes)
-#if(!$attribute.inputButton)
-#if($angularUtils.isSimpleType($attribute))
-        $attribute.name: [value?.$attribute.name],
-#end
-#end
-#end
-#end
-#foreach ($attribute in $class.attributes)
-#if(!$attribute.inputButton && $angularUtils.isSimpleType($attribute))
-        $attribute.name: [value?.$attribute.name],
-#end
-#end
-    })
-  }
 }

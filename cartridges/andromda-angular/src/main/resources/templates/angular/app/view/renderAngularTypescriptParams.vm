@@ -69,7 +69,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
     filter$stringUtils.capitalize(${propertyId})() {}
 
-    ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | SelectItem[] = [];
+    ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end = [];
     ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = of([]);
     ${propertyId}ChipControl: FormControl = new FormControl([]);
 
@@ -532,18 +532,18 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     }
     
     ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
-        let item: SelectItem = event.option.value;
+        let item: $parameter.type.name = event.option.value;
 
         this.${formName}.${propertyId}?.push(event.option.value);
         this.set${stringUtils.capitalize(${propertyId})}Control();
         this.${propertyId}ChipControl.setValue(null);
 
         // remove the selected ro${propertyId}le from the list
-        this.${propertyId}BackingList = this.${propertyId}BackingList.filter((${propertyId}: any) => ${propertyId}.value !== item.value);
+        // this.${propertyId}BackingList = this.${propertyId}BackingList.filter((${propertyId}: any) => ${propertyId}.value !== item.value);
         this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
     }
 
-    private _${propertyId}Filter(value: string): SelectItem[] | any[] {
+    private _${propertyId}Filter(value: string): $parameter.getterSetterTypeName {
         if (!value) {
             return this.${propertyId}BackingList;
         }
@@ -605,7 +605,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
 
-        let item: SelectItem = event.option.value;
+        let item: ${attr.type.name} = event.option.value;
 
         this.${formName}.${attrPropertyId}?.push(event.option.value);
         this.set${stringUtils.capitalize(${attrPropertyId})}Control();
@@ -616,7 +616,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
         this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
     }
 
-    private _${attrPropertyId}Filter(value: string): SelectItem[] {
+    private _${attrPropertyId}Filter(value: string): ${attr.getterSetterTypeName} {
         if (!value) {
             return this.${attrPropertyId}BackingList;
         }

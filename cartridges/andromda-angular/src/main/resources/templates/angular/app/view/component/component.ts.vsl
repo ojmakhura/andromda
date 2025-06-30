@@ -81,7 +81,7 @@ import { GenericComponent } from "@app/view/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
-    ${attribute.name}?: ${attribute.getterSetterTypeName};
+    ${attribute.name}?: ${attribute.getterSetterTypeName} | undefined;
 
 #end
 }

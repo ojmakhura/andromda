@@ -44,7 +44,6 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UseCaseScope } from '@app/utils/use-case-scope';
-import { SelectItem } from '@app/utils/select-item';
 import { Store, select } from '@ngrx/store';
 import { Observable, of, Subscription } from 'rxjs';
 import { SearchObject } from '@app/model/search-object';

@@ -418,7 +418,18 @@ public class AngularParameterLogicImpl
 
         String type = raw;
 
+        if(this.getType().isMapType()) {
+
+            return "any" + (this.isMany() ? "[]" : "");
+        }
+
         if(type.contains("<")) {
+
+            if(type.startsWith("any<") || type.startsWith("java.util.Map")) {
+
+                return "any" + (this.isMany() ? "[]" : "");
+            }
+
             type = type.substring(0, type.indexOf("<"));
         } else {
             if(type.contains(".")) {
