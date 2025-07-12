@@ -108,6 +108,9 @@ $action.trigger.getDocumentation("     * ")
         forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
 #end
 #else
+#if($actionState.forward.enteringView)
+        this.actionToDialog = $actionState.forward.target.popup;
+#end
         
         //trigger method execution
 #set ($params = $actionParams)

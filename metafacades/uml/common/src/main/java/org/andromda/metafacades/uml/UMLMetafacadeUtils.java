@@ -1296,10 +1296,6 @@ public class UMLMetafacadeUtils
         }
         else
         {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
                 path = path;
@@ -1330,10 +1326,6 @@ public class UMLMetafacadeUtils
         }
         else
         {
-            if (!path.startsWith(QUOTE))
-            {
-                path = path;
-            }
             if (!path.endsWith(QUOTE) || path.length()<2)
             {
                 path = path;

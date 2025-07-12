@@ -1,5 +1,10 @@
 
 #macro(renderTableColumnNames $parameter $ident)
+#if($parameter.tableColumnNames)
+#set ($columns = $parameter.tableColumnNames)
+#else
+#set ($columns = $parameter.type.attributes)
+#end
 ${ident}<thead>
 ${ident}   <tr>
 #if($stringUtils.isNotEmpty($parameter.inputTableIdentifierColumns))
@@ -7,10 +12,15 @@ ${ident}   <tr>
 ${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
 #end
 #else
-#foreach ($column in $parameter.type.attributes)
-${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+#set ($columnName = $column)
+#end 
+${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${columnName})}"></th>
 #end
-#end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## ${ident}        <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
+## #end
+## #end
 ${ident}    </tr>
 ${ident}</thead>
 #end
@@ -24,18 +34,43 @@ ${ident}    <td id="column_${column}" th:text="${${value}}"></td>
 #end
 #end
 #else
-#foreach ($column in $parameter.type.attributes)
+#set ($columns = $parameter.type.attributes)
+#end
+#foreach ($column in $columns)
 #if(!$column.hidden && !$column.inputFile)
-#set($noOfColumns=$noOfColumns+1)   
-#if($column.type.enumeration)
-#set($theValue="row.${column.name}.getValue()")
+#if($column.name)
+#set ($columnName = $column.name)
 #else
-#set($theValue="row.${column.name}")
+#set ($columnName = $column)
+#end 
+#if($column.type.enumeration)
+#set($theValue="row.${columnName}.getValue()")
+#else
+#set($theValue="row.${columnName}")
 #end
-${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+$ident      <td id="column_${column}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
 #end
 #end
-#end
+## #if($parameter.inputTableIdentifierColumns)
+## #foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+## #if(!$column.hidden && !$column.inputFile)
+## #set ($value = "row.${column}")
+## ${ident}    <td id="column_${column}" th:text="${${value}}"></td>
+## #end
+## #end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## #if(!$column.hidden && !$column.inputFile)
+## #set($noOfColumns=$noOfColumns+1)   
+## #if($column.type.enumeration)
+## #set($theValue="row.${column.name}.getValue()")
+## #else
+## #set($theValue="row.${column.name}")
+## #end
+## ${ident}    <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+## #end
+## #end
+## #end
 #end
 ##==========================
 ##
@@ -215,14 +250,13 @@ $ident<table> 33
 $ident  <thead>
 $ident      <tr>
 $ident          <th th:text="#{select}"></th>
-#if($parameter.inputTableIdentifierColumns)
-#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
-$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${column})}"></th>
-#end
+#foreach ($column in $columns)
+#if($column.name)
+#set ($columnName = $column.name)
 #else
-#foreach ($column in $parameter.type.attributes)
-$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${column.name})}"></th>
-#end
+#set ($columnName = $column)
+#end 
+$ident          <th th:text="#{$stringUtils.toResourceMessageKey(${columnName})}"></th>
 #end
 $ident      </tr>
 $ident  </thead>
@@ -239,26 +273,35 @@ $ident                <input class="form-check-input" type="radio">
 $ident              </div>
 #end
 $ident          </td>
-#if($parameter.inputTableIdentifierColumns)
-#foreach ($column in $parameter.inputTableIdentifierColumns.split(","))
+## #if($parameter.inputTableIdentifierColumns)
+#foreach ($column in $columns)
 #if(!$column.hidden && !$column.inputFile)
-#set ($value = "row.${column}")
-$ident          <td id="column_${column}" th:text="${${value}}"></td>
-#end
-#end
+#if($column.name)
+#set ($columnName = $column.name)
 #else
-#foreach ($column in $parameter.type.attributes)
-#if(!$column.hidden && !$column.inputFile)
-#set($noOfColumns=$noOfColumns+1)   
+#set ($columnName = $column)
+#end 
 #if($column.type.enumeration)
-#set($theValue="row.${column.name}.getValue()")
+#set($theValue="row.${columnName}.getValue()")
 #else
-#set($theValue="row.${column.name}")
+#set($theValue="row.${columnName}")
 #end
-$ident          <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+$ident          <td id="column_${column}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
 #end
 #end
-#end
+## #else
+## #foreach ($column in $parameter.type.attributes)
+## #if(!$column.hidden && !$column.inputFile)
+## #set($noOfColumns=$noOfColumns+1)   
+## #if($column.type.enumeration)
+## #set($theValue="row.${column.name}.getValue()")
+## #else
+## #set($theValue="row.${column.name}")
+## #end
+## $ident          <td id="column_${column.name}" th:text=#if ($column.type.dateType)"${#temporals.format($theValue, '$column.format')}"#else"${${theValue}}"#end  #if($rendered != "")#end></td>
+## #end
+## #end
+## #end
 $ident      </tr>
 $ident  </tbody>
 $ident</table>

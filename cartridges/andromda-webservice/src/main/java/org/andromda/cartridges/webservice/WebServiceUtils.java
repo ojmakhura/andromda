@@ -2823,18 +2823,18 @@ public class WebServiceUtils
                 isRequestBody = true;
 
             }  else {
-                if(operation.getRestRequestType().toLowerCase().contains("get")) {
+                // if(operation.getRestRequestType().toLowerCase().contains("get")) {
                     
-                    annotation = "PathVariable(name = \"";
-                }   else {
+                //     annotation = "PathVariable(name = \"";
+                // }   else {
 
-                    if(param.getType().getAttributes().size() > 0) {
+                //     if(param.getType().getAttributes().size() > 0) {
                         annotation = "RequestBody(";
                         isRequestBody = true;
-                    } else {
-                        annotation = "RequestParam(name = \"";
-                    }
-                }
+                    // } else {
+                    //     annotation = "RequestParam(name = \"";
+                    // }
+                // }
             }
 
             builder.append("@org.springframework.web.bind.annotation.");

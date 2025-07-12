@@ -1566,6 +1566,7 @@
 #end
         <!-- To override parent default settings for compiler plugin and compliance checks-->
         <dependencyConvergence>true</dependencyConvergence>
+        <openapi.version>1.6.9</openapi.version>
         <!-- Any of these configuration values can be overridden by the descendant, the default is JDK 1.6 >
         <java.runtime.version>1.7</java.runtime.version>
         <java.required.version>1.7</java.required.version>

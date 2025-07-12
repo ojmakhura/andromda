@@ -1,7 +1,10 @@
 package ${applicationPackage}.config;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
 
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

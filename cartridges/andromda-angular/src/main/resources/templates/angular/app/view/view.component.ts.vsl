@@ -43,6 +43,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatTableDataSource } from '@angular/material/table';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
 import { Observable, of, Subscription } from 'rxjs';
@@ -258,7 +259,36 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
                 this.handleFormChanges(change);
             }
         );
-        
+
+#if ($view.nonTableVariablesPresent)
+#foreach ($field in $view.variables)
+#if($field.complex)
+#foreach($attribute in $angularUtils.getTableAttributes($field))
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#set ($observe = "${proId}$")
+        this.${observe}?.subscribe(data => {
+            this.${proId}DataSource.data = data;
+            this.${proId}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${proId}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#foreach($attribute in $field.attributes)
+#set ($proId = "$attribute.getFormPropertyId($field)")
+#if($angularUtils.isComplex($attribute) && !$attribute.type.enumeration && !$attribute.many)
+#set ($plural = "$stringUtils.pluralize(${proId})")
+#set ($observe = "${plural}$")
+        this.${observe}?.subscribe(data => {
+            this.${plural}DataSource.data = data;
+            this.${plural}DataSource.paginator = this.${proId}ModalPaginator;
+            this.${plural}DataSource.sort = this.${proId}ModalSort;
+        });
+
+#end
+#end
+#end
+#end
+#end
         this.afterOnInit();
     }
 
@@ -530,13 +560,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #set($fieldSet = $angularUtils.getFacadeSet($fields))
 
 #if($view.popup)
-    handleCancelDialog(): void {}
-
-    cancelDialog() {
-        this.handleCancelDialog();
-        this.dialogRef.close({event: 'Cancel'});
-    }
-
     handleDialogDone(data: any): any {
         return data;
     }

@@ -59,6 +59,8 @@ public class FrontEndControllerLogicImpl
         super(metaObject, context);
     }
 
+    private static final String DEFAULT = "default";
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndController#getServiceReferences()
      */

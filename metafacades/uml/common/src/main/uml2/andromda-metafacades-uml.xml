@@ -16729,6 +16729,10 @@ inv: many implies (returnParameter.many)</body>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'/>
 	</xmi:Extension>
+	<andromda_meta:metafacade xmi:id='_16_8_2e90116_1282096200687_553307_2411' base_Class='_8a70287_1078528251564_981527_908'/>
+	<xmi:Extension extender='MagicDraw UML 19.0'>
+		<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'/>
+	</xmi:Extension>
 	<andromda_meta:metafacade xmi:id='_16_8_2e90116_1282096200672_541610_2401' base_Class='_9_0_1fe00f9_1116499094484_143315_18'/>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<modelPart name='com.nomagic.magicdraw.uml_model.shared_model'/>
@@ -19230,6 +19234,23 @@ inv: many implies (returnParameter.many)</body>
 	<xmi:Extension extender='MagicDraw UML 19.0'>
 		<filePart name='proxy.local__PROJECT$h28615ec9$h6172$h4762$hae76$h1ecf2ab9dd32_resource_com$dnomagic$dmagicdraw$duml_umodel$dshared_umodel$dsnapshot' type='XML' header='&lt;?xml version=&quot;1.0&quot; encoding=&quot;ASCII&quot;?&gt;'>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://www.nomagic.com/magicdraw/UML/2.5.1">
+  <uml:Package xmi:id="_9_0_1fe00f9_1119336925546_238419_77" ID="_9_0_1fe00f9_1119336925546_238419_77" name="datatype">
+    <appliedStereotypeInstance xmi:id="_19_0_3_90e0298_1611127924262_249747_4896" ID="_19_0_3_90e0298_1611127924262_249747_4896">
+      <classifier xsi:type="uml:Stereotype" href="#magicdraw_1046861421236_39100_29"/>
+    </appliedStereotypeInstance>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_132353_2" ID="_9_0_1fe00f9_1119336925531_132353_2" name="String[]"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_736816_6" ID="_9_0_1fe00f9_1119336925531_736816_6" name="boolean"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_60450_7" ID="_9_0_1fe00f9_1119336925531_60450_7" name="Object"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_809265_8" ID="_9_0_1fe00f9_1119336925531_809265_8" name="List"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_238790_9" ID="_9_0_1fe00f9_1119336925531_238790_9" name="long"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_213222_11" ID="_9_0_1fe00f9_1119336925531_213222_11" name="int"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_186958_12" ID="_9_0_1fe00f9_1119336925531_186958_12" name="Mappings"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_331753_26" ID="_9_0_1fe00f9_1119336925531_331753_26" name="Collection"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_766613_34" ID="_9_0_1fe00f9_1119336925531_766613_34" name="short"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_324247_52" ID="_9_0_1fe00f9_1119336925531_324247_52" name="void"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_817948_60" ID="_9_0_1fe00f9_1119336925531_817948_60" name="Map"/>
+    <packagedElement xsi:type="uml:DataType" xmi:id="_9_0_1fe00f9_1119336925531_364079_66" ID="_9_0_1fe00f9_1119336925531_364079_66" name="String"/>
+  </uml:Package>
   <uml:Package xmi:id="magicdraw_uml_standard_profile_v_0001" ID="magicdraw_uml_standard_profile_v_0001" name="UML Standard Profile">
     <appliedStereotypeInstance xmi:id="_12_1_8f90291_1174411598625_504587_98" ID="_12_1_8f90291_1174411598625_504587_98">
       <classifier xsi:type="uml:Stereotype" href="#_12_1_8f90291_1173963323875_662612_98"/>

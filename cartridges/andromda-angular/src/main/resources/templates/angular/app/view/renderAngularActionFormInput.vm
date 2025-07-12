@@ -291,6 +291,9 @@ ${ident}        <button mat-button (click)="${propertyId}Clear()" class="btn btn
 ${ident}            <mat-icon fontIcon="clear" aria-hidden="false" aria-label="Clear"></mat-icon>
 ${ident}        </button>
 ${ident}    </div>
+${ident}    <div class="row mb-3">
+${ident}        <table class="table">
+${ident}            <tbody>
 #foreach($column in $parameter.tableColumns)
 #if($column.name)
 #set ($columnName = $column.name)
@@ -378,6 +381,11 @@ ${ident}</fieldset>
 ##
 #macro(renderTableInput $parameter $ownerParameter $ident $radio)
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+## #if($parameter.many)
+## #set ($dataSource = "${propertyId}$")
+## #else
+## #set ($dataSource = "$stringUtils.pluralize(${propertyId})$")
+## #end
 #if($parameter.many)
 #set ($dataSource = "${propertyId}DataSource")
 #else
@@ -387,7 +395,7 @@ $ident<mat-table matSort [dataSource]="$dataSource" #${propertyId}ModalSort="mat
 #if($parameter.tableColumnNames)
 #set ($columns = $parameter.tableColumnNames)
 #else
-#set ($columns = $parameter.attributes)
+#set ($columns = $parameter.type.attributes)
 #end
 ${ident}    <ng-container matColumnDef="actions">
 ${ident}        <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>

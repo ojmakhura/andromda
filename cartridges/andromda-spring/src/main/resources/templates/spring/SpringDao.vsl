@@ -10,6 +10,8 @@
 package $entity.packageName;
 #end
 
+import org.springframework.transaction.annotation.Transactional;
+
 #if ($entity.generalization)
 #set ($superclass = $entity.generalization)
 #set ($daoInheritance = $superclass && $daoInheritanceEnabled)
@@ -36,6 +38,7 @@ package $entity.packageName;
 $stringUtils.stripEnd($entity.getDocumentation(" * "),null)
  * @see $entity.fullyQualifiedEntityName
  */
+@Transactional
 public interface $entity.daoName
 #if ($daoInheritance)
     extends $superclass.fullyQualifiedDaoName

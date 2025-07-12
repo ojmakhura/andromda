@@ -1308,9 +1308,9 @@ $h3tab        return results;
 #end
             } else {
 #if($criteriaAttribute.orderDirection == "ORDER_DESC")
-            sort = sort.by("$criteriaAttribute.name").descending();
+            sort = sort.by("$criteriaAttribute.attributeName").descending();
 #else
-            sort = sort.by("$criteriaAttribute.name").ascending();
+            sort = sort.by("$criteriaAttribute.attributeName").ascending();
 #end
         }
 
@@ -1324,7 +1324,6 @@ $h3tab        return results;
     public org.springframework.data.jpa.domain.Specification<$entity.name> get${stringUtils.capitalize(${finder.name})}Specifications(#if(!$finder.arguments.empty)${finder.getTypedArgumentList('final')}#end) {
         
         org.springframework.data.jpa.domain.Specification<$entity.name> specifications = null;
-        org.springframework.data.jpa.domain.Specification<$entity.name> tmpSpec = null;
         
 #set ($args = "")
 #if($finder.criteriaFinder)

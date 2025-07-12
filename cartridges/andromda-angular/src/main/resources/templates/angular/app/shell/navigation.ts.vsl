@@ -2,6 +2,7 @@ export const menuItems: any[] = [
 #foreach ($useCase in $useCases)
     {
         routerLink: "/$useCase.routerPath",
+        initialView: "/$useCase.routerPath/$useCase.initialView.routerPath",
         titleKey: "${useCase.titleKey}",
         icon: ""
     },

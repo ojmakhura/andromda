@@ -360,9 +360,14 @@ public class FrontEndParameterLogicImpl
 
         if (inputType.equals("text")) {
             if (UMLMetafacadeUtils.isNumber(getType())) {
-                inputType = "number";
+                inputType = "number";            
             } else if (this.getType().isDateType()) {
-                inputType = "date";
+
+                if (this.getType().isTimeType()) {
+                    inputType = "datetime-local";
+                } else {
+                    inputType = "date";
+                }               
             }
         }
         return inputType;

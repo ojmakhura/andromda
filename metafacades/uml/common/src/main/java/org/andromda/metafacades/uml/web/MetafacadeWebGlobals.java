@@ -367,7 +367,7 @@ public class MetafacadeWebGlobals {
      * REST: andromda_REST_path
      */
     //public static final String REST_PATH = "andromda_REST_path";
-    public static final String REST_PATH = "andromda_presentation_controller_rest_path";
+    public static final String REST_PATH = "andromda_presentation_rest_path";
     
     /**
      * REST: andromda_REST_response_status
