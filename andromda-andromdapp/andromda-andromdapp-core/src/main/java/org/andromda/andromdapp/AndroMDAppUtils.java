@@ -1,5 +1,7 @@
 package org.andromda.andromdapp;
 
+import java.util.Objects;
+
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Converter;
 import org.apache.commons.lang3.BooleanUtils;
@@ -55,7 +57,7 @@ public class AndroMDAppUtils
                 // to boolean values
                 if (typeClass == Boolean.class)
                 {
-                    object = BooleanUtils.toBooleanObject(ObjectUtils.toString(value));
+                    object = BooleanUtils.toBooleanObject(Objects.toString(value, ""));
                 }
                 else
                 {

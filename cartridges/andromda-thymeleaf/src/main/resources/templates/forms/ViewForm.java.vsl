@@ -1,0 +1,197 @@
+package $view.packageName;
+#set ($viewParams = $thymeleafUtils.getViewActionParameters($view))
+
+@org.springframework.stereotype.Component(value = "${view.pageObjectClassName}Form")
+@org.springframework.web.context.annotation.RequestScope
+public class ${view.pageObjectClassName}Form implements java.io.Serializable {
+
+       /**
+     * Default constructor
+     */
+    public ${view.pageObjectClassName}Form()
+    {
+#foreach ($field in $viewParams)
+#if ($field.defaultValuePresent)
+        ${field.setterName}($field.defaultValue);
+#else
+#if($field.complex)
+#if($field.many)
+#if($field.unique)
+#set($call = "java.util.HashSet<>()")
+#else
+#set($call = "java.util.ArrayList<>()")
+#end
+#elseif($field.type.collectionType)
+#set($call = "java.util.ArrayList<>()")
+#elseif($field.type.listType)
+#set($call = "java.util.ArrayList<>()")
+#elseif($field.type.setType)
+#set($call = "java.util.HashSet<>()")
+#elseif($field.type.mapType)
+#set($call = "java.util.HashMap<>()")
+#elseif($field.type.arrayType)
+#set($call = "${field.type.fullyQualifiedName}[20]")
+#else
+#set($call = "${field.type.fullyQualifiedName}()")
+#end
+        ${field.setterName}(new $call);
+#end
+#end
+#end
+    }
+
+#if (!$viewParams.empty)
+    // View $view.name formFields
+#end
+## Impl uses $viewParams, Form uses $operation.formFields
+#foreach ($field in $viewParams)
+#setFieldTypeName($field $fieldTypeName)
+#foreach($annotation in $field.annotations)
+    $annotation
+#end
+#if($field.type.dateType && $field.type.timeType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME")
+#elseif($field.type.dateType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE")
+#elseif($field.type.timeType)
+#set($format = "iso = org.springframework.format.annotation.DateTimeFormat.ISO.TIME")
+#end
+#if($field.type.dateType || $field.type.timeType)
+    @org.springframework.format.annotation.DateTimeFormat($format)
+#end
+    private $fieldTypeName $field.name;
+
+    /**
+$field.getDocumentation("     * ")
+     *
+     * @return ${field.name} $field.getDocumentation("")
+     */
+##if ($implList)
+##    @Override
+##end
+    public $fieldTypeName ${field.getterName}()
+    {
+#if ($field.complex && !$field.many && !$field.type.enumeration)
+        if (this.$field.name == null)
+        {
+            this.$field.name = new ${field.type.fullyQualifiedName}();
+            this.${field.setterName}(this.$field.name);
+        }
+#end
+        return this.${field.name};
+    }
+#renderAlternateGetterForPrimitiveBoolean($field.name $fieldTypeName ${field.getterName})
+
+    /**
+     * Keeps track of whether or not the value of $field.name has
+     * be populated at least once.
+     */
+    private boolean $field.formAttributeSetProperty = false;
+## WIM: it looks to the values should be kept during all the form life (useCaseScope)
+##    /**
+##     * Resets the value of the $field.formAttributeSetProperty to false
+##     */
+##    public void reset${stringUtils.capitalize($field.formAttributeSetProperty)}()
+##    {
+##        this.$field.formAttributeSetProperty = false;
+##    }
+
+    /**
+     * Indicates whether or not the value for $field.name has been set at least
+     * once.
+     *
+     * @return true/false
+     */
+    public boolean is${stringUtils.capitalize($field.formAttributeSetProperty)}()
+    {
+        return this.$field.formAttributeSetProperty;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     *
+     * @param ${field.name}In $field.getDocumentation("")
+     */
+##if ($implList)
+##    @Override
+##end
+    public void ${field.setterName}($fieldTypeName ${field.name}In)
+    {
+#if($trimInputStrings && $field.type.stringType && !$field.many)
+        this.$field.name = org.apache.commons.lang3.StringUtils.trimToNull(${field.name}In);
+#else
+        this.$field.name = ${field.name}In;
+#end
+        this.$field.formAttributeSetProperty = true;
+    }
+#renderBackingListImplSupport($field "")
+#if (!$field.type.enumeration)
+#if (!$field.attributes.empty)
+
+    // $field.name attributes
+#end
+#foreach ($attribute in $field.attributes)
+## - Chad Brandon - we ALWAYS render the backing list for attributes in the form
+##   impl (because there are complex conditions where they might not show up and cause
+##   uncompilable code; if we always render, we don't need to figure out what they are)
+#renderBackingListImplSupport($attribute $field)
+#end
+#end
+
+#end
+## WIM: it looks to the values should be kept during all the form life (useCaseScope)
+##    /**
+##     * Resets all the "isSet" flags.
+##     */
+##     public void resetIsSetFlags()
+##     {
+###foreach ($field in $viewParams)
+##         this.reset${stringUtils.capitalize($field.formAttributeSetProperty)}();
+###end
+##     }
+##
+###if ($action.formResetRequired)
+##
+##    /**
+##     * Resets any fields of the form that need to be reset.
+##     */
+##    public void reset()
+##    {
+###foreach($field in $action.parameters)
+###if ($field.reset)
+##        this.$field.name = $field.type.javaNullString;
+###elseif ($field.complex && !$field.type.enumeration)
+###foreach ($attribute in $field.type.getAttributes(true))
+###if ($attribute.reset)
+##        this.${field.name}.${attribute.setterName}($attribute.type.javaNullString);
+###end
+###end
+###end
+###end
+##    }
+##
+###end
+
+    /*
+     * Append this form's fields and values to a Map
+     *
+     * @param dest the destination Map
+     */  
+    public java.util.Map<String,Object> copyTo(java.util.Map<String,Object> dest)
+    {
+#foreach ($field in $viewParams)
+        if(this.${field.formAttributeSetProperty})
+        {
+            dest.put("${field.name}",this.${field.name});
+        }
+#end
+        return dest;
+    }
+
+##renderCopyFrom(${view.pageObjectClassName}Form $viewParams "")
+
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    //private static final long serialVersionUID = ${action.formSerialVersionUID}L;
+}

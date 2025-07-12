@@ -7,19 +7,19 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.hibernate.Basic;
-import javax.hibernate.JoinTable;
-import javax.hibernate.Table;
+import jakarta.hibernate.Basic;
+import jakarta.hibernate.JoinTable;
+import jakarta.hibernate.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 
 @Entity
 public class SampleEntity {
     @Id()
     String id;
-    @javax.persistence.Basic
+    @jakarta.persistence.Basic
     String name;
     @Table
     @JoinTable(table = @Table(schema = "test")

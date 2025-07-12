@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.andromda.bootstrap.repositories</groupId>
   <artifactId>andromda-repository-emf</artifactId>
-  <version>4.0-SNAPSHOT</version>
+  <version>5.0-SNAPSHOT</version>
   <name>AndroMDA EMF Repository</name>
   <description>This abstract EMF repository module should be extended by those repository implementations wishing to
         load EMF based models.</description>
@@ -172,20 +172,20 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>xmi</artifactId>
           <groupId>org.eclipse.emf.ecore</groupId>
+          <artifactId>xmi</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore2xml</artifactId>
           <groupId>org.eclipse.emf.mapping</groupId>
+          <artifactId>ecore2xml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -196,20 +196,20 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>xmi</artifactId>
           <groupId>org.eclipse.emf.ecore</groupId>
+          <artifactId>xmi</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore2xml</artifactId>
           <groupId>org.eclipse.emf.mapping</groupId>
+          <artifactId>ecore2xml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

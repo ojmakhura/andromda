@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.andromda</groupId>
     <artifactId>andromda</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
   </parent>
   <groupId>org.andromda.cartridges</groupId>
   <artifactId>andromda-cartridges</artifactId>
@@ -183,7 +183,7 @@
   <modules>
     <module>andromda-meta</module>
     <!-- <module>andromda-bpm4struts</module> -->
-    <module>andromda-ejb</module>
+    <!-- <module>andromda-ejb</module> -->
     <module>andromda-ejb3</module>
     <module>andromda-hibernate</module>
     <module>andromda-java</module>
@@ -194,7 +194,7 @@
     <module>andromda-webservice</module>
     <module>andromda-xmlschema</module>
     <module>manageable-entities</module>
-    <module>support</module>
+    <!-- <module>support</module> -->
     <module>andromda-jsf2</module>
     <module>andromda-angular</module>
     <module>andromda-thymeleaf</module>

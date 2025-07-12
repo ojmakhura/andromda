@@ -170,12 +170,12 @@
                     Defines Hibernate Cache Provider implementation class.
                     Possible values for Hibernate2 are:
                     <ul>
-                       <li>net.sf.hibernate.cache.EhCacheProvider</li>
-                       <li>net.sf.hibernate.cache.HashtableCacheProvider</li>
-                       <li>net.sf.hibernate.cache.JCSCacheProvider</li>
-                       <li>net.sf.hibernate.cache.SwarmCacheProvider</li>
-                       <li>net.sf.hibernate.cache.TreeCacheProvider</li>
-                       <li>net.sf.hibernate.cache.OSCacheProvider</li>
+                       <li>org.hibernate.cache.EhCacheProvider</li>
+                       <li>org.hibernate.cache.HashtableCacheProvider</li>
+                       <li>org.hibernate.cache.JCSCacheProvider</li>
+                       <li>org.hibernate.cache.SwarmCacheProvider</li>
+                       <li>org.hibernate.cache.TreeCacheProvider</li>
+                       <li>org.hibernate.cache.OSCacheProvider</li>
                     </ul>
                     Possible values for Hibernate3 are:
                     <ul>
@@ -193,7 +193,7 @@
                 <documentation>
                     Defines Hibernate Query Cache Factory implementation class. Possible value for Hibernate2 is:
                     <ul>
-                       <li>net.sf.hibernate.cache.StandardQueryCacheFactory</li>
+                       <li>org.hibernate.cache.StandardQueryCacheFactory</li>
                     </ul>
                     Possible value for Hibernate3 is:
                     <ul>
@@ -485,7 +485,7 @@
                 </documentation>
             </property>
             <property name="hibernateTransactionFactoryClass">
-                <default>net.sf.hibernate.transaction.JTATransactionFactory</default>
+                <default>org.hibernate.transaction.JTATransactionFactory</default>
                 <documentation>
                     The name of the hibernate transaction factory class to use.
                 </documentation>

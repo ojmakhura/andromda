@@ -37,7 +37,7 @@ public class CartridgeSpringHibernateUtils
      */
     public String getBasePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "org.hibernate";
     }
 
     /**

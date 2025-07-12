@@ -2,6 +2,8 @@ package org.andromda.cartridges.java.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -153,7 +155,7 @@ public class JavaClassLogicImpl
         String fullName = "";
         if (this.isTemplateParametersPresent() &&
             BooleanUtils.toBoolean(
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), "")))
         {
             // we'll be constructing the parameter list in this buffer
             final StringBuilder buffer = new StringBuilder();

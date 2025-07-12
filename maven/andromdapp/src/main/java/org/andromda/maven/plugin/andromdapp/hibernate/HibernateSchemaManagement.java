@@ -31,7 +31,7 @@ public abstract class HibernateSchemaManagement
     /**
      * The Hibernate 2 schema export class name.
      */
-    protected static final String HIBERNATE_2_PACKAGE = "net.sf.hibernate.tool.hbm2ddl";
+    protected static final String HIBERNATE_2_PACKAGE = "org.hibernate.tool.hbm2ddl";
 
     /**
      * The Hibernate 3 schema export class name.

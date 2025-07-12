@@ -20,13 +20,13 @@ $entity.getDocumentation(" * ")
  *
  */
 
-@javax.persistence.Entity
-@javax.persistence.Table(name = "${entity.tableName}")
+@jakarta.persistence.Entity
+@jakarta.persistence.Table(name = "${entity.tableName}")
 #if ($entity.listenerEnabled)
-@javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+@jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 #else
 // Uncomment to enable entity listener for ${entity.entityName}
-// @javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+// @jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 #end
 #if ($entity.cacheEnabled)
 @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${entity.cacheType})
@@ -37,20 +37,20 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize($entity.name).substring(0,1))
 #if (!$finders.empty)
-@javax.persistence.NamedQueries
+@jakarta.persistence.NamedQueries
 ({
 #**##if ($entity.genericFinders && !$entity.finderFindAllExists)
-    @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+    @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #**##end
 #**##foreach ($finder in $finders)
-    @javax.persistence.NamedQuery(name = "${entity.name}.${finder.name}", query = "${finder.query}")#if($velocityCount != $finders.size()), #end
+    @jakarta.persistence.NamedQuery(name = "${entity.name}.${finder.name}", query = "${finder.query}")#if($velocityCount != $finders.size()), #end
 
 #**##end
 })
 #else
 #**##if ($entity.genericFinders)
-@javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+@jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #**##end
 #end
@@ -140,7 +140,7 @@ $operation.getDocumentation("    * ")
     /**
 $operation.getDocumentation("     * ")
      */
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
     $visibility#if ($operation.static) static#end $returnType $signature
 #*    *##if ($operation.exceptionsPresent)
         throws $operation.exceptionList
@@ -167,19 +167,19 @@ $operation.getDocumentation("     * ")
 $operation.getDocumentation("     * ")
      */
 #*    *##if ($operation.prePersist)
-    @javax.persistence.PrePersist
+    @jakarta.persistence.PrePersist
 #*    *##elseif ($operation.postPersist)
-    @javax.persistence.PostPersist
+    @jakarta.persistence.PostPersist
 #*    *##elseif ($operation.preRemove)
-    @javax.persistence.PreRemove
+    @jakarta.persistence.PreRemove
 #*    *##elseif ($operation.postRemove)
-    @javax.persistence.PostRemove
+    @jakarta.persistence.PostRemove
 #*    *##elseif ($operation.preUpdate)
-    @javax.persistence.PreUpdate
+    @jakarta.persistence.PreUpdate
 #*    *##elseif ($operation.postUpdate)
-    @javax.persistence.PostUpdate
+    @jakarta.persistence.PostUpdate
 #*    *##elseif ($operation.postLoad)
-    @javax.persistence.PostLoad
+    @jakarta.persistence.PostLoad
 #*    *##end
     public void ${operation.name}()
     {

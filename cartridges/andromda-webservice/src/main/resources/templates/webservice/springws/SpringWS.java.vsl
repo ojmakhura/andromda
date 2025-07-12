@@ -30,15 +30,6 @@ public interface ${serviceName} {
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end
-## #if ($operation.returnTypePresent)
-##     @org.springframework.web.bind.annotation.ResponseBody
-## #end
-#foreach($annotation in $operation.additionalAnnotations)
-    @$annotation
-#end
-#if(!$stringUtils.isBlank($operation.rolesAllowed))
-    @org.springframework.security.access.annotation.Secured("$operation.rolesAllowed")
-#end
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
 #set ($return = "org.springframework.http.ResponseEntity<?>")

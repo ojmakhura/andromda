@@ -1,3 +1,4 @@
+#if(!$entity.embeddableSuperclass)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -10,7 +11,7 @@ package $entity.packageName;
 #set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
 
 public interface ${entity.name}Repository extends 
-        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, Long>,
+        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, #if($entity.identifiers.size() == 1)$entity.identifiers.get(0).type.name#end>,
         org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
 
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
@@ -18,6 +19,10 @@ public interface ${entity.name}Repository extends
 #if (!$attribute.transient)
 #if(!$attribute.many)
     // Generating pageable query method for $attribute.name
+#if($attribute.unique && $attribute.name != "id" && !$attribute.type.blobType && !$attribute.type.fileType)
+    $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
+
+#end
 #if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
     $entity.name findBy${stringUtils.capitalize($attribute.name)}($attribute.type.fullyQualifiedName $attribute.name);
 
@@ -71,6 +76,7 @@ public interface ${entity.name}Repository extends
 #end
 #end
 ## list as search parameter
+#if(!$attribute.type.primitive)
     // Search by a list of parameters
     java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name);
     org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attribute.type.fullyQualifiedName $attribute.name, org.springframework.data.domain.Pageable pageable);
@@ -81,6 +87,7 @@ public interface ${entity.name}Repository extends
     java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s);
     org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attribute.type.fullyQualifiedName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
 
+#end
 #end
 #end
 ## Deal with query operations
@@ -94,12 +101,12 @@ public interface ${entity.name}Repository extends
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
 #if ($finder.returnTypePresent)
-#if ($finder.returnType.collectionType)
-#set ($returnType = "${finder.getterSetterReturnTypeName}#if($enableTemplating)<$finder.returnType.name>#end")
+#if ($finder.returnType.collectionType || $finder.returnParameter.many)
+#set ($returnType = "${finder.getterSetterReturnTypeName}")
 #elseif ($finder.many)
 #set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
 #else
-#set ($returnType = "Object")
+#set ($returnType = "$finder.getterSetterReturnTypeName")
 #end
 #else
 #set ($returnType = "void")
@@ -107,15 +114,21 @@ public interface ${entity.name}Repository extends
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #set ($typedAttributes = "")
     @org.springframework.data.jpa.repository.Query(
-        value = $finder.getQuery($entity)
+        value = """
+            $finder.getQuery($entity)
+        """
     )
     $returnType $finder.getSignature(true);
 
+#if ($finder.returnType.collectionType || $finder.returnParameter.many)
     @org.springframework.data.jpa.repository.Query(
-        value = $finder.getQuery($entity)
+        value = """
+            $finder.getQuery($entity)
+        """
     )
     org.springframework.data.domain.Page<$finder.returnType.name> ${finder.name}($finder.typedArgumentList#if($finder.arguments.size() > 0), #{end}org.springframework.data.domain.Pageable pageable);
 
+#end
 #end
 #end
 #if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
@@ -154,3 +167,4 @@ public interface ${entity.name}Repository extends
     );
 #end
 }
+#end

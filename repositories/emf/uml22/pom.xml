@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda.repositories</groupId>
         <artifactId>andromda-repositories</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>andromda-repository-emf-uml22</artifactId>
@@ -78,6 +78,8 @@
                 </executions>
                 <configuration>
                     <installDirectory>${project.basedir}/../../../lib</installDirectory>
+                    <projectBootstrapGroupId>org.andromda.bootstrap</projectBootstrapGroupId>
+                    <projectGroupId>org.andromda</projectGroupId>
                 </configuration>
             </plugin>
             <plugin>
@@ -105,5 +107,6 @@
     </build>
     <properties>
         <maven.test.failure.ignore>true</maven.test.failure.ignore>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

@@ -11,6 +11,7 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -45,7 +46,7 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "net.sf.hibernate";
+        return this.isVersion3() || this.isVersion4() || this.isVersion5() ? "org.hibernate" : "org.hibernate";
     }
 
     /**
@@ -350,20 +351,51 @@ public class SpringHibernateUtils
     public int joinLength(String attributeName) {
         return attributeName.split("\\.").length;
     }
+
+    public Collection<String> getJoinAttributes(String attributeName) {
+
+        String[] splits = attributeName.split("\\.");
+        Collection<String> joinAttributes = new ArrayList<>();
+        joinAttributes.add(splits[0]);
+
+        for (int i = 1; i < splits.length; i++) {
+            joinAttributes.add(splits[i]);
+        }
+
+        return joinAttributes;
+    }
+
+    public String getJoinAttributesString(String attributeName) {
+
+        String[] splits = attributeName.split("\\.");
+        Collection<String> joinAttributes = new ArrayList<>();
+        joinAttributes.add(getAttributeNameInQuotes(splits[0]));
+
+        for (int i = 1; i < splits.length; i++) {
+            joinAttributes.add(getAttributeNameInQuotes(splits[i]));
+        }
+
+        return StringUtils.join(joinAttributes, ", ");
+    }
     
     public Collection<String> getJoins(String attributeName) {
 
         String[] splits = attributeName.split("\\.");
         Collection<String> joins = new ArrayList<>();
-        joins.add("javax.persistence.criteria.Join " + splits[0] + "Join = root.join(\"" + splits[0] + "\")");
+        joins.add("jakarta.persistence.criteria.Join " + splits[0] + "Join = root.join(\"" + splits[0] + "\")");
 
         for (int i = 1; i < splits.length-1; i++) {
-            String join = "javax.persistence.criteria.Join " + splits[i] + "Join = ";
+            String join = "jakarta.persistence.criteria.Join " + splits[i] + "Join = ";
             join = join + splits[i-1] + "Join.join(\"" + splits[i] + "\")";
             joins.add(join);
         }
 
         return joins;
+    }
+
+    public String getAttributeNameInQuotes(String name) {
+
+        return "\"" + name + "\"";
     }
 
     public String getAttributeNameInQuotes(SpringCriteriaAttributeLogic criteriaAttribute) {
@@ -374,18 +406,7 @@ public class SpringHibernateUtils
     public String getCriteriaAttributeMethodName(SpringCriteriaAttributeLogic criteriaAttribute) {
 
         StringBuilder builder = new StringBuilder();
-        builder.append("findBy");
-
-        if(isJoin(criteriaAttribute.getAttributeName())) {
-            if(joinLength(criteriaAttribute.getAttributeName()) > 1 && criteriaAttribute.getAttributeName().endsWith(".id")) {
-                builder.append(StringUtils.capitalize(getAttributeName(criteriaAttribute.getAttributeName())));
-            } else {
-                builder.append(StringUtils.capitalize(criteriaAttribute.getName()));
-            }
-            
-        } else {
-            builder.append("Attribute");
-        }
+        builder.append("findByAttribute");
 
         if(criteriaAttribute.isComparatorPresent() && criteriaAttribute.isMatchModePresent()) {
 

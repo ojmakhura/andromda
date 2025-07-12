@@ -31,8 +31,8 @@ package ${entity.packageName};
  *
  * @see $rootDaoType
  */
-@javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
-@javax.ejb.Local({${rootDaoType}.class})
+@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.REQUIRED)
+@jakarta.ejb.Local({${rootDaoType}.class})
 #if ($entity.securityEnabled)
 #**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
 @javax.annotation.security.PermitAll
@@ -48,21 +48,21 @@ public abstract class $entity.daoBaseName
 {
     /** Session Context Injection */
     @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    protected jakarta.ejb.SessionContext context;
 
     /**
      * Inject persistence context #if ($entity.defaultPersistenceContextUnitName)${entity.defaultPersistenceContextUnitName}#end
 
      */
-    @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
+    @jakarta.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
 
-    protected javax.persistence.EntityManager emanager;
+    protected jakarta.persistence.EntityManager emanager;
 
 #if ($hibernateExtensionEnabled)
     /**
      * Inject Hibernate Session
      */
-    @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
+    @jakarta.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
 
     protected org.hibernate.Session hibernateSession;
 
@@ -75,7 +75,7 @@ public abstract class $entity.daoBaseName
     /**
      * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
     protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
 #**##end
@@ -169,9 +169,9 @@ public abstract class $entity.daoBaseName
         try
         {
 #if ($entity.genericFinders)
-            javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.emanager.createNamedQuery("${entity.name}.findAll", ${entity.fullyQualifiedEntityName}.class);
+            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.emanager.createNamedQuery("${entity.name}.findAll", ${entity.fullyQualifiedEntityName}.class);
 #else
-            javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.emanager.createQuery("from ${entity.entityName} as entity", ${entity.fullyQualifiedEntityName}.class);
+            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> query = this.emanager.createQuery("from ${entity.entityName} as entity", ${entity.fullyQualifiedEntityName}.class);
 #end
 #if ($entity.useQueryCache && !$entity.useDefaultCacheRegion)
             query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_findAll");
@@ -630,7 +630,7 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            javax.persistence.TypedQuery<${rootEntityType}> queryObject = this.emanager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
+            jakarta.persistence.TypedQuery<${rootEntityType}> queryObject = this.emanager.createNamedQuery("${entity.name}.${finder.name}", ${rootEntityType}.class);
 #**##foreach($argument in $finder.arguments)
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
@@ -645,7 +645,7 @@ public abstract class $entity.daoBaseName
 #*      *##set ($argumentValue = "${argument.name}")
 #*    *##end
 #*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
+#*      *##set ($argumentValue = "${argumentValue}, jakarta.persistence.TemporalType.${argument.temporalType}")
 #*    *##end
 #*    *##set ($setParameterOperation = "setParameter")
 #*    *###if ($argument.type.collectionType || $argument.type.arrayType)
@@ -700,7 +700,7 @@ public abstract class $entity.daoBaseName
     {
         try
         {
-            javax.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.emanager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
+            jakarta.persistence.TypedQuery<${entity.fullyQualifiedEntityName}> queryObject = this.emanager.createQuery(queryString, ${entity.fullyQualifiedEntityName}.class);
 #**##foreach($argument in $finder.arguments)
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
@@ -715,7 +715,7 @@ public abstract class $entity.daoBaseName
 #*      *##set ($argumentValue = "${argument.name}")
 #*    *##end
 #*    *##if ($argument.temporalType)
-#*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
+#*      *##set ($argumentValue = "${argumentValue}, jakarta.persistence.TemporalType.${argument.temporalType}")
 #*    *##end
 #*    *##set ($setParameterOperation = "setParameter")
 #*    *###if ($argument.type.collectionType || $argument.type.arrayType)

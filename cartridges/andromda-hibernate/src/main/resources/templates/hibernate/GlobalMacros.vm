@@ -190,8 +190,7 @@
         {
 #end
 #*  *##foreach ($attribute in $attributes)
-##        // $attribute.name $attribute.type.fullyQualifiedName $attribute.getterSetterTypeName $attribute.type.arrayType $attribute.type
-#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
+#*    *##if (!$attribute.type.mapType && !$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.getterSetterTypeName.endsWith("[]") && !$attribute.identifier && !$attribute.type.collectionType && !$attribute.type.blobType)
             if (this.${attribute.getterName}() != null)
             {
 #if ($attribute.many)
@@ -228,13 +227,6 @@
     public static final String ${attributeNameConstantPrefix}${attribute.name}="${attribute.name}";
 
 #end
-    $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
-
-#end
-    /**
-$attribute.getDocumentation("     * ")
-     * @return this.${attribute.name} $typeName
-     */
 #if ($hibernateEntityAnnotations)
 #if($stringUtils.isNotBlank($entity.schema))
 #set($sequencePrefix = "${entity.schema}.")
@@ -245,26 +237,26 @@ $attribute.getDocumentation("     * ")
 ## If attribute is transient ONLY add Transient annotation
 ##
 #*  *##if ($attribute.transient)
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
 #*  *##else
 #*    *##if (!$attribute.version)
 #*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
-    @javax.persistence.Id
+    @jakarta.persistence.Id
 #*        *##if ($entity.sequenceHibernateGeneratorClass)
-    @javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.SEQUENCE, generator="${sequencePrefix}${entity.sequenceName}")
-    @javax.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}")
+    @jakarta.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
 #*        *##elseif ($attribute.generatorTypeTable)
-    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+    @jakarta.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
 #*        *##end
 #*        *##if (!$attribute.generatorTypeNone)
 #*          *##if ($attribute.generatorTypeGeneric)
-    @javax.persistence.GeneratedValue(generator = "${attribute.generatorName}")
+    @jakarta.persistence.GeneratedValue(generator = "${attribute.generatorName}")
 #*            *##if ($hibernateExtensionEnabled)
     @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
 #*            *##end
 #*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-#*          *##end
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy})
+#*          *##end 
 #*        *##end
 #*      *##end
 #*      *##if ($attribute.lob || $attribute.type.clobType || $attribute.type.blobType)
@@ -273,26 +265,21 @@ $attribute.getDocumentation("     * ")
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
-    @javax.persistence.Lob
-#*        *##if($attribute.type.blobType)
-    @org.hibernate.annotations.Type(type = "org.hibernate.type.BinaryType")
-###*        *##else
-##    @org.hibernate.annotations.Type(type = "org.hibernate.type.ClobType")
-#*        *##end
+    @jakarta.persistence.Lob
 #*        *##if ($attribute.eager)
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.EAGER)
 #*        *##end
 #*      *##end
 #*      *##if ($attribute.containsEmbeddedObject)
-    @javax.persistence.Embedded
+    @jakarta.persistence.Embedded
 ##
 ## Render AttributeOverrides if attributes exist on the embedded object
 ##
 #*        *##if (!$attribute.type.attributes.empty)
-    @javax.persistence.AttributeOverrides
+    @jakarta.persistence.AttributeOverrides
     ({
 #*          *##foreach ($embeddedAttribute in $attribute.type.attributes)
-        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}", unique =#if ($embeddedAttribute.unique && $embeddedAttribute.required) ${embeddedAttribute.unique}#else false#end#if (!$embeddedAttribute.required), nullable =#if($embeddedAttribute.required) false#else true#end#end
+        @jakarta.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @jakarta.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}", unique =#if ($embeddedAttribute.unique && $embeddedAttribute.required) ${embeddedAttribute.unique}#else false#end#if (!$embeddedAttribute.required), nullable =#if($embeddedAttribute.required) false#else true#end#end
 , insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
 
 #*          *##end
@@ -302,19 +289,19 @@ $attribute.getDocumentation("     * ")
 ## Render AssociationOverrides for embedded object if associations exist on the embedded object
 ##
 #*        *##if (!$attribute.type.navigableConnectingEnds.empty)
-    @javax.persistence.AssociationOverrides
+    @jakarta.persistence.AssociationOverrides
     ({
 #*          *##foreach ($target in $attribute.type.navigableConnectingEnds)
 #*            *##if (!$target.type.compositePrimaryKeyPresent)
-        @javax.persistence.AssociationOverride(name = "$target.name", joinColumns = @javax.persistence.JoinColumn(name = "${target.columnName}_$stringUtils.upperCase($target.name)"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end))#if($velocityCount != $attribute.type.associationEnds.size()),#end
+        @jakarta.persistence.AssociationOverride(name = "$target.name", joinColumns = @jakarta.persistence.JoinColumn(name = "${target.columnName}_$stringUtils.upperCase($target.name)"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end))#if($velocityCount != $attribute.type.associationEnds.size()),#end
 
 #*            *##else
 #*              *##set ($identifiers = $target.type.identifiers)
-        @javax.persistence.AssociationOverride(name = "$target.name",
+        @jakarta.persistence.AssociationOverride(name = "$target.name",
             joinColumns =
             {
 #*              *##foreach ($attribute in $identifiers)
-                @javax.persistence.JoinColumn(name = "${attribute.columnName}_$stringUtils.upperCase(${target.name})_${target.columnName}", referencedColumnName = "${target.columnName}")#if($velocityCount != $identifiers.size()),#end
+                @jakarta.persistence.JoinColumn(name = "${attribute.columnName}_$stringUtils.upperCase(${target.name})_${target.columnName}", referencedColumnName = "${target.columnName}")#if($velocityCount != $identifiers.size()),#end
 
 #*              *##end
             })#if($velocityCount != $attribute.type.associationEnds.size()),#end
@@ -324,24 +311,29 @@ $attribute.getDocumentation("     * ")
     })
 #*        *##end
 #*      *##else
+
 #if($attribute.many)
-    @javax.persistence.ElementCollection
+#if (!$attribute.findTaggedValue("andromda_persistence_column_definition"))
+    @jakarta.persistence.ElementCollection
+    @jakarta.persistence.CollectionTable(name = "${entity.tableName}_${attribute.columnName}", joinColumns = @jakarta.persistence.JoinColumn(name = "${entity.tableName}_ID"))
+#end
+    @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($attribute.findTaggedValue("andromda_persistence_column_definition")), columnDefinition = "${attribute.findTaggedValue("andromda_persistence_column_definition")}"#end)
 #else
-    @javax.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+    @jakarta.persistence.Column(name = "${attribute.columnName}", unique =#if ($attribute.unique && $attribute.required) ${attribute.unique}#else false#end, nullable =#if($attribute.required) false#else true#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.findTaggedValue("andromda_persistence_column_definition")), columnDefinition = "${attribute.findTaggedValue("andromda_persistence_column_definition")}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #end
 #*      *##end
 #*      *##if (!$attribute.lob && $attribute.lazy && !$attribute.type.clobType && !$attribute.type.blobType)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.LAZY)
 #*      *##end
 #*      *##if ($stringUtils.isNotBlank($attribute.temporalType))
-    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+    @jakarta.persistence.Temporal(jakarta.persistence.TemporalType.${attribute.temporalType})
 #*      *##end
 #*      *##if ($attribute.type.enumeration)
 ##    // $attribute.name $attribute.type.fullyQualifiedName $attribute.temporalType $attribute.enumerationType
-    @javax.persistence.Enumerated(javax.persistence.EnumType#if ($stringUtils.isNotBlank($attribute.enumerationType)).${attribute.enumerationType}#else.STRING#end)
+    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType#if ($stringUtils.isNotBlank($attribute.enumerationType)).${attribute.enumerationType}#else.STRING#end)
 #*      *##end
 #*      *##if ($hibernateExtensionEnabled)
 ##
@@ -361,7 +353,7 @@ $attribute.getDocumentation("     * ")
 ##
 ## Add the Version annotation on the attribute itself
 ##
-    @javax.persistence.Version
+    @jakarta.persistence.Version
 #*    *##end
 #*    *##if ($attribute.lob)
 ##
@@ -369,32 +361,43 @@ $attribute.getDocumentation("     * ")
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
-    @javax.persistence.Lob
+    @jakarta.persistence.Lob
 #*      *##if ($attribute.eager)
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.EAGER)
 #*      *##end
 #*    *##end
-##    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.required}#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+##    @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.required}#end, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #*    *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.LAZY)
 #*    *##end
 #*    *##if ($stringUtils.isNotBlank($attribute.temporalType))
-    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+    @jakarta.persistence.Temporal(jakarta.persistence.TemporalType.${attribute.temporalType})
 #*    *##end
 #*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
-    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.${attribute.enumerationType})
 #*    *##end
 #*  *##end
 ##
 ## Override attribute type if attribute is a LOB and lob type is specified
 ##
 ##if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
-##    @javax.persistence.Id
+##    @jakarta.persistence.Id
 ##end
 #end
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
+#end
+    $visibility $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+
+#end
+#if(!$useLombok)
+    /**
+$attribute.getDocumentation("     * ")
+     * @return this.${attribute.name} $typeName
+     */
     $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
     {
 #if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
@@ -418,6 +421,7 @@ $attribute.getDocumentation("     * ")
     }
 
 #end
+#end
 ##
 ##  This macro will render the association annotations, value, and get/set methods
 ##  For each entity and embedded entity
@@ -434,34 +438,24 @@ $attribute.getDocumentation("     * ")
     public static final String ${attributeNameConstantPrefix}${target.name}="${target.name}";
 
 #end
-#if ($target.many)
-    $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
-#else
-    $visibility $target.getterSetterTypeName $target.name;
-#end
-
-    /**
-$target.getDocumentation("     * ")
-     * @return this.${target.name} $target.getterSetterTypeName
-     */
 #if ($hibernateEntityAnnotations)
 #if ($associationEnd.many2One)
 ## Default fetch type: EAGER
 #*      *##set ($argExists = false)
-    @javax.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @jakarta.persistence.ManyToOne(#if ($target.required)optional = false#set ($argExists = true)#end#if ($target.hibernateCascadeExists)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
 ##
 ##    // $target.type.fullyQualifiedName compositePrimaryKeyPresent=$target.type.compositePrimaryKeyPresent columnName=$target.columnName type=$target.type
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end#if(${target.unique}), unique = true#else, unique = false#end)
+    @jakarta.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*      *##else
 #*        *##set ($identifiers = $target.type.getIdentifiers())
-    @javax.persistence.JoinColumns
+    @jakarta.persistence.JoinColumns
     ({
 #*        *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "${attribute.columnName}"##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @jakarta.persistence.JoinColumn(name = "${attribute.columnName}"##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
 #*        *##end
     })
 #*      *##end
@@ -491,7 +485,7 @@ $target.getDocumentation("     * ")
 ## If target association is transient ONLY add Transient annotation
 ##
 #*    *##if ($target.transient)
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
 ##
@@ -501,41 +495,40 @@ $target.getDocumentation("     * ")
 ## In this situation, the target entity is a mapped superclass.
 ##
 #*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
-    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = jakarta.persistence.FetchType.EAGER)#end
 
 #*      *##else
-##    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
-    @javax.persistence.OneToMany(cascade = javax.persistence.CascadeType.ALL#set ($argExists = true)#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.OneToMany(#if ($target.hibernateCascadeExists)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end) 
 #*      *##end
 ##
 ## Set the JoinTable annotation to limit the association table name length.
 ## This is only set if the relationship is unidirectional.
 ##
 #*      *##if (!$associationEnd.navigable && $target.navigable)
-    @javax.persistence.JoinTable
+    @jakarta.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
 #if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)        
 #set ($identifiers = $entity.getIdentifiers())
-        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
+        joinColumns = {#foreach ($attribute in $identifiers)@jakarta.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
 #set ($identifiers = $target.type.getIdentifiers())
-        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
+        inverseJoinColumns = {#foreach ($attribute in $identifiers)@jakarta.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
 #else
-        joinColumns = {@javax.persistence.JoinColumn(name = "${associationEnd.columnName}")},
-        inverseJoinColumns = {@javax.persistence.JoinColumn(name = "${target.columnName}")}
+        joinColumns = {@jakarta.persistence.JoinColumn(name = "${associationEnd.columnName}")},
+        inverseJoinColumns = {@jakarta.persistence.JoinColumn(name = "${target.columnName}")}
 #end                
     )
 #*      *##end
 #*      *##if ($target.map)
 #set($collectionIndexName="")
 #set($collectionIndexName=$target.findTaggedValue("andromda_persistence_collection_index"))
-    @javax.persistence.MapKey#if ($stringUtils.isNotBlank($collectionIndexName))(name = "$collectionIndexName")#end
+    @jakarta.persistence.MapKey#if ($stringUtils.isNotBlank($collectionIndexName))(name = "$collectionIndexName")#end
 
 #*      *##else
 #set($orderBy="")
 #set($orderBy=$target.findTaggedValue("andromda_persistence_orderBy"))
 #*        *##if ($stringUtils.isNotBlank(${orderBy}))
-    @javax.persistence.OrderBy("${orderBy}")
+    @jakarta.persistence.OrderBy("${orderBy}")
 #*        *##elseif ($hibernateExtensionEnabled)
 ##
 ## Override the Hibernate foreign key constraint name
@@ -584,23 +577,23 @@ $target.getDocumentation("     * ")
 ## If target association is transient ONLY add Transient annotation
 ##
 #*    *##if ($target.transient)
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = javax.persistence.FetchType.LAZY#end)
+    @jakarta.persistence.OneToOne(#if($associationEnd.owning)#if ($target.required)optional = false#set ($argExists = true)#end#end#if ($target.hibernateCascadeExists)#if ($argExists), #end cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end fetch = jakarta.persistence.FetchType.LAZY#end)
 #*      *##if($associationEnd.owning)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
 ##
 #*        *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @jakarta.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*        *##else
 #*          *##set ($identifiers = $target.type.getIdentifiers())
-    @javax.persistence.JoinColumns
+    @jakarta.persistence.JoinColumns
     ({
 #*          *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "${attribute.columnName}"#if(!$target.required), nullable = true#end##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @jakarta.persistence.JoinColumn(name = "${attribute.columnName}"#if(!$target.required), nullable = true#end##, referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
 #*          *##end
     })
 #*        *##end
@@ -630,7 +623,7 @@ $target.getDocumentation("     * ")
 ## If target association is transient ONLY add Transient annotation
 ##
 #*    *##if ($target.transient)
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
 ##
@@ -640,10 +633,10 @@ $target.getDocumentation("     * ")
 ## In this situation, the target entity is a mapped superclass.
 ##
 #*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
-    @org.hibernate.annotations.CollectionOfElements#if ($target.lazy )(fetch = javax.persistence.FetchType.EAGER)#end
+    @org.hibernate.annotations.CollectionOfElements#if ($target.lazy )(fetch = jakarta.persistence.FetchType.EAGER)#end
 
 #*      *##else
-    @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = javax.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.ManyToMany(#if ($target.hibernateCascadeExists)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end fetch = jakarta.persistence.FetchType.EAGER#end)
 #*      *##end
 ## Use Aggregation and Composition to determine owning side
 #*      *##if (${associationEnd.association.tableName})
@@ -651,17 +644,17 @@ $target.getDocumentation("     * ")
 ##
 ## Add the JoinTable annotation on the owning side
 ##
-    @javax.persistence.JoinTable
+    @jakarta.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
 #if($entity.getIdentifiers().size() > 1 || $target.type.getIdentifiers().size() > 1)
 #set ($identifiers = $entity.getIdentifiers())
-        joinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
+        joinColumns = {#foreach ($attribute in $identifiers)@jakarta.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end},
 #set ($identifiers = $target.type.getIdentifiers())
-        inverseJoinColumns = {#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
+        inverseJoinColumns = {#foreach ($attribute in $identifiers)@jakarta.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end}
 #else
-        joinColumns = {@javax.persistence.JoinColumn(name = "${associationEnd.columnName}")},
-        inverseJoinColumns = {@javax.persistence.JoinColumn(name = "${target.columnName}")}
+        joinColumns = {@jakarta.persistence.JoinColumn(name = "${associationEnd.columnName}")},
+        inverseJoinColumns = {@jakarta.persistence.JoinColumn(name = "${target.columnName}")}
 #end                
     )
 #*        *##end
@@ -669,13 +662,13 @@ $target.getDocumentation("     * ")
 #*      *##if ($target.map)
 #set($collectionIndexName="")
 #set($collectionIndexName=$target.findTaggedValue("andromda_persistence_collection_index"))
-    @javax.persistence.MapKey#if ($collectionIndexName)(name = "${collectionIndexName}")#end
+    @jakarta.persistence.MapKey#if ($collectionIndexName)(name = "${collectionIndexName}")#end
 
 #*      *##else
 #set($orderBy="")
 #set($orderBy=$target.findTaggedValue("andromda_persistence_orderBy"))
 #*        *##if ($stringUtils.isNotBlank(${orderBy}))
-    @javax.persistence.OrderBy("${orderBy}")
+    @jakarta.persistence.OrderBy("${orderBy}")
 #*        *##elseif ($hibernateExtensionEnabled)
 ##
 ## Only add the IndexColumn annotation if Hibernate extensions are enabled
@@ -718,6 +711,19 @@ $target.getDocumentation("     * ")
 #*    *##end
 #end
 #end
+#if ($target.many)
+    $visibility $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
+    
+#else
+    $visibility $target.getterSetterTypeName $target.name;
+
+#end
+#if(!$useLombok)
+    /**
+$target.getDocumentation("     * ")
+     * @return this.${target.name} $target.getterSetterTypeName
+     */
+
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
@@ -733,6 +739,7 @@ $target.getDocumentation("     * ")
         this.${target.name} = ${target.name}In;
     }
 
+#end
 #end
 #if ($target.many)
 #if ($target.map)

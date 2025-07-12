@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda.jdbcmetadata</groupId>
         <artifactId>jdbcmetadata</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <artifactId>jdbcmetadata-common</artifactId>
     <packaging>jar</packaging>
@@ -39,7 +39,7 @@
             <artifactId>commons-lang</artifactId>
         </dependency> -->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
+            <groupId>org.hibernate.jakarta.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <version>1.0.1.Final</version>
             <scope>compile</scope>

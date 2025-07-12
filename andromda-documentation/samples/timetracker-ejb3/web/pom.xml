@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda.timetracker</groupId>
         <artifactId>timetracker-ejb3</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <artifactId>timetracker-ejb3-web</artifactId>
     <packaging>war</packaging>
@@ -101,7 +101,7 @@
             <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath -->
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
+            <groupId>jakarta.validation</groupId>
             <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>

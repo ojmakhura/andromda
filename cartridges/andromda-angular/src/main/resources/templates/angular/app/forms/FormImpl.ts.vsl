@@ -48,7 +48,7 @@ export class $action.formImplementationName
 #if($field.many)
 #set ($type = "${type}[]")
 #end
-    $field.name: ${type};
+    $field.name: $field.getterSetterTypeName;
 
     /**
      * Keeps track of whether or not the value of $field.name has

@@ -1,15 +1,15 @@
 package org.andromda.test;
 
-@javax.persistence.Entity
+@jakarta.persistence.Entity
 public class SampleEntity {
 
-    @javax.persistence.Id()
+    @jakarta.persistence.Id()
     java.lang.String id;
     
-    @javax.persistence.Basic
+    @jakarta.persistence.Basic
     java.lang.String name;
     
-    @javax.persistence.Basic
+    @jakarta.persistence.Basic
     java.lang.String description;
 
     public java.util.Set<java.lang.String> getAsSet() {

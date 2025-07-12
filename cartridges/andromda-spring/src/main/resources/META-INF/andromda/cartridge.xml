@@ -225,13 +225,15 @@
     <property reference="dateTimeGeneratedText"/>
     <property reference="spring-resources"/>
     <property reference="spring-target-resources"/>
-
+	<property reference="useLombok"/>
+    
     <!-- cartridge-property merge-point -->
 
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="daoInheritanceEnabled">
         #if ($daoInheritanceEnabled.equalsIgnoreCase("true") &amp;&amp; !$enableTemplating.equalsIgnoreCase("true"))true#end
     </condition>
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="serviceSecurity">$serviceSecurity.equalsIgnoreCase("true")</condition>
     <condition name="richClient">$richClient.equalsIgnoreCase("true")</condition>
     <condition name="ejbsEnabled">$stringUtils.isNotBlank($session-ejbs)</condition>
@@ -465,31 +467,20 @@
         path="templates/spring/SpringRepository.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
         </modelElements>
     </template>
-
-    <template
-        path="templates/spring/SpringSpecifications.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true">
-        <modelElements variable="entity">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>
-
     <template
         path="templates/spring/SpringDao.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -501,7 +492,8 @@
         path="templates/spring/hibernate/SpringHibernateDaoBase.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -991,6 +983,14 @@
         outputToSingleFile="true"
         outputOnEmptyElements="true"/>
 
+    <template
+        path="templates/spring/test-application.properties.vsl"
+        outputPattern="application.properties"
+        outlet="server-test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true"/>
+
      <!-- <template
         path="templates/spring/ApplicationContextProvider.java.vsl"
         outputPattern="$generatedFile"
@@ -1413,6 +1413,21 @@
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="configonly">false</property>
                     <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringServiceTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="client-test"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">false</property>
                 </type>
             </modelElement>
         </modelElements>

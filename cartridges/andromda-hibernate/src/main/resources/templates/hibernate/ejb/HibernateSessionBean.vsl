@@ -8,7 +8,7 @@
 package $service.packageName;
 #end
 
-import javax.ejb.EJBException;
+import jakarta.ejb.EJBException;
 import javax.naming.NamingException;
 
 import ${hibernateUtils.hibernatePackage}.HibernateException;
@@ -28,7 +28,7 @@ public abstract class ${service.name}Bean
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}BeanImpl
 #end
-    implements javax.ejb.SessionBean
+    implements jakarta.ejb.SessionBean
 {
 
 #if ($service.ejbStateful)
@@ -136,12 +136,12 @@ $operation.getDocumentation("     * ")
    // ---------------- create methods -------------------------
 
     public void ejbCreate ()
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
     public void ejbPostCreate ()
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
@@ -149,7 +149,7 @@ $operation.getDocumentation("     * ")
    // ---------------- create methods with separate attributes --------------------
 
     public void ejbCreate $service.operationCallFromAttributes
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
 #foreach ($attribute in $service.attributes)
         ${attribute.setterName} (${attribute.name});
@@ -157,18 +157,18 @@ $operation.getDocumentation("     * ")
     }
 
     public void ejbPostCreate $service.operationCallFromAttributes
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
     }
 
 #end
    // ---------------- Hibernate helpers -------------------------
 
-    protected javax.ejb.SessionContext ctx = null;
+    protected jakarta.ejb.SessionContext ctx = null;
 
     private static SessionFactory sessionFactory = null;
 
-    public void setSessionContext( javax.ejb.SessionContext ctx )
+    public void setSessionContext( jakarta.ejb.SessionContext ctx )
     {
         this.ctx = ctx;
     }

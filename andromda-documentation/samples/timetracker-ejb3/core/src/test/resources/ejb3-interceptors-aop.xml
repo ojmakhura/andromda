@@ -155,7 +155,7 @@
       <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..))">
          <interceptor-ref name="org.jboss.ejb3.remoting.ReplicantsManagerInterceptorFactory"/>
       </bind>
-      <bind pointcut="execution(public * *->@javax.ejb.Remove(..))">
+      <bind pointcut="execution(public * *->@jakarta.ejb.Remove(..))">
          <interceptor-ref name="org.jboss.ejb3.stateful.StatefulRemoveFactory"/>
       </bind>
       <bind pointcut="execution(public * *->*(..))">
@@ -164,7 +164,7 @@
          <interceptor-ref name="org.jboss.ejb3.tx.TxInterceptorFactory"/>
          <interceptor-ref name="org.jboss.ejb3.AllowedOperationsInterceptor"/>
       </bind>
-      <bind pointcut="execution(public * $instanceof{javax.ejb.SessionSynchronization}->*(..))">
+      <bind pointcut="execution(public * $instanceof{jakarta.ejb.SessionSynchronization}->*(..))">
          <interceptor-ref name="org.jboss.ejb3.stateful.SessionSynchronizationInterceptor"/>
       </bind>
       <bind pointcut="execution(public * *->*(..))">
@@ -173,7 +173,7 @@
          <interceptor-ref name="org.jboss.ejb3.interceptor.EJB3InterceptorsFactory"/>
       </bind>
 
-      <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..)) AND !execution(public * *->@javax.ejb.Remove(..))">
+      <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..)) AND !execution(public * *->@jakarta.ejb.Remove(..))">
          <interceptor-ref name="org.jboss.ejb3.cache.StatefulReplicationInterceptor"/>
       </bind>
       <annotation expr="!class(@org.jboss.annotation.ejb.PoolClass)">
@@ -217,7 +217,7 @@
       <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..))">
          <interceptor-ref name="org.jboss.ejb3.remoting.ReplicantsManagerInterceptorFactory"/>
       </bind>
-      <bind pointcut="execution(public * *->@javax.ejb.Remove(..))">
+      <bind pointcut="execution(public * *->@jakarta.ejb.Remove(..))">
          <interceptor-ref name="org.jboss.ejb3.stateful.StatefulRemoveFactory"/>
       </bind>
       <bind pointcut="execution(public * *->*(..))">
@@ -226,7 +226,7 @@
          <interceptor-ref name="org.jboss.ejb3.tx.TxInterceptorFactory"/>
          <interceptor-ref name="org.jboss.ejb3.AllowedOperationsInterceptor"/>
       </bind>
-      <bind pointcut="execution(public * $instanceof{javax.ejb.SessionSynchronization}->*(..))">
+      <bind pointcut="execution(public * $instanceof{jakarta.ejb.SessionSynchronization}->*(..))">
          <interceptor-ref name="org.jboss.ejb3.stateful.SessionSynchronizationInterceptor"/>
       </bind>
       <bind pointcut="execution(public * *->*(..))">
@@ -235,7 +235,7 @@
          <interceptor-ref name="org.jboss.ejb3.interceptor.EJB3InterceptorsFactory"/>
       </bind>
 
-      <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..)) AND !execution(public * *->@javax.ejb.Remove(..))">
+      <bind pointcut="execution(public * @org.jboss.annotation.ejb.Clustered->*(..)) AND !execution(public * *->@jakarta.ejb.Remove(..))">
          <interceptor-ref name="org.jboss.ejb3.cache.StatefulReplicationInterceptor"/>
       </bind>
       <annotation expr="!class(@org.jboss.annotation.ejb.PoolClass)">

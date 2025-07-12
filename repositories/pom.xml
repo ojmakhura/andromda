@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.repositories</groupId>
     <artifactId>andromda-repositories</artifactId>
@@ -33,7 +33,7 @@
     </build>
     <modules>
         <module>mdr/common</module>
-        <module>mdr/uml14</module>
+        <!-- <module>mdr/uml14</module> -->
         <module>emf</module>
         <module>emf/uml22</module>
         <!--module>emf/uml2</module-->

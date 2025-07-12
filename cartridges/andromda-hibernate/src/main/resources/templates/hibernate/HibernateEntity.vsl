@@ -16,21 +16,11 @@ import java.io.Serializable;
 $entity.getDocumentation(" * ")
  */
 #if ($hibernateEntityAnnotations)
-// $entity.uniqueConstraints
-@javax.persistence.Entity
-@javax.persistence.Table(
-    name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end
-#if($entity.uniqueConstraints)
-#set ($i = 0)
-    , uniqueConstraints= {
-#foreach($key in ${entity.uniqueConstraints.keySet()})
-        @javax.persistence.UniqueConstraint(name="$key", columnNames={${entityUtils.getUniqueGroupString(${entity.uniqueConstraints.get($key)})}})#if($i < ${entity.uniqueConstraints.keySet().size()} - 1)#end
-#set ($i = $i + 1)
-#end
-
-    }
-#end
-)
+#if($entity.embeddableSuperclass)
+@jakarta.persistence.MappedSuperclass
+#else
+@jakarta.persistence.Entity
+@jakarta.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
 ##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
 ##if(!$entity.lazy), lazy="false"#end
 ##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityName"#end
@@ -39,10 +29,10 @@ $entity.getDocumentation(" * ")
 ##if ($entity.xmlTagName), node="$entity.xmlTagName"#end
 ##if ($entity.abstract), abstract="true"#end)
 ##if ($entity.listenerEnabled)
-##@javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+##@jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 ##else
 ##// Uncomment to enable entity listener for ${entity.entityName}
-##// @javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
+##// @jakarta.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 ##end
 #set ($discriminatorColumnDefinition = "$entity.hibernateDiscriminatorColumn $entity.hibernateDiscriminatorType $entity.hibernateDiscriminatorType ($entity.hibernateDiscriminatorLength) NOT NULL")
 ##        <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
@@ -53,14 +43,14 @@ $entity.getDocumentation(" * ")
 ## in the hierarchy, regardless of the number of levels in the hierarchy.
 ##
 #if (!$entity.specializations.empty && $entity.generalizations.empty)
-@javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.$hibernateUtils.getInheritanceTypeEnum(${entity.hibernateInheritanceStrategy}))
+@jakarta.persistence.Inheritance(strategy = jakarta.persistence.InheritanceType.$hibernateUtils.getInheritanceTypeEnum(${entity.hibernateInheritanceStrategy}))
 ##
 ## Discriminator components only apply to single table mapping strategy
 ##
 #*  *##if ($entity.hibernateInheritanceClass)
 #*    *##set ($argExists = false)
-@javax.persistence.DiscriminatorColumn(#if ($entity.hibernateDiscriminatorColumn)name = "${entity.hibernateDiscriminatorColumn}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorType)#if ($argExists), #end#**#discriminatorType = javax.persistence.DiscriminatorType.${entity.hibernateDiscriminatorType}#set ($argExists = true)#end#if ($discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.hibernateDiscriminatorLength}#end)
-@javax.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
+@jakarta.persistence.DiscriminatorColumn(#if ($entity.hibernateDiscriminatorColumn)name = "${entity.hibernateDiscriminatorColumn}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorType)#if ($argExists), #end#**#discriminatorType = jakarta.persistence.DiscriminatorType.${entity.hibernateDiscriminatorType}#set ($argExists = true)#end#if ($discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.hibernateDiscriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.hibernateDiscriminatorLength}#end)
+@jakarta.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
 #*  *##end
 #elseif ($entity.generalizations.empty && $entity.hibernateInheritanceClass)## && !$entity.embeddableSuperclassGeneralizationExists)
 
@@ -68,7 +58,7 @@ $entity.getDocumentation(" * ")
 ## Only include the DiscriminatorValue annotation for subclasses if
 ## the inheritance strategy is single table mapping strategy.
 ##
-@javax.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
+@jakarta.persistence.DiscriminatorValue("${entity.hibernateDiscriminatorValue}")
 #end
 #if ($hibernateEnableCache.equalsIgnoreCase("true"))
 @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${entity.hibernateCacheType})
@@ -79,37 +69,27 @@ $entity.getDocumentation(" * ")
 #set ($finders = $entity.getQueryOperations(false))
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #if (!$finders.empty)
-@javax.persistence.NamedQueries
+@jakarta.persistence.NamedQueries
 ({
-##if ($entity.genericFinders && !$entity.finderFindAllExists)
 #if (!$entity.finderFindAllExists)
-    @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+    @jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
 #end
-## #foreach ($finder in $finders)
-## $finder
-## $finder.getQuery()
-## $finder.isQuery()
-## $finder.query
-##     @javax.persistence.NamedQuery(
-##         name = "${entity.name}.${finder.name}", 
-##         query = "${finder.query}"
-##     )#if($velocityCount != $finders.size()), 
-## #end
-## #end
 })
 #else
-##if ($entity.genericFinders)
-@javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
+@jakarta.persistence.NamedQuery(name = "${entity.name}.findAll", query = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable")#if (!$finders.empty),#end
 
-##end
+#end
 #end
 #end
 #foreach($annotation in $entity.additionalAnnotations)
 @$annotation
 #end
+#if($useLombok)
+@lombok.Data
+#end
 // HibernateEntity.vsl annotations merge-point
-public class $entity.entityName
+public #if($entity.embeddableSuperclass)abstract #{end}class $entity.entityName
 #if($entity.generalization)
 #if ($entity.generalization.fullyQualifiedEntityName)
 #set ($generalizationName = $entity.generalization.fullyQualifiedEntityName)
@@ -118,7 +98,7 @@ public class $entity.entityName
 #end
     extends $generalizationName
 #else
-    implements Serializable, Comparable<${entity.entityName}>
+    implements Serializable#if(!$entity.embeddableSuperclass), Comparable<${entity.entityName}>#end
 #if (!$entity.interfaceAbstractions.empty)
         , $entity.implementedInterfaceList
 #end
@@ -138,7 +118,7 @@ public class $entity.entityName
      */
     private int $versionProperty;
 
-    public int get$versionPropertyCapitalized()
+    public int get${versionPropertyCapitalized}()
     {
         return this.$versionProperty;
     }
@@ -152,7 +132,7 @@ public class $entity.entityName
 #end
 #if($entity.compositeIdentifier)
 #if ($hibernateEntityAnnotations)
-    @javax.persistence.EmbeddedId
+    @jakarta.persistence.EmbeddedId
 #end
 #if ($generateAttributeNameConstant)
     public static final String ${attributeNameConstantPrefix}${entity.identifierName}="${entity.identifierName}";
@@ -183,7 +163,10 @@ public class $entity.entityName
 #end
 ## Identifier attribute is automatically added to the list of attributes.
 #foreach ($attribute in $entity.attributes)
+## Skip the identifier attribute if it is an embeddable superclass
+#if (!($entity.embeddableSuperclass && $attribute.identifier))
 #renderAttribute($entity $attribute)
+#end
 #end
 #if (!$entity.navigableConnectingEnds.empty)
     // Generate $entity.navigableConnectingEnds.size() associations
@@ -221,7 +204,8 @@ $operation.getDocumentation("     * ")
     }
 
 #end
-#if ($generateEntityEqualsAndHashCode.equalsIgnoreCase('true'))
+#if ($generateEntityEqualsAndHashCode.equalsIgnoreCase('true') && !$entity.embeddableSuperclass)
+    // HibernateEntity.vsl equals and hashCode merge-point
 #set ($identifiers = $entity.getIdentifiers(false))
     /**
 #if ($identifiers.empty)
@@ -276,7 +260,7 @@ $operation.getDocumentation("     * ")
 #renderHashCodeMethod($entity $entity.entityName $identifiers)
 
 #end
-#if (!$entity.abstract)
+#if (!$entity.abstract && !$entity.embeddableSuperclass)
     /**
      * Constructs new instances of {@link ${entity.fullyQualifiedName}}.
      */
@@ -388,9 +372,11 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
     }
 
 #end
+#if(!$entity.embeddableSuperclass)
 #renderCompareToMethod($entity $entity.entityName $entity.identifiers)
 
 ## Don't want to render associations because we may get an infinite loop on bidirectional relationships. Can we render only the remote Entity IDs?
 #renderToStringMethod($entity $entity.entityName $entity.getAttributes(true))
+#end
 // HibernateEntity.vsl merge-point
 }

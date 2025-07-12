@@ -30,7 +30,7 @@ public final class ${entity.name}Specifications {
 #elseif ($associationEnd.many2Many)
             // Many to Many
 #end 
-            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            jakarta.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.in(${target.name}Join.get("$identifier.name")).value(${identifier.name}s);
         };
     }
@@ -38,14 +38,14 @@ public final class ${entity.name}Specifications {
     public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}Null() {
         return (root, cq, cb) -> {
             
-            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            jakarta.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.isNull(${target.name}Join.<$identifier.type.fullyQualifiedName>get("${identifier.name}"));
         };
     }
 
     public static Specification<$entity.name> findBy${capitalised}${capitalisedIdentifier}NotNull() {
         return (root, cq, cb) -> {
-            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            jakarta.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.isNotNull(${target.name}Join.<$identifier.type.fullyQualifiedName>get("${identifier.name}"));
         };
     }
@@ -62,7 +62,7 @@ public final class ${entity.name}Specifications {
 #elseif ($associationEnd.many2Many)
             // Many to Many
 #end
-            javax.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
+            jakarta.persistence.criteria.Join<$entity.name, $target.type.fullyQualifiedEntityName> ${target.name}Join = root.join("$target.name");
             return cb.equal(${target.name}Join.get("$identifier.name"), ${identifier.name});
         };
     }

@@ -5,12 +5,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttribute;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafAttributeLogic;
@@ -19,11 +22,14 @@ import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameter;
 import org.andromda.cartridges.thymeleaf.metafacades.ThymeleafParameterLogic;
 import org.andromda.cartridges.web.CartridgeWebProfile;
 import org.andromda.cartridges.web.CartridgeWebUtils;
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -1382,5 +1388,77 @@ public class ThymeleafUtils
         stripped = stripped + "model)";
 
         return stripped;
+    }
+
+    public static Collection<?> getViewActionParameters(FrontEndView view) {
+
+        Map<String, FrontEndParameter> pmap = new HashMap<>();
+
+        for(FrontEndParameter param : view.getVariables()) {
+            pmap.put(param.getName(), param);
+        }
+
+        for(FrontEndAction action : view.getActions()) {
+            for(FrontEndParameter param : action.getFormFields()) {
+                pmap.put(param.getName(), param);
+            }
+        }
+
+        return pmap.values();
+    }
+
+    public static Collection<?> getUseCaseStates(Collection<FrontEndAction> actions) {
+        Map<String, FrontEndActionState> statesMap = new HashMap<>();
+
+        for (FrontEndAction action : actions) {
+            for (FrontEndActionState actionState : action.getActionStates()) {
+                
+                statesMap.put(actionState.getName(), actionState);
+            }
+        }
+
+        return statesMap.values();
+    }
+
+    public static String getTableColumnMessageKey(Object column, MetafacadeBase parent)
+    {
+
+        if(column instanceof ThymeleafParameter) {
+            ThymeleafParameter attribute = (ThymeleafParameter) column;
+            return attribute.getMessageKey();
+        } else if(column instanceof ThymeleafParameter) {
+            ThymeleafParameter parameter = (ThymeleafParameter) column;
+            return parameter.getMessageKey();
+        } else if(column instanceof String) {
+
+            if(parent instanceof ThymeleafParameter) {
+
+                ThymeleafParameter attribute = (ThymeleafParameter) parent;
+                final StringBuilder messageKey = new StringBuilder();
+                // if (!attribute.isNormalizeMessages())
+                // {
+                //     final ClassifierFacade owner = attribute.getOwner();
+                //     if (owner != null)
+                //     {
+                //         messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+                //         messageKey.append('.');
+                //     }
+                // }
+                final String name = attribute.getName();
+                if (name != null && name.trim().length() > 0)
+                {
+                    messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
+                }
+                return messageKey.toString();
+
+            } else if(column instanceof ThymeleafParameter) {
+                ThymeleafParameter parameter = (ThymeleafParameter) parent;
+                return parameter.getTableColumnMessageKey((String) column);
+            } else {
+                return StringUtilsHelper.toResourceMessageKey((String) column);
+            }
+        }
+
+        return null;
     }
 }

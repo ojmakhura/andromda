@@ -3,7 +3,7 @@ package org.andromda.metafacades.uml.web;
 import org.andromda.core.profile.Profile;
 
 public class MetafacadeWebProfile {
-    
+
     /**
      * The Profile instance from which we retrieve the mapped profile names.
      */
@@ -45,8 +45,8 @@ public class MetafacadeWebProfile {
     /** INPUT_EQUAL */
     public static final String TAGGEDVALUE_INPUT_EQUAL = PROFILE.get("INPUT_EQUAL");
     /** INPUT_TABLE_IDENTIFIER_COLUMNS */
-    public static final String TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS
-        = PROFILE.get("INPUT_TABLE_IDENTIFIER_COLUMNS");
+    public static final String TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS = PROFILE
+            .get("INPUT_TABLE_IDENTIFIER_COLUMNS");
     /** INPUT_VALIDATORS */
     public static final String TAGGEDVALUE_INPUT_VALIDATORS = PROFILE.get("INPUT_VALIDATORS");
     /** INPUT_FORMAT */
@@ -85,7 +85,6 @@ public class MetafacadeWebProfile {
     /** WEB_VIEW_MAX */
     public static final String TAGGEDVALUE_WEB_FIELD_MAX = PROFILE.get("WEB_VIEW_MAX");
 
-    
     /** Implementation */
     public static final String ANDROMDA_MANAGEABLE_IMPLEMENTATION = PROFILE.get("MANAGEABLE_IMPLEMENTATION");
     /** SEARCHABLE */
@@ -128,4 +127,32 @@ public class MetafacadeWebProfile {
     public static final boolean TAGGEDVALUE_TABLE_EXPORTABLE_DEFAULT_VALUE = true;
     /** 15 */
     public static final int TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT = 15;
+    /**
+     * 'andromda_presentation_if'
+     * Used to assign the controller to the activity (when it can not be assigned
+     * explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_COMPONENT_MAPPED_MODEL = PROFILE.get(
+            "PRESENTATION_COMPONENT_MAPPED_MODEL");
+
+    /**
+     * 'andromda_presentation_component'
+     * Used to assign the controller to the activity (when it can not be assigned
+     * explicitly).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_COMPONENT = PROFILE.get(
+            "PRESENTATION_COMPONENT");
+            
+    /**
+     * INPUT_TREE
+     */
+    public static final String TAGGEDVALUE_INPUT_TREE = PROFILE.get(
+            "INPUT_TREE");
+ 
+    /**
+     * INPUT_TREE
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_DISPLAY_ATTRIBUTES = PROFILE.get(
+            "PRESENTATION_DISPLAY_ATTRIBUTES");
+
 }

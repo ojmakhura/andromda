@@ -241,7 +241,7 @@ public class ThymeleafAttributeLogicImpl
      * @return propertyName
      * @see ThymeleafAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
+    protected String handleGetFormPropertyName(final ModelElementFacade ownerParameter)
     {
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)

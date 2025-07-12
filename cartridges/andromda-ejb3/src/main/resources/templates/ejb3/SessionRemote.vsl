@@ -22,7 +22,7 @@ $service.getDocumentation(" * ")
 ## We only expose the Local business interface for Seam components.
 ##
 #if (!$service.seamComponent)
-@javax.ejb.Remote
+@jakarta.ejb.Remote
 #end
 public interface ${service.serviceRemoteInterfaceName}
     extends ${service.serviceInterfaceName}#if ($service.generalization), ${service.generalization.fullyQualifiedName}Remote#end

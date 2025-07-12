@@ -1,5 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Objects;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -8,6 +10,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -62,7 +65,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected boolean handleIsReadOnly()
     {
-        return this.metaObject.isReadOnly();
+        return MetafacadeWebUtils.isReadOnly(this);
     }
 
     /**
@@ -233,6 +236,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetGetterSetterTypeName()
     {
+
         String name = null;
         if (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED)
         {
@@ -254,7 +258,7 @@ public class AttributeFacadeLogicImpl
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                    Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), "")))
             {
                 String type = this.getType().getFullyQualifiedName();
                 if (this.getType().isPrimitive() || this.getLower() > 0)

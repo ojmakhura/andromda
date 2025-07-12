@@ -214,7 +214,7 @@ public class EJB3SessionOperationFacadeLogicImpl
      * @see EJB3SessionOperationFacadeLogic#getSignature()
      *
      * Override the default implementation to check for timer service and
-     * replace all attributes with javax.ejb.Timer attribute.
+     * replace all attributes with jakarta.ejb.Timer attribute.
      */
     public String getSignature()
     {
@@ -223,7 +223,7 @@ public class EJB3SessionOperationFacadeLogicImpl
         {
             final StringBuilder timeoutSignature = new StringBuilder(this.getName());
             timeoutSignature.append("(");
-            timeoutSignature.append("javax.ejb.Timer timer");
+            timeoutSignature.append("jakarta.ejb.Timer timer");
             timeoutSignature.append(")");
             signature = timeoutSignature.toString();
         }
@@ -242,39 +242,39 @@ public class EJB3SessionOperationFacadeLogicImpl
     /**
      * @see EJB3SessionOperationFacadeLogic#handleGetTestName()
      */
-    @Override
-    protected String handleGetTestName()
-    {
-        String serviceOperationTestNamePattern =
-            (String)this.getConfiguredProperty(SERVICE_OPERATION_TEST_NAME_PATTERN);
+    // @Override
+    // protected String handleGetTestName()
+    // {
+    //     String serviceOperationTestNamePattern =
+    //         (String)this.getConfiguredProperty(SERVICE_OPERATION_TEST_NAME_PATTERN);
 
-        String name = this.getName();
-        // Determine if any overloaded operations exist - test name must be unique even if operation name is not
-        List<OperationFacade> operations = this.getOwner().getOperations();
-        for (OperationFacade operation : operations)
-        {
-            if (operation.getName().equals(name) &&
-                !operation.getArgumentNames().equals(this.getArgumentNames()))
-            {
-                // Two methods with the same name different arguments exist, use argument names to distinguish
-                for (ParameterFacade argument : this.getArguments())
-                {
-                    name += StringUtils.capitalize(argument.getName());
-                }
-            }
-        }
+    //     String name = this.getName();
+    //     // Determine if any overloaded operations exist - test name must be unique even if operation name is not
+    //     List<OperationFacade> operations = this.getOwner().getOperations();
+    //     for (OperationFacade operation : operations)
+    //     {
+    //         if (operation.getName().equals(name) &&
+    //             !operation.getArgumentNames().equals(this.getArgumentNames()))
+    //         {
+    //             // Two methods with the same name different arguments exist, use argument names to distinguish
+    //             for (ParameterFacade argument : this.getArguments())
+    //             {
+    //                 name += StringUtils.capitalize(argument.getName());
+    //             }
+    //         }
+    //     }
 
-        // default = testOperationname[Parameternames]
-        return MessageFormat.format(
-                serviceOperationTestNamePattern,
-                StringUtils.trimToEmpty(StringUtils.capitalize(name)));
-    }
+    //     // default = testOperationname[Parameternames]
+    //     return MessageFormat.format(
+    //             serviceOperationTestNamePattern,
+    //             StringUtils.trimToEmpty(StringUtils.capitalize(name)));
+    // }
 
     /**
      * @see EJB3SessionOperationFacadeLogic#getCall()
      *
      * Override the default implementation to check for timer service and
-     * add the javax.ejb.Timer attribute to the call.
+     * add the jakarta.ejb.Timer attribute to the call.
      */
     public String getCall()
     {

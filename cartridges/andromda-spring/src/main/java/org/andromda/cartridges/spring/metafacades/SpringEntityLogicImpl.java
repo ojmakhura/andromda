@@ -9,11 +9,13 @@ import org.andromda.cartridges.spring.CartridgeSpringProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityQueryOperation;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +43,14 @@ public class SpringEntityLogicImpl
         super(metaObject, context);
     }
 
+
+    /**
+     * The property that stores the pattern defining the entity
+     * composite primary key class name.
+     */
+    private static final String ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN = "entityCompositePrimaryKeyNamePattern";
+
+    public static final String ENTITY_EMBEDDABLE_NAME_PATTERN = "entityEmbeddableNamePattern";
     /**
      * Value for one Table per root class
      */
@@ -546,5 +556,52 @@ public class SpringEntityLogicImpl
     {
         return "searchUnique"+StringUtils.capitalize(attributeName);
     }
+
+    @Override
+    public String getEntityCompositePrimaryKeyName() {
+        String compPKPattern =
+            String.valueOf(this.getConfiguredProperty(ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN));
+
+        return MessageFormat.format(
+            compPKPattern,
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    @Override
+    public String getEntityEmbeddableName() {
+        String embeddableSuperclassName =
+            (String)this.getConfiguredProperty(ENTITY_EMBEDDABLE_NAME_PATTERN);
+
+        return MessageFormat.format(
+            embeddableSuperclassName,
+                StringUtils.trimToEmpty(this.getName()));
+    }
+
+    @Override
+    public boolean isCompositePrimaryKeyPresent() {
+        boolean isCompositePK = false;
+        if (this.getIdentifiers().size() > 1)
+        {
+            isCompositePK = true;
+        }
+        return isCompositePK;
+    }
+
+    @Override
+    public boolean isEmbeddableSuperclass() {
+        boolean isEmbeddableSuperclass = this.hasStereotype(UMLProfile.STEREOTYPE_MAPPED_SUPERCLASS);
+
+        /**
+         * Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
+         */
+        return isEmbeddableSuperclass && isRoot();
+    }
+
+    @Override
+    public boolean isEmbeddableSuperclassGeneralizationExists() {
+        return (this.getSpringSuperEntity() != null && this.getSpringSuperEntity().isEmbeddableSuperclass());
+    }
+
+    
     
 }

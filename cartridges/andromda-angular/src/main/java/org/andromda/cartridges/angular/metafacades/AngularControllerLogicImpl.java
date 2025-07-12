@@ -23,6 +23,7 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.PackageFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -226,8 +227,79 @@ public class AngularControllerLogicImpl
             
             if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
                 imports.add(operation.getReturnType());
+
+                if(operation.getReturnType().isTemplateParametersPresent()) {
+                    operation.getReturnType().getTemplateParameters().forEach(template -> {
+                        imports.add(template.getType());
+                    });
+                }
+            }
+
+            for(ParameterFacade parameter : operation.getArguments()) {
+                if(parameter.getType().isEnumeration() || !parameter.getType().getAttributes().isEmpty()) {
+                    imports.add(parameter.getType());
+
+                    if(parameter.getType().isTemplateParametersPresent()) {
+                        imports.add(parameter.getType());
+                        parameter.getType().getTemplateParameters().forEach(template -> {
+                            imports.add(template.getType());
+                        });
+                    }
+                }
             }
         }
+
+        getUseCase().getActions().forEach(action -> {
+
+            action.getFormFields().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
+            action.getForwardParameters().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
+            // action.getActionStates().forEach(actionState -> {
+            //     AngularForward state = (AngularForward) actionState.getForward();
+
+            //     if(state == null) {
+            //         return;
+            //     }
+
+            //     state.getActions().forEach(forwardAction -> {
+            //         forwardAction.getFormFields().forEach(field -> {
+            //             if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+            //                 imports.add(field.getType());
+            //             }
+
+            //             if(field.getType().isTemplateParametersPresent()) {
+            //                 field.getType().getTemplateParameters().forEach(template -> {
+            //                     imports.add(template.getType());
+            //                 });
+            //             }
+            //         });
+            //     });
+            // });
+        });
 
         for(AttributeFacade attribute : this.getAttributes()) {
 

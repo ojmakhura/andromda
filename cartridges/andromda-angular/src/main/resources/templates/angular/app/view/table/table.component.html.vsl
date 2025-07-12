@@ -7,13 +7,13 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 #if (!$table.tableColumns.empty)
     <div class="table table-striped"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-        <div class="col my-3 view-buttons" *ngIf="${table.name}DataSource.data.length > 0">
-            <a type="button" color="accent" class="btn btn-info" csvLink
-                        [data]="get$stringUtils.capitalize($table.name)ExportData()" [filename]="'${table.name}'">
-                CSV
-            </a>
+        <div class="mb-3" >
+          <!-- <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('xlsx', {fileName:'${table.name}', sheet: '${table.name}'})">XLSX</button>
+          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('csv', {fileName:'${table.name}'})">CSV</button>
+          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('json', {fileName:'${table.name}'})">JSON</button>
+          <button type="button" class="btn btn-info" (click)="matTableExporter.exportTable('txt', {fileName:'${table.name}'})">Text</button> -->
         </div>
-        <mat-table matSort [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
+        <mat-table matSort matTableExporter [dataSource]="${table.name}DataSource" #${table.name}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 #foreach ($column in $table.tableColumnNames)
 #if($column.name)
 #set($columnName = $column.name)
@@ -39,10 +39,14 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <div class = "form-group">
+                    <div class = "view-buttons">
 #foreach ($action in $table.tableFormActions)
-                        <button type = "button" class="btn btn-info" (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+                        <button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary"  (click)="${action.triggerName}(#renderAngularTableCommandLinkParameters())" translate>
+#if($action.icon)
+                            <mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+#else
                             $action.trigger.messageKey
+#end
                         </button>
 #end
                     </div>    
@@ -65,7 +69,13 @@
             <mat-header-row *matHeaderRowDef="${table.name}Columns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ${table.name}Columns;"></mat-row>
         </mat-table>
-        <mat-paginator #${table.name}Paginator="matPaginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 40, 50, 60, 70, 80, 90]" showFirstLastButtons></mat-paginator>
+        <mat-paginator 
+            #${table.name}Paginator="matPaginator" 
+            [length]="totalElements()"
+            [pageSize]="10" 
+            [pageSizeOptions]="[10, 50, 100, 250]" 
+            showFirstLastButtons>
+        </mat-paginator>
     </div>
 #end
 </div>

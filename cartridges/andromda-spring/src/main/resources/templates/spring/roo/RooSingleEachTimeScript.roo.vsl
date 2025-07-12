@@ -6,7 +6,7 @@
 
 #if (!$entities.empty)
 // Persistence scaffolding for $entities.size() entities
-project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false).fullyQualifiedName --parent org.andromda.maven:maven-parent:4.0-SNAPSHOT  --packaging WAR
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false).fullyQualifiedName --parent org.andromda.maven:maven-parent:5.0-SNAPSHOT  --packaging WAR
 logging setup --level INFO
 web mvc setup
 security setup
@@ -16,7 +16,7 @@ database properties set --key database.url --value jdbc:h2:~/${projectId};AUTO_S
 database properties list
 // Roo bug - these dependencies are missing
 dependency add --groupId org.springframework --artifactId spring-tx --version ${spring.version}
-dependency add --groupId org.hibernate.javax.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
+dependency add --groupId org.hibernate.jakarta.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
 #set ($daosEnabled = $stringUtils.isNotBlank($daos) && $recordType.equalsIgnoreCase("dao"))
 ##set ($dataJpa = $recordType.equalsIgnoreCase("active"))
 #end

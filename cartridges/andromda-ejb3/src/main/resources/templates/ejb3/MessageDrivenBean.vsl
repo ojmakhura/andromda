@@ -15,21 +15,21 @@ $mdb.getDocumentation(" * ")
 // This allows to set the class name to the MDB implementation class
 // The annotation is commented to avoid multiple registration with the
 // container.
-// @javax.ejb.MessageDriven(activationConfig =
+// @jakarta.ejb.MessageDriven(activationConfig =
 // {
-//   @javax.ejb.ActivationConfigProperty(propertyName="destinationType", propertyValue="${mdb.destinationType}"),
-//   @javax.ejb.ActivationConfigProperty(propertyName="destination", propertyValue="${mdb.destination}")#if ($mdb.acknowledgeMode || $mdb.messageSelector || $mdb.subscriptionDurability),#end
+//   @jakarta.ejb.ActivationConfigProperty(propertyName="destinationType", propertyValue="${mdb.destinationType}"),
+//   @jakarta.ejb.ActivationConfigProperty(propertyName="destination", propertyValue="${mdb.destination}")#if ($mdb.acknowledgeMode || $mdb.messageSelector || $mdb.subscriptionDurability),#end
 //
 #if ($mdb.acknowledgeMode)
-//  @javax.ejb.ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="${mdb.acknowledgeMode}")#if ($mdb.messageSelector || $mdb.subscriptionDurability),#end
+//  @jakarta.ejb.ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="${mdb.acknowledgeMode}")#if ($mdb.messageSelector || $mdb.subscriptionDurability),#end
 //
 #end
 #if ($mdb.messageSelector)
-//  @javax.ejb.ActivationConfigProperty(propertyName="messageSelector", propertyValue="${mdb.messageSelector}")#if ($mdb.subscriptionDurability),#end
+//  @jakarta.ejb.ActivationConfigProperty(propertyName="messageSelector", propertyValue="${mdb.messageSelector}")#if ($mdb.subscriptionDurability),#end
 //
 #end
 #if ($mdb.subscriptionDurability)
-//  @javax.ejb.ActivationConfigProperty(propertyName="durability", propertyValue="${mdb.subscriptionDurability}")
+//  @jakarta.ejb.ActivationConfigProperty(propertyName="durability", propertyValue="${mdb.subscriptionDurability}")
 #end
 //}
 //)
@@ -49,11 +49,11 @@ $mdb.getDocumentation(" * ")
 #end
 
 #if ($mdb.transactionManagement)
-@javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${mdb.transactionManagement})
+@jakarta.ejb.TransactionManagement(jakarta.ejb.TransactionManagementType.${mdb.transactionManagement})
 #end
 #if (!$mdb.transactionManagementBean)
 #**##if ($mdb.transactionType)
-@javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${mdb.transactionType})
+@jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${mdb.transactionType})
 #**##end
 #end
 #if ($mdb.runAs)
@@ -65,7 +65,7 @@ public abstract class ${mdb.messageDrivenName}
     // ------ Message Driven Context Injection ------
 
     @javax.annotation.Resource
-    protected javax.ejb.MessageDrivenContext context;
+    protected jakarta.ejb.MessageDrivenContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
@@ -92,7 +92,7 @@ public abstract class ${mdb.messageDrivenName}
     /**
      * Inject session EJB ${reference.name};
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 
 #**##end

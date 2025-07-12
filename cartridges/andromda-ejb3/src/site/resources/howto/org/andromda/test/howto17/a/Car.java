@@ -6,11 +6,11 @@
 package org.andromda.howto2.rental;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,7 +31,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 //@org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.CONVERSATION)
 @Table(name = "CAR")
 // Uncomment to enable entity listener for Car
-// @javax.persistence.EntityListeners({org.andromda.howto2.rental.CarListener.class})
+// @jakarta.persistence.EntityListeners({org.andromda.howto2.rental.CarListener.class})
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @NamedQueries
 ({

@@ -1,0 +1,74 @@
+<div class="card-body">
+  <div class="table-responsive">
+    <mat-table matSort matTableExporter [dataSource]="dataSource" #tableSort="matSort" class="modern-table" #dataTable>
+      @if (selectionType === s.MULTIPLE) {
+        <ng-container matColumnDef="selection">
+          <mat-header-cell *matHeaderCellDef class="table-header-cell"></mat-header-cell>
+          <mat-cell *matCellDef="let row" class="table-cell">
+            <mat-checkbox (change)="checkboxSelected($event, row)"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+      }
+
+      @if (selectionType === s.SINGLE) {
+        <ng-container matColumnDef="selection">
+          <mat-header-cell *matHeaderCellDef class="table-header-cell"></mat-header-cell>
+          <mat-cell *matCellDef="let row" class="table-cell">
+            <mat-radio-button [value]="true" (change)="radioSelected($event, row)"></mat-radio-button>
+          </mat-cell>
+        </ng-container>
+      }
+
+      @for (col of dataColumns; track col.id) {
+        <ng-container matColumnDef="{{ col.id }}">
+          <mat-header-cell *matHeaderCellDef class="table-header-cell" translate>
+            {{ col.label }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="table-cell">
+            @if (col?.link) {
+              <a class="link-cell" (click)="onActionClicked(col.actionId || col.id, row.id)">
+                {{ row[col.id] }}
+              </a>
+            } @else {
+              {{ row[col.id] }}
+            }
+          </mat-cell>
+        </ng-container>
+      }
+
+      @if (showActions) {
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="table-header-cell">Actions</mat-header-cell>
+          <mat-cell *matCellDef="let row" class="table-cell actions-cell">
+            @for (action of actions; track action) {
+              <button
+                color="primary"
+                matTooltip="{{ action.tooltip }}"
+                (click)="onActionClicked(action.id, row.id)"
+                class="action-button"
+              >
+                @if (!action.icon) {
+                  <span translate>{{ action.label }}</span>
+                } @else {
+                  <mat-icon>{{ action.icon }}</mat-icon>
+                }
+              </button>
+            }
+          </mat-cell>
+        </ng-container>
+      }
+
+      <mat-header-row *matHeaderRowDef="allColumns" class="table-header-row"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: allColumns" class="table-row"></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      #tablePaginator="matPaginator"
+      [pageSize]="10"
+      [length]="totalElements"
+      [pageSizeOptions]="[5, 10, 50, 100, 200]"
+      showFirstLastButtons
+      class="modern-paginator"
+    ></mat-paginator>
+  </div>
+</div>

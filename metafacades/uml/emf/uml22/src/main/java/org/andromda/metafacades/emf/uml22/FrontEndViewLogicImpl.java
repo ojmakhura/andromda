@@ -501,6 +501,20 @@ public class FrontEndViewLogicImpl
         return UMLMetafacadeUtils.getDisplayCondition(this);
     }
 
+    /**
+    * @see FrontEndView#getSubmitAction()
+    * @return String
+    */
+    protected String handleGetSubmitAction() {
+        String action = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_SUBMIT_ACTION)));
+
+        if(StringUtils.isNotBlank(action) && !action.startsWith("/")) {
+            action = '/' + action;
+        }
+        
+        return action;
+    }
+
     @Override
     protected Collection handleGetAttributes() {
         final Map<String, ModelElementFacade> variablesMap = new LinkedHashMap<String, ModelElementFacade>();
@@ -522,5 +536,29 @@ public class FrontEndViewLogicImpl
             }
         }
         return new ArrayList<ModelElementFacade>(variablesMap.values());
+    }
+
+    @Override
+    protected Boolean handleGetTreePresent() {
+        boolean present = false;
+        for (final FrontEndParameter variable : this.getVariables()) {
+            if (variable.getTree()) {
+                present = true;
+                break;
+            }
+        }
+        return present;
+    }
+
+    @Override
+    protected boolean handleIsTableVariablesPresent() {
+        boolean present = false;
+        for (final FrontEndParameter variable : this.getVariables()) {
+            if (variable.isTable()) {
+                present = true;
+                break;
+            }
+        }
+        return present;
     }
 }

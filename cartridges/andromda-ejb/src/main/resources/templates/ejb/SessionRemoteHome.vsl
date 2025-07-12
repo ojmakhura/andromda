@@ -12,8 +12,8 @@ package $service.packageName;
 #end
 
 import java.rmi.RemoteException;
-import javax.ejb.CreateException;
-import javax.ejb.EJBHome;
+import jakarta.ejb.CreateException;
+import jakarta.ejb.EJBHome;
 
 /**
  * Remote home interface for the $service.name session bean.

@@ -9,7 +9,6 @@
 #set($targetController = $transition.target.targetElement.controller)
 #if($targetController.name)
 #if(${targetController.name} != $controller.name)
-        console.log(this.useCaseScope?.pageVariables);
         forward = '${targetController.useCase.routerPath}';
 #else
         forward = '$controller.useCase.routerPath';
@@ -20,12 +19,20 @@
 #elseif ($transition.enteringView)
         forward = '${transition.target.useCase.routerPath}/${transition.target.routerPath}';
 #elseif ($transition.enteringDecisionPoint)
-        forward = this.__${transition.operationCall.name}(form);
+        forward = this.__${transition.operationCall.name}($transitionParams);
 #else
+#set ($transitionParams = '')
+#foreach($field in $action.forwardParameters)
+#set ($collection = '')
+#if($field.many || $field.type.listType || $field.type.setType)
+#set ($collection = '[]')
+#end
+#set ($transitionParams = "${transitionParams}#if($transitionParams.length() > 0), #end#if($action.exitingInitialState)pageVariables?.#end$field.name")
+#end
 #if($action.exitingInitialState)  
-        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end($transitionParams);
 #else
-        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end(form);
+        forward = this.${transition.target.actionMethodName}#if (!$transition.formFields.empty)${action.formImplementationName}#end($transitionParams);
 #end
 #end
 #end

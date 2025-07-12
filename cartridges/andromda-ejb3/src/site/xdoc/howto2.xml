@@ -82,7 +82,7 @@
                     <p><![CDATA[Person.getCars() : List<Car>]]></p>
                     <p>
                         A One-To-Many relationship has been defined from the Person entity to the Car entity.
-                        This adds the <code>@javax.persistence.OneToMany</code>
+                        This adds the <code>@jakarta.persistence.OneToMany</code>
                         annotation to the getter method and sets the <code>mappedBy</code> property to
                         <code>'owner'</code>, which indicates the <b>other end of
                         the association is the owning side of the relationship and is the only side of the
@@ -98,7 +98,7 @@
                     <p>Car.getOwner() : Person</p>
                     <p>
                         A Many-To-One relationship has been defined from the
-                        Car entity to the Person entity.  This adds the <code>@javax.persistence.ManyToOne</code>
+                        Car entity to the Person entity.  This adds the <code>@jakarta.persistence.ManyToOne</code>
                         annotation to the getter method <code>getOwner</code> in the Car entity.
                         Since the multiplicity on the
                         Person end of the association is set to 1, the annotation has defined the
@@ -106,7 +106,7 @@
                         cannot exists in this foreign key column in the relational database table.
                     </p>
                     <p>
-                        Since the Car entity end is the owning end, the <code>@javax.persistence.JoinColumn</code>
+                        Since the Car entity end is the owning end, the <code>@jakarta.persistence.JoinColumn</code>
                         annotation has been defined with a <code>name</code> property.
                         This annotation is used to indicate a <b>mapped column for joining an entity association</b>.
                         The <code>name</code> property defines the foreign key column name.
@@ -269,7 +269,7 @@
             <a name="Join_Table_Many_To_Many_And_One_To_Many"/>
             <subsection name="Join Table for Many-To-Many and One-To-Many Relationship">
                 <p>
-                    For a Many-To-Many and One-To-Many associations, the <code>@javax.persistence.JoinTable</code>
+                    For a Many-To-Many and One-To-Many associations, the <code>@jakarta.persistence.JoinTable</code>
                     annotation is specified on the OWNING side of the association.  This is determined by modeling the
                     <code>owning</code> side as an aggregation or composition.
                 </p>
@@ -324,7 +324,7 @@
                     <li>
                 <p>
                             If the ordering tagged value is modeled but no ordering element is supplied, this
-                            renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
+                            renders an empty <code>@jakarta.persistence.OrderBy</code> annotation which indicates
                             to the container to assume ordering by primary key as per the spec.
                 </p>
                     </li>
@@ -362,7 +362,7 @@
                 <p>
                     To indicate an association relationship target as transient (not persisted by the persistence
                     container), you model the <b><![CDATA[<<Transient>>]]></b> stereotype on the target end.  This adds the
-                    <code>@javax.persistence.Transient</code> annotation to the relationship getter.
+                    <code>@jakarta.persistence.Transient</code> annotation to the relationship getter.
                 </p>
             </subsection>
             <a name="Foreign_Key_Column_Names_And_Foreign_Key_Constraint_Names"/>

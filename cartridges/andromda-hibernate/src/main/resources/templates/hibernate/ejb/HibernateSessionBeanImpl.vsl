@@ -10,7 +10,7 @@ package $service.packageName;
  */
 public class ${service.name}BeanImpl
     extends ${service.name}Bean
-    implements javax.ejb.SessionBean
+    implements jakarta.ejb.SessionBean
 {
 #foreach ($operation in $service.operations)
 ##

@@ -326,6 +326,12 @@
         </mapping>
         <property reference="classifierNameMask"/>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndComponentLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>FRONT_END_COMPONENT</stereotype>
+        </mapping>
+        <property reference="classifierNameMask"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndControllerOperationLogicImpl">
         <mapping class="org.eclipse.uml2.impl.OperationImpl">
             <property name="ownerIsController"/>

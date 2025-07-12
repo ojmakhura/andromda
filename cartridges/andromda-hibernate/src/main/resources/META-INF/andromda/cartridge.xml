@@ -89,9 +89,11 @@
     <property reference="persistenceContextUnitName"/>
     <property reference="entityManagerName"/>
     <property reference="entityManagerJTADataSource"/>
+    <property reference="useLombok"/>
 
     <!-- cartridge-property merge-point-->
 
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="mapSubclassesInSeparateFile">$hibernateUtils.mapSubclassesInSeparateFile</condition>
     <condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
     <condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
@@ -120,7 +122,8 @@
         path="templates/hibernate/HibernateEntityImpl.vsl"
         outputPattern="$generatedFile"
         outlet="entities"
-        overwrite="true">
+        overwrite="true"
+        outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
@@ -182,17 +185,17 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/hibernate/usertypes/HibernateByteBlobType.vsl"
         outputPattern="$generatedFile"
         outlet="user-types"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
-    <template
+    <!-- <template
         path="templates/hibernate/usertypes/HibernateStringClobType.vsl"
         outputPattern="$generatedFile"
         outlet="user-types"
-        overwrite="true"/>
+        overwrite="true"/> -->
 
     <template
         path="templates/hibernate/ejb/ejb-jar.xml.vsl"
@@ -401,7 +404,7 @@
         </modelElements>
     </template>
 
-    <template
+    <!-- <template
         path="templates/hibernate3/usertypes/HibernateEnumType.vsl"
         outputPattern="$generatedFile"
         outlet="user-types"
@@ -415,7 +418,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <!-- hibernate 2 templates -->
     <template

@@ -5,9 +5,11 @@ import {
     Component, 
     OnInit, 
     ViewChild, 
-    Injector, 
+    AfterViewInit,
+    inject, 
     Input,
-    OnDestroy
+    OnDestroy,
+    signal
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormArray } from '@angular/forms';
@@ -15,13 +17,13 @@ import { ControllerBase } from '@app/controller/utils/controller.base';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UseCaseScope } from '@app/utils/use-case-scope';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 #set ($base = "${metafacadeWebUtils.toWebResourceName($table.view.useCase.storeName)}")
-import { ${table.view.useCase.storeName}State } from '@app/store$table.view.useCase.pathRoot/${base}.state';
-import * as ${table.view.useCase.storeName}Selectors from '@app/store$table.view.useCase.pathRoot/${base}.selectors';
 
 #foreach ($import in $table.imports)
-#if($import.tableComponentImplementationName)
+#if(${import.hasStereotype("FrontEndComponent")})
+import { $import.name } from '@app/components/${import.filePath}';
+#elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
 import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
@@ -37,10 +39,10 @@ import { ${table.view.useCase.controller.implementationName} } from '@app/${tabl
 #end
 
 @Component({
-  selector: '${table.fileName}-base',
+  selector: 'app-${table.fileName}-base',
   template: ''
 })
-export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
+export abstract class ${table.tableComponentName} implements OnInit, AfterViewInit, OnDestroy {
 
     ${table.name}Columns = [
 #foreach ($column in $table.tableColumnNames)
@@ -56,54 +58,49 @@ export abstract class ${table.tableComponentName} implements OnInit, OnDestroy {
 #end
     ];
 
-##    @Input() ${table.name}: FormArray;
-    ${table.name}$: Observable<$table.angularTypeName>;
+    totalElements = signal(0);
+    ${table.name}$: Observable<$table.getterSetterTypeName>;
+    ${table.name}Subscription: Subscription;
 
-    ${table.name}DataSource = new MatTableDataSource<$table.type.name>([]);
+    ${table.name}DataSource = new MatTableDataSource<$table.getterSetterTypeName>([]);
     @ViewChild('${table.name}Paginator', {static: true}) ${table.name}Paginator: MatPaginator;
     @ViewChild('${table.name}Sort', {static: true}) ${table.name}Sort: MatSort;
 
     @Input() protected pageVariables: any;
-    protected route: ActivatedRoute;
-    protected router: Router;
-    protected useCaseScope: UseCaseScope;
-    protected store: Store<${table.view.useCase.storeName}State>;
+    protected route: ActivatedRoute = inject(ActivatedRoute);
+    protected router: Router = inject(Router);
+    protected useCaseScope: UseCaseScope = inject(UseCaseScope);
+    protected store: Store<${table.view.useCase.storeName}State> = inject(Store);
 #foreach($service in $restControllers)
-    protected $stringUtils.uncapitalize($service.name): ${service.name};
+    protected $stringUtils.uncapitalize($service.name): ${service.name} = inject(${service.name});
 #end
 #if(${table.view.useCase.controller})
-    protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName};
+    protected ${table.view.useCase.controller.variableName}: ${table.view.useCase.controller.implementationName} = inject(${table.view.useCase.controller.implementationName});
 #end
-    protected ${table.view.variableName}: ${table.view.componentImplementationName};
-    protected _injector: Injector;
+    protected ${table.view.variableName}: ${table.view.componentImplementationName} = inject(${table.view.componentImplementationName});
 
-    constructor(injector: Injector) {
-        this.route = injector.get(ActivatedRoute);
-        this.router = injector.get(Router);
-        this.useCaseScope = injector.get(UseCaseScope);
-        this.store = injector.get(Store);
-#foreach($service in $restControllers)
-        this.$stringUtils.uncapitalize($service.name) = injector.get(${service.name});
-#end
-#if(${table.view.useCase.controller})
-        this.${table.view.useCase.controller.variableName} = injector.get(${table.view.useCase.controller.implementationName});
-#end
-        this.${table.view.variableName} = injector.get(${table.view.componentImplementationName});
-        this._injector = injector;
+    constructor() {
         this.${table.name}$ = this.store.pipe(select(${table.view.useCase.storeName}Selectors.select$stringUtils.capitalize(${table.name})));
     }
 
     ngOnInit(): void {
     }
-	    
+
+    afOnDestroy() {
+    }   
     ngOnDestroy() { 
+        if (this.${table.name}Subscription) {
+            this.${table.name}Subscription.unsubscribe();
+        }
+        this.afOnDestroy();
     }
     
     ngAfterViewInit() {
-        this.${table.name}$
+        this.${table.name}Subscription = this.${table.name}$
         .subscribe(
             ${table.name} => {
                 this.${table.name}DataSource.data = ${table.name};
+                this.totalElements.set(${table.name}.length ? ${table.name}.length : 0);
             }
         );
         this.${table.name}DataSource.paginator = this.${table.name}Paginator;

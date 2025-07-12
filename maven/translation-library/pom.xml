@@ -4,7 +4,7 @@
     <parent>
         <artifactId>andromda-maven-plugins</artifactId>
         <groupId>org.andromda.maven.plugins</groupId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-translation-library-plugin</artifactId>
     <packaging>maven-plugin</packaging>
@@ -62,24 +62,24 @@
             <artifactId>andromda-ocl-translation-testsuite</artifactId>
             <version>${andromda.version}</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-emf-uml22</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${andromda.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
     </dependencies>
     <build>
         <resources>

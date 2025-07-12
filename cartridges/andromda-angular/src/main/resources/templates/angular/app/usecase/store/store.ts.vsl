@@ -1,0 +1,82 @@
+#set ($serviceName = "$stringUtils.uncapitalize(${service.name})")
+
+import { inject } from '@angular/core';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { switchMap } from 'rxjs';
+import { tapResponse } from '@ngrx/operators';
+import { AppState } from '@app/store/app-state';
+import { SearchObject } from '@app/model/search-object';
+import { Page } from '@app/model/page.model';
+#foreach ($import in $service.imports)
+#if(${import.implementationFilePath})
+import { $import.implementationName } from '@app/${import.implementationFilePath}';
+#else
+import { $import.name } from '@app/${import.filePath}';
+#end
+#end
+import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+
+export type ${service.name}State = AppState<any, any> & {};
+
+const initialState: ${service.name}State = {
+  data: null,
+  dataList: [],
+  dataPage: new Page<any>(),
+  searchCriteria: new SearchObject<any>(),
+  error: null,
+  loading: false,
+  success: false,
+  messages: [],
+  loaderMessage: ''
+};
+
+export const ${service.name}Store = signalStore(
+  { providedIn: 'root' },
+  withState(initialState),
+  withMethods((store: any) => {
+    const ${serviceName} = inject(${service.name});
+    return {
+      reset: () => {
+        patchState(store, initialState);
+      },
+#foreach ($operation in $service.allowedOperations)
+#set($methodParams = "void")
+#if(!$operation.arguments.empty)
+#set($methodParams = "{$angularUtils.getMethodSignatureArguments($operation.arguments)}")
+#end
+      ${operation.name}: rxMethod<$methodParams>(
+        switchMap((#if(!$operation.arguments.empty)data: any#end) => {
+          patchState(store, { loading: true, loaderMessage: 'Loading ...' });
+          return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
+            tapResponse({
+              next: (data: $operation.returnTypeName) => {
+                //patchState(
+                  //store, 
+                  // { 
+                  //    data, 
+                  //    loading: false, 
+                  //    error: false,
+                  //    success: true, 
+                  //    messages: [] 
+                  //}
+                //);
+              },
+              error: (error: any) => {
+                patchState(
+                  store, { 
+                    error, 
+                    loading: false, 
+                    success: false,
+                    messages: [error?.error ? error.error : error] 
+                  }
+                );
+              },
+            }),
+          );
+        }),
+      ),
+#end
+    }
+  }),
+);

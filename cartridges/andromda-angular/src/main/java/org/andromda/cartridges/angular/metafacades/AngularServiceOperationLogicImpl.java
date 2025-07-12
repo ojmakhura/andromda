@@ -228,7 +228,7 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         String path = (String) this.findTaggedValue(AngularGlobals.REST_PATH);
 
         if(StringUtils.isBlank(path)) {
-            path = "";
+            path = this.getName();
         }
 
         if(path.equals("/")) {
@@ -251,27 +251,32 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                 }
                 builder.append(parts[i]);
             }
-            path = builder.toString();
-    
-            if(path.length() > 0 && path.charAt(0) != '/') {
-                path = '/' + path;
-            }
-
-            return path;
+        } else {
+            builder.append(path);
         }
 
-        builder.append(path);
+        StringBuilder queryParamsBuffer = new StringBuilder();
 
         for(ParameterFacade parameter : this.getArguments()) {
             if(parameter instanceof AngularServiceParameter) {
                 AngularServiceParameter param = (AngularServiceParameter)parameter;
                 String paramType = param.getRestParamType();
-                if(paramType.contains("PathParam")) {
+                if(paramType.contains("PathParam") && !this.getRestPathStatic()) {
                     builder.append("/");
                     builder.append(parameter.getName());
                     builder.append("/${");
                     builder.append(parameter.getName());
                     builder.append("}");
+                } else if(paramType.contains("RequestParam")) {
+                    
+                    if(queryParamsBuffer.length() > 0) {
+                        queryParamsBuffer.append("&");
+                    }
+
+                    queryParamsBuffer.append(parameter.getName());
+                    queryParamsBuffer.append("=${");
+                    queryParamsBuffer.append(parameter.getName());
+                    queryParamsBuffer.append("}");
                 }
             }
         }
@@ -280,6 +285,11 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
 
         if(path.length() > 0 && path.charAt(0) != '/') {
             path = '/' + path;
+        }
+
+        if(queryParamsBuffer.length() > 0) {
+            path += "?";
+            path += queryParamsBuffer.toString();
         }
 
         return path;
@@ -329,7 +339,6 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                     }
                     path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
                 }
-                // System.out.println("handleGetRestTestPath param=" + param.getName() + "
                 // servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) +
                 // " path=" + path);
             }

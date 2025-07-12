@@ -6,8 +6,8 @@
 package org.andromda.timetracker.domain;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 //import org.andromda.dbtest.JPAJUnitAncestor;
 //import org.apache.log4j.LogManager;
 //import org.apache.log4j.Logger;

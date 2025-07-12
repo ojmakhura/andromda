@@ -8,11 +8,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.RedefinableTemplateSignatureFacade;
@@ -926,7 +928,8 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected boolean handleIsBindingDependenciesPresent()
     {
-        final Collection<DirectedRelationship> dependencies = this.handleGetSourceDependencies();
+        final Collection<DependencyFacade> dependencies = this.getSourceDependencies();
+
         CollectionUtils.filter(
             dependencies,
             new Predicate()
@@ -1166,7 +1169,7 @@ public class ModelElementFacadeLogicImpl
 
         if (this.isTemplateParametersPresent() &&
             BooleanUtils.toBoolean(
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+                Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), "")))
         {
             // Retrieve all template parameters
             final Collection<TemplateParameterFacade> templateParameters = this.getTemplateParameters();
@@ -1208,6 +1211,26 @@ public class ModelElementFacadeLogicImpl
 
             // we'll be constructing the parameter list in this buffer
             // add the name we've constructed so far
+
+            // First, we need to replace the name of the element with the name of the template
+            // We need to replace the name of the element with the name of the template
+            Collection<TemplateBinding> templateBindings = ((org.eclipse.uml2.uml.Class)this.metaObject).getTemplateBindings();
+            if(CollectionUtils.isNotEmpty(templateBindings))
+            {
+                
+                final TemplateBinding binding = templateBindings.iterator().next();
+                if(binding != null && binding.getSignature() != null && binding.getSignature().getTemplate() != null)
+                {
+                    TemplateableElement template = binding.getSignature().getTemplate();
+
+                    if(template instanceof NamedElement)
+                    {
+                        fullName = UmlUtilities.getPackageName(template, this.getNamespaceScope(false), false) + "." + ((NamedElement)template).getName();
+                    }
+                    
+                }
+            }
+
             final StringBuilder buffer = new StringBuilder(fullName).append('<');
 
             // loop over the parameters, we are so to have at least one (see
@@ -1273,7 +1296,7 @@ public class ModelElementFacadeLogicImpl
 
     @Override
     protected Collection<String> handleGetAdditionalAnnotations() {
-        HashSet<String> annotations = new HashSet<String>();
+        Collection<String> annotations = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {
             annotations.add(o.toString());
@@ -1283,7 +1306,7 @@ public class ModelElementFacadeLogicImpl
 
     @Override
     protected Collection<String> handleGetAdditionalExtends() {
-        HashSet<String> extensions = new HashSet<String>();
+        Collection<String> extensions = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_EXTENDS))
         {
             extensions.add(o.toString());
@@ -1294,11 +1317,73 @@ public class ModelElementFacadeLogicImpl
     @Override
     protected Collection<String> handleGetAdditionalImplements() {
         
-        HashSet<String> implementations = new HashSet<String>();
+        Collection<String> implementations = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_IMPLEMENTS))
         {
             implementations.add(o.toString());
         }
         return implementations;
+    }
+
+    @Override
+    protected boolean handleIsGeneric() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS));
+    }
+
+    @Override
+    protected Collection<String> handleGetGenericParameters() {
+        
+        Collection<String> params = new ArrayList<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
+        {
+            params.add(o.toString());
+        }
+        return params;
+    }
+
+    @Override
+    protected Collection<String> handleGetGenericTypes() {
+        
+        Collection<String> types = new ArrayList<String>();
+        for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))
+        {
+            types.add(o.toString());
+        }
+        return types;
+    }
+
+    @Override
+    protected boolean handleIsGenericDeclaration() {
+        return CollectionUtils.isNotEmpty(this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES));
+    }
+
+    @Override
+    protected String handleGetGenericTypeString() {
+
+        String val = String.join(", ", this.getGenericTypes());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
+    }
+
+    @Override
+    protected String handleGetGenericParameterString() {
+
+        String val = String.join(", ", this.getGenericParameters());
+
+        if (StringUtils.isNotBlank(val))
+        {
+            val = "<" + val + ">";
+        } else {
+            val = "";
+        }
+
+        return val;
     }
 }

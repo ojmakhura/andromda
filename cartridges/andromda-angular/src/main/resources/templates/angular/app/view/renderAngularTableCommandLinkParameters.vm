@@ -27,7 +27,7 @@ $param#if($i < $params.size()),$cr#end
 ')
 #foreach ($parameter in $action.parameters)
 #set ( $type = ${parameter.angularTypeName})
-#set ( $ret = $params.add("$parameter.name: $type") )
+#set ( $ret = $params.add("$parameter.name: $parameter.getterSetterTypeName") )
 #end
 #set($i = 0)
 #foreach( $param in $params)
@@ -66,9 +66,9 @@ $param#if($i < $params.size()),$cr#end
 #set($i = 0)
 {
 #foreach( $param in $params)
-            $param: $param,
+                    $param: event.$param,
 #end
-        };
+                };
 #end
 ##
 ## This macro renders the parameters for a function
@@ -79,12 +79,12 @@ $param#if($i < $params.size()),$cr#end
 ')
 #foreach ($parameter in $action.parameters)
 #set ( $type = ${parameter.angularTypeName})
-#set ( $ret = $params.add("$parameter.name: #if($angularUtils.isComplex($parameter))JSON.stringify($parameter.name)#{else}$parameter.name#{end}") )
+#set ( $ret = $params.add("$parameter.name: #if($angularUtils.isComplex($parameter))JSON.stringify(event.$parameter.name)#{else}event.$parameter.name#{end}") )
 #end
 #set($i = 0)
 {
 #foreach( $param in $params)
-            $param,
+                        $param,
 #end
-        };
+                };
 #end

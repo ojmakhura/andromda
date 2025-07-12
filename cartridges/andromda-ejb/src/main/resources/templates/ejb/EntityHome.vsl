@@ -14,7 +14,7 @@ public interface ${entity.name}LocalHome
 #if ($entity.generalization)
     extends ${entity.generalization.fullyQualifiedName}LocalHome
 #else
-    extends javax.ejb.EJBLocalHome
+    extends jakarta.ejb.EJBLocalHome
 #end
 {
 ## Only expose JNDI names on concrete EJBs.
@@ -73,14 +73,14 @@ $operation.getDocumentation("    * ")
      * @param key the primary key;
      */
      public $entity.name findByPrimaryKey($identifier.type.fullyQualifiedName key)
-            throws javax.ejb.FinderException;
+            throws jakarta.ejb.FinderException;
 
 #foreach ($finder in $entity.queryOperations)
    /**
 $finder.getDocumentation("    * ")
     */
     public $finder.getterSetterReturnTypeName $finder.signature
-           throws javax.ejb.FinderException;
+           throws jakarta.ejb.FinderException;
 
 #end
 #end
@@ -90,7 +90,7 @@ $finder.getDocumentation("    * ")
     /**
 $operation.getDocumentation("    * ")
      */
-    public $entity.name create(${operation.typedArgumentList}) throws javax.ejb.CreateException;
+    public $entity.name create(${operation.typedArgumentList}) throws jakarta.ejb.CreateException;
 
 #end
 
@@ -105,7 +105,7 @@ $operation.getDocumentation("    * ")
 #end
      */
     public $entity.name create(${transform.getAttributesAsList($allAttributes, true, true)})
-           throws javax.ejb.CreateException;
+           throws jakarta.ejb.CreateException;
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
 
@@ -119,7 +119,7 @@ $operation.getDocumentation("    * ")
 #end
      */
     public $entity.name create(${transform.getAttributesAsList($allAttributes, true, true)}#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
-           throws javax.ejb.CreateException;
+           throws jakarta.ejb.CreateException;
 
 #end
 #end

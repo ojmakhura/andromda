@@ -29,6 +29,7 @@ import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.TypeMappings;
@@ -153,8 +154,8 @@ public class AngularParameterLogicImpl
     //to be used in the range validator: "range - 1000" or "range 20 -".
     /** - */
     static final String UNDEFINED_BOUND="-";
-    /** javax.validation.constraints.NotNull */
-    static final String AN_REQUIRED = "@javax.validation.constraints.NotNull";
+    /** jakarta.validation.constraints.NotNull */
+    static final String AN_REQUIRED = "@jakarta.validation.constraints.NotNull";
     /** org.hibernate.validator.constraints.URL */
     static final String AN_URL = "@org.hibernate.validator.constraints.URL";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.LongRange */
@@ -165,8 +166,8 @@ public class AngularParameterLogicImpl
     static final String AN_EMAIL = "@org.hibernate.validator.constraints.Email";
     /** org.hibernate.validator.constraints.CreditCardNumber */
     static final String AN_CREDIT_CARD = "@org.hibernate.validator.constraints.CreditCardNumber";
-    /** javax.validation.constraints.Size */
-    static final String AN_LENGTH = "@javax.validation.constraints.Size";
+    /** jakarta.validation.constraints.Size */
+    static final String AN_LENGTH = "@jakarta.validation.constraints.Size";
     /** org.apache.myfaces.extensions.validator.baseval.annotation.Pattern */
     static final String AN_PATTERN = "@org.apache.myfaces.extensions.validator.baseval.annotation.Pattern";
     /** org.apache.myfaces.extensions.validator.crossval.annotation.Equals */
@@ -175,6 +176,37 @@ public class AngularParameterLogicImpl
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
+
+        if (this.getType().getGeneralization() != null) {
+
+            GeneralizableElementFacade generalization = this.getType().getGeneralization();
+
+            if (generalization instanceof AngularModelLogic) {
+                AngularModelLogic modelElement = (AngularModelLogic) generalization;
+
+                modelElement.getAttributes().forEach(attr -> {
+                    if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                        imports.add(attr.getType());
+                    }
+                });
+
+                // Only going up 2 levels of generalization
+                if (modelElement.getGeneralization() != null) {
+
+                    GeneralizableElementFacade generalization2 = modelElement.getGeneralization();
+
+                    if (generalization2 instanceof AngularModelLogic) {
+                        AngularModelLogic modelElement2 = (AngularModelLogic) generalization2;
+
+                        modelElement2.getAttributes().forEach(attr -> {
+                            if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                imports.add(attr.getType());
+                            }
+                        });
+                    }
+                }
+            }
+        }
 
         for(AttributeFacade attribute : this.getType().getAttributes()) {
             if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
@@ -248,7 +280,8 @@ public class AngularParameterLogicImpl
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getFilePath() + ".impl";
+        AngularView view = (AngularView) this.getView();
+        return view.getViewPath() + '/' + this.getFileName() + "-impl.component";
     }
 
     @Override
@@ -268,7 +301,9 @@ public class AngularParameterLogicImpl
             return null;
         }
 
-        return this.getTableComponentName() + "Impl";
+        String viewName = this.removeWhitespaceFromName(this.getView().getName());
+        String tableName = StringUtilsHelper.capitalize(this.getName());
+        return viewName + tableName + "ImplComponent";
     }
 
     @Override
@@ -297,85 +332,142 @@ public class AngularParameterLogicImpl
         return services;
     }
 
+    // @Override
+    // public String getGetterSetterTypeName() {
+    //     String name = null;
+    //     if (this.getUpper() > 1 || this.getUpper() == -1)
+    //     {
+    //         final TypeMappings mappings = this.getLanguageMappings();
+    //         //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
+    //         // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
+    //         /*if (this.handleIsUnique())
+    //         {
+    //             name =
+    //                 this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+    //                                  : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+    //         }
+    //         else
+    //         {*/
+    //             name =
+    //                 this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+    //                                  : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+    //         /*}*/
+
+    //         // set this attribute's type as a template parameter if required
+    //         if (BooleanUtils.toBoolean(
+    //                 ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+    //         {
+    //             String type = this.getType().getName();
+    //             if (this.getType().isPrimitive() || this.getLower() > 0)
+    //             {
+    //                 // Can't template primitive values, Objects only. Convert to wrapped.
+    //                 type = this.getType().getWrapperName();
+    //                 if (type == null)
+    //                 {
+    //                     // No wrapper name configured
+    //                     type = this.getType().getName();
+    //                 }
+    //             }
+    //             // Allow List<Type[]> implementations.
+    //             /*// Don't apply templating to modeled array types
+    //             if (this.getType().isArrayType())
+    //             {
+    //                 type = type.substring(0, type.length()-2);
+    //             }*/
+    //             /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
+    //             if ((specializations != null && !specializations.isEmpty()))
+    //             {
+    //                 name += "<? extends " + type + '>';
+    //             }
+    //             else
+    //             {*/
+    //                 name += '<' + type + '>';
+    //             /*}*/
+    //         }
+    //     }
+    //     if (name == null && this.getType() != null)
+    //     {
+    //         name = this.getType().getName();
+    //         // Special case: lower bound overrides primitive/wrapped type declaration
+    //         // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+    //         if (this.getType().isBooleanType())
+    //         {
+    //             // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
+    //             if (this.getType().isPrimitive() && this.getLower() < 1 &&
+    //                 (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
+    //             {
+    //                 // Type is optional, should not be primitive
+    //                 name = this.getType().getWrapperName();
+    //                 if (name == null)
+    //                 {
+    //                     // No wrapper name configured
+    //                     name = this.getType().getName();
+    //                 }
+    //             }
+    //             /*else //if (this.getType().isPrimitive())
+    //             {
+    //                 // Type is required, should not be wrapped
+    //             }*/
+    //         }
+    //     }
+
+    //     return name;
+    // }    
+
+    private String getDatatype(String raw) {
+
+        String type = raw;
+
+        if(this.getType().isMapType()) {
+
+            return "any" + (this.isMany() ? "[]" : "");
+        }
+
+        if(type.contains("<")) {
+
+            if(type.startsWith("any<") || type.startsWith("java.util.Map")) {
+
+                return "any" + (this.isMany() ? "[]" : "");
+            }
+
+            type = type.substring(0, type.indexOf("<"));
+        } else {
+            if(type.contains(".")) {
+                type = type.substring(type.lastIndexOf(".") + 1);
+            }
+
+            type = getLanguageMappings().getTo(type);
+
+            return type;
+        }
+
+        if(type.contains(".")) {
+            type = type.substring(type.lastIndexOf(".") + 1);
+        }
+
+        type = getLanguageMappings().getTo(type);
+
+        String param = raw.substring(raw.indexOf("<")+1, raw.length()-1);
+
+        if(param.contains(".")) {
+            param = param.substring(param.lastIndexOf(".") + 1);
+        }
+
+        if(param.contains("<")) {
+            param = getDatatype(param);
+        }
+
+        param = getLanguageMappings().getTo(param);
+
+        return type + "<" + param + ">";
+    }
+
     @Override
-    public String getGetterSetterTypeName() {
-        String name = null;
-        if (this.getUpper() > 1 || this.getUpper() == -1)
-        {
-            final TypeMappings mappings = this.getLanguageMappings();
-            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
-            // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
-            /*if (this.handleIsUnique())
-            {
-                name =
-                    this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
-                                     : mappings.getTo(UMLProfile.SET_TYPE_NAME);
-            }
-            else
-            {*/
-                name =
-                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
-                                     : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
-            /*}*/
+    public String getGetterSetterTypeName()
+    {
 
-            // set this attribute's type as a template parameter if required
-            if (BooleanUtils.toBoolean(
-                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
-            {
-                String type = this.getType().getName();
-                if (this.getType().isPrimitive() || this.getLower() > 0)
-                {
-                    // Can't template primitive values, Objects only. Convert to wrapped.
-                    type = this.getType().getWrapperName();
-                    if (type == null)
-                    {
-                        // No wrapper name configured
-                        type = this.getType().getName();
-                    }
-                }
-                // Allow List<Type[]> implementations.
-                /*// Don't apply templating to modeled array types
-                if (this.getType().isArrayType())
-                {
-                    type = type.substring(0, type.length()-2);
-                }*/
-                /*Collection<GeneralizableElementFacade> specializations = this.getType().getAllSpecializations();
-                if ((specializations != null && !specializations.isEmpty()))
-                {
-                    name += "<? extends " + type + '>';
-                }
-                else
-                {*/
-                    name += '<' + type + '>';
-                /*}*/
-            }
-        }
-        if (name == null && this.getType() != null)
-        {
-            name = this.getType().getName();
-            // Special case: lower bound overrides primitive/wrapped type declaration
-            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
-            if (this.getType().isBooleanType())
-            {
-                // Datatypes will be inconsistent with multiplicity but identifier attributes shouldn't be changed automatically
-                if (this.getType().isPrimitive() && this.getLower() < 1 &&
-                    (!(this instanceof EntityAttribute) || !((EntityAttribute) this).isIdentifier()))
-                {
-                    // Type is optional, should not be primitive
-                    name = this.getType().getWrapperName();
-                    if (name == null)
-                    {
-                        // No wrapper name configured
-                        name = this.getType().getName();
-                    }
-                }
-                /*else //if (this.getType().isPrimitive())
-                {
-                    // Type is required, should not be wrapped
-                }*/
-            }
-        }
+        String name = super.getGetterSetterTypeName();
 
-        return name;
-    }    
+        return getDatatype(name);
+    }
 }

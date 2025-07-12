@@ -1,4 +1,3 @@
-@import "src/theme/theme-variables";
 
 :host {
   display: flex;
@@ -24,5 +23,5 @@
 }
 
 .login-error {
-  color: mat-color($app-warn);
+  color: red;
 }

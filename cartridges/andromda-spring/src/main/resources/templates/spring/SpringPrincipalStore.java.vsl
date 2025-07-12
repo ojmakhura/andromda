@@ -31,7 +31,7 @@ public final class PrincipalStore
 
 #if ($ejbSecurityEnabled)
 #if ($enableTemplating)
-    private static final ThreadLocal<javax.ejb.SessionContext> sessionContext = new ThreadLocal<javax.ejb.SessionContext>();
+    private static final ThreadLocal<jakarta.ejb.SessionContext> sessionContext = new ThreadLocal<jakarta.ejb.SessionContext>();
 #else
     private static final ThreadLocal sessionContext = new ThreadLocal();
 #end
@@ -47,7 +47,7 @@ public final class PrincipalStore
     {
 #if ($ejbSecurityEnabled)
         Principal principal;
-        javax.ejb.SessionContext context = getSessionContext();
+        jakarta.ejb.SessionContext context = getSessionContext();
         if (context != null)
         {
             principal = context.getCallerPrincipal();
@@ -63,9 +63,9 @@ public final class PrincipalStore
     }
 #if ($ejbSecurityEnabled)
 
-    private static javax.ejb.SessionContext getSessionContext()
+    private static jakarta.ejb.SessionContext getSessionContext()
     {
-        return#if (!$enableTemplating)(javax.ejb.SessionContext)#end sessionContext.get();
+        return#if (!$enableTemplating)(jakarta.ejb.SessionContext)#end sessionContext.get();
     }
 #end
 
@@ -85,7 +85,7 @@ public final class PrincipalStore
      *
      * @param name the user sessionContext
      */
-    public static void setSessionContext(final javax.ejb.SessionContext context)
+    public static void setSessionContext(final jakarta.ejb.SessionContext context)
     {
         sessionContext.set(context);
     }
@@ -97,7 +97,7 @@ public final class PrincipalStore
      */
     public static boolean $isInRoleName()
     {
-        final javax.ejb.SessionContext sessionContext = getSessionContext();
+        final jakarta.ejb.SessionContext sessionContext = getSessionContext();
         boolean $isInRoleName = sessionContext != null;
         if ($isInRoleName)
         {

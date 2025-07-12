@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.JavaTypeConverter;
 import org.apache.commons.lang3.StringUtils;
 
@@ -243,4 +244,13 @@ public class HibernateEntityAttributeLogicImpl
 
         return fullyQualifiedName;
     }
+
+    /**
+     * @see EJB3AssociationEndFacadeLogic#handleGetColumnDefinition()
+     */
+    // @Override
+    // protected String handleGetColumnDefinition()
+    // {
+    //     return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
+    // }
 }

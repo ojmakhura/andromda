@@ -12,7 +12,7 @@ public interface $entity.name
 #if ($entity.generalization)
     extends $entity.generalization.fullyQualifiedName
 #else
-    extends javax.ejb.EJBLocalObject
+    extends jakarta.ejb.EJBLocalObject
 #end
 {
     // -- accessors for environment entries --

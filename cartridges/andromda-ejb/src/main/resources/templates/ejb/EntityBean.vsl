@@ -121,7 +121,7 @@ public abstract class ${entity.name}Bean
 #if($entity.generalization)
     extends ${entity.generalization.fullyQualifiedName}BeanImpl
 #end
-    implements javax.ejb.EntityBean
+    implements jakarta.ejb.EntityBean
 {
     // ----------- constant definitions -----------
 #foreach($constant in $entity.getConstants(true))
@@ -573,7 +573,7 @@ $operation.getDocumentation("    * ")
     * @ejb.select query="$queryString"
     */
     public abstract $returnType $operation.signature
-    throws javax.ejb.FinderException;
+    throws jakarta.ejb.FinderException;
 #end##if operation.stereotype = "SelectMethod"
 
     // ---------------- create methods --------------------
@@ -597,13 +597,13 @@ $operation.getDocumentation("    * ")
      * problems with different primary key classes.
      */
     protected abstract void createImpl(${operation.typedArgumentList})
-        throws javax.ejb.CreateException;
+        throws jakarta.ejb.CreateException;
 
     /**
 $operation.getDocumentation("    * ")
      */
     public $identifier.type.fullyQualifiedName ejbCreate(${operation.typedArgumentList})
-        throws javax.ejb.CreateException
+        throws jakarta.ejb.CreateException
     {
         createImpl($operation.argumentNames);
         return $identifier.type.javaNullString;
@@ -638,7 +638,7 @@ $operation.getDocumentation("    * ")
 #end
      */
     protected void createImpl($transform.getAttributesAsList($allAttributes, true, true))
-        throws javax.ejb.CreateException
+        throws jakarta.ejb.CreateException
     {
 #if(!$inheritedAttributes.empty)
         super.createImpl($transform.getAttributesAsList($inheritedAttributes, false, true));
@@ -670,14 +670,14 @@ $operation.getDocumentation("    * ")
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
     public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true))
-        throws javax.ejb.CreateException
+        throws jakarta.ejb.CreateException
     {
         createImpl($transform.getAttributesAsList($allAttributes, false, true));
         return $identifier.type.javaNullString;
     }
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true))
-        throws javax.ejb.CreateException
+        throws jakarta.ejb.CreateException
     {
 #if(!$inheritedAttributes.empty)
         // Call postCreate method for the super type
@@ -700,7 +700,7 @@ $operation.getDocumentation("    * ")
      *         (chapter 10.5.2, "Bean Provider's entity bean instance's view")
      */
     public $identifier.type.fullyQualifiedName ejbCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
-           throws javax.ejb.CreateException
+           throws jakarta.ejb.CreateException
     {
         // Call ejbCreate method for the CMP attributes
         ejbCreate($transform.getAttributesAsList($allAttributes, false, true));
@@ -709,7 +709,7 @@ $operation.getDocumentation("    * ")
     }
 
     public void ejbPostCreate($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.relationType} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
-        throws javax.ejb.CreateException
+        throws jakarta.ejb.CreateException
     {
         // Call postCreate method for the CMP attributes
         ejbPostCreate($transform.getAttributesAsList($allAttributes, false, true));
@@ -842,9 +842,9 @@ $operation.getDocumentation("    * ")
 #end
 #end
 
-    private javax.ejb.EntityContext ctx;
+    private jakarta.ejb.EntityContext ctx;
 
-    public void setEntityContext(javax.ejb.EntityContext ctx)
+    public void setEntityContext(jakarta.ejb.EntityContext ctx)
     {
         this.ctx = ctx;
     }
@@ -855,7 +855,7 @@ $operation.getDocumentation("    * ")
     }
 
     public void ejbRemove()
-        throws javax.ejb.RemoveException
+        throws jakarta.ejb.RemoveException
     {
     }
 

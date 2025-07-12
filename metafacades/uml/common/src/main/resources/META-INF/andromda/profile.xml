@@ -17,6 +17,16 @@
                 <value>Entity</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="MAPPED_SUPERCLASS">
+                <documentation>
+                    Produces a POJO class annotated as a
+                    mapped/embeddable super class.  This
+                    can only be assigned to the root class
+                    in a hierarchy.
+                </documentation>
+                <value>MappedSuperclass</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="SERVICE">
                 <documentation>
                     Denotes this class represents a service that is implemented using the facade pattern.
@@ -157,6 +167,13 @@
                 <value>FrontEndException</value>
                 <appliedOnElement>Transition</appliedOnElement>
             </element>
+            <element name="FRONT_END_COMPONENT">
+                <documentation>
+                    This stereotype is modeled on an class to denote it is representing a view on a front end component.
+                </documentation>
+                <value>FrontEndComponent</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
             <element name="FRONT_END_VIEW">
                 <documentation>
                     This stereotype is modeled on an action state to denote it is representing a view on a front end (such as a JSP page).
@@ -237,6 +254,13 @@
                 <value>AnnotationType</value>
                 <appliedOnElement>Class</appliedOnElement>
             </element>
+            <element name="GENERIC">
+                <documentation>
+                    Modeled component is an annotation.
+                </documentation>
+                <value>Generic</value>
+                <appliedOnElement>Class, Operation, Attribute, Parameter</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <element name="DOCUMENTATION">
@@ -309,6 +333,12 @@
                 </documentation>
                 <value>andromda_persistence_immutable</value>
             </element>
+            <element name="PERSISTENCE_MAPPED_SUPERCLASS">
+                <documentation>
+                    Denotes this entity is a mapped superclass.
+                </documentation>
+                <value>andromda_persistence_mapped_superclass</value>
+            </element>
             <element name="PERSISTENCE_JOINCOLUMN_ORDER">
                 <documentation>
                     For ManyToOne associations, the order of the @JoinColumn annotations in the composite PK MUST
@@ -338,6 +368,18 @@
                     <value>true</value>
                     <value>false</value>
                 </allowedValues>
+            </element>
+            <element name="COLUMN_DEFINITION">
+                <documentation>
+                    Specifies the SQL to create the DDL for the
+                    column or entity property.
+                </documentation>
+                <value>
+                    andromda_persistence_column_definition
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
             </element>
             <element name="PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS">
                 <documentation>
@@ -392,11 +434,29 @@
                 </documentation>
                 <value>andromda_presentation_substitution_name</value>
             </element>
+            <element name="PRESENTATION_SUBMIT_ACTION">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_submit_action</value>
+            </element>
             <element name="PRESENTATION_IF">
                 <documentation>
                     Some presentation layers have built in rest controllers.
                 </documentation>
                 <value>andromda_presentation_if</value>
+            </element>
+            <element name="PRESENTATION_COMPONENT">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_component</value>
+            </element>
+            <element name="PRESENTATION_COMPONENT_MAPPED_MODEL">
+                <documentation>
+                    Some presentation layers have built in rest controllers.
+                </documentation>
+                <value>andromda_presentation_mapped_model</value>
             </element>
             <element name="PRESENTATION_PATH">
                 <documentation>
@@ -409,6 +469,12 @@
                     Presentation file name.
                 </documentation>
                 <value>andromda_presentation_filename</value>
+            </element>
+            <element name="PRESENTATION_DISPLAY_ATTRIBUTES">
+                <documentation>
+                    Presentation file name.
+                </documentation>
+                <value>andromda_presentation_display_attribute</value>
             </element>
             <element name="PRESENTATION_TARGETURL">
                 <documentation>
@@ -441,6 +507,24 @@
                     The icon to be used for this item (Use Case, Action and View)
                 </documentation>
                 <value>andromda_presentation_icon</value>
+            </element>
+            <element name="PRESENTATION_GENERATE_TABLE">
+                <documentation>
+                    The icon to be used for this item (Use Case, Action and View)
+                </documentation>
+                <value>andromda_presentation_generate_table</value>
+            </element>
+            <element name="PRESENTATION_COMPONENT_BEAN_NAME">
+                <documentation>
+                    Component bean name
+                </documentation>
+                <value>andromda_presentation_beanName</value>
+            </element>
+            <element name="PRESENTATION_COMPONENT_TABLE_NAME">
+                <documentation>
+                    Component bean name
+                </documentation>
+                <value>andromda_presentation_table_name</value>
             </element>
             <element name="PRESENTATION_TABLE_COLUMNS">
                 <documentation>
@@ -532,6 +616,18 @@
                 </documentation>
                 <value>andromda_additionalAnnotations</value>
             </element>
+            <element name="ANDROMDA_GENERIC_TYPES">
+                <documentation>
+                    Annotation generic types
+                </documentation>
+                <value>andromda_generic_types</value>
+            </element>
+            <element name="ANDROMDA_GENERIC_PARAMETERS">
+                <documentation>
+                    Annotation generic parameter types
+                </documentation>
+                <value>andromda_generic_parameters</value>
+            </element>
             <element name="ANDROMDA_ADDITIONAL_EXTENDS">
                 <documentation>
                     Annotation type for external classes that must be extended
@@ -543,6 +639,18 @@
                     Annotation type for external interfaces that must be extended
                 </documentation>
                 <value>andromda_additionalImplements</value>
+            </element>
+            <element name="ANDROMDA_OPERATION_TEST_NAME">
+                <documentation>
+                    Annotation type for external interfaces that must be extended
+                </documentation>
+                <value>andromda_operation_testName</value>
+            </element>
+            <element name="ANDROMDA_OPERATION_TEST_DISPLAY_NAME">
+                <documentation>
+                    Annotation type for external interfaces that must be extended
+                </documentation>
+                <value>andromda_operation_testDisplayName</value>
             </element>
         </elementGroup>
         <elementGroup name="Data Types">

@@ -14,7 +14,7 @@ package $service.packageName;
 ##if ($stringUtils.startsWith(${deploymentPlatform}, "jboss"))
 ##@org.jboss.ws.annotation.PortComponent(contextRoot = "${webServiceContextRoot}", urlPattern="${webServiceUrlPattern}/${service.qName}/*")
 ##end
-@javax.ejb.Stateless
+@jakarta.ejb.Stateless
 public interface ${service.webServiceInterfaceName}
     extends java.rmi.Remote
 {

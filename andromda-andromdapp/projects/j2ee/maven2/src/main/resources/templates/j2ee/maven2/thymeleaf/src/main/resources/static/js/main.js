@@ -1,262 +1,321 @@
-/*
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+/**
+* Template Name: NiceAdmin
+* Updated: Sep 18 2023 with Bootstrap v5.3.2
+* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
 */
-
-(function($) {
-
-	var	$window = $(window),
-		$head = $('head'),
-		$body = $('body');
-
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ '361px',   '480px'  ],
-			xxsmall:  [ null,      '360px'  ],
-			'xlarge-to-max':    '(min-width: 1681px)',
-			'small-to-xlarge':  '(min-width: 481px) and (max-width: 1680px)'
-		});
-
-	// Stops animations/transitions until the page has ...
-
-		// ... loaded.
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-preload');
-				}, 100);
-			});
-
-		// ... stopped resizing.
-			var resizeTimeout;
-
-			$window.on('resize', function() {
-
-				// Mark as resizing.
-					$body.addClass('is-resizing');
-
-				// Unmark after delay.
-					clearTimeout(resizeTimeout);
-
-					resizeTimeout = setTimeout(function() {
-						$body.removeClass('is-resizing');
-					}, 100);
-
-			});
-
-	// Fixes.
-
-		// Object fit images.
-			if (!browser.canUse('object-fit')
-			||	browser.name == 'safari')
-				$('.image.object').each(function() {
-
-					var $this = $(this),
-						$img = $this.children('img');
-
-					// Hide original image.
-						$img.css('opacity', '0');
-
-					// Set background.
-						$this
-							.css('background-image', 'url("' + $img.attr('src') + '")')
-							.css('background-size', $img.css('object-fit') ? $img.css('object-fit') : 'cover')
-							.css('background-position', $img.css('object-position') ? $img.css('object-position') : 'center');
-
-				});
-
-	// Sidebar.
-		var $sidebar = $('#sidebar'),
-			$sidebar_inner = $sidebar.children('.inner');
-
-		// Inactive by default on <= large.
-			breakpoints.on('<=large', function() {
-				$sidebar.addClass('inactive');
-			});
-
-			breakpoints.on('>large', function() {
-				$sidebar.removeClass('inactive');
-			});
-
-		// Hack: Workaround for Chrome/Android scrollbar position bug.
-			if (browser.os == 'android'
-			&&	browser.name == 'chrome')
-				$('<style>#sidebar .inner::-webkit-scrollbar { display: none; }</style>')
-					.appendTo($head);
-
-		// Toggle.
-			$('<a href="#sidebar" class="toggle">Toggle</a>')
-				.appendTo($sidebar)
-				.on('click', function(event) {
-
-					// Prevent default.
-						event.preventDefault();
-						event.stopPropagation();
-
-					// Toggle.
-						$sidebar.toggleClass('inactive');
-
-				});
-
-		// Events.
-
-			// Link clicks.
-				$sidebar.on('click', 'a', function(event) {
-
-					// >large? Bail.
-						if (breakpoints.active('>large'))
-							return;
-
-					// Vars.
-						var $a = $(this),
-							href = $a.attr('href'),
-							target = $a.attr('target');
-
-					// Prevent default.
-						event.preventDefault();
-						event.stopPropagation();
-
-					// Check URL.
-						if (!href || href == '#' || href == '')
-							return;
-
-					// Hide sidebar.
-						$sidebar.addClass('inactive');
-
-					// Redirect to href.
-						setTimeout(function() {
-
-							if (target == '_blank')
-								window.open(href);
-							else
-								window.location.href = href;
-
-						}, 500);
-
-				});
-
-			// Prevent certain events inside the panel from bubbling.
-				$sidebar.on('click touchend touchstart touchmove', function(event) {
-
-					// >large? Bail.
-						if (breakpoints.active('>large'))
-							return;
-
-					// Prevent propagation.
-						event.stopPropagation();
-
-				});
-
-			// Hide panel on body click/tap.
-				$body.on('click touchend', function(event) {
-
-					// >large? Bail.
-						if (breakpoints.active('>large'))
-							return;
-
-					// Deactivate.
-						$sidebar.addClass('inactive');
-
-				});
-
-		// Scroll lock.
-		// Note: If you do anything to change the height of the sidebar's content, be sure to
-		// trigger 'resize.sidebar-lock' on $window so stuff doesn't get out of sync.
-
-			$window.on('load.sidebar-lock', function() {
-
-				var sh, wh, st;
-
-				// Reset scroll position to 0 if it's 1.
-					if ($window.scrollTop() == 1)
-						$window.scrollTop(0);
-
-				$window
-					.on('scroll.sidebar-lock', function() {
-
-						var x, y;
-
-						// <=large? Bail.
-							if (breakpoints.active('<=large')) {
-
-								$sidebar_inner
-									.data('locked', 0)
-									.css('position', '')
-									.css('top', '');
-
-								return;
-
-							}
-
-						// Calculate positions.
-							x = Math.max(sh - wh, 0);
-							y = Math.max(0, $window.scrollTop() - x);
-
-						// Lock/unlock.
-							if ($sidebar_inner.data('locked') == 1) {
-
-								if (y <= 0)
-									$sidebar_inner
-										.data('locked', 0)
-										.css('position', '')
-										.css('top', '');
-								else
-									$sidebar_inner
-										.css('top', -1 * x);
-
-							}
-							else {
-
-								if (y > 0)
-									$sidebar_inner
-										.data('locked', 1)
-										.css('position', 'fixed')
-										.css('top', -1 * x);
-
-							}
-
-					})
-					.on('resize.sidebar-lock', function() {
-
-						// Calculate heights.
-							wh = $window.height();
-							sh = $sidebar_inner.outerHeight() + 30;
-
-						// Trigger scroll.
-							$window.trigger('scroll.sidebar-lock');
-
-					})
-					.trigger('resize.sidebar-lock');
-
-				});
-
-	// Menu.
-		var $menu = $('#menu'),
-			$menu_openers = $menu.children('ul').find('.opener');
-
-		// Openers.
-			$menu_openers.each(function() {
-
-				var $this = $(this);
-
-				$this.on('click', function(event) {
-
-					// Prevent default.
-						event.preventDefault();
-
-					// Toggle.
-						$menu_openers.not($this).removeClass('active');
-						$this.toggleClass('active');
-
-					// Trigger resize (sidebar lock).
-						$window.triggerHandler('resize.sidebar-lock');
-
-				});
-
-			});
-
-})(jQuery);
+(function() {
+    "use strict";
+  
+    /**
+     * Easy selector helper function
+     */
+    const select = (el, all = false) => {
+      el = el.trim()
+      if (all) {
+        return [...document.querySelectorAll(el)]
+      } else {
+        return document.querySelector(el)
+      }
+    }
+  
+    /**
+     * Easy event listener function
+     */
+    const on = (type, el, listener, all = false) => {
+      if (all) {
+        select(el, all).forEach(e => e.addEventListener(type, listener))
+      } else {
+        select(el, all).addEventListener(type, listener)
+      }
+    }
+  
+    /**
+     * Easy on scroll event listener 
+     */
+    const onscroll = (el, listener) => {
+      el.addEventListener('scroll', listener)
+    }
+  
+    /**
+     * Sidebar toggle
+     */
+    if (select('.toggle-sidebar-btn')) {
+      on('click', '.toggle-sidebar-btn', function(e) {
+        select('body').classList.toggle('toggle-sidebar')
+      })
+    }
+  
+    /**
+     * Search bar toggle
+     */
+    if (select('.search-bar-toggle')) {
+      on('click', '.search-bar-toggle', function(e) {
+        select('.search-bar').classList.toggle('search-bar-show')
+      })
+    }
+  
+    /**
+     * Navbar links active state on scroll
+     */
+    let navbarlinks = select('#navbar .scrollto', true)
+    const navbarlinksActive = () => {
+      let position = window.scrollY + 200
+      navbarlinks.forEach(navbarlink => {
+        if (!navbarlink.hash) return
+        let section = select(navbarlink.hash)
+        if (!section) return
+        if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+          navbarlink.classList.add('active')
+        } else {
+          navbarlink.classList.remove('active')
+        }
+      })
+    }
+    window.addEventListener('load', navbarlinksActive)
+    onscroll(document, navbarlinksActive)
+  
+    /**
+     * Toggle .header-scrolled class to #header when page is scrolled
+     */
+    let selectHeader = select('#header')
+    if (selectHeader) {
+      const headerScrolled = () => {
+        if (window.scrollY > 100) {
+          selectHeader.classList.add('header-scrolled')
+        } else {
+          selectHeader.classList.remove('header-scrolled')
+        }
+      }
+      window.addEventListener('load', headerScrolled)
+      onscroll(document, headerScrolled)
+    }
+  
+    /**
+     * Back to top button
+     */
+    let backtotop = select('.back-to-top')
+    if (backtotop) {
+      const toggleBacktotop = () => {
+        if (window.scrollY > 100) {
+          backtotop.classList.add('active')
+        } else {
+          backtotop.classList.remove('active')
+        }
+      }
+      window.addEventListener('load', toggleBacktotop)
+      onscroll(document, toggleBacktotop)
+    }
+  
+    /**
+     * Initiate tooltips
+     */
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  
+    /**
+     * Initiate quill editors
+     */
+    if (select('.quill-editor-default')) {
+      new Quill('.quill-editor-default', {
+        theme: 'snow'
+      });
+    }
+  
+    if (select('.quill-editor-bubble')) {
+      new Quill('.quill-editor-bubble', {
+        theme: 'bubble'
+      });
+    }
+  
+    if (select('.quill-editor-full')) {
+      new Quill(".quill-editor-full", {
+        modules: {
+          toolbar: [
+            [{
+              font: []
+            }, {
+              size: []
+            }],
+            ["bold", "italic", "underline", "strike"],
+            [{
+                color: []
+              },
+              {
+                background: []
+              }
+            ],
+            [{
+                script: "super"
+              },
+              {
+                script: "sub"
+              }
+            ],
+            [{
+                list: "ordered"
+              },
+              {
+                list: "bullet"
+              },
+              {
+                indent: "-1"
+              },
+              {
+                indent: "+1"
+              }
+            ],
+            ["direction", {
+              align: []
+            }],
+            ["link", "image", "video"],
+            ["clean"]
+          ]
+        },
+        theme: "snow"
+      });
+    }
+  
+    /**
+     * Initiate TinyMCE Editor
+     */
+    const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
+  
+    tinymce.init({
+      selector: 'textarea.tinymce-editor',
+      plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+      editimage_cors_hosts: ['picsum.photos'],
+      menubar: 'file edit view insert format tools table help',
+      toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+      toolbar_sticky: true,
+      toolbar_sticky_offset: isSmallScreen ? 102 : 108,
+      autosave_ask_before_unload: true,
+      autosave_interval: '30s',
+      autosave_prefix: '{path}{query}-{id}-',
+      autosave_restore_when_empty: false,
+      autosave_retention: '2m',
+      image_advtab: true,
+      link_list: [{
+          title: 'My page 1',
+          value: 'https://www.tiny.cloud'
+        },
+        {
+          title: 'My page 2',
+          value: 'http://www.moxiecode.com'
+        }
+      ],
+      image_list: [{
+          title: 'My page 1',
+          value: 'https://www.tiny.cloud'
+        },
+        {
+          title: 'My page 2',
+          value: 'http://www.moxiecode.com'
+        }
+      ],
+      image_class_list: [{
+          title: 'None',
+          value: ''
+        },
+        {
+          title: 'Some class',
+          value: 'class-name'
+        }
+      ],
+      importcss_append: true,
+      file_picker_callback: (callback, value, meta) => {
+        /* Provide file and text for the link dialog */
+        if (meta.filetype === 'file') {
+          callback('https://www.google.com/logos/google.jpg', {
+            text: 'My text'
+          });
+        }
+  
+        /* Provide image and alt text for the image dialog */
+        if (meta.filetype === 'image') {
+          callback('https://www.google.com/logos/google.jpg', {
+            alt: 'My alt text'
+          });
+        }
+  
+        /* Provide alternative source and posted for the media dialog */
+        if (meta.filetype === 'media') {
+          callback('movie.mp4', {
+            source2: 'alt.ogg',
+            poster: 'https://www.google.com/logos/google.jpg'
+          });
+        }
+      },
+      templates: [{
+          title: 'New Table',
+          description: 'creates a new table',
+          content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+        },
+        {
+          title: 'Starting my story',
+          description: 'A cure for writers block',
+          content: 'Once upon a time...'
+        },
+        {
+          title: 'New list with dates',
+          description: 'New List with dates',
+          content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
+        }
+      ],
+      template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+      template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+      height: 600,
+      image_caption: true,
+      quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+      noneditable_class: 'mceNonEditable',
+      toolbar_mode: 'sliding',
+      contextmenu: 'link image table',
+      skin: useDarkMode ? 'oxide-dark' : 'oxide',
+      content_css: useDarkMode ? 'dark' : 'default',
+      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    });
+  
+    /**
+     * Initiate Bootstrap validation check
+     */
+    var needsValidation = document.querySelectorAll('.needs-validation')
+  
+    Array.prototype.slice.call(needsValidation)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  
+    /**
+     * Initiate Datatables
+     */
+    const datatables = select('.datatable', true)
+    datatables.forEach(datatable => {
+      new simpleDatatables.DataTable(datatable);
+    })
+  
+    /**
+     * Autoresize echart charts
+     */
+    const mainContainer = select('#main');
+    if (mainContainer) {
+      setTimeout(() => {
+        new ResizeObserver(function() {
+          select('.echart', true).forEach(getEchart => {
+            echarts.getInstanceByDom(getEchart).resize();
+          })
+        }).observe(mainContainer);
+      }, 200);
+    }
+  
+  })();

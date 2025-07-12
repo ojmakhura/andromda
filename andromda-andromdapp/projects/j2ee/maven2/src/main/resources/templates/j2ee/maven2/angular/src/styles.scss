@@ -1,0 +1,130 @@
+@use "@angular/material" as mat;
+// regular style toast
+@import 'ngx-toastr/toastr';
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+// @import 'ngx-toastr/toastr-bs4-alert';
+
+// if you'd like to use it without importing all of bootstrap it requires
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+// bootstrap 4
+// @import 'ngx-toastr/toastr-bs4-alert';
+// boostrap 5
+@import 'ngx-toastr/toastr-bs5-alert';
+
+@include mat.core();
+
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$blue-palette,
+    ),
+    typography: (
+      brand-family: "Comic Sans",
+      bold-weight: 900,
+    ),
+    density: (
+      scale: -1,
+    ),
+  )
+);
+
+$primary-color: mat.get-theme-color($theme, primary, 80);
+
+:root {
+  mat-drawer,
+  mat-toolbar {
+    background-color: #{$primary-color};
+    --mat-toolbar-container-background-color: #{$primary-color};
+    border-radius: 0px;
+  }
+  .mat-mdc-nav-list .mat-mdc-list-item {
+    border-radius: 0px;
+  }
+}
+
+/* You can add global styles to this file, and also import other style files */
+@import "flex";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+}
+
+.view-buttons button,
+.view-buttons a {
+  margin-right: 8px;
+}
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.view-buttons {
+  display: table-cell;
+  width: 490px;
+}
+
+.container {
+  padding: 1rem;
+}
+
+.readonly-wrapper {
+  cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+  pointer-events: none;
+}
+
+.mat-modal {
+  max-height: 90vh;
+  // overflow: hidden;
+
+  .modal-dialog {
+    height: 100%;
+    // overflow: hidden;
+
+    .modal-content {
+      height: 100%;
+      // overflow: hidden;
+
+      .modal-body {
+        max-height: 70vh;
+        overflow: auto;
+
+        form {
+          max-height: 100%;
+
+          .container.row-container {
+            max-height: 100%;
+            position: relative;
+
+            .row {
+              max-height: 100%;
+              overflow: auto;
+
+              .group-label {
+                height: auto;
+                overflow-y: scroll;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

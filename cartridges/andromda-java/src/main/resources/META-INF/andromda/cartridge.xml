@@ -32,11 +32,13 @@
     <property reference="cxfVersion"/>
     <property reference="javaVersion"/>
     <property reference="dateTimeGeneratedText"/>
+	<property reference="useLombok"/>
     <!-- cartridge-property merge-point-->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="serializable">$serializable.equalsIgnoreCase("true")</condition>
     <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="XMLBindingAnnotations">$XMLBindingAnnotations.equalsIgnoreCase("true")</condition>

@@ -1,55 +1,36 @@
-import { Title } from '@angular/platform-browser';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Title } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
-import { AuthenticationService, CredentialsService } from '@app/auth';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '@app/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 import * as nav from './navigation';
-import { Observable } from 'rxjs';
-import { Menu } from '@app/model/menu/menu';
-import { Store, select } from '@ngrx/store';
-import { AuthState } from '@app/store/auth/auth.state';
-import * as AuthSelectors from '@app/store/auth/auth.selectors';
-import * as AuthActions from '@app/store/auth/auth.actions';
-import * as MenuSelectors from '@app/store/menu/menu.selectors';
-import * as MenuActions from '@app/store/menu/menu.actions';
+import { LanguageSelectorComponent } from '@app/i18n/language-selector.component';
 
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  standalone: true,
+  imports: [CommonModule, TranslateModule, MaterialModule, RouterModule, LanguageSelectorComponent],
 })
 export class ShellComponent implements OnInit {
-
   menus: any[] = [];
-  menus$: Observable<Menu[]>;
-  username$: Observable<string>;
-  constructor(private router: Router,
-              private titleService: Title,
-              private authenticationService: AuthenticationService,
-              private credentialsService: CredentialsService,
-              private store: Store<AuthState>,
-              private breakpoint: BreakpointObserver) 
-  {
-    this.menus$ = this.store.pipe(select (MenuSelectors.selectMenus));
-    this.username$ = this.store.pipe(select (AuthSelectors.selectUsername)); 
-  }
+  constructor(
+    private titleService: Title,
+    private breakpoint: BreakpointObserver,
+  ) {}
 
   ngOnInit() {
     this.menus = nav.menuItems;
   }
 
-  logout() {
-    this.authenticationService.logout().subscribe(() => {
-      this.store.dispatch(AuthActions.authReset());
-      this.store.dispatch(MenuActions.menuReset());
-      this.router.navigate(['/login'], { replaceUrl: true })
-    });
-  }
+  logout() {}
 
   get username(): string | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.username : null;
+    return null;
   }
 
   get isMobile(): boolean {

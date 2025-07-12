@@ -10,7 +10,7 @@ package $entity.packageName;
  * Composite primary key class for ${entity.entityName} entity bean.
 $entity.getDocumentation(" * ")
  */
-@javax.persistence.Embeddable
+@jakarta.persistence.Embeddable
 public class ${entity.entityCompositePrimaryKeyName}
     implements java.io.Serializable, Comparable<${entity.entityCompositePrimaryKeyName}>
 {
@@ -33,32 +33,32 @@ $property.getDocumentation("     * ")
 #if ($property.associationEndFacadeMetaType && $property.otherEnd.owning)
 #set ($target = $property.otherEnd)
 #if ($target.many2One)
-    @javax.persistence.ManyToOne(#if (!$property.optional)optional=false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.LAZY#end)
+    @jakarta.persistence.ManyToOne(#if (!$property.optional)optional=false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch=jakarta.persistence.FetchType.LAZY#end)
 #elseif ($target.one2Many)
-    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.OneToMany(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=jakarta.persistence.FetchType.EAGER#end)
 #elseif ($target.one2One)
-    @javax.persistence.OneToOne(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=javax.persistence.FetchType.EAGER#end)
+    @jakarta.persistence.OneToOne(#if ($target.cascadeType)cascade={${target.cascadeType}}#set ($argExists = true)#end#if ($target.navigable)#if ($argExists) ,#end#**#mappedBy="$property.otherEnd.name"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch=jakarta.persistence.FetchType.EAGER#end)
 #end
 ##set ($typeIdentifiers = $property.type.identifiers)
 #set ($typeIdentifiers = $entityUtils.getIdentifierAttributes($property.type, true))
 #if ($typeIdentifiers.size()==1)
 #set ($identifier = $typeIdentifiers.get(0))
-    @javax.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)  // ${identifier.owner.name}.${identifier.name}
+    @jakarta.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)  // ${identifier.owner.name}.${identifier.name}
 #elseif ($typeIdentifiers.size()>1)
     // Order of the JoinColumns is EXTREMELY important - must match the order in the FK definition
 ##    // $property.type.name $property.type.compositePrimaryKeyPresent $property.type
-    @javax.persistence.JoinColumns({
+    @jakarta.persistence.JoinColumns({
 #foreach ($identifier in $typeIdentifiers)
 ##        // $identifier.owner.name $identifier.name
-        @javax.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)#if($velocityCount != $typeIdentifiers.size()),#end   // ${identifier.owner.name}.${identifier.name}
+        @jakarta.persistence.JoinColumn(name="${identifier.columnName}"#if (!$identifier.columnNullable), nullable=${identifier.columnNullable}#end, insertable=true, updatable=false)#if($velocityCount != $typeIdentifiers.size()),#end   // ${identifier.owner.name}.${identifier.name}
 #end
-##        @javax.persistence.AttributeOverride(name="${property.name}", column=@javax.persistence.Column(name="${property.columnName}"#if ($property.unique), unique=${property.unique}#end#if (!$property.columnNullable), nullable=${property.columnNullable}#end#if ($property.columnLength), length=${property.columnLength}#end#if ($property.columnDefinition), columnDefinition="${property.columnDefinition}"#end#if ($property.columnPrecision), precision=${property.columnPrecision}#end#if ($property.columnScale), scale=${property.columnScale}#end))#if($velocityCount != $identifiers.size()),#end
+##        @jakarta.persistence.AttributeOverride(name="${property.name}", column=@jakarta.persistence.Column(name="${property.columnName}"#if ($property.unique), unique=${property.unique}#end#if (!$property.columnNullable), nullable=${property.columnNullable}#end#if ($property.columnLength), length=${property.columnLength}#end#if ($property.columnDefinition), columnDefinition="${property.columnDefinition}"#end#if ($property.columnPrecision), precision=${property.columnPrecision}#end#if ($property.columnScale), scale=${property.columnScale}#end))#if($velocityCount != $identifiers.size()),#end
 ##
 #*  *#
     })
 #end
 #else
-    @javax.persistence.Column(name="$property.columnName", nullable=false)
+    @jakarta.persistence.Column(name="$property.columnName", nullable=false)
 #end
     public $property.getterSetterTypeName ${property.getterName}()
     {

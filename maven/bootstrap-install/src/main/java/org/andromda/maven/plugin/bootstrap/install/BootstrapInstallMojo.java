@@ -10,6 +10,8 @@ import org.apache.maven.model.Model;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.commons.io.FileUtils;
 
@@ -27,6 +29,7 @@ import java.util.List;
  * @goal install
  * @phase install
  */
+@Mojo(name = "bootstrapInstallMojo")
 public class BootstrapInstallMojo
         extends AbstractMojo
 {
@@ -66,6 +69,7 @@ public class BootstrapInstallMojo
      * @readonly
      * @description the name of the project groupId.
      */
+    @Parameter(property = "projectGroupId", required = false, defaultValue = "org.andromda" )
     protected String projectGroupId;
 
     /**
@@ -74,6 +78,7 @@ public class BootstrapInstallMojo
      * @readonly
      * @description the name of the project bootstrap groupId.
      */
+    @Parameter(property = "projectBootstrapGroupId", required = false, defaultValue = "org.andromda.bootstrap")
     protected String projectBootstrapGroupId;
 
     /**

@@ -3,10 +3,14 @@ package org.andromda.metafacades.uml;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
@@ -227,6 +231,61 @@ public class MetafacadeUtils
             }
             commaNeeded = true;
         }
+
+        return buffer.toString();
+    }
+
+    /**
+     * Creates a typed argument list with the given <code>arguments</code>.  If the <code>withArgumentNames</code>
+     * flag is true, the argument names are included in the list.
+     *
+     * @param arguments the arguments from which to create the list.
+     * @param withArgumentNames whether or not to include the argument names.
+     * @param modifier
+     * @return arguments.iterator().getGetterSetterTypeName()
+     */
+    public static String getTypedArgumentList(
+        final Collection<ParameterFacade> arguments,
+        final boolean withArgumentNames,
+        final Collection<BindingFacade> dependencies,
+        final String modifier)
+    {
+        final StringBuilder buffer = new StringBuilder();
+        boolean commaNeeded = false;
+        for (ParameterFacade parameter : arguments)
+        {
+            String type = null;
+            ClassifierFacade classifier = parameter.getType();
+            if (classifier != null)
+            {
+                // Takes multiplicity and templating into account
+                type = parameter.getGetterSetterTypeName();
+
+                // if(classifier.isTemplateParametersPresent() || StringUtils.isNotBlank(parameter.getGenericTypeString())) {
+
+                //     String[] sp = type.split("<");
+                //     type = sp[0] + parameter.getGenericTypeString();
+
+                // }
+            }
+
+            if (commaNeeded)
+            {
+                buffer.append(", ");
+            }
+            if (StringUtils.isNotBlank(modifier))
+            {
+                buffer.append(modifier);
+                buffer.append(' ');
+            }
+            buffer.append(type);
+            if (withArgumentNames)
+            {
+                buffer.append(' ');
+                buffer.append(parameter.getName());
+            }
+            commaNeeded = true;
+        }
         return buffer.toString();
     }
 
@@ -251,6 +310,34 @@ public class MetafacadeUtils
         signature.append(getTypedArgumentList(
                 arguments,
                 withArgumentNames,
+                argumentModifier));
+        signature.append(')');
+        return signature.toString();
+    }
+
+    /**
+     * Creates a typed argument list with the given <code>arguments</code>.  If the <code>withArgumentNames</code>
+     * flag is true, the argument names are included in the list.
+     *
+     * @param name
+     * @param arguments the arguments from which to create the list.
+     * @param withArgumentNames whether or not to include the argument names.
+     * @param argumentModifier
+     * @return getTypedArgumentList(arguments, withArgumentNames, argumentModifier)
+     */
+    public static String getSignature(
+        final String name,
+        Collection<ParameterFacade> arguments,
+        final boolean withArgumentNames,
+        Collection<BindingFacade> dependencies,
+        final String argumentModifier)
+    {
+        final StringBuilder signature = new StringBuilder(name);
+        signature.append('(');
+        signature.append(getTypedArgumentList(
+                arguments,
+                withArgumentNames,
+                dependencies,
                 argumentModifier));
         signature.append(')');
         return signature.toString();
@@ -369,5 +456,18 @@ public class MetafacadeUtils
         }
 
         return serialVersionUID;
+    }
+
+    public static Collection<BindingFacade> getBindingDependencies(final ModelElementFacade modelElement)
+    {
+        final Collection<BindingFacade> dependencies = new ArrayList<>();
+
+        for(DependencyFacade dependency : modelElement.getSourceDependencies()) {
+            if (dependency instanceof BindingFacade) {
+                dependencies.add((BindingFacade) dependency);
+            }
+        }
+
+        return (Collection<BindingFacade>)dependencies;
     }
 }

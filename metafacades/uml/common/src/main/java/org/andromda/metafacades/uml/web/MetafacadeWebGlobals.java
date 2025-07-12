@@ -276,6 +276,11 @@ public class MetafacadeWebGlobals {
     /**
      * The "range" form input type.
      */
+    public static final String INPUT_TREE = "tree";
+
+    /**
+     * The "range" form input type.
+     */
     public static final String INPUT_RESET = "reset";
 
     /**

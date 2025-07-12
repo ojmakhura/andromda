@@ -86,7 +86,7 @@ public class $serviceLocatorName
         }
         catch (Exception ex)
         {
-            throw new javax.ejb.EJBException(ex);
+            throw new jakarta.ejb.EJBException(ex);
         }
     }
 
@@ -109,7 +109,7 @@ public class $serviceLocatorName
         }
         catch (Exception ex)
         {
-            throw new javax.ejb.EJBException(ex);
+            throw new jakarta.ejb.EJBException(ex);
         }
     }
 

@@ -2,7 +2,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="#if(!$view.popup)card #{end}container">
+<div#if($view.popup) mat-dialog-content#end class="card">
 ## Render non table variables
 #set ($complex = [])
 #set ($simple = [])
@@ -18,63 +18,57 @@
 	<div class="card-body">
     	<form [formGroup]="${view.formName}">
 #if(!$view.popup)
-			<section>
+			<div class="row">
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info"#if($action.displayCondition) *ngIf="$action.displayCondition"#end>
+					<button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
+#if($action.icon)
+						<mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+#else
 						<span translate>$action.messageKey</span>
+#end
 					</button>
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-					<button color="accent" type="button" (click)="${view.formName}Reset()" class="btn btn-info" ><span translate>reset</span></button>
+					<button mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
+						<mat-icon fontIcon="restore" aria-hidden="false" aria-label="restore"></mat-icon>
+					</button>
 #end
-				</div>
-			</section>
-#end
-			<div *ngIf="loading | async">
-				<app-loader [isLoading]="loading | async"></app-loader>
-			</div>
-#if ($view.nonTableVariablesPresent)
-			<div *ngIf="success | async" class="alert alert-success" role="alert">
-				<div *ngFor="let message of messages | async">
-					{{ message }}
-				</div>
-			</div>
-			<div *ngIf="error | async" class="alert alert-danger" role="alert">
-				<div *ngFor="let message of messages | async">
-					{{ message }}
 				</div>
 			</div>
 #end
-#if($simple.size() > 0)
-#foreach ($variable in $simple)
-#renderAngularActionInput($variable "" "				")
+			@if (loading()) {
+			<div>
+				<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
+			</div>
+			}
+#foreach ($variable in $view.variables)
+#if(!$variable.inputHidden)
+#set($propertyId = $variable.name)
+#if($variable.component)
+			<app-$variable.type.selectorName
+				#${variable.name}>
+			</app-$variable.type.selectorName>
+#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree || $variable.inputTable)
+    		<div class="row">
+#renderAngularActionInput($variable "" "       				")
+    		</div>
+## #elseif($variable.inputTable || $variable.table)
+## #renderAngularActionInput($variable "" "       		")
+#elseif($angularUtils.isComplex($variable) && !($variable.inputTable || $variable.table))
+			<fieldset class="row form-group border p-3"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end formGroupName="$variable.name">
+				<legend class="col-form-label col-sm-2 pt-0" translate>$variable.messageKey</legend>
+#foreach ($property in $variable.displayAttributes)
+#if(!$property.inputHidden)
+        		<div class="row">
+#renderAngularActionInput($property $variable "           		")
+        		</div>
 #end
 #end
-#if($complex.size() > 0)
-#foreach ($variable in $complex)
-#set ($normals = $angularUtils.getStandardAttributes($variable))
-#set ($tables = $angularUtils.getTableAttributes($variable))
-#if($normals.size() > 0)
-			<div formGroupName="${variable.name}"#if($variable.displayCondition) *ngIf="$variable.displayCondition"#end>
-#foreach ($attribute in $normals)
-#if (!$attribute.inputHidden && !$variable.inputHidden)
-#renderAngularActionInput($attribute $variable "				")
+    		</fieldset>
 #end
-#end
-#end
-#if ($tables.size() > 0)
-                <mat-tab-group animationDuration="0ms" class = "view-tabs">
-#foreach($table in $tables)
-                    <mat-tab label="{{'${table.messageKey}' | translate}}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-#renderAngularActionInput($table $variable "		            ")
-                    </mat-tab>
-#end
-                </mat-tab-group>
-#end
-        	</div>
 #end
 #end
     	</form>
@@ -84,27 +78,27 @@
 #foreach ( $table in $view.tables )
 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-			<$table.fileName>
-			</$table.fileName>
+#renderAngularActionInput($table "" "       		")
 		</mat-tab>
 #end
 	</mat-tab-group>
 #end
 </div>
 #if($view.popup)
-<mat-dialog-actions align="end">
-	<button mat-dialog-close type="button" class="btn btn-primary" color="accent" translate>action.cancel</button>
+<div mat-dialog-actions class="view-buttons">
+	<button type="button" class="btn btn-info" color="primary" (click)="cancelDialog()" translate>action.cancel</button>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-	<button type="button" color="accent" (click)="${action.triggerName}()" class="btn btn-info">
+	<button type="button" color="primary" (click)="${action.triggerName}()" class="btn btn-info">
 		<span translate>$action.messageKey</span>
 	</button>
 #end
 #end
-	<button type="button" class="btn btn-info" color="accent" (click)="dialogDone()" translate>action.done</button>
-</mat-dialog-actions>
+	<button type="button" class="btn btn-info" color="primary" (click)="dialogDone()" translate>action.done</button>
+</div>
 #end
 #foreach ($variable in $complex)
+#if(!$variable.component)
 #set ($tables = $angularUtils.getTableAttributes($variable))
 ## Rendering modal with checkbox
 #foreach($table in $tables)
@@ -112,11 +106,14 @@
 
 #end
 ## Rendering modal with radio button
+#if($angularUtils.isComplex($variable) && !$variable.many && !$variable.type.enumeration && !$variable.inputSelect && !$variable.inputMultibox && !$angularUtils.isTable($variable))
 #foreach($attribute in $variable.attributes)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$attribute.type.enumeration && !$attribute.inputSelect && !$attribute.inputMultibox && !$angularUtils.isTable($attribute))
 <!-- Modal for $attribute.name -->
 #renderModalInput($attribute $variable "			" true)
 
+#end
+#end
 #end
 #end
 #end

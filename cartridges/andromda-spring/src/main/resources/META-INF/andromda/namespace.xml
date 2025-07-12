@@ -732,6 +732,31 @@
                     The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
                 </documentation>
             </property>
+            <property name="hikariConnectionTimeout" required="false">
+                <documentation>
+                    Connection timeout for the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariIdleTimeout" required="false">
+                <documentation>
+                    Timeout for idle connections for the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMaxLifetime" required="false">
+                <documentation>
+                    Maximum lifetime of a HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMinimumIdle" required="false">
+                <documentation>
+                    Minimum idle connections in the HikariCP.
+                </documentation>
+            </property>
+            <property name="hikariMaximumPoolsize" required="false">
+                <documentation>
+                    The maximum size of the HikariCP.
+                </documentation>
+            </property>
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate5.LocalSessionFactoryBean</default>
                 <documentation>

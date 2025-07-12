@@ -18,25 +18,15 @@ import {$import.name} from '@app/$import.filePath';
 @Injectable()
 export class $class.name {
 #foreach ($attribute in $class.attributes)
-
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
-#foreach($attr in ${attribute.type.attributes})
-#if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "new Array()")
-#else
-#set ($def = "null")
-#end
-        $attr.name: $def,
-#end
-    };
+    $attribute.name: ${attribute.getterSetterTypeName} = new ${attribute.getterSetterTypeName}();
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
 #set ($default = "new Array()")
 #end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = #if($attribute.many)[]#{else}null#end;
+    $attribute.name: $attribute.getterSetterTypeName | undefined = #if($attribute.many)[]#{else}undefined#end;
 #end
 #end
 

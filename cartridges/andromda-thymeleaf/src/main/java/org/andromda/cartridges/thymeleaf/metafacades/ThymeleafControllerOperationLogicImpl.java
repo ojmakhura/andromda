@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -65,15 +66,31 @@ public class ThymeleafControllerOperationLogicImpl
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormCall()
      */
     public String getFormCall() {
-        //System.out.println("=======================================================================");
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
         if (!this.getFormFields().isEmpty()) {
-            call.append("form, ");
+            for (FrontEndParameter param : this.getFormFields()) {
+                call.append( param.getName() + ", ");
+            }
         }
         call.append("model)");
+        
         return call.toString();
+    }
+
+    public String getFormCallArguments() {
+        final StringBuilder call = new StringBuilder();
+        call.append(this.getName());
+        if (!this.getFormFields().isEmpty()) {
+            for (FrontEndParameter param : this.getFormFields()) {
+                call.append( param.getName() + ", ");
+            }
+        }
+        call.append("model");
+        
+        return call.toString();
+
     }
 
     /**
@@ -84,12 +101,27 @@ public class ThymeleafControllerOperationLogicImpl
         return this.getFormSignature(false);
     }
 
+    public final String getImplementationFormSignature() {
+        return this.handleGetImplementationFormSignature();
+    }
+
     /**
      * @return getFormSignature(true)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafControllerOperation#getFormSignature()
      */
     protected String handleGetFormSignature() {
         return this.getFormSignature(true);
+    }
+
+    @Override
+    public String getFormSignature() {
+
+        return this.getFormSignature(true);
+    }
+
+    public String getFormImplementationSignature() {
+
+        return this.getFormSignature(false);
     }
 
     /**
@@ -99,6 +131,7 @@ public class ThymeleafControllerOperationLogicImpl
      * @return the appropriate signature.
      */
     private String getFormSignature(boolean isAbstract) {
+        
         final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
         if (isAbstract) {
@@ -111,6 +144,21 @@ public class ThymeleafControllerOperationLogicImpl
             signature.append(this.getFormName() + " form, ");
         }
         signature.append("org.springframework.ui.Model model)");
+        return signature.toString();
+    }
+
+    public String getFormSignatureString() {
+        final StringBuilder signature = new StringBuilder();
+        
+        if (!this.getFormFields().isEmpty()) {
+            for (FrontEndParameter param : this.getFormFields()) {
+                if(param.isMany())
+                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+                else
+                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            }
+        }
+        signature.append("org.springframework.ui.Model model");
         return signature.toString();
     }
 
@@ -417,11 +465,11 @@ public class ThymeleafControllerOperationLogicImpl
     //             this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION));
     // }
 
-    // @Override
-    // protected String handleGetHandleFormSignature() {
+    @Override
+    public String getHandleFormSignature() {
 
-    //     return this.getHandleFormSignature(true);
-    // }
+        return this.getHandleFormSignature(true);
+    }
 
     @Override
     public String getHandleFormSignatureImplementation() {
@@ -443,9 +491,15 @@ public class ThymeleafControllerOperationLogicImpl
         }
         final ModelElementFacade returnType = this.getReturnType();
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
-        signature.append(" handle" + StringUtils.capitalize(this.getName()) + "(");
+        signature.append(" " + this.getName() + "(");
         if (!this.getFormFields().isEmpty()) {
-            signature.append(this.getFormName() + " form, ");
+
+            for (FrontEndParameter param : this.getFormFields()) {
+                if(param.isMany())
+                    signature.append("java.util.Collection<" + param.getType().getFullyQualifiedName() + "> " + param.getName() + ", ");
+                else
+                    signature.append(param.getType().getFullyQualifiedName() + " " + param.getName() + ", ");
+            }
         }
         signature.append("org.springframework.ui.Model model)");
         return signature.toString();

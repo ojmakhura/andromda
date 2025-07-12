@@ -71,7 +71,7 @@
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">howtomodel</property>
                 <property name="entityManagerName">howtomodel</property>
-                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateDialect">org.hibernate.dialect.HSQLDialect</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="enableTemplating">true</property>
                 <!-- uncomment to enable EJB security

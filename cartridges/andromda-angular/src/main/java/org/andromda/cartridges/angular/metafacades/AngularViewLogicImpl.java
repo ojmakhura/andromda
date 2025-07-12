@@ -22,6 +22,7 @@ import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.metafacades.uml.web.MetafacadeWebUtils;
 import org.andromda.utils.StringUtilsHelper;
@@ -420,6 +421,33 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                 continue;
             }
 
+            action.getFormFields().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
+            action.getForwardParameters().forEach(field -> {
+                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                    imports.add(field.getType());
+                }
+
+                if(field.getType().isTemplateParametersPresent()) {
+                    imports.add(field.getType());
+                    field.getType().getTemplateParameters().forEach(template -> {
+                        imports.add(template.getType());
+                    });
+                }
+            });
+
             Iterator<FrontEndView> iter = action.getTargetViews().iterator();
             if(iter.hasNext()) {
                 FrontEndView targetView = iter.next();
@@ -450,17 +478,60 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                     if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
                         imports.add(attr.getType());
                     }
+
+                    if(attr.getType().isTemplateParametersPresent()) {
+                        imports.add(attr.getType());
+                        attr.getType().getTemplateParameters().forEach(template -> {
+                            imports.add(template.getType());
+                        });
+                    }
                 }
                 imports.add(variable.getType());
             }
         }
         
-        imports.addAll(this.getTables());
-
         if(this.getUseCase() != null && this.getUseCase().getController() != null) {
             AngularController controller = (AngularController) this.getUseCase().getController();
             imports.add(controller);
             imports.addAll(controller.getAllRestControllers());
+        }
+
+        for(FrontEndAction action : this.getActions()) {
+            if(action.getTarget() != null && action.getTarget() instanceof AngularFinalStateLogicImpl) {
+                AngularFinalStateLogicImpl target = (AngularFinalStateLogicImpl) action.getTarget();
+                if(target.getTargetUseCase() != null && !StringUtilsHelper.isEmpty(target.getTargetUseCase().getName())) {
+                    if(target.getTargetUseCase().getController() != null)
+                    {
+                        imports.add(target.getTargetUseCase().getController());
+                    }
+                }
+            }
+
+            if(action.getTargetViews() != null) {
+                for(FrontEndView view : action.getTargetViews()) {
+                    if(view.isPopup()) {
+
+                        view.getVariables().forEach(variable -> {
+                            if(variable.isComplex() || variable.getType().isEnumeration()) {
+                                for(Object _attr : variable.getAttributes()){
+                                    AngularAttribute attr = (AngularAttribute) _attr;
+                                    if(attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                        imports.add(attr.getType());
+                                    }
+
+                                    if(attr.getType().isTemplateParametersPresent()) {
+                                        imports.add(attr.getType());
+                                        attr.getType().getTemplateParameters().forEach(template -> {
+                                            imports.add(template.getType());
+                                        });
+                                    }
+                                }
+                                imports.add(variable.getType());
+                            }
+                        });
+                    }
+                }
+            }
         }
 
         return imports;
@@ -484,12 +555,13 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetImplementationFileName() {
-        return this.getFileName() + ".impl";
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-impl.component";
     }
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getFilePath() + ".impl";
+        return getViewPath() + "/" + this.getImplementationFileName();
     }
 
     @Override
@@ -500,22 +572,24 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetRouterPath() {
-        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        
-        return MetafacadeWebUtils.toWebResourceName(this.getName());
+
+        String path = StringUtils.strip(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
+
+        if (StringUtils.isBlank(path)) {
+            path = MetafacadeWebUtils.toWebResourceName(this.getName());
+        }
+
+        while(path.startsWith("/")) { /// remove leading '/'s
+            path = path.substring(1);
+        }
+
+        return path;
     }
 
     @Override
     protected String handleGetComponentImplementationName() {
-        return this.getComponentName() + "Impl";
-    }
-
-    private String removeWhitespaceFromName() {
-
-        String original = StringUtilsHelper.upperCamelCaseName(this.getName());
-        original = original.replace(" ", "");
-
-        return original;
+        
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "ImplComponent";
     }
 
     @Override
@@ -550,7 +624,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetVarsComponentImplementationName() {
-        return this.getVarsComponentName() + "Impl";
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + "VarsImplComponent";
     }
 
     @Override
@@ -588,8 +662,9 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetVarsComponentImplementationFileName() {
+        String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        return phrase.replace(" ", "-") + "-vars-impl.component";
 
-        return this.getVarsComponentFileName() + ".impl";
     }
 
     @Override

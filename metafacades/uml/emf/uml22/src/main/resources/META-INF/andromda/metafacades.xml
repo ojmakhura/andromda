@@ -351,7 +351,8 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndControllerLogicImpl">
-        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassifierImpl">
+            <!-- <stereotype>FRONT_END_CONTROLLER</stereotype> -->
             <property name="useCase"/>
         </mapping>
         <property reference="controllerImplementationPattern"/>
@@ -375,6 +376,11 @@
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndActivityGraphLogicImpl">
         <mapping class="org.eclipse.uml2.uml.internal.impl.StateMachineImpl">
             <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndComponentLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>FRONT_END_COMPONENT</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml22.FrontEndViewLogicImpl">

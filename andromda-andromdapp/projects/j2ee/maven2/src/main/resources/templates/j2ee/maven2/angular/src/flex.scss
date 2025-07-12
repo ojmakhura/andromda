@@ -1,0 +1,288 @@
+// fxFlex
+[fxFlex] {
+    flex: 1 1 0%;
+    box-sizing: border-box;
+}
+
+*:has(> [fxFlex]) {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+}
+
+[fxFlex='5'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 5%;
+}
+
+[fxFlex='20'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 20%;
+}
+
+[fxFlex='25'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 25%;
+}
+
+[fxFlex='30'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 30%;
+}
+
+[fxFlex='33'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 33%;
+}
+
+[fxFlex='50'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 50%;
+}
+
+[fxFlex='66'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 66%;
+}
+
+[fxFlex='67'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 67%;
+}
+
+[fxFlex='70'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 70%;
+}
+
+[fxFlex='80'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 80%;
+}
+
+[fxFlex='100'] {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+[fxFlex='1 0 auto'] {
+    flex: 1 0 auto;
+    box-sizing: border-box;
+}
+
+[fxFlex='0 1 auto'] {
+    flex: 0 1 auto;
+    box-sizing: border-box;
+}
+
+// fxLayout
+[fxLayout] {
+    box-sizing: border-box;
+    display: flex !important;
+}
+
+[fxLayout='row wrap'] {
+    flex-flow: row wrap;
+    flex: 1 1 1e-9px;
+}
+
+[fxLayout='row'] {
+    flex-direction: row;
+}
+
+[fxLayout='column'] {
+    flex-direction: column !important;
+
+    &[fxLayoutGap='8px'] > *:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 8px;
+    }
+    &[fxLayoutGap='12px'] > *:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 12px;
+    }
+    &[fxLayoutGap='16px'] > *:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 16px;
+    }
+    &[fxLayoutGap='24px'] > *:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 24px;
+    }
+    &[fxLayoutGap='32px'] > *:not(:last-child) {
+        margin-right: unset;
+        margin-bottom: 32px;
+    }
+
+    & > [fxFlex='5'] {
+        max-height: 5%;
+        max-width: unset;
+    }
+    & > [fxFlex='20'] {
+        max-height: 20%;
+        max-width: unset;
+    }
+    & > [fxFlex='25'] {
+        max-height: 25%;
+        max-width: unset;
+    }
+    & > [fxFlex='30'] {
+        max-height: 30%;
+        max-width: unset;
+    }
+    & > [fxFlex='33'] {
+        max-height: 33%;
+        max-width: unset;
+    }
+    & > [fxFlex='50'] {
+        max-height: 50%;
+        max-width: unset;
+    }
+    & > [fxFlex='66'] {
+        max-height: 66%;
+        max-width: unset;
+    }
+    & > [fxFlex='67'] {
+        max-height: 67%;
+        max-width: unset;
+    }
+    & > [fxFlex='70'] {
+        max-height: 70%;
+        max-width: unset;
+    }
+    & > [fxFlex='80'] {
+        max-height: 80%;
+        max-width: unset;
+    }
+    & > [fxFlex='100'] {
+        max-height: 100%;
+        max-width: unset;
+    }
+}
+
+// fxLayoutGap
+[fxLayoutGap='8px'] > *:not(:last-child) {
+    margin-right: 8px;
+}
+[fxLayoutGap='12px'] > *:not(:last-child) {
+    margin-right: 12px;
+}
+[fxLayoutGap='16px'] > *:not(:last-child) {
+    margin-right: 16px;
+}
+[fxLayoutGap='24px'] > *:not(:last-child) {
+    margin-right: 24px;
+}
+[fxLayoutGap='32px'] > *:not(:last-child) {
+    margin-right: 32px;
+}
+
+// fxLayoutAlign
+[fxLayoutAlign] {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+}
+[fxLayoutAlign='center center'] {
+    place-content: center;
+    align-items: center;
+}
+[fxLayoutAlign='end center'] {
+    place-content: center flex-end;
+    align-items: center;
+}
+[fxLayoutAlign='end top'] {
+    place-content: stretch flex-end;
+    align-items: stretch;
+}
+[fxLayoutAlign='start center'] {
+    place-content: center flex-start;
+    align-items: center;
+}
+[fxLayoutAlign='start start'] {
+    place-content: flex-start;
+    align-items: flex-start;
+}
+[fxLayoutAlign='space-between center'] {
+    place-content: center space-between;
+    align-items: center;
+}
+[fxLayoutAlign='start stretch'] {
+    place-content: stretch flex-start;
+    align-items: stretch;
+    max-height: 100%;
+}
+[fxLayoutAlign='end'] {
+    place-content: stretch flex-end;
+    align-items: stretch;
+}
+[fxLayoutAlign='center stretch'] {
+    place-content: stretch center;
+    align-items: stretch;
+    max-height: 100%;
+}
+[fxLayoutAlign='center center'] {
+    place-content: center;
+    align-items: center;
+}
+[fxLayoutAlign='center end'] {
+    place-content: flex-end center;
+    align-items: flex-end;
+}
+[fxLayoutAlign='stretch stretch'] {
+    place-content: stretch flex-start;
+    align-items: stretch !important;
+}
+
+// fxHide
+[fxHide] {
+    display: none;
+}
+
+// `.` can't be part of attribute selector :(
+// fxHide.lt-lg
+@media screen and (max-width: 1279px) {
+    [fxHidelt-lg] {
+        display: none !important;
+    }
+}
+
+// fxHide.gt-md
+@media screen and (min-width: 1280px) {
+    [fxHidegt-md] {
+        display: none !important;
+    }
+}
+
+// fxShow.gt-sm
+@media screen and (min-width: 960px) {
+    [fxShowgt-sm] {
+        display: initial;
+    }
+}
+
+// fxShow.gt-xs
+@media screen and (min-width: 600px) {
+    [fxShowgt-xs] {
+        display: initial;
+    }
+}
+
+// fxFill
+[fxFill] {
+    height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+}

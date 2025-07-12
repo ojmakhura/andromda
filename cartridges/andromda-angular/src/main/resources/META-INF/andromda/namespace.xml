@@ -116,6 +116,16 @@
                     Where the application menus.
                 </documentation>
             </property>
+            <property name="components">
+                <documentation>
+                    Where the application components are output.
+                </documentation>
+            </property>
+            <property name="components-impl">
+                <documentation>
+                    Where the application components implementations are output.
+                </documentation>
+            </property>
             <property name="views">
                 <documentation>
                     Where the application views (JSPs, Facelets, etc) are output.
@@ -427,6 +437,12 @@
                 <default>false</default>
                 <documentation>
                     Whether or not to use NgRX
+                </documentation>
+            </property>
+            <property name="useLombok">
+                <default>true</default>
+                <documentation>
+                    Whether or not to use Lombok
                 </documentation>
             </property>
             <property name="stateSavingMethod">

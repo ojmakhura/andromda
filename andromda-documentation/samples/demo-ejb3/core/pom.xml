@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.andromda.demo.ejb3</groupId>
         <artifactId>demo-ejb3</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>5.0-SNAPSHOT</version>
     </parent>
     <artifactId>demo-ejb3-core</artifactId>
     <packaging>ejb</packaging>
@@ -59,7 +59,7 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.validation</groupId>
+            <groupId>jakarta.validation</groupId>
             <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
@@ -156,7 +156,8 @@
                   <dependency>
                       <groupId>org.apache.maven</groupId>
                       <artifactId>maven-core</artifactId>
-                      <version>3.0.4</version>
+                      <version>3.8.6</version>
+                      <scope>provided</scope>
                   </dependency>
                   <!-- Not possible to exclude slf4j-nop: Class path contains multiple SLF4J bindings. -->
                   <dependency>

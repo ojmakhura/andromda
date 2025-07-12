@@ -11,7 +11,7 @@ Hibernate4 conflicts with Spring 3.0, need v3.1 -->
           <module name="com.sun.jsf-impl" slot="main"/>
           <module name="org.hibernate" slot="main"/>
           <module name="org.hibernate.validator" slot="main"/>
-          <module name="javax.persistence.api" slot="main"/>
+          <module name="jakarta.persistence.api" slot="main"/>
         </exclusions>
         <dependencies>
           <module name="org.apache.commons.logging" />

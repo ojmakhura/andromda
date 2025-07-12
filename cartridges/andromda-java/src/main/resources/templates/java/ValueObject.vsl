@@ -14,6 +14,8 @@
 package $class.packageName;
 #end
 
+// $useLombok
+
 #if ($serializable && !$class.generalization)
 import java.io.Serializable;
 #end
@@ -92,6 +94,18 @@ $class.getDocumentation(" * ")
 #foreach($annotation in $class.additionalAnnotations)
 @$annotation
 #end
+#if($useLombok)
+##if ($class.allProperties.size() > $class.allRequiredConstructorParameters.size() && ($class.allRequiredConstructorParameters.size() != 1 || !$class.allRequiredConstructorParameters.get(0).getterSetterTypeName.equals($class.fullyQualifiedName)))
+##@lombok.RequiredArgsConstructor
+##end
+##if ($class.allProperties.size() != 1 || !$class.allProperties.get(0).getterSetterTypeName.equals($class.fullyQualifiedName))
+##@lombok.AllArgsConstructor
+##end
+#if (!$class.requiredConstructorParameters.empty || $class.allRequiredConstructorParameters.size() > $class.requiredConstructorParameters.size())
+@lombok.NoArgsConstructor
+#end
+@lombok.Data
+#end
 public#if($class.leaf) final#end#if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
@@ -130,6 +144,7 @@ $parameter.getDocumentation("     * ")
      */
     protected $returnType $parameter.name#if (!$parameter.many && $parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
 
+#if(!$useLombok)
     /**
 $parameter.getDocumentation("     * ")
      * Get the $parameter.name Template Parameter
@@ -155,6 +170,7 @@ $parameter.getDocumentation("     * ")
         this.${parameter.name} = value;
     }
 
+#end
 #end
 #end
 #end
@@ -216,7 +232,10 @@ $attribute.getDocumentation("     * ")
 #foreach($annotation in $attribute.additionalAnnotations)
     @$annotation
 #end
-    protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
+#if (!$attribute.derived && !$attribute.primitive && ($attribute.required || $attribute.readOnly))
+    @lombok.NonNull
+#end
+    protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#if($attribute.type.longType)L#end#end;
 #if ($attribute.type.primitive)
     /**
      * boolean setter for primitive attribute, so we can tell if it's initialized
@@ -255,6 +274,7 @@ $connectingEnd.getDocumentation("     * ")
 
 #end
 #end
+#if(!$useLombok)
 ##
 ##  default constructor
 ##
@@ -269,6 +289,7 @@ $connectingEnd.getDocumentation("     * ")
 #end
     }
 
+#end
 #end
 ##
 ##  constructor taking only required properties
@@ -339,8 +360,8 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
         // documented empty block - avoid compiler warning
 #end
     }
-
 #end
+
     /**
      * Copies constructor from other $className
      *
@@ -393,6 +414,7 @@ ${property.name}In#if(${velocityHasNext}), #end## no newline
 #end
     }
 
+#if(!$useLombok)
 #foreach ($attribute in $class.attributes)
 #set ($returnType = $attribute.getterSetterTypeName)
     /**
@@ -495,6 +517,7 @@ $connectingEnd.getDocumentation("     * ")
 #end
     }
 
+#end
 #end
     /**
      * @param object to compare this object against

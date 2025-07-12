@@ -187,6 +187,10 @@ public class CartridgeWebGlobals {
      * The "select" form input type.
      */
     public static final String INPUT_SELECT = "select";
+    /**
+     * The "select" form input type.
+     */
+    public static final String INPUT_TREE = "tree";
 
     /**
      * The "password" form input type.

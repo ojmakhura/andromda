@@ -159,7 +159,7 @@ public class $className
                 else
                 {
                     exceptionProperty = "causedByException";
-                    // javax.ejb.EJBException
+                    // jakarta.ejb.EJBException
                     if (PropertyUtils.isReadable(throwable, exceptionProperty))
                     {
                         targetException = (Throwable)PropertyUtils.getProperty(throwable, exceptionProperty);

@@ -6,8 +6,8 @@
 #set ($propertyId = $field.name)
 #set ($valuePropertyName = $field.name)
 #else
-#set ($propertyId = $field.getFormPropertyId($ownerParameter))
-#set ($valuePropertyName = ${field.getFormPropertyName($ownerParameter)})
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($field, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($field, $ownerParameter))
 #end
 <input type="hidden" id="${propertyId}" th:field="*{${valuePropertyName}}">
 ## #if ($field.type.dateType)

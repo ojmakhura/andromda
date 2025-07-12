@@ -2,6 +2,8 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
@@ -96,6 +98,7 @@ public class FrontEndActivityGraphLogicImpl
                 controller = (Class)next;
             }
         }
-        return (FrontEndController)this.shieldedElement(controller);
+
+        return this.shieldedElement(controller);
     }
 }

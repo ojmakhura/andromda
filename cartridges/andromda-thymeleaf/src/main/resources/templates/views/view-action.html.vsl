@@ -11,6 +11,9 @@
 #set($formName = $action.formBeanName)
 #set($indent = "")
 #if(!$targetModal.popup)
+$action.taggedValues
+$action.controller
+$action.controller.taggedValues
 <form id="${formName}" name="${formName}"
         role="form" method="POST" th:object="${${formName}}"
         th:action="@{${action.controller.restPath}${action.restPath}}"
@@ -34,7 +37,7 @@
     </a>
 #else
 #if (!$action.hiddenParameters.empty)
-${indent}<th:block th:replace="${action.viewFragmentPath}-hidden-params.html"></th:block>
+${indent}<th:block th:replace="~{${action.viewFragmentPath}-hidden-params.html}"></th:block>
 #end
 #set($triggerId = "${action.triggerName}Action")   
 #foreach ($parameter in $action.parameters)
@@ -70,7 +73,7 @@ ${indent}</button>
 #if(!$targetModal.popup)
 </form>
 #else
-<th:block th:replace="${targetModal.path}.html"></th:block>
+<th:block th:replace="~{${targetModal.path}.html}"></th:block>
 #end
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex || $parameter.type.enumeration)

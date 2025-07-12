@@ -9,7 +9,7 @@
 #elseif ($field.type.fileType || $field.needsFileUpload)
 #set ($fieldTypeName = "$fileTypeName")
 #else
-#set ($fieldTypeName = ${field.angularTypeName})
+#set ($fieldTypeName = ${field.getterSetterTypeName})
 #end
 #end
 ##
@@ -41,7 +41,7 @@
 #elseif ($field.type.primitive)
 #set ($fieldWrapperTypeName = ${field.type.wrapperName})
 #else
-#set ($fieldWrapperTypeName = ${field.angularTypeName})
+#set ($fieldWrapperTypeName = ${field.getterSetterTypeName})
 #end
 #end
 ##
@@ -103,11 +103,11 @@
     /**
      * @return backingList java.util.Collection<javax.faces.model.SelectItem>
      */
-    get${backingListMethod}(): Array<any>;
+    get${backingListMethod}(): any[];
 
     /**
      * @param ${backingListName}In
      */
-    set${backingListMethod}(${backingListName}In: Array<any>): void;
+    set${backingListMethod}(${backingListName}In: any[]): void;
     
 #end

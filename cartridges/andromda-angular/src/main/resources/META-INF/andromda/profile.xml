@@ -127,6 +127,13 @@
                 <value>FrontEndSessionObject</value>
                 <appliedOnElement>Class</appliedOnElement>
             </element>
+            <element name="FRONT_END_COMPONENT">
+                <documentation>
+                     Produces Angular components objects.
+                </documentation>
+                <value>FrontEndComponent</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>

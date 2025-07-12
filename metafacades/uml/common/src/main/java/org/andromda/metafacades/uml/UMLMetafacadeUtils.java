@@ -516,7 +516,6 @@ public class UMLMetafacadeUtils
      * @param enableTemplating
      * @return getGenericTemplate
      */
-    // TODO This should really be a method on ModelElementFacade
     public static String getGenericTemplate(ModelElementFacade facade, boolean enableTemplating)
     {
         String fullName = "";
@@ -533,8 +532,8 @@ public class UMLMetafacadeUtils
            for (Iterator<TemplateParameterFacade> parameterIterator =
                facade.getTemplateParameters().iterator(); parameterIterator.hasNext();)
            {
-                parameterIterator.next();
-                buffer.append(QUESTION);
+                // parameterIterator.next();
+                buffer.append(parameterIterator.next().getName());
                 if (parameterIterator.hasNext())
                 {
                     buffer.append(COMMA);
@@ -1270,7 +1269,7 @@ public class UMLMetafacadeUtils
         String _path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_PATH)));
         if (!StringUtils.isBlank(_path))
         {
-            return null;
+            return '/' + _path + '/' + MetafacadeWebUtils.toWebResourceName(StringUtilsHelper.trimToEmpty(modelElement.getName()));
         }
 
         final StringBuilder path = new StringBuilder();
@@ -1285,6 +1284,7 @@ public class UMLMetafacadeUtils
 
     public static String getRestPath(ModelElementFacade modelElement, String replacementName) {
         String path = StringUtils.strip(((String) modelElement.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_REST_PATH)));
+        
         if (StringUtils.isBlank(path))
         {
             path = EMPTY_STRING;
@@ -1306,7 +1306,7 @@ public class UMLMetafacadeUtils
             }
         }
 
-        if(!path.endsWith(SLASH)) {
+        if(!path.startsWith(SLASH)) {
             path = SLASH + path;
         }
         

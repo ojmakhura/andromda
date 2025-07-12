@@ -91,6 +91,7 @@
     <property reference="pluralizeAttributeNames"/>
     <property reference="pluralizeParameterNames"/>
     <property reference="secure"/>
+    <property reference="useLombok"/>
     <!-- cartridge-property merge-point -->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
@@ -131,6 +132,7 @@
     <condition name="pluralizeAssociationEndNames">$pluralizeAssociationEndNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeAttributeNames">$pluralizeAttributeNames.equalsIgnoreCase("true")</condition>
     <condition name="pluralizeParameterNames">$pluralizeParameterNames.equalsIgnoreCase("true")</condition>
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <!-- condition merge-point-->
 
     <!-- cartridge-resource merge-point -->
@@ -1152,6 +1154,22 @@
             </modelElement>
         </modelElements>
     </template>
+        
+    <!-- <template
+        path="templates/webservice/springws/SpringWSTest.java.vsl"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Test.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template> -->
+    
     <template
         path="templates/webservice/springws/SpringWSBase.java.vsl"
         outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"

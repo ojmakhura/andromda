@@ -6,8 +6,8 @@
 package org.andromda.timetracker.domain;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 //import org.andromda.dbtest.JPAJUnitAncestor;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -40,7 +40,7 @@ public class TimecardCreate
         Timecard entity = new Timecard();
         // Identifier attributes
 
-        //EntityManager em = javax.persistence.Persistence.createEntityManagerFactory(org.andromda.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
+        //EntityManager em = jakarta.persistence.Persistence.createEntityManagerFactory(org.andromda.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
         // Entity Associations which need to be retrieved
         User submitter = UserCreate.findFirst(em);
         submitter = em.merge(submitter);

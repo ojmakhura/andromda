@@ -236,7 +236,7 @@
      * @return String The objectId value
      */
     @Override
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
     public String getObjectId()
     {
 #if ($identifiers.size()>1)

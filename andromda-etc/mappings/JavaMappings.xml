@@ -46,7 +46,7 @@
         <from>AndroMDADatatypes::datatype::Time</from>
         <from>XSDDatatypes::time</from>
         <from>RoseJavaDatatypes::java::sql::Time</from>
-        <to>java.time.LocalTime</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>DateTime</from>
@@ -54,7 +54,7 @@
         <from>datatype::DateTime</from>
         <from>AndroMDADatatypes::datatype::DateTime</from>
         <from>XSDDatatypes::dateTime</from>
-        <to>java.time.LocalDateTime</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>Date</from>
@@ -64,6 +64,33 @@
         <from>XSDDatatypes::date</from>
         <from>RoseAnalysisDatatypes::Date</from>
         <from>RoseJavaDatatypes::java::sql::Date</from>
+        <to>java.util.Date</to>
+    </mapping>
+    <mapping>
+        <from>LocalTime</from>
+        <from>PrimitiveTypes::LocalTime</from>
+        <from>datatype::LocalTime</from>
+        <from>AndroMDADatatypes::datatype::LocalTime</from>
+        <from>XSDDatatypes::localTime</from>
+        <from>RoseJavaDatatypes::java::sql::LocalTime</from>
+        <to>java.time.LocalTime</to>
+    </mapping>
+    <mapping>
+        <from>LocalDateTime</from>
+        <from>PrimitiveTypes::LocalDateTime</from>
+        <from>datatype::LocalDateTime</from>
+        <from>AndroMDADatatypes::datatype::LocalDateTime</from>
+        <from>XSDDatatypes::localDateTime</from>
+        <to>java.time.LocalDateTime</to>
+    </mapping>
+    <mapping>
+        <from>LocalDate</from>
+        <from>PrimitiveTypes::LocalDate</from>
+        <from>datatype::LocalDate</from>
+        <from>AndroMDADatatypes::datatype::LocalDate</from>
+        <from>XSDDatatypes::localDate</from>
+        <from>RoseAnalysisDatatypes::LocalDate</from>
+        <from>RoseJavaDatatypes::java::sql::LocalDate</from>
         <to>java.time.LocalDate</to>
     </mapping>
     <!-- Timestamp contains nanoseconds, required by some database implementations. Use for persistent attributes -->

@@ -5,45 +5,38 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-import org.andromda.cartridges.angular.AngularGlobals;
-import org.andromda.cartridges.angular.AngularProfile;
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
-import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.FrontEndParameter;
-import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
+import org.andromda.metafacades.uml.TemplateParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents an attribute on a classifier used by a Angular application.
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularAttribute.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularAttribute.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularAttribute
  */
 public class AngularAttributeLogicImpl
-    extends AngularAttributeLogic
-{
+        extends AngularAttributeLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * Public constructor for AngularAttributeLogicImpl
+     * 
      * @see org.andromda.cartridges.angular.metafacades.AngularAttribute
      */
-    public AngularAttributeLogicImpl (Object metaObject, String context)
-    {
+    public AngularAttributeLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -52,12 +45,11 @@ public class AngularAttributeLogicImpl
      * @return validatorVars
      * @see AngularAttribute#getValidatorVars(AngularParameter)
      */
-    protected Collection<List<String>> handleGetValidatorVars(AngularParameter ownerParameter)
-    {
+    protected Collection<List<String>> handleGetValidatorVars(AngularParameter ownerParameter) {
         return AngularUtils.getValidatorVars(
-            (ModelElementFacade)this.THIS(),
-            this.getType(),
-            ownerParameter);
+                (ModelElementFacade) this.THIS(),
+                this.getType(),
+                ownerParameter);
     }
 
     /**
@@ -65,8 +57,7 @@ public class AngularAttributeLogicImpl
      * @return dateFormatter
      * @see AngularAttribute#getDateFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
      */
-    protected String handleGetDateFormatter(final AngularParameter ownerParameter)
-    {
+    protected String handleGetDateFormatter(final AngularParameter ownerParameter) {
         final ClassifierFacade type = this.getType();
         return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
     }
@@ -76,8 +67,7 @@ public class AngularAttributeLogicImpl
      * @return timeFormatter
      * @see AngularAttribute#getTimeFormatter(org.andromda.cartridges.angular.metafacades.AngularParameter)
      */
-    protected String handleGetTimeFormatter(final AngularParameter ownerParameter)
-    {
+    protected String handleGetTimeFormatter(final AngularParameter ownerParameter) {
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
     }
@@ -86,8 +76,39 @@ public class AngularAttributeLogicImpl
     protected Collection<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
-        for(AttributeFacade attribute : this.getType().getAttributes()) {
-            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+        if (this.getType().getGeneralization() != null) {
+
+            GeneralizableElementFacade generalization = this.getType().getGeneralization();
+
+            if (generalization instanceof AngularModelLogic) {
+                AngularModelLogic modelElement = (AngularModelLogic) generalization;
+
+                modelElement.getAttributes().forEach(attr -> {
+                    if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                        imports.add(attr.getType());
+                    }
+                });
+
+                // Only going up 2 levels of generalization
+                if (modelElement.getGeneralization() != null) {
+
+                    GeneralizableElementFacade generalization2 = modelElement.getGeneralization();
+
+                    if (generalization2 instanceof AngularModelLogic) {
+                        AngularModelLogic modelElement2 = (AngularModelLogic) generalization2;
+
+                        modelElement2.getAttributes().forEach(attr -> {
+                            if (attr.getType().isEnumeration() || !attr.getType().getAttributes().isEmpty()) {
+                                imports.add(attr.getType());
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        for (AttributeFacade attribute : this.getType().getAttributes()) {
+            if (attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
                 imports.add(attribute.getType());
             }
         }
@@ -98,11 +119,9 @@ public class AngularAttributeLogicImpl
     @Override
     protected String handleGetAngularTypeName() {
 
-        if(this.isInputFile() || this.getType().isBlobType()) {
+        if (this.isInputFile() || this.getType().isBlobType()) {
             return "File";
         }
-
-        
 
         return AngularUtils.getDatatype(this.getType().getFullyQualifiedName());
     }
@@ -110,5 +129,60 @@ public class AngularAttributeLogicImpl
     @Override
     protected String handleGetImportFilePath() {
         return this.getPackagePath() + '/';
+    }
+
+    private String getDatatype(String raw) {
+
+        String type = raw;
+
+        if(this.getType().isMapType()) {
+
+            return "any" + (this.isMany() ? "[]" : "");
+        }
+
+        if (type.contains("<")) {
+            
+            if(type.startsWith("any<") || type.startsWith("java.util.Map")) {
+
+                return "any" + (this.isMany() ? "[]" : "");
+            }
+
+            type = type.substring(0, type.indexOf("<"));
+        } else {
+            if (type.contains(".")) {
+                type = type.substring(type.lastIndexOf(".") + 1);
+            }
+
+            type = getLanguageMappings().getTo(type);
+
+            return type;
+        }
+
+        if (type.contains(".")) {
+            type = type.substring(type.lastIndexOf(".") + 1);
+        }
+
+        type = getLanguageMappings().getTo(type);
+
+        String param = raw.substring(raw.indexOf("<") + 1, raw.length() - 1);
+
+        if (param.contains(".")) {
+            param = param.substring(param.lastIndexOf(".") + 1);
+        }
+
+        if (param.contains("<")) {
+            param = getDatatype(param);
+        }
+
+        param = getLanguageMappings().getTo(param);
+
+        return type + "<" + param + ">";
+    }
+
+    @Override
+    public String getGetterSetterTypeName() {
+        String name = super.getGetterSetterTypeName();
+
+        return this.getDatatype(name);
     }
 }

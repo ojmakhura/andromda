@@ -1,7 +1,10 @@
 #set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
 #set($fileName = $angularUtils.getComponentFileName(${class.name}))
 #set ($attributes = [])
-import { Injectable } from '@angular/core';
+import { FormBuilder } from "@angular/forms";
+#if($class.generalization)
+import {$class.generalization.name} from '@$class.generalization.filePath';
+#end
 
 #foreach ($import in $class.imports)
 #if($import.name != $class.name)
@@ -16,32 +19,25 @@ import {$import.name} from '@app/$import.filePath';
 #end
 #end
 #end
-@Injectable()
-export class $class.name {
+export class $class.name#if($class.generalization) extends $class.generalization.name#end {
 #foreach ($attribute in $class.attributes)
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name: ${attribute.type.name} = <${attribute.type.name}>{
-#foreach($attr in ${attribute.type.attributes})
-#if($attr.many || $angularUtils.isArray($attr.getterSetterTypeName))
-#set ($def = "new Array()")
-#else
-#set ($def = "null")
-#end
-        $attr.name: $def,
-#end
-    };
+    $attribute.name?: ${attribute.getterSetterTypeName} | undefined;
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
 #set ($default = "new Array()")
-#end
-    $attribute.name: $attribute.angularTypeName#if($attribute.many)[]#end | any#if($attribute.many)[]#end = #if($attribute.many)[]#{else}null#end;
-
-#end
-#end
-#end
+#end 
+    $attribute.name?: $attribute.getterSetterTypeName | undefined#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
     
-    constructor() {}
+#end
+#end
+#end
+    constructor() {
+#if($class.generalization)
+        super();
+#end
+    }
 }

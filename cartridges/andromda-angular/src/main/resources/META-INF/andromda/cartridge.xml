@@ -3,13 +3,14 @@
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/angular/app/appMacros.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularActionFormInput.vm"/>
+		<macrolibrary name="templates/angular/app/view/renderAngularTypescriptParams.vm"/>
 		<!-- <macrolibrary name="templates/angular/app/view/action/viewAction.vm"/> -->
 		<macrolibrary name="templates/angular/app/view/renderAngularActionCommandLinkParameter.vm"/>
 		<macrolibrary name="templates/angular/app/view/renderAngularTableCommandLinkParameters.vm"/>
         <macrolibrary name="templates/angular/app/controller/controller.ts.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormMacros.vm"/>
         <macrolibrary name="templates/angular/app/forms/angularFormImplMacros.vm"/>
-        <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/>
+        <!-- <macrolibrary name="templates/webservice/jaxws/RenderRestrictions.vm"/> -->
     </templateEngine>
 
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
@@ -68,25 +69,26 @@
     <property reference="webserviceStack"/>
 	<property reference="secure"/>
 	<property reference="ngrx"/>
+	<property reference="useLombok"/>
 
     <!-- cartridge-property merge-point -->
-
+    <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="angular">$componentSet.equalsIgnoreCase("angular")</condition>
     <condition name="springws">$webserviceStack.equalsIgnoreCase("spring")</condition>
     <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
 
-    <template
-        path="templates/angular/app/app.module.ts.vsl"
-        outputPattern="app.module.ts"
+    <!-- <template
+        path="templates/angular/app/app.config.ts.vsl"
+        outputPattern="app.config.ts"
         outlet="angularAppDir"
-        overwrite="false"
+        overwrite="true"
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">
                 <type name="org.andromda.cartridges.angular.metafacades.AngularUseCase"/>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 
     <template
         path="templates/angular/translations/en-US.json.vsl"
@@ -113,8 +115,8 @@
     </template>
 
     <template
-        path="templates/angular/app/app-routing.module.ts.vsl"
-        outputPattern="app-routing.module.ts"
+        path="templates/angular/app/app.routes.ts.vsl"
+        outputPattern="app.routes.ts"
         outlet="angularAppDir"
         overwrite="true"
         outputToSingleFile="true">
@@ -147,18 +149,6 @@
         outputPattern="${class.filePath}.ts"
         outlet="models"
         overwrite="true">
-        <modelElements variable="class">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularModel"/>
-            </modelElement>
-        </modelElements>
-    </template>
-    
-    <template
-        path="templates/angular/app/model/spec.ts.vsl"
-        outputPattern="${class.filePath}.spec.ts"
-        outlet="models"
-        overwrite="false">
         <modelElements variable="class">
             <modelElement>
                 <type name="org.andromda.cartridges.angular.metafacades.AngularModel"/>
@@ -212,21 +202,7 @@
             </modelElement>
         </modelElements>
     </template>
-        
-    <!-- <template
-        path="templates/angular/app/service/service.impl.ts.vsl"
-        outputPattern="${service.implementationFilePath}.ts"
-        outlet="service-impls"
-        overwrite="false">
-        <modelElements variable="service">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularService">
-                    <property name="allowedOperations"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
+            
     <template
         path="templates/angular/app/controller/controller.ts.vsl"
         outputPattern="${controller.filePath}.ts"
@@ -312,7 +288,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        path="templates/angular/app/view/view-impl.component.ts.vsl"
         outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
@@ -326,7 +302,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/view/view.component.impl.ts.vsl"
+        path="templates/angular/app/view/view-impl.component.ts.vsl"
         outputPattern="${view.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
@@ -396,70 +372,14 @@
     </template>
 
     <template
-        path="templates/angular/app/usecase/store/actions.ts.vsl"
-        outputPattern="${path}/${fileName}.ts"
+        path="templates/angular/app/usecase/store/store.ts.vsl"
+        outputPattern="${service.packagePath}/${service.fileName}.store.ts"
         outlet="ngrx-store-impl"
         overwrite="false">
-        <modelElements variable="controller">
+        <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/angular/app/usecase/store/reducers.ts.vsl"
-        outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store-impl"
-        overwrite="false">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/angular/app/usecase/store/selectors.ts.vsl"
-        outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store"
-        overwrite="true">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/angular/app/usecase/store/state.ts.vsl"
-        outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store-impl"
-        overwrite="false">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-    <template
-        path="templates/angular/app/usecase/store/effects.ts.vsl"
-        outputPattern="${path}/${fileName}.ts"
-        outlet="ngrx-store-impl"
-        overwrite="false">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularService">
+                    <property name="allowedOperations"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -480,21 +400,7 @@
     </template>
 	
 	<template
-        path="templates/angular/app/usecase/use-case.module.ts.vsl"
-        outputPattern="${useCase.moduleFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="controller">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
-                    <property name="useCase"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-	
-	<template
-        path="templates/angular/app/usecase/use-case-routing.module.ts.vsl"
+        path="templates/angular/app/usecase/use-case.routes.ts.vsl"
         outputPattern="${useCase.routingModuleFilePath}.ts"
         outlet="views"
         overwrite="true">
@@ -507,7 +413,7 @@
         </modelElements>
     </template>
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/table/table.component.ts.vsl"
         outputPattern="${table.filePath}.ts"
         outlet="views"
@@ -519,10 +425,10 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
-	<template
-        path="templates/angular/app/view/table/table.component.impl.ts.vsl"
+	<!-- <template
+        path="templates/angular/app/view/table/table-impl.component.ts.vsl"
         outputPattern="${table.implementationFilePath}.ts"
         outlet="view-impls"
         overwrite="false">
@@ -533,8 +439,8 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>	
-	<template
+    </template>	 -->
+	<!-- <template
         path="templates/angular/app/view/table/table.component.html.vsl"
         outputPattern="${table.filePath}.html"
         outlet="views"
@@ -546,8 +452,8 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>	
-	<template
+    </template>	 -->
+	<!-- <template
         path="templates/angular/app/view/table/table.component.spec.ts.vsl"
         outputPattern="${table.filePath}.spec.ts"
         outlet="views"
@@ -559,9 +465,9 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
 	
-	<template
+	<!-- <template
         path="templates/angular/app/view/table/table.component.scss.vsl"
         outputPattern="${table.filePath}.scss"
         outlet="views"
@@ -573,153 +479,60 @@
                 </type>
             </modelElement>
         </modelElements>
+    </template> -->
+
+    <template
+        path="templates/angular/app/view/component/component.ts.vsl"
+        outputPattern="${component.filePath}.ts"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/component-impl.ts.vsl"
+        outputPattern="${component.implementationFilePath}.ts"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/component.scss.vsl"
+        outputPattern="${component.filePath}.scss"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/view/component/component.html.vsl"
+        outputPattern="${component.filePath}.html"
+        outlet="components"
+        overwrite="true">
+        <modelElements variable="component">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndComponent">
+                </type>
+            </modelElement>
+        </modelElements>
     </template>
 	
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.html.vsl"
-        outputPattern="${action.filePath}.html"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.ts.vsl"
-        outputPattern="${action.filePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-	
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.impl.ts.vsl"
-        outputPattern="${action.implementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.scss.vsl"
-        outputPattern="${action.filePath}.scss"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-    
-	<!-- <template
-        path="templates/angular/app/view/action/view.action.spec.ts.vsl"
-        outputPattern="${action.filePath}.spec.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="action">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularAction">
-                    <property name="tableLink">false</property>
-                    <property name="input"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.ts.vsl"
-        outputPattern="${view.varsComponentFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.impl.ts.vsl"
-        outputPattern="${view.varsComponentImplementationFilePath}.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.spec.ts.vsl"
-        outputPattern="${view.varsComponentFilePath}.spec.ts"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.html.vsl"
-        outputPattern="${view.varsComponentFilePath}.html"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/angular/app/view/view-variables.scss.vsl"
-        outputPattern="${view.varsComponentFilePath}.scss"
-        outlet="views"
-        overwrite="true">
-        <modelElements variable="view">
-            <modelElement>
-                <type name="org.andromda.cartridges.angular.metafacades.AngularView">
-                    <property name="nonTableVariablesPresent"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/angular/app/utils/controller.base.ts.vsl"
         outputPattern="$generatedFile"

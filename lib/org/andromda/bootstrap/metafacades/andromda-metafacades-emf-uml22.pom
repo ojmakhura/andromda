@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.andromda.bootstrap.metafacades</groupId>
   <artifactId>andromda-metafacades-emf-uml22</artifactId>
-  <version>4.0-SNAPSHOT</version>
+  <version>5.0-SNAPSHOT</version>
   <name>AndroMDA EMF UML2 2.X Metafacades</name>
   <description>The Eclipse EMF UML2 v2.X metafacades. This is the set of EMF UML2 2.X metafacades
         implementations. These implement the common UML metafacades for .uml model files.</description>
@@ -172,20 +172,20 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>xmi</artifactId>
           <groupId>org.eclipse.emf.ecore</groupId>
+          <artifactId>xmi</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore2xml</artifactId>
           <groupId>org.eclipse.emf.mapping</groupId>
+          <artifactId>ecore2xml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -196,20 +196,20 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>xmi</artifactId>
           <groupId>org.eclipse.emf.ecore</groupId>
+          <artifactId>xmi</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore2xml</artifactId>
           <groupId>org.eclipse.emf.mapping</groupId>
+          <artifactId>ecore2xml</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -220,8 +220,8 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -232,12 +232,12 @@
       <scope>runtime</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -248,12 +248,12 @@
       <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <artifactId>runtime</artifactId>
           <groupId>org.eclipse.core</groupId>
+          <artifactId>runtime</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ecore</artifactId>
           <groupId>org.eclipse.emf</groupId>
+          <artifactId>ecore</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

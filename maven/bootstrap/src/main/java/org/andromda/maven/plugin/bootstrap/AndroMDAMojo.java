@@ -16,6 +16,7 @@ import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
 
@@ -30,6 +31,7 @@ import org.apache.maven.settings.Settings;
  * @phase generate-sources
  * @requiresDependencyResolution runtime
  */
+@Mojo(name = "androMDAMojo")
 public class AndroMDAMojo
     extends AbstractConfigurationMojo
 {

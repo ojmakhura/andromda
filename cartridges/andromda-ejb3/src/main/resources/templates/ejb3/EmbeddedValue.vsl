@@ -11,10 +11,10 @@ package $embeddedValue.packageName;
 /**
 $embeddedValue.getDocumentation(" * ")
  *
- * Migrated from using @javax.persistence.Embeddable annotation to mapping in orm.xml
+ * Migrated from using @jakarta.persistence.Embeddable annotation to mapping in orm.xml
  * Still needs the attribute annotations
  */
-@javax.persistence.Embeddable
+@jakarta.persistence.Embeddable
 public abstract class $embeddedValue.name
 #if($embeddedValue.generalization)
     extends $embeddedValue.generalization.fullyQualifiedName
@@ -93,10 +93,10 @@ $attribute.getDocumentation("     * ")
 ## If attribute is transient ONLY add Transient annotation
 ##
 #*  *##if ($attribute.transient)
-    @javax.persistence.Transient
+    @jakarta.persistence.Transient
 #*  *##else
 #*    *##if ($attribute.version)
-    @javax.persistence.Version
+    @jakarta.persistence.Version
 #*    *##end
 #*    *##if ($attribute.lob)
 ##
@@ -104,23 +104,23 @@ $attribute.getDocumentation("     * ")
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since
 ## default fetch type for LOB annotation is LAZY.
 ##
-    @javax.persistence.Lob
+    @jakarta.persistence.Lob
 #*      *##if ($attribute.eager)
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.EAGER)
 #*      *##end
 #*    *##end
-    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+    @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #*    *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
-    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+    @jakarta.persistence.Basic(fetch = jakarta.persistence.FetchType.LAZY)
 #*    *##end
 #*    *##if ($stringUtils.isNotBlank($attribute.temporalType))
-    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+    @jakarta.persistence.Temporal(jakarta.persistence.TemporalType.${attribute.temporalType})
 #*    *##end
 #*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
-    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.${attribute.enumerationType})
 #*    *##end
 #*  *##end
 ##

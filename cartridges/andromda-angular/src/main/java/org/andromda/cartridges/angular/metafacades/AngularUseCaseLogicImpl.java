@@ -375,7 +375,7 @@ public class AngularUseCaseLogicImpl
 
     @Override
     protected String handleGetRoutingModuleFileName() {
-        return MetafacadeWebUtils.toWebResourceName(this.getStoreName()) + "-routing.module";
+        return MetafacadeWebUtils.toWebResourceName(this.getStoreName()) + ".routes";
     }
 
     @Override

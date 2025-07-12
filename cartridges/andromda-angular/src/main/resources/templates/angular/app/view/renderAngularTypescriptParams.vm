@@ -1,0 +1,892 @@
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAngularTypescriptParams $parameter $ownerParameter $componentRender $renderComplexAttributes $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#set($append="")
+## If we are rendering a component, we should add 
+## @Input() before attributes
+#if($componentRender)
+#set($append="@Input()")
+#end
+#if(!$parameter.inputButton)
+##
+## Rendering primary variables
+##
+#if($parameter.tree)
+$ident${propertyId}TreeControl: NestedTreeControl<DynamicTreeNode>;
+$ident${propertyId}DataSource: MatTreeNestedDataSource<DynamicTreeNode>;
+$ident${propertyId}Subscription?: Subscription;
+#elseif($parameter.component)
+$ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementationName};
+#else
+## $ident$append ${propertyId}?: ${parameter.getterSetterTypeName};
+#end
+##
+## Rendering backing variables
+##
+## #if($parameter.type.enumeration)
+## $ident${propertyId}T: any = $parameter.type.name;
+## $ident${propertyId}Options = Object.keys(this.${propertyId}T);
+## Drop down selection list
+#if($parameter.inputSelect || $parameter.inputMultibox )
+    ${propertyId}FilterCtrl: FormControl = new FormControl();
+
+    ${propertyId}Compare(o1: ${parameter.getterSetterTypeName} | any, o2: ${parameter.getterSetterTypeName} | any) {
+        return false;
+    }
+
+    filter$stringUtils.capitalize(${propertyId})() {}
+
+    ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end = [];
+    ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = of([]);
+    ${propertyId}ChipControl: FormControl = new FormControl([]);
+
+    ${propertyId}Displays: string[] = [
+#if($parameter.type.attributes.size() > 0)
+#foreach($da in $parameter.displayAttributes)
+        '$da.name',
+#end
+#end
+    ];
+
+## Table
+#elseif($parameter.inputTable || $parameter.table)
+    @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.type.name)>;
+    ${propertyId}TableSignal: Signal<any>;
+    ${propertyId}TablePaged: boolean = true;
+    
+#set ($tableColumnActions = [])
+    ${propertyId}TableColumns: ColumnModel[] = [
+#set ($allColumnActions = [])
+#foreach($column in $parameter.tableColumnNames)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+#set ($tableColumnActions = $parameter.getTableColumnActions($columnName))
+        new ColumnModel(
+            '$columnName', 
+#if($parameter.getTableColumnMessageKey)
+            '$parameter.getTableColumnMessageKey($columnName)', 
+#else
+            '$stringUtils.toResourceMessageKey($columnName)',
+#end
+#if(!$parameter.getTableColumnActions($columnName) || $parameter.getTableColumnActions($columnName).empty)
+            false,
+#{else}
+#foreach($t in $parameter.getTableColumnActions($columnName))
+#set ($ret = $allColumnActions.add($t))
+#end
+            true,
+#end
+#if($parameter.getTableColumnActions($columnName) && !$parameter.getTableColumnActions($columnName).empty)
+            '$parameter.getTableColumnActions($columnName).get(0).name'
+#end
+        ),
+#end
+    ];
+
+    ${propertyId}TableColumnsActions: ActionTemplate[] = [
+#foreach($action in $parameter.tableFormActions)
+        {
+            id: '$action.name',
+            label: '$action.trigger.messageKey',
+            icon: '#if($action.icon)$action.icon#else$action.name#end',
+            tooltip: '${action.trigger.messageKey}',
+        },
+#end
+#foreach($action in $allColumnActions)
+        {
+            id: '$action.name',
+            label: '$action.trigger.messageKey',
+            icon: '#if($action.icon)$action.icon#else$action.name#end',
+            tooltip: '${action.trigger.messageKey}',
+        },
+#end
+    ];
+
+#if($parameter.tableFormActions && !$parameter.tableFormActions.empty)
+#set ($hasActions = true)
+    show$stringUtils.capitalize($propertyId)Actions = true;
+
+#else
+#set ($hasActions = false)
+    show$stringUtils.capitalize($propertyId)Actions = false;
+
+#end
+#if(!$allColumnActions.empty)
+#set ($hasActions = true)
+#end
+#if($hasActions)
+#foreach($action in $parameter.tableFormActions)
+    // Should be overriden to handle the actions
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
+
+#end
+#foreach($action in $allColumnActions)
+    // Should be overriden to handle the actions
+    do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
+
+#end
+    ${propertyId}TableActionClicked(event: any): void {
+
+        let form: any = {};
+        let queryParams: any = {};
+        let params: any = {};
+
+        switch(event.action) {
+#foreach($action in $parameter.tableFormActions)
+            case '$action.name': 
+                // TODO: Implement the action
+                form = #renderAngularTableCommandLinkParametersForm()
+                queryParams = #renderAngularTableCommandLinkQueryParametersForm()
+                this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
+                params = this.do$stringUtils.capitalize(${action.triggerName})(event);
+                this.useCaseScope.pageVariables = Object.assign({}, params);
+                this.${action.controller.variableName}.${action.triggerName}(
+#foreach($param in $action.parameters)
+                    event.$param.name,
+#end
+                );
+                break;
+#end
+#foreach($action in $allColumnActions)
+            case '$action.name':
+                // TODO: Implement the action
+                form = #renderAngularTableCommandLinkParametersForm()
+                queryParams = #renderAngularTableCommandLinkQueryParametersForm()
+                this.${action.controller.variableName}.setQueryParams(Object.assign({}, queryParams));
+                params = this.do$stringUtils.capitalize(${action.triggerName})(event);
+                this.useCaseScope.pageVariables = Object.assign({}, params);
+                this.${action.controller.variableName}.${action.triggerName}(
+#foreach($param in $action.parameters)
+                    event.$param.name,
+#end
+                );
+                break;
+#end
+        }
+    }
+
+#end
+#elseif($parameter.inputType == "image" || $parameter.inputFile)
+    ${propertyId}Preview#if($parameter.many)s: any[]#{else}: any#end = #if($parameter.many)[]#else''#end;
+    ${propertyId}SelectedFile#if($parameter.many)s#end?: #if($parameter.many)FileList#{else}File#end;
+
+#end
+#end
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAngularTypescriptConstructor $parameter $ownerParameter $renderComplex $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#if($parameter.tree)
+    this.${propertyId}TreeControl = new NestedTreeControl<DynamicTreeNode>(
+      (node) => node.children
+    );
+    this.${propertyId}DataSource = new MatTreeNestedDataSource<DynamicTreeNode>();
+
+#elseif($parameter.inputMultibox && !$parameter.component)
+
+        this.${propertyId}FilteredList$ = this.${propertyId}ChipControl.valueChanges.pipe(
+            startWith(null),
+            map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
+        );
+#elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.component && $renderComplex)
+#if($parameter.generalization)
+#foreach($attribute in $parameter.generalization.attributes)
+#renderAngularTypescriptConstructor($attribute $parameter false "           ")
+#end
+#end
+#foreach($attribute in $parameter.type.attributes)
+#renderAngularTypescriptConstructor($attribute $parameter false "           ")
+#end
+#end
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderInitForm $parameter $formName $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+##
+## No need to generate reactive forms for buttons, components and trees 
+##
+#if(!$parameter.inputButton && !$parameter.component && !$parameter.tree)
+#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($angularUtils.isSimpleType($parameter.type))
+//            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
+            $parameter.name: [{ value: this.${formName}.${parameter.name} || [], disabled: false }],
+#else
+//            $parameter.name: this.create${parameter.type.name}Array(this.${formName}.${parameter.name}),
+            $parameter.name: [{ value: this.${formName}.${parameter.name}, disabled: false }],
+#end
+#elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.inputSelect)
+            $parameter.name: this.create${parameter.type.name}Group(this.${formName}.${parameter.name}),
+#else
+#set ($validators = "")
+#if($parameter.required || $parameter.inputEmail || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max)
+#set ($validators = ", [")
+#if($parameter.required)
+#set ($validators = "${validators}Validators.required, ")
+#end
+#if($parameter.inputEmail)
+#set ($validators = "${validators}Validators.email, ")
+#end
+#if($parameter.minLength)
+#set ($validators = "${validators}Validators.minLength($parameter.minLength), ")
+#end
+#if($parameter.maxLength)
+#set ($validators = "${validators}Validators.maxLength($parameter.maxLength), ")
+#end
+#if($parameter.min)
+#set ($validators = "${validators}Validators.min($parameter.min), ")
+#end
+#if($parameter.max)
+#set ($validators = "${validators}Validators.max($parameter.max), ")
+#end
+#set ($validators = "$validators]")
+#end
+            $parameter.name: [{value: this.${formName}.${parameter.name}, disabled: false}$validators],
+#end
+#end
+#end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAttributeMethods $parameter $ownerParameter $formName $renderAttributes $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+#if($parameter.inputButton)
+    on${stringUtils.capitalize(${propertyId})}Click() { //${stringUtils.capitalize(${propertyId})}
+    }
+
+#elseif($parameter.tree)
+    handleLoad${stringUtils.capitalize($propertyId)}RootNodes(): Observable<${parameter.type.name}[]> {
+        return of([]);
+    }
+
+    async load${stringUtils.capitalize($propertyId)}RootNodes() {
+        let rootNodes = await firstValueFrom(
+            this.handleLoad${stringUtils.capitalize($propertyId)}RootNodes()
+        );
+        this.${propertyId}DataSource.data = rootNodes.map((x: any) => new DynamicTreeNode(0, x));
+
+        this.${propertyId}Subscription = this.${propertyId}TreeControl.expansionModel.changed.subscribe(
+            (change) => {
+                if (change.added || change.removed) {
+                    this.handle${stringUtils.capitalize($propertyId)}TreeControl(change);
+                }
+            }
+        );
+    }
+
+    // TODO: more methods
+    private handle${stringUtils.capitalize($propertyId)}TreeControl(change: SelectionChange<DynamicTreeNode>) {
+        if (change.added) {
+            change.added.forEach((x: any) => this.toggle${stringUtils.capitalize($propertyId)}Node(x, true));
+        }
+        if (change.removed) {
+        change.removed
+            .slice()
+            .reverse()
+            .forEach((x: any) => this.toggle${stringUtils.capitalize($propertyId)}Node(x, false));
+        }
+    }
+
+  // Should be modified to load child nodes
+  protected handleLoad${stringUtils.capitalize($propertyId)}ChildNodes(node: DynamicTreeNode): Observable<any> {
+    
+    return of([]);
+  }
+
+  private async toggle${stringUtils.capitalize($propertyId)}Node(node: DynamicTreeNode, expand: boolean) {
+    // If the node is asking to be expanded...
+    if (expand) {
+      // And the node hasn't already had its children loaded...
+      if (node.children.value.length == 0) {
+        // Set the loading indicator to true
+        node.loading.set(true);
+        // Retrieve the new nodes from the server
+        let children = await firstValueFrom(
+          this.handleLoad${stringUtils.capitalize($propertyId)}ChildNodes(node)
+        );
+        // Convert them to our DynamicTreeNode
+        let nodes = children.map(
+          (x: any, index: number) => new DynamicTreeNode(node.level + 1, x, node)
+        );
+        // Set the last node on the set to have the "last node" property, so the "load more" button is shown
+        
+        nodes[nodes.length - 1].options.update((x: any) => x.add(TreeOption.Last));
+        // Send the updated nodes into the BehaviourSubject
+        node.children.next(nodes);
+        // Set the loading indicator to false
+        node.loading.set(false);
+      }
+    }
+  }
+
+  ${propertyId}Clicked(node: any) {
+
+  }
+
+  // Should be modified to suit context
+  protected handleLoadMore${stringUtils.capitalize($propertyId)}(node: DynamicTreeNode): Observable<any> {
+    return of([]);
+
+  }
+
+  async loadMore${stringUtils.capitalize($propertyId)}(node: DynamicTreeNode) {
+
+    // Set the loading indicator to true for the node
+    node.loading.set(true);
+    // Retrieve the next set of nodes from the server
+    let childData = await firstValueFrom(
+      this.handleLoadMore${stringUtils.capitalize($propertyId)}(node)
+    );
+    // Convert them to DynamicTreeNode. Set the parent of the new nodes (not this node, this nodes parent)
+    let childNodes = childData.map(
+      (x: any) => new DynamicTreeNode(node.level, x, node.parent)
+    );
+    // Retrieve the existing children array
+    let existingChildren = node.parent?.children.value;
+    if (existingChildren) {
+      // Remove any "last node" option from existing nodes in this array
+      existingChildren.forEach((x: any) =>
+        x.options.update((y: any) => {
+          y.delete(TreeOption.Last);
+          return y;
+        })
+      );
+
+      // Build the new array from the old nodes, and the new nodes we just received
+      let newChildArray = [...existingChildren, ...childNodes];
+      // Set the new data of the parent, and notify the tree that the nodes have updated
+      node.parent?.children.next(newChildArray);
+    }
+    // Set the loading indicator back to false
+    node.loading.set(false);
+  }
+
+  // Should be modified to suit context
+  track${stringUtils.capitalize($propertyId)}By(_: number, node: DynamicTreeNode) {
+    return ``;
+  }
+#elseif(!$parameter.component)
+#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#set ($controlType = "FormControl")
+#elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
+#set ($controlType = "FormGroup")
+#else
+#set ($controlType = "FormControl")
+#end
+#set ($propertyId = $parameter.name)    
+    get ${propertyId}Control(): $controlType {
+        return this.#if($parameter.view)$parameter.view.formName#{else}formGroupControl#{end}?.get('$parameter.name') as $controlType;
+    }
+
+#if($parameter.inputMultibox)
+    set${stringUtils.capitalize(${propertyId})}Control() {
+        let t: any[] = [];
+        this.${formName}.${propertyId}?.forEach((role: any) => {
+            t.push(role.value);
+        });
+
+        this.${propertyId}Control.setValue(t);
+    }
+
+    ${propertyId}Remove(i: number, selected: any){
+        this.${formName}.${propertyId}?.splice(i, 1);
+        this.${propertyId}BackingList.push(selected);
+        this.set${stringUtils.capitalize(${propertyId})}Control();
+    }
+
+    ${propertyId}Add(event: MatChipInputEvent){
+        event.chipInput!.clear();
+        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
+    }
+    
+    ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
+        let item: $parameter.type.name = event.option.value;
+
+        this.${formName}.${propertyId}?.push(event.option.value);
+        this.set${stringUtils.capitalize(${propertyId})}Control();
+        this.${propertyId}ChipControl.setValue(null);
+
+        // remove the selected ro${propertyId}le from the list
+        // this.${propertyId}BackingList = this.${propertyId}BackingList.filter((${propertyId}: any) => ${propertyId}.value !== item.value);
+        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
+    }
+
+    private _${propertyId}Filter(value: string): $parameter.getterSetterTypeName {
+        if (!value) {
+            return this.${propertyId}BackingList;
+        }
+        const filterValue = value.toLowerCase();
+    
+        return this.${propertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));
+    }
+
+#end
+#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many && !$parameter.readOnly)
+    ${propertyId}AddDialog(){}
+
+    ${propertyId}Clear(){}
+
+    ${propertyId}Selected(event: MatCheckboxChange, row: number){}
+
+    ${propertyId}Search(){}
+
+    addSelected$stringUtils.capitalize(${propertyId})(){}
+
+#end
+#if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
+#foreach($attr in $parameter.type.attributes)
+#if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
+#set ($attrControlType = "FormControl")
+#elseif($angularUtils.isComplex($attr) && !$attr.component)
+#set ($attrControlType = "FormGroup")
+#else
+#set ($attrControlType = "FormControl")
+#end
+#set($attrPropertyId = "${propertyId}$stringUtils.capitalize(${attr.name})")
+    get ${attrPropertyId}Control(): $attrControlType {
+        return this.${propertyId}Control?.get('$attr.name') as $attrControlType;
+    }
+
+#if($attr.inputMultibox)
+    set${stringUtils.capitalize(${attrPropertyId})}Control() {
+        let t: any[] = [];
+        this.${formName}.${attrPropertyId}?.forEach((role: any) => {
+            t.push(role.value);
+        });
+
+        this.${attrPropertyId}Control.setValue(t);
+    }
+
+    ${attrPropertyId}Remove(index: number){
+
+        if (index >= 0) {
+            this.${formName}.${attrPropertyId}?.splice(i, 1);
+            this.${attrPropertyId}BackingList.push(selected);
+            this.set${stringUtils.capitalize(${attrPropertyId})}Control();
+        }
+    }
+
+    ${attrPropertyId}Add(event: MatChipInputEvent){
+        event.chipInput!.clear();
+        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
+    }
+    
+    ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
+
+        let item: ${attr.type.name} = event.option.value;
+
+        this.${formName}.${attrPropertyId}?.push(event.option.value);
+        this.set${stringUtils.capitalize(${attrPropertyId})}Control();
+        this.${attrPropertyId}ChipControl.setValue(null);
+
+        // remove the selected ro${attrPropertyId}le from the list
+        this.${attrPropertyId}BackingList = this.${attrPropertyId}BackingList.filter((${attrPropertyId}: any) => ${attrPropertyId}.value !== item.value);
+        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
+    }
+
+    private _${attrPropertyId}Filter(value: string): ${attr.getterSetterTypeName} {
+        if (!value) {
+            return this.${attrPropertyId}BackingList;
+        }
+        const filterValue = value.toLowerCase();
+    
+        return this.${attrPropertyId}BackingList.filter((item: any) => item.label.toLowerCase().includes(filterValue));
+    }
+
+#end
+#if($angularUtils.isComplex($attr) && !$attr.type.enumeration && !$attr.many)
+    ${attrPropertyId}AddDialog(){}
+
+    ${attrPropertyId}Clear(){}
+
+    ${attrPropertyId}Selected(event: MatCheckboxChange, row: number){}
+
+    ${attrPropertyId}Search(){}
+
+    addSelected$stringUtils.capitalize(${attrPropertyId})(){}
+
+#end
+#if($attr.inputImage || $attr.inputFile)
+#set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${attrPropertyId})(#if($attr.many)index: number#end)")
+#if($attr.inputType == "image")
+#if($attr.many)
+    private reloadSelected$stringUtils.capitalize(${attrPropertyId})(files: File[]) {
+        this.${attrPropertyId}Previews = [];
+        if (files && files.length > 0) {
+            const numberOfFiles = files.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    this.${attrPropertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+    }
+
+#end
+#set( $displayName = "${attrPropertyId}Previews#if($attr.many)s#end")
+#set ($item = "preview")
+#else
+#set( $displayName = "${attrPropertyId}Control.value")
+#set ($item = "file")
+#end
+    $deleteFunc {
+#if($attr.many)
+        this.${attrPropertyId}Control.removeAt(index);
+#if($attr.inputImage)
+        this.${attrPropertyId}Previews.splice(index, 1);
+        this.reloadSelected$stringUtils.capitalize(${attrPropertyId})(this.${attrPropertyId}Control.value);
+#end
+#else
+        this.${attrPropertyId}Control.setValue(null);
+#if($attr.inputImage)
+        this.${attrPropertyId}Preview = null;
+#end
+#end
+    }
+
+#if($attr.many)
+    ${attrPropertyId}SelectFiles(event: any): void {
+        this.${attrPropertyId}SelectedFiles = event.target.files;
+  
+#if($attr.inputImage)
+        this.${attrPropertyId}Previews = [];
+#end
+        if (this.${attrPropertyId}SelectedFiles && this.${attrPropertyId}SelectedFiles[0]) {
+            const numberOfFiles = this.${attrPropertyId}SelectedFiles.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+#if($attr.inputImage)
+                const reader = new FileReader();
+  
+                reader.onload = (e: any) => {
+                    console.log(e.target.result);
+                    this.${attrPropertyId}Previews.push(e.target.result);
+                };
+  
+                reader.readAsDataURL(this.${attrPropertyId}SelectedFiles[i]);
+#end
+                this.${attrPropertyId}Control.push(this.formBuilder.control(this.${attrPropertyId}SelectedFiles[i]));
+            }
+        }
+    }
+
+#else
+    ${attrPropertyId}SelectFile(event: any): void {
+
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+
+#if($attr.inputImage)
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (_event) => {
+                this.${attrPropertyId}Preview.push(reader.result);
+            };
+#end
+
+            this.${attrPropertyId}Control.setValue(file);
+        }
+    }
+
+#end
+#end
+#end
+#end
+#if($parameter.inputImage || $parameter.inputFile)
+#set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($parameter.many)index: number#end)")
+#if($parameter.inputImage)
+#if($parameter.many)
+    private reloadSelected$stringUtils.capitalize(${propertyId})(files: File[]) {
+        this.${propertyId}Previews = [];
+        if (files && files.length > 0) {
+            const numberOfFiles = files.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    this.${propertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+    }
+
+#end
+#set( $displayName = "${propertyId}Previews#if($parameter.many)s#end")
+#set ($item = "preview")
+#else
+#set( $displayName = "${propertyId}Control.value")
+#set ($item = "file")
+#end
+    $deleteFunc {
+#if($parameter.many)
+        this.${propertyId}Control.removeAt(index);
+#if($parameter.inputImage)
+        this.${propertyId}Previews.splice(index, 1);
+        this.reloadSelected$stringUtils.capitalize(${propertyId})(this.${propertyId}Control.value);
+#end
+#else
+        this.${propertyId}Control.setValue(null);
+        this.${propertyId}Preview = null;
+#end
+    }
+    
+#if($parameter.many)
+    ${propertyId}SelectFiles(event: any): void {
+        this.${propertyId}SelectedFiles = event.target.files;
+#if($parameter.inputImage)
+        this.${propertyId}Previews = [];
+#end
+        if (this.${propertyId}SelectedFiles && this.${propertyId}SelectedFiles[0]) {
+            const numberOfFiles = this.${propertyId}SelectedFiles.length;
+            for (let i = 0; i < numberOfFiles; i++) {
+#if($parameter.inputImage)
+                const reader = new FileReader();
+    
+                reader.onload = (e: any) => {
+                    this.${propertyId}Previews.push(e.target.result);
+                };
+    
+                reader.readAsDataURL(this.${propertyId}SelectedFiles[i]);
+#end
+                this.${propertyId}Control.push(this.formBuilder.control(this.${propertyId}SelectedFiles[i]));
+            }
+        }
+    }
+
+#else
+    ${propertyId}SelectFile(event: any): void {
+
+        for (let i = 0; i < event.target.files.length; i++) {
+            const file = event.target.files[i];
+
+#if($parameter.inputImage)
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (_event) => {
+                this.${propertyId}Preview = reader.result;
+            };
+#end
+            this.${propertyId}Control.setValue(file);
+        }
+    }
+
+#end
+#end
+#end
+#end
+## #end
+##==========================
+##
+## A macro that renders the appropriate action form input field
+##
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##
+##==========================
+#macro(renderAttributeFormCreation $parameter $ownerParameter $ident)
+#set($isComplex = $angularUtils.isComplex($parameter))
+#if ($parameter.backingListName)
+#if ($ownerParameter.type.hasStereotype('Entity'))
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#else
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#end
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
+#else
+#if($stringUtils.isBlank($ownerParameter)) 
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingValueName = $parameter.backingValueName)
+#if(!$parameter.backingListName || $stringUtils.isBlank($parameter.backingListName))
+#set ($backingListName = "${parameter.name}BackingList")
+#end
+#else
+#set ($propertyId = $metafacadeWebUtils.getFormPropertyId($parameter, $ownerParameter))
+#set ($valuePropertyName = $metafacadeWebUtils.getFormPropertyName($parameter, $ownerParameter))
+#set ($backingListName = $metafacadeWebUtils.getBackingListName($parameter, $ownerParameter))
+#set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
+#end
+#end
+
+#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration)
+#if($parameter.type)
+#set ($typeName = "$parameter.type.name")
+#else
+#set ($typeName = "$parameter.name")
+#end
+
+    create${typeName}Group(value?: $typeName): FormGroup { 
+        return this.formBuilder.group({
+#if($parameter.generalization)
+#foreach($attribute in $parameter.generalization.attributes)
+#if(!$attribute.inputButton)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+#end
+#end
+#foreach($attribute in $parameter.attributes)
+#if($angularUtils.isSimpleType($attribute))
+            $attribute.name: [value?.$attribute.name],
+#end
+#end
+        });
+    }
+
+    create${typeName}Array(values?: $typeName[]): FormArray {
+        if(values) {
+            let formArray: FormArray = this.formBuilder.array([]);
+            values?.forEach(value => formArray.push(this.create${typeName}Group(value)))
+
+            return formArray;
+        } else {
+            return new FormArray([] as any);
+        }
+    }
+
+#end
+#end

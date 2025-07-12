@@ -5,7 +5,7 @@
 // Generated#if($dateTimeGeneratedText) on $springUtils.date#end.
 
 // $entities.size() $entities.get(0) $model
-project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false) --parent org.andromda.maven:maven-parent:4.0-SNAPSHOT  --packaging WAR
+project --topLevelPackage $entityUtils.getTopLevelPackage($entities, false) --parent org.andromda.maven:maven-parent:5.0-SNAPSHOT  --packaging WAR
 logging setup --level INFO
 
 //DATABASE_DOT_COM        DB2_400                 DB2_EXPRESS_C
@@ -18,6 +18,6 @@ jpa setup --provider HIBERNATE --database H2_IN_MEMORY
 database properties set --key database.url --value jdbc:h2:~/${projectId};AUTO_SERVER=TRUE;AUTO_RECONNECT=TRUE;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
 database properties list
 dependency add --groupId org.springframework --artifactId spring-tx --version ${spring.version}
-dependency add --groupId org.hibernate.javax.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
+dependency add --groupId org.hibernate.jakarta.persistence --artifactId hibernate-jpa-2.0-api --version 1.0.1.Final
 web mvc setup
 security setup

@@ -79,7 +79,7 @@
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">ejb3test</property>
                 <property name="entityManagerName">ejb3test</property>
-                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateDialect">org.hibernate.dialect.HSQLDialect</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="enableTemplating">true</property>
                 <!-- uncomment to specify transaction manager

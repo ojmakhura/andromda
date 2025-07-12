@@ -81,6 +81,7 @@ public class ClassifierFacadeLogicImpl
     {
         final String nameMask =
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
+        
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 

@@ -12,13 +12,7 @@ import java.util.HashMap;
 $controller.getDocumentation(" * ")
  */
 public interface $controller.name {
-    
 
-## #foreach ($operation in $controller.operations)
-##     $operation.handleFormSignature
-##         throws Throwable;
-
-## #end
 #foreach ($action in $controller.useCase.actions)
 #if(!$action.exitingInitialState)    
     /**
@@ -28,14 +22,21 @@ public interface $controller.name {
      * @throws Throwable
      * 
      */
+#if($action.exitingView)
+#set ($param = "${action.source.fullyQualifiedPageObjectClassName}Form ${action.source.pageObjectBeanName}Form")
+#set ($formBeanName = "${action.source.pageObjectBeanName}Form")
+#else
+#set ($param = "$action.fullyQualifiedFormImplementationName $action.formBeanName")
+#set ($formBeanName = "${action.formBeanName}")
+#end
 #if($action.tableLink)
     @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
 #set($params = "$action.restQueryParams")
 #else
-    @org.springframework.web.bind.annotation.GetMapping("${action.restPath}")
+    @org.springframework.web.bind.annotation.#if ($action.parameters.empty)Get#{else}Post#{end}Mapping({"${action.source.restPath}${action.restPath}"})
 #set($params = "$action.restFormParams")
 #end
-    public String ${action.triggerName}(#if (!$action.formFields.empty)@org.springframework.web.bind.annotation.ModelAttribute $action.fullyQualifiedFormImplementationName $action.formBeanName, #{end}org.springframework.ui.Model model)
+    public String ${action.triggerName}(#if (!$action.parameters.empty)@org.springframework.web.bind.annotation.ModelAttribute $param, #{end}org.springframework.ui.Model model)
             throws Throwable;
 #else
     /**

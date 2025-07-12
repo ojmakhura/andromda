@@ -129,6 +129,7 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="applicationPackage">${application.package}</property>
             	<property name="applicationId">${application.id}</property>
+                <property name="useLombok">false</property>
 #if ($spring || $hibernate)
                 <property name="hibernateVersion">${hibernate.version}</property>
                 <property name="hibernateEntityAnnotations">true</property>
@@ -330,6 +331,11 @@
                 <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AttachmentHandler.getAttachments()</property>
 #end
 #end
+                <!-- <property name="hikariConnectionTimeout">3000</property> -->
+                <!-- <property name="hikariIdleTimeout">600000</property> -->
+                <!-- <property name="hikariMaxLifetime">1800000</property> -->
+                <!-- <property name="hikariMinimumIdle">10</property> -->
+                <!-- <property name="hikariMaximumPoolsize">500</property> -->
                 <!-- Specialized use: OSGI, RichClient, remoting, generated JDBC tests -->
                 <!--property name="advice-impls">${core.generated.dir}</property>
                 <property name="remoting-war-support">${core.manual.java.dir}</property>
@@ -462,6 +468,7 @@
                 <property name="configuration">${webservice.generated.dir}</property>
                 <property name="webservice-project">${webservice.project}</property>
                 <property name="webservice-impl">${webservice.manual.java.dir}</property>
+                <property name="webservice-tests-manual">${webservice.manual.test.dir}</property>
                 <property name="webservice-tests">${webservice.test.dir}</property>
                 <property name="core-tests">${core.manual.test.dir}</property>
                 <property name="service-impls">${core.manual.java.dir}</property>
@@ -580,6 +587,7 @@
                 <property name="css">${angular.css.dir}</property>
                 <property name="test">${angular.test.dir}</property>
                 <property name="app">${angular.generated.dir}/src/app</property>
+                <property name="components">${angular.view.dir}/components</property>
                 <property name="views">${angular.view.dir}</property>
                 <property name="view-impls">${angular.view.impl.dir}</property>
                 <property name="services">${angular.service.dir}</property>
@@ -592,11 +600,9 @@
                 <property name="wsdlSoapAddress">http://${service.host}:${service.port}/${application.id}-ws/services</property>
                 <property name="jaxb-gen">${common.generated.dir}</property>
 #end
-#if($ngrx)
                 <property name="ngrx-store">${angular.ngrx.generated.dir}</property>
                 <property name="ngrx-store-impl">${angular.ngrx.manual.dir}</property>
                 <property name="ngrx">true</property>
-#end
             </properties>
         </namespace>
 #end
@@ -619,6 +625,7 @@
                 <property name="applicationName">${application.name}</property>
                 <property name="exceptions">${common.generated.dir}</property>
                 <property name="forms">${thymeleaf.generated.java.dir}</property>
+                <property name="components">${thymeleaf.generated.web.dir}/templates/components</property>
                 <property name="views">${thymeleaf.generated.web.dir}/templates</property>
                 <property name="managed-beans">${thymeleaf.generated.java.dir}</property>
                 <property name="controllers">${thymeleaf.generated.java.dir}</property>

@@ -71,6 +71,11 @@
             <stereotype>VALUE_OBJECT</stereotype>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.angular.metafacades.AngularComponentLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ClassImpl">
+            <stereotype>FRONT_END_COMPONENT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.angular.metafacades.AngularControllerOperationLogicImpl">
         <mapping>
             <property name="ownerIsController"/>

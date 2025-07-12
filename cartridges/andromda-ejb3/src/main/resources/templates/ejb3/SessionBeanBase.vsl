@@ -26,7 +26,7 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 #if ($service.transactionManagement)
-@javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${service.transactionManagement})
+@jakarta.ejb.TransactionManagement(jakarta.ejb.TransactionManagementType.${service.transactionManagement})
 #end
 #if ($service.securityEnabled)
 #**##if ($service.persistenceContainerJboss)
@@ -59,10 +59,10 @@ public abstract class ${service.serviceBaseName}
     // ------ Session Context Injection ------
 
     /**
-     * javax.ejb.SessionContext Injection
+     * jakarta.ejb.SessionContext Injection
      */
     @javax.annotation.Resource
-    protected javax.ejb.SessionContext context;
+    protected jakarta.ejb.SessionContext context;
 #if ($service.transactionManagementBean)
 
     // ---------- User Transaction Injection ---------
@@ -80,9 +80,9 @@ public abstract class ${service.serviceBaseName}
      * Inject persistence context #if ($service.persistenceContextUnitName)${service.persistenceContextUnitName}#end
 
      */
-    @javax.persistence.PersistenceContext#if ($service.persistenceContextUnitName || $service.persistenceContextType)(#end#if ($service.persistenceContextUnitName)unitName = "${service.persistenceContextUnitName}"#set ($argExists = true)#end#if ($service.persistenceContextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${service.persistenceContextType}#end#if ($service.persistenceContextUnitName || $service.persistenceContextType))#end
+    @jakarta.persistence.PersistenceContext#if ($service.persistenceContextUnitName || $service.persistenceContextType)(#end#if ($service.persistenceContextUnitName)unitName = "${service.persistenceContextUnitName}"#set ($argExists = true)#end#if ($service.persistenceContextType)#if ($argExists),#end type = jakarta.persistence.PersistenceContextType.${service.persistenceContextType}#end#if ($service.persistenceContextUnitName || $service.persistenceContextType))#end
 
-    protected javax.persistence.EntityManager emanager;
+    protected jakarta.persistence.EntityManager emanager;
 #foreach ($persistenceContext in $service.persistenceContextReferences)
 #**##set ($argExists = false)
 
@@ -90,9 +90,9 @@ public abstract class ${service.serviceBaseName}
      * Inject persistence context #if ($persistenceContext.unitName)${persistenceContext.unitName}#end
 
      */
-    @javax.persistence.PersistenceContext#if ($persistenceContext.unitName || $persistenceContext.contextType)(#end#if ($persistenceContext.unitName)unitName = "${persistenceContext.unitName}"#set ($argExists = true)#end#if ($persistenceContext.contextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${persistenceContext.contextType}#end#if ($persistenceContext.unitName || $persistenceContext.contextType))#end
+    @jakarta.persistence.PersistenceContext#if ($persistenceContext.unitName || $persistenceContext.contextType)(#end#if ($persistenceContext.unitName)unitName = "${persistenceContext.unitName}"#set ($argExists = true)#end#if ($persistenceContext.contextType)#if ($argExists),#end type = jakarta.persistence.PersistenceContextType.${persistenceContext.contextType}#end#if ($persistenceContext.unitName || $persistenceContext.contextType))#end
 
-    protected javax.persistence.EntityManager $stringUtils.uncapitalize(${persistenceContext.name});
+    protected jakarta.persistence.EntityManager $stringUtils.uncapitalize(${persistenceContext.name});
 #end
 #set ($references = $service.serviceReferences)
 #if (!$references.empty)
@@ -110,7 +110,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject session EJB ${reference.name}
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
 #*  *##end
 #*  *##if ($service.viewType == "local")
     protected ${reference.fullyQualifiedServiceLocalInterfaceName} $stringUtils.uncapitalize(${reference.name});
@@ -129,7 +129,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject DAO ${daoReference.daoName}
      */
-    @javax.ejb.EJB
+    @jakarta.ejb.EJB
     private ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
 #**##end
 #end
@@ -298,7 +298,7 @@ $attribute.getDocumentation("     * ")
      */
 #*  *##if (!$service.transactionManagementBean)
 #*    *##if ($attribute.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${attribute.transactionType})
 #*    *##end
 #*  *##end
     $visibility ${attribute.getterSetterTypeName} ${attribute.getterName}()
@@ -314,7 +314,7 @@ $attribute.getDocumentation("     * ")
      */
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($attribute.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${attribute.transactionType})
 #*      *##end
 #*    *##end
     $visibility void ${attribute.setterName}(${attribute.getterSetterTypeName} value)
@@ -366,7 +366,7 @@ $operation.getDocumentation("     * ")
      */
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($stringUtils.isNotBlank($operation.transactionType))
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
+    @jakarta.ejb.TransactionAttribute(jakarta.ejb.TransactionAttributeType.${operation.transactionType})
 #*      *##end
 #*    *##end
 #*    *##if ($service.securityEnabled)
@@ -381,10 +381,10 @@ $operation.getDocumentation("     * ")
 #*      *##end
 #*    *##end
 #*    *##if ($operation.flushMode)
-    @javax.persistence.FlushMode(javax.persistence.FlushModeType.${operation.flushMode})
+    @jakarta.persistence.FlushMode(jakarta.persistence.FlushModeType.${operation.flushMode})
 #*    *##end
 #*    *##if ($operation.timeoutCallback)
-    @javax.ejb.Timeout
+    @jakarta.ejb.Timeout
 #*    *##end
 #*    *##set ($interceptors = $operation.interceptorReferences)
 #*    *##if ($collectionUtils.size($interceptors) >= 1)
@@ -550,9 +550,9 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #*    *##if ($service.stateful)
 #*      *##if ($operation.postActivate)
-    @javax.ejb.PostActivate
+    @jakarta.ejb.PostActivate
 #*      *##elseif ($operation.prePassivate)
-    @javax.ejb.PrePassivate
+    @jakarta.ejb.PrePassivate
 #*      *##end
 #*    *##end
     $operation.visibility void ${operation.name}()
@@ -581,7 +581,7 @@ $operation.getDocumentation("     * ")
 #*  *##if ($service.seamComponent)
     @org.jboss.seam.annotations.Destroy
 #*  *##end
-    @javax.ejb.Remove
+    @jakarta.ejb.Remove
     public void destroy() {}
 #end
 }

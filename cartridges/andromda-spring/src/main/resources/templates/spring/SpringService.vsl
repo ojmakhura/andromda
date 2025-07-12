@@ -20,7 +20,7 @@ package $service.packageName;
 /**
 $service.getDocumentation(" * ")
  */
-public interface $service.name
+public interface $service.name // 99999
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #if (!$service.interfaceAbstractions.empty)
@@ -61,7 +61,7 @@ $attribute.getDocumentation("     * ")
 #end
 #foreach ($operation in $serviceOperations)
 #if(!$operation.visibility.equalsIgnoreCase("private") && !$operation.visibility.equalsIgnoreCase("protected"))
-    /**
+    /** 
 $operation.getDocumentation("     * ")
 #foreach($parameter in $operation.arguments)
      * @param $parameter.name $parameter.getDocumentation("")
@@ -71,12 +71,7 @@ $operation.getDocumentation("     * ")
      * @throws $exception.fullyQualifiedName
 #end
      */
-#if ($operation.exceptionsPresent)
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature
-        $operation.throwsClause;
-#else
-    $operation.visibility $operation.getterSetterReturnTypeName $operation.signature;
-#end
+    #if($enableTemplating && !$operation.templateParameters.empty)$umlMetafacadeUtils.getGenericTemplate($operation, $enableTemplating) #end$operation.getterSetterReturnTypeName $operation.signature#if ($operation.exceptionsPresent) $operation.throwsClause#end;
 
 #end
 #end

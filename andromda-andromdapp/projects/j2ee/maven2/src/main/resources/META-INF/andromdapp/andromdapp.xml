@@ -51,14 +51,21 @@
             <condition id="springws" equal="true"/>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</output>
             <output>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</output>
-            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
+        </conditions>
+        <conditions type="and">
+            <condition id="secure" notEqual="none"/>
+            <condition id="springws" notEqual="true"/>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringSecurityConfiguration.java.vsl</output>
         </conditions>
         <conditions>
             <condition id="thymeleaf" equal="true"/>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</output>
+            <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplicationConfig.java.vsl</output>
             <output>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</output>
             <output>thymeleaf/target/src/main/resources/application.properties.vsl</output>
+            <output>thymeleaf/target/src/main/resources/custom_messages.properties.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="webservice" notEqual="none"/>
@@ -80,14 +87,11 @@
         <conditions>
             <condition id="spring" equal="true"/>
             <output>mda/src/main/config/mappings/SpringMergeMappings.xml.vsl</output>
-        </conditions>
-        <conditions>
-            <condition id="spring" equal="true"/>
+            <output>core/src/main/resources/db/db.changelog-master.xml.vsl </output>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vls</output>
-        </conditions>
-        <conditions>
-            <condition id="spring" equal="true"/>
             <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</output>
+            <output>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')//LiquibaseConfig.java.vsl</output>
+            <output>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</output>
         </conditions>
         <conditions type="and">
             <condition id="model" present="false"/>
@@ -164,12 +168,24 @@
             <to>core/src/main/resources/log4j.xml.vsl</to>
         </mapping>
         <mapping>
+            <from>core/db.changelog-master.xml.vsl</from>
+            <to>core/src/main/resources/db/db.changelog-master.xml.vsl</to>
+        </mapping>
+        <mapping>
             <from>core/SharedAutoConfiguration.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SharedAutoConfiguration.java.vsl</to>
         </mapping>
         <mapping>
             <from>core/ApplicationSpecifications.java.vsl</from>
             <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}Specifications.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/LiquibaseConfig.java.vsl</from>
+            <to>core/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/LiquibaseConfig.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>core/ApplicationCoreTestApplication.java.vsl</from>
+            <to>core/src/test/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/CoreTestApplication.java.vsl</to>
         </mapping>
         <mapping>
             <from>app/src/main/config/jboss-datasource.xml.vsl</from>
@@ -234,8 +250,8 @@
             <to>angular/src/app/app.component.html.vsl</to>
         </mapping>
         <mapping>
-            <from>angular/src/app/app.module.ts.vsl</from>
-            <to>angular/target/src/app/app.module.ts.vsl</to>
+            <from>angular/public/manifest.webmanifest.vsl</from>
+            <to>angular/public/manifest.webmanifest.vsl</to>
         </mapping>
         <mapping>
             <from>angular/README.md.vsl</from>
@@ -281,11 +297,15 @@
         </mapping>
         <mapping>
             <from>webservice/SpringRestConfiguration.java.vsl</from>
-            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestConfiguration.java.vsl</to>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</to>
         </mapping>
         <mapping>
-            <from>webservice/application.properties.vsl</from>
-            <to>webservice/src/main/resources/application.properties.vsl</to>
+            <from>webservice/SpringSecurityConfiguration.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringSecurityConfiguration.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/application.yml.vsl</from>
+            <to>webservice/src/main/resources/application.yml.vsl</to>
         </mapping>
 
         <!-- Spring Thymeleaf Frontend -->
@@ -294,12 +314,20 @@
             <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplication.java.vsl</to>
         </mapping>
         <mapping>
+            <from>thymeleaf/WebConfig.java.vsl</from>
+            <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/${stringUtils.capitalize($applicationId)}WebApplicationConfig.java.vsl</to>
+        </mapping>
+        <mapping>
             <from>thymeleaf/SelectItem.java.vsl</from>
             <to>thymeleaf/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SelectItem.java.vsl</to>
         </mapping>
         <mapping>
             <from>thymeleaf/application.properties.vsl</from>
             <to>thymeleaf/target/src/main/resources/application.properties.vsl</to>
+        </mapping>
+        <mapping>
+            <from>thymeleaf/custom_messages.properties.vsl</from>
+            <to>thymeleaf/src/main/resources/custom_messages.properties.vsl</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
@@ -535,7 +563,7 @@ emf-uml22 for .uml files, rsm7 for .emx files)</text>
                 </conditions>
             </prompt>
             <prompt id="ngrx">
-                <text>Would you like to use NgRX in your angular frontend?</text>
+                <text>Would you like to use state management in your angular frontend?</text>
                 <shortText>NgRX</shortText>
                 <preconditions>
                     <condition id="angular" equal="true"/>

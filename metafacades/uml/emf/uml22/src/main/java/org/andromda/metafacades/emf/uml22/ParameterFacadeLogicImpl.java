@@ -1,5 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Objects;
+
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -283,8 +285,9 @@ public class ParameterFacadeLogicImpl
     private String getTemplatingType()
     {
         String type = null;
+        
         if (BooleanUtils.toBoolean(
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING), ""))
                 && this.getType() != null)
         {
             type = this.getType().getFullyQualifiedName();
@@ -310,6 +313,7 @@ public class ParameterFacadeLogicImpl
     protected String handleGetGetterSetterTypeName()
     {
         String name = null;
+
         if (this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED)
         {
             final TypeMappings mappings = this.getLanguageMappings();
@@ -318,6 +322,7 @@ public class ParameterFacadeLogicImpl
                 name =
                     this.handleIsOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
                                      : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+
             }
             else
             {
@@ -337,6 +342,7 @@ public class ParameterFacadeLogicImpl
                 }
                 else
                 {*/
+                
                 name += '<' + type + '>';
                 //}
             }
@@ -444,6 +450,6 @@ public class ParameterFacadeLogicImpl
     {
         return UmlUtilities.parseLowerMultiplicity(this.metaObject.getLowerValue(),
                 this.getType(),
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
+                Objects.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY), ""));
     }
 }

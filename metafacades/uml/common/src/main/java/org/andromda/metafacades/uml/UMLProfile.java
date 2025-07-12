@@ -29,6 +29,11 @@ public class UMLProfile {
         public static final String STEREOTYPE_ENTITY = profile.get("ENTITY");
 
         /**
+         * 'MappedSuperclass' Specifies this class as a mapped/embeddable super class.
+         */
+        public static final String STEREOTYPE_MAPPED_SUPERCLASS = profile.get("MAPPED_SUPERCLASS");
+
+        /**
          * 'EmbeddedValue'
          * Represents an embedded value (typically embedded with an entity as an
          * attribute).
@@ -179,6 +184,13 @@ public class UMLProfile {
                         "FRONT_END_APPLICATION");
 
         /**
+         * 'FrontEndController'
+         * Represents a "front end" view (that is it can represent a JSP page, etc).
+         */
+        public static final String STEREOTYPE_FRONT_END_COMPONENT = profile.get(
+                        "FRONT_END_COMPONENT");
+
+        /**
          * 'FrontEndView'
          * Represents a "front end" view (that is it can represent a JSP page, etc).
          */
@@ -294,6 +306,19 @@ public class UMLProfile {
                         "PERSISTENCE_IMMUTABLE");
 
         /**
+         * 'andromda_persistence_mapped_superclass' Indicates if a persistence type is
+         * a mapped super class.
+         */
+        public static final String TAGGEDVALUE_PERSISTENCE_PERSISTENCE_MAPPED_SUPERCLASS = profile.get(
+                        "PERSISTENCE_MAPPED_SUPERCLASS");
+
+        /**
+         * 'andromda_persistence_column_definition' The tagged value indicating the SQL
+         * definition for a column.
+         */
+        public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION = profile.get("COLUMN_DEFINITION");
+
+        /**
          * 'andromda_persistence_foreign_identifier'
          * Used on an association end to indicate whether its owning entity should have
          * its identifier also be the foreign
@@ -399,6 +424,14 @@ public class UMLProfile {
                         "PRESENTATION_FILENAME");
 
         /**
+         * 'andromda_presentation_filename'
+         * Used to assign the controller to the activity (when it can not be assigned
+         * explicitly).
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_SUBMIT_ACTION = profile.get(
+                        "PRESENTATION_SUBMIT_ACTION");
+
+        /**
          * 'andromda_presentation_targeturl'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
@@ -444,6 +477,22 @@ public class UMLProfile {
          */
         public static final String TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS = profile.get(
                         "PRESENTATION_TABLE_COLUMNS");
+
+        /**
+         * 'andromda_presentation_beanName'
+         * Used to assign the table columns to a collection/array type parameter
+         * representing a table.
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_COMPONENT_BEAN_NAME = profile.get(
+                        "PRESENTATION_COMPONENT_BEAN_NAME");
+
+        /**
+         * 'andromda_presentation_beanName'
+         * Used to assign the table columns to a collection/array type parameter
+         * representing a table.
+         */
+        public static final String TAGGEDVALUE_PRESENTATION_COMPONENT_TABLE_NAME = profile.get(
+                        "PRESENTATION_COMPONENT_TABLE_NAME");
 
         /**
          * 'andromda_presentation_view_table'
@@ -594,6 +643,19 @@ public class UMLProfile {
         public static final String TAGGEDVALUE_ADDITIONAL_ANNOTATION = profile.get("ANDROMDA_ADDITIONAL_ANNOTATION");
         public static final String TAGGEDVALUE_ADDITIONAL_EXTENDS = profile.get("ANDROMDA_ADDITIONAL_EXTENDS");
         public static final String TAGGEDVALUE_ADDITIONAL_IMPLEMENTS = profile.get("ANDROMDA_ADDITIONAL_IMPLEMENTS");
+
+        /**
+         * Generics
+         */
+        public static final String TAGGEDVALUE_GENERIC_TYPES = profile.get("ANDROMDA_GENERIC_TYPES");
+        public static final String TAGGEDVALUE_GENERIC_PARAMETERS = profile.get("ANDROMDA_GENERIC_PARAMETERS");
+
+        /**
+         * Test annotations
+         */
+        public static final String TAGGEDVALUE_OPERATION_TEST_NAME = profile.get("ANDROMDA_OPERATION_TEST_NAME");
+        public static final String TAGGEDVALUE_OPERATION_TEST_DISPLAY_NAME = profile
+                        .get("ANDROMDA_OPERATION_TEST_DISPLAY_NAME");
 
         /* ----------------- Data Types -------------------- */
 

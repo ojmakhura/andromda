@@ -88,9 +88,9 @@
                 <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="compositionDefinesEagerLoading">true</property>
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
                 <property name="entities">${core.generated.dir}</property>
                 <property name="entity-impls">${core.manual.dir}</property>
                 <property name="configuration">${core.generated.dir}</property>
@@ -111,8 +111,8 @@
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
                 <property name="localTransactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
-                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="springTypesPackage">${application.package}.Domain</property>
                 <property name="daos">${core.generated.dir}</property>

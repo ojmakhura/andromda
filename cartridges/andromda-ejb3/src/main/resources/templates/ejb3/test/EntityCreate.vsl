@@ -11,8 +11,8 @@ package $entity.packageName;
 
 #end
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 //import org.andromda.dbtest.JPAJUnitAncestor;
 #set ($associations = $entity.entityRelations)
 #if (!$associations.empty)
@@ -82,7 +82,7 @@ public class ${entity.entityName}Create
 #end
 
 #if (!$associations.empty)
-        //EntityManager em = javax.persistence.Persistence.createEntityManagerFactory(org.andromda.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
+        //EntityManager em = jakarta.persistence.Persistence.createEntityManagerFactory(org.andromda.dbtest.JPAJUnitAncestor.PERSISTENCE_UNIT).createEntityManager();
         // Entity Associations which need to be retrieved
 #end
 #foreach ($end in $associations)

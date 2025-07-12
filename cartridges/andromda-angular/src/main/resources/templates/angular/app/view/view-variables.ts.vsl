@@ -66,7 +66,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
 #elseif($attribute.inputSelect || $attribute.inputMultibox || ($angularUtils.isComplex($attribute) && !$angularUtils.isTable($attribute)))
 #set ($backingListName = ${attribute.getBackingListName($variable)})
 #set($ret = $selections.add($attribute.type))
-    $backingListName: Array<$attribute.angularTypeName> = [];
+    $backingListName: $attribute.getterSetterTypeName = [];
 #end
 #end
 #else
@@ -75,7 +75,7 @@ export abstract class ${view.varsComponentName} implements OnInit {
     ${variable.name}Options = Object.keys(this.${variable.name}T);
 #elseif($variable.inputSelect || $variable.inputMultibox)
 #set($ret = $selections.add($variable.type))
-    ${variable.name}BackingList: Array<$variable.angularTypeName> = [];
+    ${variable.name}BackingList: $variable.getterSetterTypeName = [];
 #end
 #end
 #end

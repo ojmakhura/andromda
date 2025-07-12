@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -445,13 +446,13 @@ public class FrontEndAttributeLogicImpl
         final StringBuilder propertyName = new StringBuilder();
         if (ownerParameter != null)
         {
-            propertyName.append(ownerParameter.getName());
+            propertyName.append(StringUtils.uncapitalize(ownerParameter.getName()));
             propertyName.append('.');
         }
         final String name = this.getName();
         if (name != null && name.trim().length() > 0)
         {
-            propertyName.append(name);
+            propertyName.append(StringUtils.uncapitalize(name));
         }
         return propertyName.toString();
     }
@@ -519,7 +520,7 @@ public class FrontEndAttributeLogicImpl
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
-        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
+        return MetafacadeWebUtils.getFormPropertyId(this, ownerParameter); // StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
 
     /**
@@ -1163,5 +1164,29 @@ public class FrontEndAttributeLogicImpl
             }
         }
         return null;
+    }
+
+    @Override
+    protected Boolean handleGetComponent() {
+        
+        return MetafacadeWebUtils.isComponent(this.getType());
+    }
+
+    @Override
+    protected String handleGetMappedComponent() {
+
+        return MetafacadeWebUtils.getMappedComponent(this.getType());
+    }
+
+    @Override
+    protected Boolean handleGetTree() {
+        
+        return this.isInputType(MetafacadeWebGlobals.INPUT_TREE);
+    }
+
+    @Override
+    protected Collection<AttributeFacade> handleGetDisplayAttributes() {
+
+        return MetafacadeWebUtils.getDisplayAttributes(this);
     }
 }

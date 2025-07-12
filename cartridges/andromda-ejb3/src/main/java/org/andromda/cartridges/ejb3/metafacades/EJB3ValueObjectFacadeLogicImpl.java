@@ -42,4 +42,10 @@ public class EJB3ValueObjectFacadeLogicImpl extends EJB3ValueObjectFacadeLogic {
     protected String handleGetSeamComponentScopeType() {
         return EJB3MetafacadeUtils.getSeamComponentScopeType(this, false);
     }
+
+    @Override
+    public String getMappedComponent() {
+
+        return null;
+    }
 }

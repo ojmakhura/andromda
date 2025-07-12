@@ -321,7 +321,6 @@ public class WebServiceOperationLogicImpl
             while (parameters.hasNext())
             {
                 ParameterFacade param = parameters.next();
-                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param));
                 if (WebServiceUtils.isSimpleType(param))
                 {
                     String paramValue = wsutils.createConstructor(param);
@@ -356,7 +355,6 @@ public class WebServiceOperationLogicImpl
                     }
                     path = StringUtils.replace(path, LBRACKET + param.getName() + RBRACKET, paramValue);
                 }
-                //System.out.println("handleGetRestTestPath param=" + param.getName() + " servicePath=" + servicePath + " value=" + wsutils.createConstructor(param) + " path=" + path);
             }
         }
         path = servicePath + path;

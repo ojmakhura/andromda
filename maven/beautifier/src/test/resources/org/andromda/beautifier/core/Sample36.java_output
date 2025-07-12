@@ -2,7 +2,7 @@ package org.somepackage.test;
 
 /*PROTECTED REGION ID(12345) ENABLED START*/
 
-import javax.persistence.LockModeType;
+import jakarta.persistence.LockModeType;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
