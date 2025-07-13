@@ -57,7 +57,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 ## Rendering backing variables
 ##
 ## #if($parameter.type.enumeration)
-## $ident${propertyId}T: any = $parameter.type.name;
+## $ident${propertyId}T: any = $parameter.getterSetterTypeName;
 ## $ident${propertyId}Options = Object.keys(this.${propertyId}T);
 ## Drop down selection list
 #if($parameter.inputSelect || $parameter.inputMultibox )
@@ -83,7 +83,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
-    @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.type.name)>;
+    @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.getterSetterTypeName)>;
     ${propertyId}TableSignal: Signal<any>;
     ${propertyId}TablePaged: boolean = true;
     
@@ -313,11 +313,11 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 //            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
             $parameter.name: [{ value: this.${formName}.${parameter.name} || [], disabled: false }],
 #else
-//            $parameter.name: this.create${parameter.type.name}Array(this.${formName}.${parameter.name}),
+//            $parameter.name: this.create${parameter.getterSetterTypeName}Array(this.${formName}.${parameter.name}),
             $parameter.name: [{ value: this.${formName}.${parameter.name}, disabled: false }],
 #end
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.inputSelect)
-            $parameter.name: this.create${parameter.type.name}Group(this.${formName}.${parameter.name}),
+            $parameter.name: this.create${parameter.getterSetterTypeName}Group(this.${formName}.${parameter.name}),
 #else
 #set ($validators = "")
 #if($parameter.required || $parameter.inputEmail || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max)
@@ -387,7 +387,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     }
 
 #elseif($parameter.tree)
-    handleLoad${stringUtils.capitalize($propertyId)}RootNodes(): Observable<${parameter.type.name}[]> {
+    handleLoad${stringUtils.capitalize($propertyId)}RootNodes(): Observable<${parameter.getterSetterTypeName}[]> {
         return of([]);
     }
 
@@ -532,7 +532,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     }
     
     ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
-        let item: $parameter.type.name = event.option.value;
+        let item: $parameter.getterSetterTypeName = event.option.value;
 
         this.${formName}.${propertyId}?.push(event.option.value);
         this.set${stringUtils.capitalize(${propertyId})}Control();
@@ -605,7 +605,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
 
-        let item: ${attr.type.name} = event.option.value;
+        let item: ${attr.getterSetterTypeName} = event.option.value;
 
         this.${formName}.${attrPropertyId}?.push(event.option.value);
         this.set${stringUtils.capitalize(${attrPropertyId})}Control();
