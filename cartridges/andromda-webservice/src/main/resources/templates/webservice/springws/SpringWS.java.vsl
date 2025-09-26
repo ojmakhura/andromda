@@ -15,6 +15,7 @@ package ${service.packageName};
  * 
 $service.getDocumentation(" * ")
  */
+@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
 public interface ${serviceName} {
 #foreach ($operation in $service.allowedOperations)
 
@@ -36,6 +37,9 @@ public interface ${serviceName} {
 #else
 #set ($return = "void")
 #end
+#set ($responseStatus = $operation.restResponseStatus)
+#set ($restPath = ${operation.restPath})
+    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
     $operation.visibility $return ${operation.name}(#getOperationArgs($operation));
 #end
 }
