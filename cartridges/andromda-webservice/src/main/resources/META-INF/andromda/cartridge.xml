@@ -92,6 +92,7 @@
     <property reference="pluralizeParameterNames"/>
     <property reference="secure"/>
     <property reference="useLombok"/>
+    <property reference="applicationPackage"/>
     <!-- cartridge-property merge-point -->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>

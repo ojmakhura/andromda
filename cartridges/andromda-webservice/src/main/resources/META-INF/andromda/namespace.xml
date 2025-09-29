@@ -132,6 +132,12 @@
                     all output will overwritten.
                 </documentation>
             </property>
+            <property name="springRestService" required="false">
+                <default>false</default>
+                <documentation>
+                    Whether this is a spring rest service
+                </documentation>
+            </property>
             <property name="axisVersion" required="false">
                 <default>1</default>
                 <documentation>
@@ -395,6 +401,11 @@
                 <documentation>
                     The name of the application that this service will run within
                     (i.e. Security Services}
+                </documentation>
+            </property>
+            <property name="applicationPackage">
+                <documentation>
+                    The packlage of the application that this service will run within
                 </documentation>
             </property>
             <property name="wsdlSoapAddress" required="false">

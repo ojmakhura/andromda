@@ -83,6 +83,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
+// Table $parameter $parameter.inputTable $parameter.table
     @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.type.name)>;
     ${propertyId}TableSignal: Signal<any>;
     ${propertyId}TablePaged: boolean = true;
@@ -498,8 +499,10 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     return ``;
   }
 #elseif(!$parameter.component)
-#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($angularUtils.isTable($parameter))
 #set ($controlType = "FormControl")
+#elseif($parameter.many || $parameter.type.collectionType)
+#set ($controlType = "FormArray")
 #elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
 #set ($controlType = "FormGroup")
 #else
@@ -567,8 +570,10 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #end
 #if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
 #foreach($attr in $parameter.type.attributes)
-#if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
+#if($angularUtils.isTable($attr) )
 #set ($attrControlType = "FormControl")
+#elseif($attr.many || $attr.type.collectionType)
+#set ($attrControlType = "FormArray")
 #elseif($angularUtils.isComplex($attr) && !$attr.component)
 #set ($attrControlType = "FormGroup")
 #else
@@ -851,7 +856,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #end
 #end
 
-#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration)
+#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration && !$parameter.inputTable && !$parameter.table)
 #if($parameter.type)
 #set ($typeName = "$parameter.type.name")
 #else

@@ -226,6 +226,7 @@
     <property reference="spring-resources"/>
     <property reference="spring-target-resources"/>
 	<property reference="useLombok"/>
+    <property reference="springRestService"/>
     
     <!-- cartridge-property merge-point -->
 
@@ -234,6 +235,7 @@
         #if ($daoInheritanceEnabled.equalsIgnoreCase("true") &amp;&amp; !$enableTemplating.equalsIgnoreCase("true"))true#end
     </condition>
     <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
+    <condition name="springRestService">$springRestService.equalsIgnoreCase("true")</condition>
     <condition name="serviceSecurity">$serviceSecurity.equalsIgnoreCase("true")</condition>
     <condition name="richClient">$richClient.equalsIgnoreCase("true")</condition>
     <condition name="ejbsEnabled">$stringUtils.isNotBlank($session-ejbs)</condition>

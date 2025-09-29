@@ -80,7 +80,7 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "org.springframework.http.ResponseEntity<${applicationPackage}.RestApiResponse<${returnType}>>")
 #else
 #set ($return = "void")
 #end
@@ -99,7 +99,7 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #set ($handle = "handle")
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
+#set ($return = "org.springframework.http.ResponseEntity<${applicationPackage}.RestApiResponse<${returnType}>>")
 #else
 #set ($return = "void")
 #end

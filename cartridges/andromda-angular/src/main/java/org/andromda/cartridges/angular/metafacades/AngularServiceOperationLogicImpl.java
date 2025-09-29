@@ -113,9 +113,9 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
         builder.append(AngularUtils.getMethodSignatureArguments((List<ParameterFacade>) this.getArguments()));
 
         builder.append("): ");
-        builder.append("Observable<");
+        builder.append("Observable<RestApiResponse<");
         builder.append(this.getReturnTypeName());
-        builder.append(">");
+        builder.append(">>");
 
         return builder.toString();
     }

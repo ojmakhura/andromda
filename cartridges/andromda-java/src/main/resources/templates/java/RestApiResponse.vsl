@@ -1,0 +1,26 @@
+package ${applicationPackage};
+#if ($serializable && !$class.generalization)
+import java.io.Serializable;
+#end
+#set ($generatedFile = "${stringUtils.replace($applicationPackage,'.','/')}/RestApiResponse.java")
+
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+public class RestApiResponse<T> 
+#if ($serializable && !$class.generalization)
+    implements Serializable
+#end
+{
+#if ($serializable && !$class.generalization)
+    private static final long serialVersionUID = 1L;
+#end
+
+    private java.time.LocalDateTime timestamp;
+    private int status;
+    private String message;
+    private String details;
+    private String path;
+    private T data;
+    private boolean success;
+}

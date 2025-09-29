@@ -12,10 +12,12 @@ package ${service.packageName};
 #set ( $serviceImplName = "${service.name}Impl")
 #end
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import ${applicationPackage}.RestApiResponse;
+import java.util.Optional;
+
 @org.springframework.web.bind.annotation.RestController
-#foreach($annotation in $service.additionalAnnotations)
-@$annotation
-#end
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
     
     public ${serviceImplName}(
@@ -60,7 +62,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
+#set ($return = "ResponseEntity<RestApiResponse<${returnType}>>")
 #else
 #set ($return = "void")
 #end
@@ -68,27 +70,29 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
     $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
-#set ($optional = "java.util.Optional.of($call)")
+#set ($optional = "Optional.of($call)")
 #else
 #set ($call = "// TODO: Add custom code here")
-#set ($optional = "java.util.Optional.empty(); $call")
+#set ($optional = "Optional.empty(); $call")
 #end
 #if ($operation.returnTypePresent)
+        RestApiResponse<${returnType}> responseData = new RestApiResponse<>();
         try {
-            java.util.Optional<?> data = $optional;
-            org.springframework.http.ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.OK).body(data.get());
-            } else {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
-            }
+            Optional<${returnType}> data = $optional;
+            responseData.setData(data.get());
+            responseData.setSuccess(true);
+            responseData.setMessage(String.format("Operation successful."));
+            ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
 
             return response;
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            responseData.setSuccess(false);
+            responseData.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
+
+
 #else
         $call;
 #end

@@ -45,13 +45,13 @@
 			</div>
 			}
 #foreach ($variable in $view.variables)
-#if(!$variable.inputHidden)
+#if(!$variable.inputHidden && !$variable.inputTable)
 #set($propertyId = $variable.name)
 #if($variable.component)
 			<app-$variable.type.selectorName
 				#${variable.name}>
 			</app-$variable.type.selectorName>
-#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree || $variable.inputTable)
+#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree)
     		<div class="row">
 #renderAngularActionInput($variable "" "       				")
     		</div>

@@ -58,6 +58,18 @@
                     The directory to which default interfaces implementations are generated.
                 </documentation>
             </property>
+            <property name="springRestService" required="false">
+                <default>false</default>
+                <documentation>
+                    Whether this is a spring rest service
+                </documentation>
+            </property>      
+            <property name="applicationPackage" required="true">
+                <documentation>
+                    The id of the application (this is used as the display
+                    name of the application).
+                </documentation>
+            </property>     
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="generateRefFiles" required="false">

@@ -42,6 +42,11 @@ export const routes: Routes = [
 #end
       ],
       children: [
+        {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: '${useCase.initialView.routerPath}'
+        },
 #foreach($view in $useCase.views)
         { 
           path: '${view.routerPath}', 
