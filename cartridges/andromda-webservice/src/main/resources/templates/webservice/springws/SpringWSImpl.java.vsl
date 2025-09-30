@@ -81,6 +81,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
             Optional<${returnType}> data = $optional;
             responseData.setData(data.get());
             responseData.setSuccess(true);
+            responseData.setStatus(HttpStatus.OK.value());
             responseData.setMessage(String.format("Operation successful."));
             ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
 
@@ -88,6 +89,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
         } catch (Exception e) {
             logger.error(e.getMessage());
             responseData.setSuccess(false);
+            responseData.setStatus(HttpStatus.BAD_REQUEST.value());
             responseData.setMessage(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }

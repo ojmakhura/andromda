@@ -139,7 +139,6 @@ public class FrontEndParameterLogicImpl
     @Override
     protected boolean handleIsTable() {
 
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         boolean isTable = false;
         final ClassifierFacade type = this.getType();
         if (type != null) {

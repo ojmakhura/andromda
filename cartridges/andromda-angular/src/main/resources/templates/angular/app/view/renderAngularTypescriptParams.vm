@@ -83,7 +83,6 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
-// Table $parameter $parameter.inputTable $parameter.table
     @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.type.name)>;
     ${propertyId}TableSignal: Signal<any>;
     ${propertyId}TablePaged: boolean = true;
