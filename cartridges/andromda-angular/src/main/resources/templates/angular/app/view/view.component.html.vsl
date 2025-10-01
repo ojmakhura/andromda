@@ -2,7 +2,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card">
+<div#if($view.popup) mat-dialog-content#end class="edit-container">
 ## Render non table variables
 #set ($complex = [])
 #set ($simple = [])
@@ -15,62 +15,74 @@
 #end
 #end
 #end
-	<div class="card-body">
-    	<form [formGroup]="${view.formName}">
 #if(!$view.popup)
-			<div class="row">
-				<div class="col my-3 view-buttons">
+	<div class="page-header">
+		<div class="action-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
+			<button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
 #if($action.icon)
-						<mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
+				<mat-icon	mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
 #else
-						<span translate>$action.messageKey</span>
+				<span translate>$action.messageKey</span>
 #end
-					</button>
+			</button>
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-					<button mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
-						<mat-icon fontIcon="restore" aria-hidden="false" aria-label="restore"></mat-icon>
-					</button>
+			<button mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
+				<mat-icon fontIcon="restore" aria-hidden="false" aria-label="restore"></mat-icon>
+			</button>
 #end
-				</div>
-			</div>
+		</div>
+	</div>
 #end
-			@if (loading()) {
-			<div>
-				<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
-			</div>
-			}
+
+	@if (loading()) {
+	<div class="loading-overlay">
+		<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
+	</div>
+	}
+	<div class="form-container">
+    	<form [formGroup]="${view.formName}" class="edit-form">
+      		<mat-card class="form-section">
+				<!-- <mat-card-header>
+					<mat-card-title>
+						<mat-icon>info</mat-icon>
+						{{ 'basic.information' | translate }}
+					</mat-card-title>
+					<mat-card-subtitle>{{ 'basic.information.description' | translate }}</mat-card-subtitle>
+				</mat-card-header> -->
+        		<mat-card-content>
 #foreach ($variable in $view.variables)
 #if(!$variable.inputHidden && !$variable.inputTable)
 #set($propertyId = $variable.name)
 #if($variable.component)
-			<app-$variable.type.selectorName
-				#${variable.name}>
-			</app-$variable.type.selectorName>
+				<app-$variable.type.selectorName
+					#${variable.name}>
+				</app-$variable.type.selectorName>
 #elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree)
-    		<div class="row">
-#renderAngularActionInput($variable "" "       				")
-    		</div>
+    			<div class="field-row">
+#renderAngularActionInput($variable "" "       					")
+    			</div>
 ## #elseif($variable.inputTable || $variable.table)
-## #renderAngularActionInput($variable "" "       		")
+## #renderAngularActionInput($variable "" "       			")
 #elseif($angularUtils.isComplex($variable) && !($variable.inputTable || $variable.table))
-			<fieldset class="row form-group border p-3"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end formGroupName="$variable.name">
-				<legend class="col-form-label col-sm-2 pt-0" translate>$variable.messageKey</legend>
+				<fieldset class="row form-group border p-3"#if($variable.displayCondition) *ngIf="${variable.displayCondition}"#end formGroupName="$variable.name">
+					<legend class="col-form-label col-sm-2 pt-0" translate>$variable.messageKey</legend>
 #foreach ($property in $variable.displayAttributes)
 #if(!$property.inputHidden)
-        		<div class="row">
-#renderAngularActionInput($property $variable "           		")
-        		</div>
+        			<div class="row">
+#renderAngularActionInput($property $variable "	           		")
+        			</div>
 #end
 #end
-    		</fieldset>
+    			</fieldset>
 #end
 #end
 #end
+				</mat-card-content>
+			</mat-card>
     	</form>
 	</div>
 #if ( $view.tables.size() > 0 )

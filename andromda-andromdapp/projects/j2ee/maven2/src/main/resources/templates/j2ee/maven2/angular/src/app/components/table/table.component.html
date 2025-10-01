@@ -26,7 +26,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let row" class="table-cell">
             @if (col?.link) {
-              <a class="link-cell" (click)="onActionClicked(col.actionId || col.id, row.id)">
+              <a class="link-cell" (click)="onActionClicked(col.actionId || col.id, row)">
                 {{ row[col.id] }}
               </a>
             } @else {
@@ -44,7 +44,7 @@
               <button
                 color="primary"
                 matTooltip="{{ action.tooltip }}"
-                (click)="onActionClicked(action.id, row.id)"
+                (click)="onActionClicked(action.id, row)"
                 class="action-button"
               >
                 @if (!action.icon) {
