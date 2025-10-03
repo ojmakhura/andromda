@@ -197,18 +197,12 @@
         path="templates/java/RestApiResponse.vsl"
         outputPattern="$generatedFile"
         outlet="value-objects"
-        overwrite="true">
-        <modelElements variable="interface">
-            <modelElement>
-                <type name="org.andromda.metafacades.uml.ClassifierFacade">
-                    <property name="interface"/>
-                </type>
-            </modelElement>
-        </modelElements>
+        overwrite="true"
+        outputCondition="springRestService">
     </template>
 
     <template
-        path="templates/java/RestApiResponse.vsl"
+        path="templates/java/ApiErrorResponse.vsl"
         outputPattern="$generatedFile"
         outlet="value-objects"
         overwrite="true"

@@ -50,6 +50,9 @@
         <conditions>
             <condition id="springws" equal="true"/>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/GlobalExceptionHandler.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/ResourceNotFoundException.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/BadRequestException.java.vsl</output>
             <output>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</output>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</output>
             <output>webservice/src/main/resources/application.properties.vsl</output>
@@ -290,6 +293,18 @@
         <mapping>
             <from>webservice/SpringRestApplication.java.vsl</from>
             <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/GlobalExceptionHandler.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/GlobalExceptionHandler.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/ResourceNotFoundException.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/ResourceNotFoundException.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/BadRequestException.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}/exception, '.', '/')/BadRequestException.java.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/SpringRestApplicationTests.java.vsl</from>

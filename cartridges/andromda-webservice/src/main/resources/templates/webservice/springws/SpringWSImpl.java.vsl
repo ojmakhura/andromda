@@ -14,7 +14,6 @@ package ${service.packageName};
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import ${applicationPackage}.RestApiResponse;
 import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
@@ -62,7 +61,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "ResponseEntity<RestApiResponse<${returnType}>>")
+#set ($return = "ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
@@ -77,24 +76,14 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 #end
 #if ($operation.returnTypePresent)
         RestApiResponse<${returnType}> responseData = new RestApiResponse<>();
-        try {
-            Optional<${returnType}> data = $optional;
-            responseData.setData(data.get());
-            responseData.setSuccess(true);
-            responseData.setStatus(HttpStatus.OK.value());
-            responseData.setMessage(String.format("Operation successful."));
-            ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
+        Optional<${returnType}> data = $optional;
+        responseData.setData(data.get());
+        responseData.setSuccess(true);
+        responseData.setStatus(HttpStatus.OK.value());
+        responseData.setMessage(String.format("Operation successful."));
+        ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
 
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            responseData.setSuccess(false);
-            responseData.setStatus(HttpStatus.BAD_REQUEST.value());
-            responseData.setMessage(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-        }
-
-
+        return response;
 #else
         $call;
 #end
