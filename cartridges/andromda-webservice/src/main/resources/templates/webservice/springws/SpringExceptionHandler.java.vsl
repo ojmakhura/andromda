@@ -1,3 +1,6 @@
+
+#set ( $isService = $webServiceUtils.isService($service))
+#if($isService)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -6,11 +9,17 @@
 /**
  * TEMPLATE:    SpringExceptionHandler.vsl in andromda-webservice cartridge
  */
+#set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
+#set ( $serviceName = "${service.name}")
 #if ($stringUtils.isNotBlank($service.packageName))
-package $service.packageName;
+package ${service.packageName}.exception;
 #end
 
-import ${applicationPackage}.exception.ErrorResponse;
+import ${applicationPackage}.exception.ApiErrorResponse;
+import ${service.packageName}.${service.name}Exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,11 +30,11 @@ import java.util.List;
 $service.getDocumentation(" * ")
  */
 @RestControllerAdvice
-public interface ${service.name}ExceptionHandler 
+public class ${service.name}ExceptionHandler 
 {
     @ExceptionHandler(${service.name}Exception.class)
-    public ResponseEntity<ErrorResponse> handle${service.name}Exception(${service.name}Exception ex) {
-        ErrorResponse error = new ErrorResponse(
+    public ResponseEntity<ApiErrorResponse> handle${service.name}Exception(${service.name}Exception ex) {
+        ApiErrorResponse error = new ApiErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 ex.getMessage(),
                 LocalDateTime.now()
@@ -33,3 +42,4 @@ public interface ${service.name}ExceptionHandler
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
+#end

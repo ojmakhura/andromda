@@ -14,7 +14,6 @@ package ${service.packageName};
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import java.util.Optional;
 
 @org.springframework.web.bind.annotation.RestController
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
@@ -69,16 +68,18 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
     $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
-#set ($optional = "Optional.of($call)")
+#set ($optional = "$call")
 #else
 #set ($call = "// TODO: Add custom code here")
-#set ($optional = "Optional.empty(); $call")
+#set ($optional = "null;")
 #end
 #if ($operation.returnTypePresent)
         RestApiResponse<${returnType}> responseData = new RestApiResponse<>();
-        Optional<${returnType}> data = $optional;
-        responseData.setData(data.get());
-        responseData.setSuccess(true);
+#if($isService)
+        responseData.setData($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
+#else
+        responseData.setData(null);
+#end
         responseData.setStatus(HttpStatus.OK.value());
         responseData.setMessage(String.format("Operation successful."));
         ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);

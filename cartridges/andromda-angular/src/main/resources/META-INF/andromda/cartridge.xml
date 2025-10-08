@@ -165,6 +165,14 @@
         overwrite="false"
         outputCondition="springRestService">
     </template>
+
+    <template
+        path="templates/angular/app/model/api-error-response.model.ts.vsl"
+        outputPattern="model/api-error-response.model.ts"
+        outlet="models"
+        overwrite="false"
+        outputCondition="springRestService">
+    </template>
         
     <template
         path="templates/angular/app/model/enumeration.vsl"

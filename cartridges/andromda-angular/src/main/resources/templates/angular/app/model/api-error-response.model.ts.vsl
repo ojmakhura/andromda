@@ -1,0 +1,10 @@
+export class ApiErrorResponse {
+    status?: number = 0;
+    message?: string | undefined;
+    timestamp?: Date | undefined;
+    details?: string[] = []
+
+    constructor() {
+        // Default constructor
+    }
+}
