@@ -60,12 +60,13 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "ResponseEntity<${returnType}>")
+#set ($return = "ResponseEntity<${applicationPackage}.RestApiResponse<${returnType}>>")
 #else
 #set ($return = "void")
 #end
+
     @Override
-    $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) {
+    $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) throws Exception {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
 #set ($optional = "$call")

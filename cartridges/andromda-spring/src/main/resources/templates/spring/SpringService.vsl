@@ -20,7 +20,7 @@ package $service.packageName;
 /**
 $service.getDocumentation(" * ")
  */
-public interface $service.name // 99999
+public interface $service.name 
 #if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
 #if (!$service.interfaceAbstractions.empty)

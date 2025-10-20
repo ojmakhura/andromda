@@ -103,11 +103,11 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #else
 #set ($return = "void")
 #end
-    $operation.visibility $return ${operation.name}($operation.typedArgumentList) {
+    $operation.visibility $return ${operation.name}($operation.typedArgumentList) throws Exception {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
 
-    $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature});
+    $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature}) throws Exception;
 
 #end
 #foreach($serviceRef in $service.serviceReferences)

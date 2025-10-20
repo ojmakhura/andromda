@@ -36,6 +36,6 @@ public interface ${serviceName} {
 #end
 #set ($responseStatus = $operation.restResponseStatus)
 #set ($restPath = ${operation.restPath})
-    $operation.visibility $return ${operation.name}(#getOperationArgs($operation));
+    $operation.visibility $return ${operation.name}(#getOperationArgs($operation)) throws Exception;
 #end
 }
