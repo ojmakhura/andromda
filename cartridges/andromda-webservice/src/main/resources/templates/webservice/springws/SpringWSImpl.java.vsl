@@ -14,6 +14,7 @@ package ${service.packageName};
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import ${applicationPackage}.RestApiResponse;
 
 @org.springframework.web.bind.annotation.RestController
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
@@ -60,7 +61,7 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "ResponseEntity<${applicationPackage}.RestApiResponse<${returnType}>>")
+#set ($return = "ResponseEntity<RestApiResponse<${returnType}>>")
 #else
 #set ($return = "void")
 #end
@@ -74,21 +75,27 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 #set ($call = "// TODO: Add custom code here")
 #set ($optional = "null;")
 #end
+        try {
 #if ($operation.returnTypePresent)
-        RestApiResponse<${returnType}> responseData = new RestApiResponse<>();
+            RestApiResponse<${returnType}> responseData = new RestApiResponse<>();
 #if($isService)
-        responseData.setData($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
+            responseData.setData($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
 #else
-        responseData.setData(null);
+            responseData.setData(null);
 #end
-        responseData.setStatus(HttpStatus.OK.value());
-        responseData.setMessage(String.format("Operation successful."));
-        ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
+            responseData.setStatus(HttpStatus.OK.value());
+            responseData.setMessage(String.format("Operation successful."));
+            ResponseEntity<RestApiResponse<${returnType}>> response = ResponseEntity.status(HttpStatus.OK).body(responseData);
 
-        return response;
+            return response;
 #else
-        $call;
+            $call;
 #end
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw e;
+        } 
     }
 #end
 }
