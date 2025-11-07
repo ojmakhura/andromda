@@ -2783,7 +2783,7 @@ public class WebServiceUtils
             }
         }
 
-        return builder.toString();
+        return builder.toString().trim();
     }
     
     public static Collection<String> getSpringOperationArgs(WebServiceOperation operation) {
@@ -2852,7 +2852,7 @@ public class WebServiceUtils
 
             builder.append(param.getGetterSetterTypeName() + " " + param.getName());
 
-            args.add(builder.toString());
+            args.add(builder.toString().trim());
         }
 
         return args;

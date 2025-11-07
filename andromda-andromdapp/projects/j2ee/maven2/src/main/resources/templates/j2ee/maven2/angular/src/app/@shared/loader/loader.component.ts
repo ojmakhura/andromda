@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class LoaderComponent implements OnInit {
   @Input() isLoading = false;
   @Input() size = 1;
-  @Input() message: string | undefined;
+  @Input() message?: string;
 
   constructor() {}
 

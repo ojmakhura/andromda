@@ -28,7 +28,7 @@ const log = new Logger('Login');
 })
 export class LoginComponent implements OnInit {
   version: string | null = environment.version;
-  error: string | undefined;
+  error?: string;
   loginForm!: FormGroup;
   isLoading = false;
 

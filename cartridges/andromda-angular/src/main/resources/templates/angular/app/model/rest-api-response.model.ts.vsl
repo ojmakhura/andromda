@@ -1,11 +1,11 @@
 export class RestApiResponse<T> {
-    status?: number | undefined;
-    message?: string | undefined;
-    data?: T | undefined;
-    timestamp?: Date | undefined;
-    details?: string | undefined;
-    path?: string | undefined;
-    success?: boolean | undefined;
+    status?: number;
+    message?: string;
+    data?: T;
+    timestamp?: Date;
+    details?: string;
+    path?: string;
+    success?: boolean;
 
     constructor() {
         // Default constructor

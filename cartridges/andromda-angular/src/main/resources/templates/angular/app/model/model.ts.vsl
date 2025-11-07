@@ -24,13 +24,13 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name?: ${attribute.getterSetterTypeName} | undefined;
+    $attribute.name?: ${attribute.getterSetterTypeName};
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
 #set ($default = "new Array()")
 #end 
-    $attribute.name?: $attribute.getterSetterTypeName | undefined#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
+    $attribute.name?: $attribute.getterSetterTypeName#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
     
 #end
 #end

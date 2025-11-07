@@ -1473,7 +1473,7 @@ public class WebServiceLogicImpl
             path = '/' + path;
         }
 
-        return path;
+        return path.trim();
     }
 
     //private static final String PRODUCE_DEFAULT = "application/xml";

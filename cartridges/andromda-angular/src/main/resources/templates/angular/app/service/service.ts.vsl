@@ -12,7 +12,6 @@ import { $import.name } from '@app/${import.filePath}';
 import { HttpClient } from '@angular/common/http';
 import { Page } from '@app/model/page.model';
 import { SearchObject } from '@app/model/search-object';
-import { RestApiResponse } from '@app/model/rest-api-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +33,9 @@ export class ${service.name} {
 #set ($methodName = $operation.restRequestType)
 
 #if ( $methodName.equals("get") || $methodName.equals("delete")) 
-        return this.http.${methodName}<RestApiResponse<$operation.returnTypeName>>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end`);
+        return this.http.${methodName}<$operation.returnTypeName>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end`);
 #else
-        return this.http.${methodName}<RestApiResponse<$operation.returnTypeName>>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end`#if (!$operation.arguments.empty), $angularUtils.getMethodCallArguments($operation.arguments)#end);
+        return this.http.${methodName}<$operation.returnTypeName>(`${this.path}#if($operation.restPath.length() > 0)$operation.restPath#end`#if (!$operation.arguments.empty), $angularUtils.getMethodCallArguments($operation.arguments)#end);
 #end
     }
 

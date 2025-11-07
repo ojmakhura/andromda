@@ -16,7 +16,6 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 #end
 import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
-import { RestApiResponse } from '@app/model/rest-api-response.model';
 
 export type ${service.name}State = AppState<any, any> & {};
 
@@ -53,7 +52,7 @@ export const ${service.name}Store = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
-              next: (response: RestApiResponse<$operation.returnTypeName>) => {
+              next: (response: $operation.returnTypeName) => {
                 patchState(
                   store, 
                   {
