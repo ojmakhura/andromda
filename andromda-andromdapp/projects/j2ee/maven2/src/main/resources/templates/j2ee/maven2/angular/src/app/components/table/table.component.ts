@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
   Signal,
   ViewChild,
 } from '@angular/core';
@@ -24,7 +25,6 @@ import { ColumnModel } from '@app/model/column.model';
 import { IdLabel } from '@app/model/id-label.model';
 import { Page } from '@app/model/page.model';
 import { SelectionType } from '@app/model/selection-type.model';
-import { DeepSignal } from '@ngrx/signals';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -35,11 +35,11 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, TranslateModule, SharedModule, MaterialModule],
 })
 export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
-  @Input() paged: boolean = false;
+  @Input() paged = signal(false);
   @Input() showActions: boolean = true;
-  @Input() actions: ActionTemplate[];
-  @Input({ required: true }) dataColumns: ColumnModel[];
-  @Input() dataSignal: Signal<T[]> | DeepSignal<Page<T>> | Signal<undefined>;
+  @Input() actions: ActionTemplate[] = [];
+  @Input({ required: true }) dataColumns: ColumnModel[] = [];
+  @Input() dataSignal: Signal<T[]> | Signal<Page<T>> | Signal<undefined>;
   @Input() selectionType = SelectionType.NONE;
 
   @Output() actionClicked: EventEmitter<any> = new EventEmitter<any>();
@@ -65,14 +65,14 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
       if (!this.paged) {
         const data: T[] = <T[]>this.dataSignal();
-        this.dataSource = new MatTableDataSource(data);
+        this.dataSource = new MatTableDataSource(data || []);
         this.dataSource.sort = this.tableSort;
-        this.totalElements = data.length;
+        this.totalElements = data.length || 0;
       } else {
         const page = <Page<T>>this.dataSignal();
-        this.dataSource = new MatTableDataSource(page.content);
+        this.dataSource = new MatTableDataSource(page?.content || []);
         this.dataSource.sort = this.tableSort;
-        this.totalElements = page.totalElements;
+        this.totalElements = page?.totalElements || 0;
       }
     });
   }

@@ -198,7 +198,9 @@ ${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.d
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput [matDatepicker]="${parameter.name}Picker" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <mat-datepicker-toggle matIconSuffix [for]="${parameter.name}Picker"></mat-datepicker-toggle>
+${ident}    <mat-datepicker #${parameter.name}Picker></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 ${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end form#if ($multiSelect)Array#{else}Control#{end}Name="${parameter.name}" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
@@ -217,7 +219,7 @@ ${ident}            <ngx-mat-select-search [placeholderLabel]="'Search'" [formCo
 ${ident}                     [noEntriesFoundLabel]="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>
-${ident}        @for(item of ${propertyId}FilteredList$ | async; track item) {
+${ident}        @for(item of ${propertyId}FilteredList(); track item) {
 ${ident}        <mat-option [value]="item">{{ item[${propertyId}Displays[0]] }}</mat-option>
 ${ident}        }
 #end
@@ -240,7 +242,7 @@ ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="a
 ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
 ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
 ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
-${ident}         @for (item of ${propertyId}FilteredList$ | async; track item) {
+${ident}         @for (item of ${propertyId}FilteredList(); track item) {
 ${ident}            <mat-option [value]="item">{{item}}</mat-option>
 ${ident}         }
 ${ident}    </mat-autocomplete>
