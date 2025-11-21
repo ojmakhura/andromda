@@ -123,14 +123,14 @@
 					<annotatedElement xmi:idref='_24400562_1073849546571_557834_38'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1076870844729_365762_266'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_24400562_1076817919491_693372_552'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_24400562_1076817919491_693372_552'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::EntityAssociationEnd' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097268889812_76781_15' name='relationType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -145,14 +145,14 @@
 					<annotatedElement xmi:idref='_24400562_1073849610003_695789_135'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1073849658442_855776_151'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_d860307_1071574234068_992089_84'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_d860307_1071574234068_992089_84'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::Entity' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269550562_843916_264' name='syntheticCreateMethodAllowed' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -162,7 +162,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269626093_495532_278' name='allEntityRelations' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 						</xmi:Extension>
@@ -172,14 +172,14 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269626093_82523_279' name='jndiName' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269807593_105432_284' name='viewType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -189,7 +189,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269807593_997443_285' name='allInstanceAttributes' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::List' referentType='DataType'/>
 						</xmi:Extension>
@@ -199,7 +199,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269807593_863220_286' name='inheritedInstanceAttributes' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::List' referentType='DataType'/>
 						</xmi:Extension>
@@ -209,7 +209,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269807593_502194_287' name='homeInterfaceName' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -219,21 +219,21 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269807593_206271_288' name='valueDependencies' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097443918609_825452_115' name='entityRelations' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 						</xmi:Extension>
 					</type>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1111860673656_765153_90' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -247,7 +247,7 @@
 						<annotatedElement xmi:idref='_24400562_1075374972874_268490_98'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1075375037287_114996_100' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -257,7 +257,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1075374972874_238018_97' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -269,7 +269,7 @@
 						<annotatedElement xmi:idref='_24400562_1075375205920_985214_103'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1075375202735_266685_102' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -279,7 +279,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1075375202735_510605_101' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -291,7 +291,7 @@
 						<annotatedElement xmi:idref='_24400562_1080559407296_299096_321'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080559792750_256692_329' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -301,7 +301,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080559407296_116660_320' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -313,7 +313,7 @@
 						<annotatedElement xmi:idref='_24400562_1080563313125_474347_334'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080563497000_483278_342' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -323,7 +323,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080563313125_489886_333' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -332,14 +332,14 @@
 				</ownedOperation>
 				<ownedOperation xmi:type='uml:Operation' xmi:id='_1fe00f9_1097443833625_954592_98' name='isOperationPresent' visibility='public'>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443793078_694477_92' name='op' visibility='public' direction='inout'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 							</xmi:Extension>
 						</type>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443793078_805808_93' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -348,14 +348,14 @@
 				</ownedOperation>
 				<ownedOperation xmi:type='uml:Operation' xmi:id='_1fe00f9_1097443833625_123530_99' name='isAttributePresent' visibility='public'>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443812359_57139_94' name='att' visibility='public' direction='inout'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 							</xmi:Extension>
 						</type>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443812359_497151_95' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -364,14 +364,14 @@
 				</ownedOperation>
 				<ownedOperation xmi:type='uml:Operation' xmi:id='_1fe00f9_1097443833625_775234_100' name='isIdentifierPresent' visibility='public'>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443831250_756526_96' name='id' visibility='public' direction='inout'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 							</xmi:Extension>
 						</type>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_1fe00f9_1097443831250_36024_97' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -380,7 +380,7 @@
 				</ownedOperation>
 				<ownedOperation xmi:type='uml:Operation' xmi:id='_bf402f9_1101997047163_66611_20' name='getSqlType' visibility='public'>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_bf402f9_1101997057748_735276_22' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 							</xmi:Extension>
@@ -393,14 +393,14 @@
 					<annotatedElement xmi:idref='_24400562_1073746013492_415590_245'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1076929729053_505511_195'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_24400562_1076929607659_603849_252'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_24400562_1076929607659_603849_252'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::EntityQueryOperation' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269444171_814381_239' name='query' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -410,7 +410,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1111862061734_330799_118' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -423,7 +423,7 @@
 			<packagedElement xmi:type='uml:Class' xmi:id='_24400562_1073849665202_806094_161' name='EJBPrimaryKeyFacade'>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1091896725562_252396_136' general='_24400562_1091894913703_899552_105'/>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269312218_719107_197' name='complex' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -438,14 +438,14 @@
 					<annotatedElement xmi:idref='_24400562_1080523590812_62481_269'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1080523602484_806710_285'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_d860307_1071574465881_881793_352'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_d860307_1071574465881_881793_352'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::Service' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269218_370430_48' name='syntheticCreateMethodAllowed' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -455,7 +455,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269218_14525_49' name='businessOperations' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 						</xmi:Extension>
@@ -465,7 +465,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269218_361877_50' name='allInstanceAttributes' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::List' referentType='DataType'/>
 						</xmi:Extension>
@@ -475,7 +475,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269218_390862_51' name='inheritedInstanceAttributes' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_809265_8'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::List' referentType='DataType'/>
 						</xmi:Extension>
@@ -485,7 +485,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269218_480870_52' name='jndiName' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -495,7 +495,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269234_89478_53' name='stateful' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -505,7 +505,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269234_22050_54' name='stateless' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -515,7 +515,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269234_118423_55' name='type' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -525,7 +525,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269234_14530_56' name='viewType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -535,7 +535,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269269234_461148_57' name='homeInterfaceName' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -545,7 +545,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_9_0_2_12ab03bf_1111861620687_501330_104' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -559,7 +559,7 @@
 						<annotatedElement xmi:idref='_24400562_1080523790000_210853_298'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080523904046_420072_300' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -569,7 +569,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080523790000_838489_297' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -581,7 +581,7 @@
 						<annotatedElement xmi:idref='_24400562_1080559538796_19482_324'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080559810281_259438_331' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -591,7 +591,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080559538796_135305_323' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -603,7 +603,7 @@
 						<annotatedElement xmi:idref='_24400562_1080563338578_9447_338'/>
 					</ownedComment>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080563521921_434735_343' name='follow' visibility='public'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 							</xmi:Extension>
@@ -613,7 +613,7 @@
 						</ownedComment>
 					</ownedParameter>
 					<ownedParameter xmi:type='uml:Parameter' xmi:id='_24400562_1080563338578_873362_337' visibility='public' direction='return'>
-						<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
+						<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_331753_26'>
 							<xmi:Extension extender='MagicDraw UML 19.0'>
 								<referenceExtension referentPath='datatype::Collection' referentType='DataType'/>
 							</xmi:Extension>
@@ -626,14 +626,14 @@
 					<annotatedElement xmi:idref='_24400562_1091894913703_899552_105'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1091894951078_1496_121'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_24400562_1076241072504_416910_88'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_24400562_1076241072504_416910_88'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::EntityAttribute' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_24400562_1091896974234_780276_137' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -654,14 +654,14 @@
 					<annotatedElement xmi:idref='_24400562_1091897117578_234575_164'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1091897227890_898358_302'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_d860307_1071504751869_985718_574'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_d860307_1071504751869_985718_574'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::OperationFacade' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_24400562_1091897163031_680698_180' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -677,7 +677,7 @@
 					</xmi:Extension>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269404031_855242_218' name='businessOperation' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -687,7 +687,7 @@
 					</ownedComment>
 				</ownedAttribute>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_1fe00f9_1097269404031_583749_219' name='selectMethod' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_736816_6'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::boolean' referentType='DataType'/>
 						</xmi:Extension>
@@ -702,14 +702,14 @@
 					<annotatedElement xmi:idref='_24400562_1091897927609_98087_388'/>
 				</ownedComment>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1091897992312_345861_406'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_24400562_1086300630984_552734_109'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_24400562_1086300630984_552734_109'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::EntityAssociation' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_24400562_1091897987359_280292_404' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -727,14 +727,14 @@
 			</packagedElement>
 			<packagedElement xmi:type='uml:Class' xmi:id='_24400562_1091901189093_563441_438' name='EJBSessionAttributeFacade'>
 				<generalization xmi:type='uml:Generalization' xmi:id='_24400562_1091901232750_16708_509'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_d860307_1071504589255_899792_464'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_d860307_1071504589255_899792_464'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::AttributeFacade' referentType='Class'/>
 						</xmi:Extension>
 					</general>
 				</generalization>
 				<ownedAttribute xmi:type='uml:Property' xmi:id='_24400562_1091901222546_907827_454' name='transactionType' visibility='public' isReadOnly='true'>
-					<type href='andromda-profile-datatype-5.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
+					<type href='andromda-profile-datatype-6.0-SNAPSHOT.xml.zip#_9_0_1fe00f9_1119336925531_364079_66'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='datatype::String' referentType='DataType'/>
 						</xmi:Extension>
@@ -752,7 +752,7 @@
 			</packagedElement>
 			<packagedElement xmi:type='uml:Class' xmi:id='_bf402f9_1094668562400_146490_158' name='ValueObjectFacade'>
 				<generalization xmi:type='uml:Generalization' xmi:id='_bf402f9_1094668624319_144020_270'>
-					<general href='andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip#_d860307_1071504650353_319894_500'>
+					<general href='andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip#_d860307_1071504650353_319894_500'>
 						<xmi:Extension extender='MagicDraw UML 19.0'>
 							<referenceExtension referentPath='org::andromda::metafacades::uml::ClassifierFacade' referentType='Class'/>
 						</xmi:Extension>
@@ -1468,7 +1468,7 @@
     <properties xmi:id="_aGTkAvRoEeq7V79u4ac4hA" key="loadIndex" value="true"/>
     <properties xmi:id="_aGTkA_RoEeq7V79u4ac4hA" key="usedVersion" value="19.0 SP3"/>
   </projectUsages>
-  <projectUsages xmi:id="_Z-d2ovRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/metafacades/uml/common/target/andromda-metafacades-uml-5.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
+  <projectUsages xmi:id="_Z-d2ovRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/metafacades/uml/common/target/andromda-metafacades-uml-6.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
     <usedProject href="PROJECT-36d1a3ee8b2b5a41f1dfd3b8ba958256?resource=com.nomagic.ci.metamodel.project#_xB8WMHv_Eeq_3Iq8TuPjVg"/>
     <mountPoints xmi:id="_aJurcPRoEeq7V79u4ac4hA" sharePointID="_d860307_1071504185484_225563_209" containmentFeatureID="61" featureName="UML Model" containmentIndex="-1" containmentFeatureName="packagedElement">
       <mountedPoint href="PROJECT-36d1a3ee8b2b5a41f1dfd3b8ba958256?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_d860307_1071504185484_225563_209"/>
@@ -1480,7 +1480,7 @@
     <properties xmi:id="_aGTkBPRoEeq7V79u4ac4hA" key="loadIndex" value="true"/>
     <properties xmi:id="_aGTkBfRoEeq7V79u4ac4hA" key="usedVersion"/>
   </projectUsages>
-  <projectUsages xmi:id="_Z-fEwfRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/profiles/uml-2.0/meta/target/andromda-profile-meta-5.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
+  <projectUsages xmi:id="_Z-fEwfRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/profiles/uml-2.0/meta/target/andromda-profile-meta-6.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
     <usedProject href="PROJECT-2084f5d9-a19d-4537-8920-0bab85e9edee?resource=com.nomagic.ci.metamodel.project#_GLT9QFYDEeCyhsLctII43A"/>
     <mountPoints xmi:id="_smN70EtdEe632ZYHVvERhg" sharePointID="d0deb2b3-45a4-4b6f-addf-64b33fe6114a" containmentFeatureID="61" featureName="UML Model" containmentIndex="-1" containmentFeatureName="packagedElement">
       <mountedPoint href="PROJECT-2084f5d9-a19d-4537-8920-0bab85e9edee?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_2_12ab03bf_1120852637390_857322_0"/>
@@ -1492,7 +1492,7 @@
     <properties xmi:id="_aGTkBvRoEeq7V79u4ac4hA" key="loadIndex" value="true"/>
     <properties xmi:id="_aGTkB_RoEeq7V79u4ac4hA" key="usedVersion"/>
   </projectUsages>
-  <projectUsages xmi:id="_Z-fr0vRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/profiles/uml-2.0/datatype/target/andromda-profile-datatype-5.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
+  <projectUsages xmi:id="_Z-fr0vRoEeq7V79u4ac4hA" usedProjectURI="file:/home/junior/programming/rogue/andromda%20(copy)/profiles/uml-2.0/datatype/target/andromda-profile-datatype-6.0-SNAPSHOT.xml.zip" readonly="true" preferredProjectRepositoryType="" loadedAutomatically="true" withPrivateDependencies="true">
     <usedProject href="PROJECT-28615ec9-6172-4762-ae76-1ecf2ab9dd32?resource=com.nomagic.ci.metamodel.project#_GLT9QFYDEeCyhsLctII43A"/>
     <mountPoints xmi:id="_smN70ktdEe632ZYHVvERhg" sharePointID="55a57d10-fd70-4c34-bc4d-55564d6089d3" containmentFeatureID="61" featureName="UML Model" containmentIndex="-1" containmentFeatureName="packagedElement">
       <mountedPoint href="PROJECT-28615ec9-6172-4762-ae76-1ecf2ab9dd32?resource=com.nomagic.magicdraw.uml_umodel.shared_umodel#_9_0_1fe00f9_1119336925546_238419_77"/>

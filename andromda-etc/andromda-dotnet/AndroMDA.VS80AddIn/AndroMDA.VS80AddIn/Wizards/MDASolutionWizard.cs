@@ -464,7 +464,7 @@ namespace AndroMDA.VS80AddIn.Dialogs
             cbConfigureUnitTestingProject.Checked = true;
             cbConfigureUnitTestingProject.Checked = false;
 
-            txtAndroMDAVersion.Text = "5.0-SNAPSHOT";
+            txtAndroMDAVersion.Text = "6.0-SNAPSHOT";
             txtDotNetCartridgesVersion.Text = "1.2-SNAPSHOT";
         }
 

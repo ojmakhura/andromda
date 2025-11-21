@@ -1,0 +1,131 @@
+<mat-drawer-container class="shell-container">
+  <mat-drawer
+    #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile"
+    class="shell-drawer"
+  >
+    <!-- Sidebar Header -->
+    <div class="drawer-header">
+      <mat-icon class="brand-icon">layers</mat-icon>
+      <span class="brand-text">{{ 'app.name' | translate }}</span>
+    </div>
+
+    <!-- Navigation -->
+    <mat-nav-list class="drawer-nav">
+      <a
+        mat-list-item
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="isMobile && sidenav.close()"
+        class="nav-item"
+      >
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>{{ 'menu.home' | translate }}</span>
+      </a>
+
+      @for (item of menus; track item.routerLink) {
+        <a
+          mat-list-item
+          [routerLink]="item.routerLink"
+          routerLinkActive="active"
+          (click)="isMobile && sidenav.close()"
+          class="nav-item"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.titleKey | translate }}</span>
+        </a>
+      }
+      <a
+        mat-list-item
+        routerLink="/about"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="isMobile && sidenav.close()"
+        class="nav-item"
+      >
+        <mat-icon matListItemIcon>info</mat-icon>
+        <span matListItemTitle>{{ 'menu.about' | translate }}</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-drawer>
+
+  <!-- Main Content -->
+  <mat-drawer-content class="shell-content">
+    <!-- Toolbar -->
+    <mat-toolbar class="shell-toolbar">
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        class="menu-toggle"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="toolbar-title">{{ title }}</span>
+
+      <span class="spacer"></span>
+
+      <!-- Language Selector -->
+      <button mat-icon-button [matMenuTriggerFor]="langMenu" class="toolbar-action">
+        <mat-icon>language</mat-icon>
+      </button>
+      <mat-menu #langMenu="matMenu">
+        @for (lang of availableLanguages; track lang.code) {
+          <button
+            mat-menu-item
+            (click)="changeLanguage(lang.code)"
+            [class.active-lang]="currentLanguage === lang.code"
+          >
+            @if (currentLanguage === lang.code) {
+              <mat-icon>check</mat-icon>
+            } @else {
+              <mat-icon></mat-icon>
+            }
+            <span>{{ lang.name }}</span>
+          </button>
+        }
+      </mat-menu>
+
+      <!-- Notifications -->
+      <button mat-icon-button class="toolbar-action">
+        <mat-icon [matBadge]="3" matBadgeColor="warn" matBadgeSize="small">notifications</mat-icon>
+      </button>
+
+      <!-- User Profile -->
+      <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" class="toolbar-action">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #toolbarUserMenu="matMenu">
+        <div class="user-menu-header">
+          <mat-icon>account_circle</mat-icon>
+          <div class="user-details">
+            <div class="user-name">{{ username }}</div>
+            <div class="user-email">{{ userEmail }}</div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>{{ 'user.profile' | translate }}</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>{{ 'user.settings' | translate }}</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>{{ 'user.logout' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Page Content -->
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,562 @@
+// ==========================================
+// COMMON PAGE STYLES
+// Standard styles for page components
+// ==========================================
+
+// Page Container
+.page-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #f5f7fa;
+  min-height: 100%;
+
+  @media (max-width: 599px) {
+    padding: 16px;
+  }
+}
+
+// Section Spacing
+.page-section {
+  margin-bottom: 48px;
+
+  &:last-child {
+    margin-bottom: 24px;
+  }
+}
+
+// Section Title & Description
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #263238;
+  margin-bottom: 16px;
+  text-align: center;
+
+  @media (max-width: 599px) {
+    font-size: 1.5rem;
+  }
+}
+
+.section-description {
+  font-size: 1rem;
+  color: #546e7a;
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+
+  @media (max-width: 599px) {
+    font-size: 0.938rem;
+    margin-bottom: 24px;
+  }
+}
+
+// ==========================================
+// HERO CARDS
+// ==========================================
+.hero-card {
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+  &.hero-primary {
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  }
+
+  &.hero-accent {
+    background: linear-gradient(135deg, #f50057 0%, #c51162 100%);
+  }
+
+  &.hero-purple {
+    background: linear-gradient(135deg, #673ab7 0%, #512da8 100%);
+  }
+
+  mat-card-header {
+    .hero-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 40px;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    mat-card-title {
+      color: white;
+      font-size: 2rem;
+      font-weight: 700;
+
+      @media (max-width: 599px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    mat-card-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.125rem;
+
+      @media (max-width: 599px) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  mat-card-content {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+// ==========================================
+// GRID LAYOUTS
+// ==========================================
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 599px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.grid-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+
+  @media (max-width: 599px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+// ==========================================
+// STANDARD CARDS
+// ==========================================
+.standard-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  mat-card-header {
+    mat-icon[mat-card-avatar] {
+      font-size: 32px;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(25, 118, 210, 0.1);
+    }
+
+    mat-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #37474f;
+    }
+
+    mat-card-subtitle {
+      color: #546e7a;
+    }
+  }
+
+  mat-card-content {
+    color: #546e7a;
+    line-height: 1.6;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// ==========================================
+// COMPACT CARDS (for small items)
+// ==========================================
+.compact-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    text-align: center;
+
+    .card-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #37474f;
+    }
+  }
+}
+
+// ==========================================
+// PROFILE/AVATAR CARDS
+// ==========================================
+.profile-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  mat-card-header {
+    .profile-avatar {
+      font-size: 48px;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+      color: white;
+    }
+
+    mat-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #37474f;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.938rem;
+      color: #1976d2;
+      font-weight: 500;
+    }
+  }
+
+  mat-card-content {
+    color: #546e7a;
+    line-height: 1.6;
+    font-size: 0.938rem;
+  }
+}
+
+// ==========================================
+// CTA/ACTION CARDS
+// ==========================================
+.action-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 2px solid #1976d2;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+
+  &.action-accent {
+    border-color: #f50057;
+    box-shadow: 0 4px 16px rgba(245, 0, 87, 0.15);
+  }
+
+  &.action-purple {
+    border-color: #673ab7;
+    box-shadow: 0 4px 16px rgba(103, 58, 183, 0.15);
+  }
+
+  mat-card-header {
+    mat-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1976d2;
+
+      @media (max-width: 599px) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &.action-accent mat-card-header mat-card-title {
+    color: #f50057;
+  }
+
+  &.action-purple mat-card-header mat-card-title {
+    color: #673ab7;
+  }
+
+  mat-card-content {
+    color: #546e7a;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  mat-card-actions {
+    padding: 16px;
+    gap: 12px;
+
+    button {
+      font-weight: 600;
+      padding: 0 24px;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+
+      @media (max-width: 599px) {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+
+    @media (max-width: 599px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+}
+
+// ==========================================
+// MATERIAL CARD OVERRIDES
+// ==========================================
+mat-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+mat-card-header {
+  padding: 24px 24px 16px;
+}
+
+mat-card-content {
+  padding: 0 24px 24px;
+}
+
+mat-card-actions {
+  padding: 16px 24px 24px;
+}
+
+// ==========================================
+// ANIMATIONS
+// ==========================================
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ==========================================
+// HERO ACTIONS
+// ==========================================
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+  }
+
+  button {
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+
+    @media (max-width: 599px) {
+      width: 100%;
+    }
+  }
+
+  .mat-mdc-outlined-button {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: white;
+    }
+  }
+}
+
+// ==========================================
+// STATISTICS CARDS
+// ==========================================
+.stat-card {
+  mat-card-content {
+    text-align: center;
+  }
+
+  .stat-value {
+    margin: 12px 0 4px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1976d2;
+    line-height: 1;
+  }
+
+  .stat-label {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #546e7a;
+    font-weight: 500;
+  }
+}
+
+// ==========================================
+// BENEFITS LIST
+// ==========================================
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    mat-icon {
+      flex-shrink: 0;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      color: #37474f;
+      font-size: 0.938rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ==========================================
+// BUTTON UTILITIES
+// ==========================================
+.full-width-button {
+  width: 100%;
+  margin-bottom: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+// ==========================================
+// UTILITY CLASSES
+// ==========================================
+.text-center {
+  text-align: center;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 8px !important;
+}
+
+.mb-2 {
+  margin-bottom: 16px !important;
+}
+
+.mb-3 {
+  margin-bottom: 24px !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-1 {
+  margin-top: 8px !important;
+}
+
+.mt-2 {
+  margin-top: 16px !important;
+}
+
+.mt-3 {
+  margin-top: 24px !important;
+}

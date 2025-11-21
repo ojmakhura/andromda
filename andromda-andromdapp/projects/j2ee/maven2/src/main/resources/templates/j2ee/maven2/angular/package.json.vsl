@@ -1,89 +1,73 @@
 {
   "name": "$applicationId",
-  "version": "1.0.0",
-  "private": true,
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "npm run write:env -s && ng build",
     "start": "ng serve",
-    "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
-    "lint": "ng lint && stylelint \"src/**/*.scss\"",
-    "test": "npm run write:env -s && ng test",
-    "test:ci": "npm run write:env -s && npm run lint -s && ng run $applicationId:test:ci",
-    "e2e": "npm run write:env -s && ng e2e",
-    "cypress:open": "npm run write:env -s && ng run $applicationId:cypress-open",
-    "cypress:run": "npm run write:env -s && ng run $applicationId:cypress-run",
-    "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean --sort",
-    "docs": "hads ./docs -o",
-    "write:env": "ngx-scripts env npm_package_version",
-    "prettier": "prettier --write \"./src/**/*.{ts,js,html,scss}\"",
-    "prettier:check": "prettier --list-different \"./src/**/*.{ts,js,html,scss}\"",
-    "postinstall": "npm run prettier -s && husky install",
-    "generate": "ng generate"
-  },
-  "dependencies": {
-    "@angular/animations": "^19.2.5",
-    "@angular/cdk": "^19.2.8",
-    "@angular/common": "^19.2.5",
-    "@angular/compiler": "^19.2.5",
-    "@angular/core": "^19.2.5",
-    "@angular/forms": "^19.2.5",
-    "@angular/localize": "^19.2.5",
-    "@angular/material": "^19.2.8",
-    "@angular/platform-browser": "^19.2.5",
-    "@angular/platform-browser-dynamic": "^19.2.5",
-    "@angular/router": "^19.2.5",
-    "@angular/service-worker": "^19.2.5",
-    "@ngrx/effects": "^19.1.0",
-    "@ngrx/operators": "^19.1.0",
-    "@ngrx/signals": "^19.1.0",
-    "@ngrx/store": "^19.1.0",
-    "@ngrx/store-devtools": "^19.1.0",
-    "@ngx-translate/core": "^16.0.4",
-    "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.11.3",
-    "chart.js": "^4.4.8",
-    "dotenv": "^16.4.5",
-    "jquery": "^3.7.1",
-    "ngx-mat-select-search": "^8.0.0",
-    "ngx-spinner": "^19.0.0",
-    "ngx-toastr": "^19.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.6",
-    "@angular/cli": "^19.2.6",
-    "@angular/compiler-cli": "^19.2.5",
-    "@angular/language-service": "^19.2.5",
-    "@cypress/schematic": "^2.5.2",
-    "@types/jasmine": "~5.1.7",
-    "@types/jasminewd2": "^2.0.13",
-    "@types/node": "^22.14.0",
-    "hads": "^3.0.3",
-    "https-proxy-agent": "^7.0.5",
-    "husky": "^9.1.4",
-    "jasmine-core": "~5.6.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "prettier": "^3.5.3",
-    "pretty-quick": "^4.0.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.0"
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "generate": "ng generate",
+    "prepare": "husky",
+    "format": "prettier --write \"src/**/*.{ts,html,scss,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,scss,css,json}\"",
+    "docs": "hads -o -p 4040",
+    "docs:build": "hads -o -p 4040"
   },
   "prettier": {
+    "printWidth": 100,
     "singleQuote": true,
     "overrides": [
       {
-        "files": "*.scss",
+        "files": "*.html",
         "options": {
-          "singleQuote": false
+          "parser": "angular"
         }
       }
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{ts,html,scss,css,json}": [
+      "prettier --write"
+    ],
+    "src/**/*.ts": [
+      "ng lint --fix"
+    ]
+  },
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@angular/cdk": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/material": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-server": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@angular/ssr": "^21.0.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "express": "^5.1.0",
+    "ngx-spinner": "^19.0.0",
+    "ngx-toastr": "^19.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "hads": "^3.0.3",
+    "husky": "^9.1.7",
+    "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.7",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
   }
 }

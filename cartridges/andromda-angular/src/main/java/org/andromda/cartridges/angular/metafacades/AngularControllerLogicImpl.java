@@ -322,7 +322,7 @@ public class AngularControllerLogicImpl
 
     @Override
     protected String handleGetFilePath() {
-        return "controller/" + this.getPackagePath() + "/" + this.getFileName();
+        return "controllers/" + this.getPackagePath() + "/" + this.getFileName();
     }
 
     @Override
@@ -337,7 +337,7 @@ public class AngularControllerLogicImpl
 
     @Override
     protected String handleGetImplementationFilePath() {
-        return this.getFilePath() + ".impl";
+        return this.getFilePath() + "-impl";
     }
 
     @Override

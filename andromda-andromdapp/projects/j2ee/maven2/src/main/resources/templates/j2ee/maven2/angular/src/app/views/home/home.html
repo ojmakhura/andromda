@@ -1,0 +1,102 @@
+<div class="page-container">
+  <!-- Hero Section -->
+  <div class="page-section">
+    <mat-card class="hero-card hero-primary">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="hero-icon">rocket_launch</mat-icon>
+        <mat-card-title translate>{{ 'home.welcome' }}</mat-card-title>
+        <mat-card-subtitle translate>{{ 'home.description' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p translate>{{ 'home.intro' }}</p>
+        <div class="hero-actions mt-3">
+          <button mat-raised-button color="accent" class="hero-button">
+            <mat-icon>play_arrow</mat-icon>
+            <span translate>{{ 'common.getStarted' }}</span>
+          </button>
+          <button mat-stroked-button class="hero-button-outline">
+            <mat-icon>info</mat-icon>
+            <span translate>{{ 'common.learnMore' }}</span>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="page-section">
+    <div class="grid-4">
+      @for (stat of statistics; track stat.label) {
+        <mat-card class="compact-card stat-card">
+          <mat-card-content>
+            <mat-icon class="card-icon" color="primary">{{ stat.icon }}</mat-icon>
+            <h2 class="stat-value">{{ stat.value }}</h2>
+            <p class="stat-label">{{ stat.label }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="page-section">
+    <h2 class="section-title" translate>{{ 'home.features' }}</h2>
+    <p class="section-description" translate>{{ 'home.featuresDesc' }}</p>
+    
+    <div class="grid-3">
+      @for (feature of features; track feature.icon) {
+        <mat-card class="standard-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar color="primary">{{ feature.icon }}</mat-icon>
+            <mat-card-title translate>{{ feature.titleKey }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p translate>{{ feature.descKey }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <!-- Benefits Section -->
+  <div class="page-section">
+    <div class="grid-2">
+      <mat-card class="standard-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="accent">verified</mat-icon>
+          <mat-card-title translate>{{ 'home.whyChooseUs' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="benefits-list">
+            @for (benefit of benefits; track benefit.textKey) {
+              <li class="benefit-item">
+                <mat-icon color="primary">{{ benefit.icon }}</mat-icon>
+                <span translate>{{ benefit.textKey }}</span>
+              </li>
+            }
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="action-card">
+        <mat-card-header>
+          <mat-card-title translate>{{ 'home.getStarted' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p translate>{{ 'home.getStartedDesc' }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" class="full-width-button">
+            <mat-icon>email</mat-icon>
+            <span translate>{{ 'home.contactSales' }}</span>
+          </button>
+          <button mat-stroked-button color="primary" class="full-width-button">
+            <mat-icon>calendar_today</mat-icon>
+            <span translate>{{ 'home.bookDemo' }}</span>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

@@ -76,7 +76,7 @@ public class AngularUseCaseLogicImpl
         //         actionPath = action.getPath();
         //     }
         // }
-        return "view/" + super.getPath();
+        return "views/" + super.getPath();
     }
 
     /**

@@ -1,0 +1,131 @@
+<div class="page-container">
+  <!-- Hero Section -->
+  <div class="page-section">
+    <mat-card class="hero-card hero-primary">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="hero-icon">info</mat-icon>
+        <mat-card-title translate>{{ 'about.title' }}</mat-card-title>
+        <mat-card-subtitle translate>{{ 'about.subtitle' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p translate>{{ 'about.mission' }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Company Overview -->
+  <div class="page-section">
+    <h2 class="section-title" translate>{{ 'about.overview.title' }}</h2>
+    <div class="grid-3">
+      <mat-card class="standard-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="primary">visibility</mat-icon>
+          <mat-card-title translate>{{ 'about.overview.vision.title' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p translate>{{ 'about.overview.vision.description' }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="standard-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="primary">track_changes</mat-icon>
+          <mat-card-title translate>{{ 'about.overview.mission.title' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p translate>{{ 'about.overview.mission.description' }}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="standard-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="primary">favorite</mat-icon>
+          <mat-card-title translate>{{ 'about.overview.values.title' }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p translate>{{ 'about.overview.values.description' }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Technologies Section -->
+  <div class="page-section">
+    <h2 class="section-title" translate>{{ 'about.technologies.title' }}</h2>
+    <p class="section-description" translate>{{ 'about.technologies.description' }}</p>
+    <div class="grid-compact">
+      @for (tech of technologies; track tech.name) {
+        <mat-card class="compact-card">
+          <mat-card-content>
+            <mat-icon [color]="tech.color" class="card-icon">{{ tech.icon }}</mat-icon>
+            <h3 class="card-title">{{ tech.name }}</h3>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="page-section">
+    <h2 class="section-title" translate>{{ 'about.team.title' }}</h2>
+    <p class="section-description" translate>{{ 'about.team.description' }}</p>
+    <div class="grid-4">
+      @for (member of teamMembers; track member.name) {
+        <mat-card class="profile-card">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="profile-avatar">{{ member.avatar }}</mat-icon>
+            <mat-card-title>{{ member.name }}</mat-card-title>
+            <mat-card-subtitle>{{ member.role }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ member.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+
+  <!-- Timeline Section -->
+  <div class="page-section timeline-section">
+    <h2 class="section-title" translate>{{ 'about.timeline.title' }}</h2>
+    <div class="timeline">
+      @for (milestone of milestones; track milestone.year; let isLast = $last) {
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+            @if (!isLast) {
+              <div class="timeline-line"></div>
+            }
+          </div>
+          <mat-card class="timeline-card">
+            <mat-card-header>
+              <div class="timeline-year">{{ milestone.year }}</div>
+              <mat-card-title>{{ milestone.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ milestone.description }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Contact CTA -->
+  <div class="page-section text-center">
+    <mat-card class="action-card action-purple">
+      <mat-card-header>
+        <mat-card-title translate>{{ 'about.contact.title' }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p translate>{{ 'about.contact.description' }}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary">
+          <mat-icon>email</mat-icon>
+          <span translate>{{ 'about.contact.button' }}</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

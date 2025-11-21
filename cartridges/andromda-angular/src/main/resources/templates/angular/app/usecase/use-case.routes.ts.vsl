@@ -4,7 +4,7 @@ import { importProvidersFrom } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { Shell } from '@app/shell/shell.service';
-import { ${useCase.componentName}Component } from '@app/${useCase.path}.component';
+import { ${useCase.componentName} } from '@app/${useCase.path}';
 
 #if($secure)
 import { AuthenticationGuard } from '@app/auth';
@@ -27,7 +27,7 @@ import { ${controller.implementationName} } from ${escTool.s}@app/${controller.i
 export const routes: Routes = [
   { 
       path: '', 
-      component: ${useCase.componentName}Component, 
+      component: ${useCase.componentName}, 
 #if($secure)
       canActivate: [AuthenticationGuard],
 #end

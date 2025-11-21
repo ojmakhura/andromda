@@ -48,7 +48,7 @@ public class AngularComponentLogicImpl
     {
         
         String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
-        return phrase.replace(" ", "-") + ".component";
+        return phrase.replace(" ", "-");
     }
 
     /**
@@ -75,7 +75,7 @@ public class AngularComponentLogicImpl
     {
         
         String phrase = StringUtilsHelper.toPhrase(this.getBeanName()).toLowerCase();
-        return phrase.replace(" ", "-") + "-impl.component";
+        return phrase.replace(" ", "-") + "-impl";
     }
 
     @Override

@@ -10,14 +10,8 @@
  */
 import { Routes } from '@angular/router';
 import { Shell } from '@app/shell/shell.service';
-// import { LoginComponent } from './auth/login.component';
 
 export const routes: Routes = [
-  // Uncomment the following lines to enable login route
-  //{
-  //  path: 'login',
-  //  component: LoginComponent,
-  //},
   Shell.childRoutes([
     {
       path: '',

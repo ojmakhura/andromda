@@ -70,7 +70,7 @@ public class AngularEnumerationLogicImpl
 
     @Override
     protected String handleGetFilePath() {
-        return "model/" + this.getPackagePath() + '/' + this.getFileName();
+        return "models/" + this.getPackagePath() + '/' + this.getFileName();
     }
 
     @Override

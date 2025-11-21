@@ -1,27 +1,15 @@
 import { Routes } from '@angular/router';
-import { Shell } from './shell/shell.service';
+import { Shell } from './shell';
 
 export const routes: Routes = [
-  
-  {
-    path: 'login',
-    loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
-  },
-  Shell.childRoutes([
-    {
-      path: '',
-      loadChildren: () => import('./home/home.routes').then((m) => m.routes),
-    },
-    {
-      path: 'about',
-      data: { title: 'About' },
-      loadChildren: () => import('./about/about.routes').then((m) => m.routes),
-    },
-  ]),
-  // Fallback when no prior route is matched
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
-  },
+    Shell.childRoutes([
+        {
+            path: '',
+            loadComponent: () => import('./views/home/home').then(m => m.Home)
+        },
+        {
+            path: 'about',
+            loadComponent: () => import('./views/about/about').then(m => m.About)
+        }
+    ])
 ];

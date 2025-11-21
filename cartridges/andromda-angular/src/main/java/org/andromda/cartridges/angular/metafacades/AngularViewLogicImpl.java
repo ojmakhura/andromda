@@ -539,13 +539,13 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetViewPath() {
-        return "view/" + this.getPackagePath();
+        return "views/" + this.getPackagePath();
     }
 
     @Override
     protected String handleGetFileName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + ".component";
+        return phrase.replace(" ", "-");
     }
 
     @Override
@@ -556,7 +556,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetImplementationFileName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + "-impl.component";
+        return phrase.replace(" ", "-") + "-impl";
     }
 
     @Override
@@ -652,7 +652,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetVarsComponentFileName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + "-vars.component";
+        return phrase.replace(" ", "-") + "-vars";
     }
 
     @Override
@@ -663,7 +663,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetVarsComponentImplementationFileName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
-        return phrase.replace(" ", "-") + "-vars-impl.component";
+        return phrase.replace(" ", "-") + "-vars-impl";
 
     }
 

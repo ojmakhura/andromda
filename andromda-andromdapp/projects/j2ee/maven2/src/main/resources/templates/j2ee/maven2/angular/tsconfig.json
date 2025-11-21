@@ -1,50 +1,47 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
     "isolatedModules": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2022", "dom"],
+    "module": "preserve",
     "baseUrl": "./",
     "paths": {
-
       "@app/*": ["src/app/*"],
-      "@service/*": ["src/app/service/*"],
-      "@controller/*": ["src/app/controller/*"],
-      "@model/*": ["src/app/model/*"],
+      "@services/*": ["src/app/service/*"],
+      "@controllers/*": ["src/app/controller/*"],
+      "@models/*": ["src/app/model/*"],
       "@store/*": ["src/app/store/*"],
-      "@view/*": ["src/app/view/*"],
+      "@views/*": ["src/app/view/*"],
       "@core": ["src/app/@core"],
       "@core/*": ["src/app/@core/*"],
-      "@app/@shared": ["src/app/@shared"],
-      "@app/@shared/*": ["src/app/@shared/*"],
+      "@shared": ["src/app/@shared"],
+      "@shared/*": ["src/app/@shared/*"],
       "@env/*": ["src/environments/*"]
     },
-    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
-    "strictPropertyInitialization": false,
     "enableI18nLegacyMessageIdFormat": false,
-    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
-    "preserveWhitespaces": false
-  }
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

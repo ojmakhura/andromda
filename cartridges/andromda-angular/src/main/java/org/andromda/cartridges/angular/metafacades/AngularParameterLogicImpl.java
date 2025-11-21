@@ -263,7 +263,7 @@ public class AngularParameterLogicImpl
     @Override
     protected String handleGetFilePath() {
         AngularView view = (AngularView) this.getView();
-        return view.getViewPath() + '/' + this.getFileName() + ".component";
+        return view.getViewPath() + '/' + this.getFileName();
     }
 
     @Override
@@ -281,7 +281,7 @@ public class AngularParameterLogicImpl
     @Override
     protected String handleGetImplementationFilePath() {
         AngularView view = (AngularView) this.getView();
-        return view.getViewPath() + '/' + this.getFileName() + "-impl.component";
+        return view.getViewPath() + '/' + this.getFileName() + "-impl";
     }
 
     @Override

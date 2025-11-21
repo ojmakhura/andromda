@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.andromda.maven</groupId>
         <artifactId>maven-parent</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>6.0-SNAPSHOT</version>
         <relativePath></relativePath>
     </parent>
     <groupId>org.andromda.maven.plugins</groupId>
@@ -141,7 +141,7 @@
             <extension>
                 <groupId>org.andromda.maven</groupId>
                 <artifactId>maven-config</artifactId>
-                <version>5.0-SNAPSHOT</version>
+                <version>6.0-SNAPSHOT</version>
             </extension>
             <!-- Required to deploy a snapshot or a release to the CloudBees remote maven repository using Webdav -->
             <extension>
@@ -173,7 +173,7 @@
                     <artifactId>maven-install-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
-                <!-- V3.0: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:5.0-SNAPSHOT:xml.zip are missing or invalid -->
+                <!-- V3.0: The parameters 'modelArchivePattern', 'replaceExtensions', 'modelFilePattern', 'replacementExtensions' for goal org.andromda.maven.plugins:andromda-model-archiver-plugin:6.0-SNAPSHOT:xml.zip are missing or invalid -->
                 <plugin>
                     <artifactId>maven-plugin-plugin</artifactId>
                     <version>3.6.4</version>

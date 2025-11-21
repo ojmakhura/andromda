@@ -1,21 +1,16 @@
-/*
- * Entry point of the application.
- * Only platform bootstrapping code should be here.
- * For app-specific initialization, use `app/app.component.ts`.
- */
-
-import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from '@app/app.component';
-import { appConfig } from '@app/app.config';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
 
-import { environment } from '@env/environment';
-
-if (environment.production) {
-  enableProdMode();
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/ngsw-worker.js');
-  }
-}
-
-bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+// bootstrapApplication(App, appConfig)
+fetch('env.json')
+  .then((response) => response.json())
+  .then((env) => {
+    console.log(env);
+    bootstrapApplication(App, appConfig(env)).catch((err) => console.error(err));
+  })
+  .catch((error) => {
+    console.error('Error loading env.json:', error);
+    bootstrapApplication(App, appConfig({})).catch((err) => console.error(err));
+  });
+//   .catch((err) => console.error(err));

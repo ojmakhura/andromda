@@ -1,0 +1,89 @@
+// Component-specific styles only
+// Common styles are imported from styles/_common.scss
+
+// Timeline Section (custom layout)
+.timeline-section {
+
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+
+    @media (max-width: 599px) {
+      gap: 16px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .timeline-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
+    z-index: 1;
+  }
+
+  .timeline-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(180deg, #1976d2 0%, rgba(25, 118, 210, 0.3) 100%);
+    margin-top: 8px;
+    min-height: 60px;
+  }
+
+  .timeline-card {
+    flex: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      transform: translateX(4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    mat-card-header {
+      .timeline-year {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: white;
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        padding: 4px 12px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+
+      mat-card-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #37474f;
+        margin-top: 8px;
+      }
+    }
+
+    mat-card-content {
+      color: #546e7a;
+      line-height: 1.6;
+      font-size: 0.938rem;
+    }
+  }
+}

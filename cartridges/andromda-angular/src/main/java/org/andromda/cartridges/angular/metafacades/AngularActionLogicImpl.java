@@ -884,7 +884,7 @@ public class AngularActionLogicImpl
     protected String handleGetFileName() {
         
         String phrase = StringUtilsHelper.toPhrase(this.getActionClassName()).toLowerCase();
-        return phrase.replace(" ", "-") + ".component";
+        return phrase.replace(" ", "-");
     }
 
     @Override
