@@ -166,6 +166,10 @@
                 <property name="customValidators">javax.xml.bind.helpers.IgnoreUnexpectedElementsHandler</property>
 #else
                 <property name="xmlAttributes">false</property>
+#end#if($springws)
+                <property name="springRestService">true</property>
+#else
+                <property name="springRestService">false</property>
 #end
             </properties>
         </namespace>

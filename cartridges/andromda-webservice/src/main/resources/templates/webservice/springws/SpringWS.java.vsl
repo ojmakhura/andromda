@@ -15,6 +15,10 @@ package ${service.packageName};
  * 
 $service.getDocumentation(" * ")
  */
+@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public interface ${serviceName} {
 #foreach ($operation in $service.allowedOperations)
 
@@ -23,19 +27,15 @@ public interface ${serviceName} {
     $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "org.springframework.http.ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
 #if (!$stringUtils.isBlank($responseStatus))
     $operation.restResponseStatus
 #end
-#if($operation.returnTypePresent)
-#set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
-#else
-#set ($return = "void")
-#end
-    $operation.visibility $return ${operation.name}(#getOperationArgs($operation));
+#set ($responseStatus = $operation.restResponseStatus)
+#set ($restPath = ${operation.restPath})
+    $operation.visibility $return ${operation.name}(#getOperationArgs($operation)) throws Exception;
 #end
 }

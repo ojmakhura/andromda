@@ -12,12 +12,10 @@ package ${service.packageName};
 #set ( $serviceImplName = "${service.name}Impl")
 #end
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 @org.springframework.web.bind.annotation.RestController
-@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
-@org.springframework.web.bind.annotation.CrossOrigin()
-#foreach($annotation in $service.additionalAnnotations)
-@$annotation
-#end
 public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
     
     public ${serviceImplName}(
@@ -62,38 +60,35 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
+#set ($return = "ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
+
     @Override
-    $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) {
+    $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) throws Exception {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
-#set ($optional = "java.util.Optional.of($call)")
+#set ($optional = "$call")
 #else
 #set ($call = "// TODO: Add custom code here")
-#set ($optional = "java.util.Optional.empty(); $call")
+#set ($optional = "null;")
 #end
-#if ($operation.returnTypePresent)
         try {
-            java.util.Optional<?> data = $optional;
-            org.springframework.http.ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.OK).body(data.get());
-            } else {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+#if ($operation.returnTypePresent)
+#if($isService)
+            return ResponseEntity.ok($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
 #else
-        $call;
+            return ResponseEntity.ok(null);
 #end
+#else
+            $call;
+#end
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw e;
+        } 
     }
 #end
 }

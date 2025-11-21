@@ -8,6 +8,8 @@ import {
   ViewChild,
   signal,
   Signal,
+  linkedSignal,
+  WritableSignal,
   OnDestroy,
 } from "@angular/core";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -78,10 +80,11 @@ import { $import.name } from '@app/${import.filePath}';
 #end
 import { SearchObject } from '@app/model/search-object';
 import { GenericComponent } from "@app/view/generic.component";
+import { Page } from '@app/model/page.model';
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
-    ${attribute.name}?: ${attribute.getterSetterTypeName} | undefined;
+    ${attribute.name}?: ${attribute.getterSetterTypeName};
 
 #end
 }

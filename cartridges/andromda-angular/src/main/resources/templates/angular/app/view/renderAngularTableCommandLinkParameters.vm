@@ -66,7 +66,7 @@ $param#if($i < $params.size()),$cr#end
 #set($i = 0)
 {
 #foreach( $param in $params)
-                    $param: event.$param,
+                    $param: event.row.$param,
 #end
                 };
 #end
@@ -79,7 +79,7 @@ $param#if($i < $params.size()),$cr#end
 ')
 #foreach ($parameter in $action.parameters)
 #set ( $type = ${parameter.angularTypeName})
-#set ( $ret = $params.add("$parameter.name: #if($angularUtils.isComplex($parameter))JSON.stringify(event.$parameter.name)#{else}event.$parameter.name#{end}") )
+#set ( $ret = $params.add("$parameter.name: #if($angularUtils.isComplex($parameter))JSON.stringify(event.row.$parameter.name)#{else}event.row.$parameter.name#{end}") )
 #end
 #set($i = 0)
 {

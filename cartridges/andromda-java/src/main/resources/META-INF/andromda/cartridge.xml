@@ -33,12 +33,15 @@
     <property reference="javaVersion"/>
     <property reference="dateTimeGeneratedText"/>
 	<property reference="useLombok"/>
+    <property reference="springRestService"/>
+    <property reference="applicationPackage"/>
     <!-- cartridge-property merge-point-->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
     <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
     <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
     <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
+    <condition name="springRestService">$springRestService.equalsIgnoreCase("true")</condition>
     <condition name="serializable">$serializable.equalsIgnoreCase("true")</condition>
     <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
     <condition name="XMLBindingAnnotations">$XMLBindingAnnotations.equalsIgnoreCase("true")</condition>
@@ -188,6 +191,22 @@
                 </type>
             </modelElement>
         </modelElements>
+    </template>
+
+    <template
+        path="templates/java/RestApiResponse.vsl"
+        outputPattern="$generatedFile"
+        outlet="value-objects"
+        overwrite="true"
+        outputCondition="springRestService">
+    </template>
+
+    <template
+        path="templates/java/ApiErrorResponse.vsl"
+        outputPattern="$generatedFile"
+        outlet="value-objects"
+        overwrite="true"
+        outputCondition="springRestService">
     </template>
 
     <!-- cartridge-template merge-point -->

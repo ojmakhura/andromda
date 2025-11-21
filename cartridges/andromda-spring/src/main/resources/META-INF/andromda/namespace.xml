@@ -196,6 +196,12 @@
                     Use ${project.parent.name} to get value from pom.xml files.
                 </documentation>
             </property>
+            <property name="springRestService" required="false">
+                <default>false</default>
+                <documentation>
+                    Whether this is a spring rest service
+                </documentation>
+            </property>
             <property name="applicationId" required="true">
                 <documentation>
                     The id of the application (this is used as the display

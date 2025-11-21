@@ -1,0 +1,13 @@
+export class RestApiResponse<T> {
+    status?: number;
+    message?: string;
+    data?: T;
+    timestamp?: Date;
+    details?: string;
+    path?: string;
+    success?: boolean;
+
+    constructor() {
+        // Default constructor
+    }
+}

@@ -1,0 +1,34 @@
+package ${applicationPackage}.exception;
+#if ($serializable && !$class.generalization)
+import java.io.Serializable;
+#end
+#set ($generatedFile = "${stringUtils.replace($applicationPackage,'.','/')}/exception/ApiErrorResponse.java")
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@lombok.Data
+public class ApiErrorResponse 
+#if ($serializable && !$class.generalization)
+    implements Serializable
+#end
+{
+#if ($serializable && !$class.generalization)
+    private static final long serialVersionUID = 1L;
+#end
+    private int status;
+    private String message;
+    private LocalDateTime timestamp;
+    private List<String> details;
+
+    public ApiErrorResponse(int status, String message, LocalDateTime timestamp) {
+        this.status = status;
+        this.message = message;
+        this.timestamp = timestamp;
+    }
+
+    public ApiErrorResponse(int status, String message, LocalDateTime timestamp, List<String> details) {
+        this(status, message, timestamp);
+        this.details = details;
+    }
+}

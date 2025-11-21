@@ -98,14 +98,14 @@ $action.trigger.getDocumentation("     * ")
 #if ($action.finalStateTarget)
 #set($targetController = $action.target.targetElement.controller)
 #if(${targetController.name} == $controller.name)
-        forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; 
+        forward =#if($targetController) '$controller.useCase.routerPath'#else this.closeDialog()#end; // 33
 #else
         this.useCaseScope.pageVariables = {
 #foreach($field in $action.formFields)
             $field.name: $field.name,
 #end
         };
-        forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end;
+        forward =#if($targetController) '${action.target.targetController.useCase.routerPath}'#else this.closeDialog()#end; //44
 #end
 #else
         

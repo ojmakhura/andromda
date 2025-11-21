@@ -138,6 +138,7 @@ public class FrontEndParameterLogicImpl
      */
     @Override
     protected boolean handleIsTable() {
+
         boolean isTable = false;
         final ClassifierFacade type = this.getType();
         if (type != null) {
@@ -145,7 +146,7 @@ public class FrontEndParameterLogicImpl
             if (isTable) {
                 final String tableTaggedValue = ObjectUtils
                         .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
-                isTable = StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()) : true;
+                isTable = StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()) : false;
                 if (!isTable) {
                     isTable = !this.getTableColumnNames().isEmpty();
                 }

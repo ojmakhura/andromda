@@ -1,4 +1,4 @@
-import { ApplicationConfig, isDevMode, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, isDevMode, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { RouteReuseStrategy, provideRouter, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -14,6 +14,13 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
 import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { AppEnvStore } from './store/app-env.state';
+
+export function initFactory() {
+  const envStore = inject(AppEnvStore);
+
+  return async () => {};
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,5 +46,6 @@ export const appConfig: ApplicationConfig = {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,
     },
+    provideAppInitializer(() => initFactory()()),
   ],
 };

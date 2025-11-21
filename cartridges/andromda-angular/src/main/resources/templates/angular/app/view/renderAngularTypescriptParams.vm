@@ -70,7 +70,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     filter$stringUtils.capitalize(${propertyId})() {}
 
     ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end = [];
-    ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = of([]);
+    ${propertyId}FilteredList: WritableSignal<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = linkedSignal(() => []);
     ${propertyId}ChipControl: FormControl = new FormControl([]);
 
     ${propertyId}Displays: string[] = [
@@ -83,9 +83,9 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
-    @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.getterSetterTypeName)>;
-    ${propertyId}TableSignal: Signal<any>;
-    ${propertyId}TablePaged: boolean = true;
+    @ViewChild('${propertyId}Table') ${propertyId}Table?: TableComponent<$angularUtils.getDatatype($parameter.type.name)>;
+    ${propertyId}TableSignal: Signal<any | $angularUtils.getDatatype($parameter.type.name) | Page<$angularUtils.getDatatype($parameter.type.name)>> = signal(null);
+    ${propertyId}TablePaged: WritableSignal<boolean> = linkedSignal(() => true);
     
 #set ($tableColumnActions = [])
     ${propertyId}TableColumns: ColumnModel[] = [
@@ -253,10 +253,14 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
 #elseif($parameter.inputMultibox && !$parameter.component)
 
-        this.${propertyId}FilteredList$ = this.${propertyId}ChipControl.valueChanges.pipe(
+        this.${propertyId}ChipControl.valueChanges.pipe(
             startWith(null),
             map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
-        );
+        ).subscribe({
+            next: (value) => {
+                this.${propertyId}FilteredList.set(value);
+            }
+        });
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.component && $renderComplex)
 #if($parameter.generalization)
 #foreach($attribute in $parameter.generalization.attributes)
@@ -498,8 +502,10 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
     return ``;
   }
 #elseif(!$parameter.component)
-#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($angularUtils.isTable($parameter))
 #set ($controlType = "FormControl")
+#elseif($parameter.many || $parameter.type.collectionType)
+#set ($controlType = "FormArray")
 #elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
 #set ($controlType = "FormGroup")
 #else
@@ -528,7 +534,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
     ${propertyId}Add(event: MatChipInputEvent){
         event.chipInput!.clear();
-        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
+        this.${propertyId}FilteredList.set(this.${propertyId}BackingList);
     }
     
     ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
@@ -540,7 +546,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
         // remove the selected ro${propertyId}le from the list
         // this.${propertyId}BackingList = this.${propertyId}BackingList.filter((${propertyId}: any) => ${propertyId}.value !== item.value);
-        this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
+        this.${propertyId}FilteredList.set(this.${propertyId}BackingList);
     }
 
     private _${propertyId}Filter(value: string): $parameter.getterSetterTypeName {
@@ -567,8 +573,10 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #end
 #if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
 #foreach($attr in $parameter.type.attributes)
-#if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
+#if($angularUtils.isTable($attr) )
 #set ($attrControlType = "FormControl")
+#elseif($attr.many || $attr.type.collectionType)
+#set ($attrControlType = "FormArray")
 #elseif($angularUtils.isComplex($attr) && !$attr.component)
 #set ($attrControlType = "FormGroup")
 #else
@@ -600,7 +608,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
     ${attrPropertyId}Add(event: MatChipInputEvent){
         event.chipInput!.clear();
-        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
+        this.${attrPropertyId}FilteredList.set(this.${attrPropertyId}BackingList);
     }
     
     ${attrPropertyId}Selected(event: MatAutocompleteSelectedEvent): void {
@@ -613,7 +621,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 
         // remove the selected ro${attrPropertyId}le from the list
         this.${attrPropertyId}BackingList = this.${attrPropertyId}BackingList.filter((${attrPropertyId}: any) => ${attrPropertyId}.value !== item.value);
-        this.${attrPropertyId}FilteredList$ = of(this.${attrPropertyId}BackingList);
+        this.${attrPropertyId}FilteredList.set(this.${attrPropertyId}BackingList);
     }
 
     private _${attrPropertyId}Filter(value: string): ${attr.getterSetterTypeName} {
@@ -851,7 +859,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}: ${parameter.type.implementation
 #end
 #end
 
-#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration)
+#if(!$parameter.inputButton && $isComplex && !$parameter.type.enumeration && !$parameter.inputTable && !$parameter.table)
 #if($parameter.type)
 #set ($typeName = "$parameter.type.name")
 #else

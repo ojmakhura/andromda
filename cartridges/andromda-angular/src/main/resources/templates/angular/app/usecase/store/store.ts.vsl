@@ -24,11 +24,13 @@ const initialState: ${service.name}State = {
   dataList: [],
   dataPage: new Page<any>(),
   searchCriteria: new SearchObject<any>(),
-  error: null,
+  status: 0,
   loading: false,
   success: false,
   messages: [],
-  loaderMessage: ''
+  loaderMessage: '',
+  details: '',
+  error: false
 };
 
 export const ${service.name}Store = signalStore(
@@ -50,25 +52,33 @@ export const ${service.name}Store = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({
-              next: (data: $operation.returnTypeName) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (response: $operation.returnTypeName) => {
+                patchState(
+                  store, 
+                  {
+#if($operation.returnParameter.many || $operation.returnType.listType || $operation.returnType.collectionType) 
+                    dataList: response?.data, 
+#elseif($operation.returnTypeName.contains("Page<"))
+                    dataPage: response?.data,
+#else
+                    data: response?.data,
+#end
+                    loading: false, 
+                    status: (response?.status) ,
+                    success: true, 
+                    messages: [response.message || 'Success!!'],
+                    error: false,
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
                   store, { 
-                    error, 
+                    status: (error?.status || 0), 
                     loading: false, 
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    error: true,
+                    messages: [error.message || 'An error occurred'], 
                   }
                 );
               },

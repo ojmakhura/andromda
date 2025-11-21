@@ -76,13 +76,9 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 
 #end
 #foreach ($operation in $service.allowedOperations)
-
-#set ($responseStatus = $operation.restResponseStatus)
-#set ($restPath = ${operation.restPath})
-    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "org.springframework.http.ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
@@ -101,15 +97,15 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 #set ($handle = "handle")
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
+#set ($return = "org.springframework.http.ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
-    $operation.visibility $return ${operation.name}($operation.typedArgumentList) {
+    $operation.visibility $return ${operation.name}($operation.typedArgumentList) throws Exception {
         #if ($operation.returnTypePresent)return #end${handle}$stringUtils.capitalize(${operation.name})($operation.argumentNames);
     }
 
-    $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature});
+    $operation.visibility abstract $return ${handle}$stringUtils.capitalize(${operation.signature}) throws Exception;
 
 #end
 #foreach($serviceRef in $service.serviceReferences)

@@ -298,7 +298,7 @@ public class WebServiceOperationLogicImpl
             }
         }
 
-        return builder.toString();
+        return builder.toString().trim();
     }
 
     /**
@@ -360,7 +360,7 @@ public class WebServiceOperationLogicImpl
         path = servicePath + path;
         path = path.replaceAll("\"", "");
         path = path.replaceAll("//", "/");
-        return path;
+        return path.trim();
     }
 
     /**

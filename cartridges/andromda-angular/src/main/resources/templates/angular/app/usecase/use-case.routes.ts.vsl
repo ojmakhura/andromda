@@ -40,26 +40,30 @@ export const routes: Routes = [
         ${service.name},
 #end
 #end
-      ] 
-  },
+      ],
+      children: [
+        {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: '${useCase.initialView.routerPath}'
+        },
 #foreach($view in $useCase.views)
-  { 
-      path: '${view.routerPath}', 
-      component: ${view.componentImplementationName}, 
+        { 
+          path: '${view.routerPath}', 
+          component: ${view.componentImplementationName}, 
 #if($secure)
-      canActivate: [AuthenticationGuard],
+          canActivate: [AuthenticationGuard],
 #end
-      data: { title: '${stringUtils.toPhrase(${view.name})}' },
-      providers: [ 
+          data: { title: '${stringUtils.toPhrase(${view.name})}' },
+          providers: [ 
 #foreach($controller in $view.targetControllers)
-      $controller.variableName: ${controller.implementationName};
+            $controller.variableName: ${controller.implementationName};
 #end   
-#if($useCase.controller)
-#set ($controller = $useCase.controller)
-        ${useCase.controller.implementationName},
+          ] 
+        },
 #end
-      ] 
+      ]
   },
-#end
+
 ];
 

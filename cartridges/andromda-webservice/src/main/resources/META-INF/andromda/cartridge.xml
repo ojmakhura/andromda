@@ -92,6 +92,7 @@
     <property reference="pluralizeParameterNames"/>
     <property reference="secure"/>
     <property reference="useLombok"/>
+    <property reference="applicationPackage"/>
     <!-- cartridge-property merge-point -->
 
     <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
@@ -1196,6 +1197,22 @@
                     <property name="allowedOperations"/>
                 </type>
             </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/webservice/springws/SpringExceptionHandler.java.vsl"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/exception/${service.name}ExceptionHandler.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputOnEmptyElements="false"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+            <modelElement stereotype="SERVICE"/>
         </modelElements>
     </template>
 

@@ -68,11 +68,19 @@ public class AngularParameterLogicImpl
      *
      * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
      */
-    public boolean isTable()
-    {
-        return (super.isTable() || this.isPageableTable()) && !this.isSelectable()
-            && !this.isInputTable() && !this.isInputHidden();
-    }
+    // public boolean isTable()
+    // {
+    //     System.out.println("/////////////////////////////////////////");
+    //     System.out.println(this.getName());
+    //     System.out.println(super.isTable());
+    //     System.out.println(this.isPageableTable());
+    //     System.out.println(this.isSelectable());
+    //     System.out.println(this.isInputTable());
+    //     System.out.println(this.isInputHidden());
+    //     System.out.println("/////////////////////////////////////////");
+    //     return (super.isTable() || this.isPageableTable()) && !this.isSelectable()
+    //         && !this.isInputTable() && !this.isInputHidden();
+    // }
     //TODO remove after 3.4 release
     /**
      * Hack to keep the compatibility with Andromda 3.4-SNAPSHOT

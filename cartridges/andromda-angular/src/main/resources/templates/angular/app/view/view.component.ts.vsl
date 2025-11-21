@@ -22,6 +22,8 @@ import {
     AfterViewInit,
     signal,
     Signal,
+    linkedSignal,
+    WritableSignal,
 #if($view.popup)
     Inject,
 #end
@@ -113,6 +115,7 @@ import { DialogComponent } from '@app/components/dialog/dialog.component';
 import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
 #end
 import { ToastrService } from 'ngx-toastr';
+import { Page } from '@app/model/page.model';
 
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
@@ -209,11 +212,11 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
     loaderMessage: Signal<string> = signal('');
-    messages: Signal<any> = signal({});
+    messages: Signal<string[]> = signal([]);
     success: Signal<boolean> = signal(false);
     loading: Signal<boolean> = signal(false);
     error: Signal<boolean> = signal(false);
-    selected: any = null;
+    selected: Signal<any> = signal(null);
 #foreach ($action in $view.actions)
 #if($action.displayCondition)
     $angularUtils.getDisplayConditionDeclaration($action.displayCondition);
@@ -513,7 +516,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($variable in $view.variables)
 #if(!$variable.table && !$variable.inputTable && !$variable.inputButton && !$variable.component)
         if(form.$variable.name) {
-#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
+#if($angularUtils.isTable($variable))
             this.${view.formName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
 #elseif($variable.complex)
 #if($variable.component)
