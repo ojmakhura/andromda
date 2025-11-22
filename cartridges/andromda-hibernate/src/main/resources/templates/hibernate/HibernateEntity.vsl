@@ -20,8 +20,19 @@ $entity.getDocumentation(" * ")
 @jakarta.persistence.MappedSuperclass
 #else
 @jakarta.persistence.Entity
-@jakarta.persistence.Table(name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end)
-##, uniqueConstraints=@UniqueConstraint(name="",columnNames={"", ""}
+@jakarta.persistence.Table(
+    name = "${entity.tableName}"#if($stringUtils.isNotBlank($entity.schema)), schema="$entity.schema"#end
+#if($entity.uniqueConstraints)
+#foreach($key in $entity.uniqueConstraints.keySet())
+    , uniqueConstraints = {
+        @jakarta.persistence.UniqueConstraint(
+            name = "$key",
+            columnNames = { $entityUtils.getUniqueGroupString($entity.uniqueConstraints.get($key)) }
+        )
+    }
+#end
+#end
+)
 ##if(!$entity.lazy), lazy="false"#end
 ##if($entity.hibernateProxy), proxy="$entity.fullyQualifiedEntityName"#end
 ##, dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"

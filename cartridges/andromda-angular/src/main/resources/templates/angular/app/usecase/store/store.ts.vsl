@@ -24,7 +24,6 @@ const initialState: ${service.name}State = {
   dataList: [],
   dataPage: new Page<any>(),
   searchCriteria: new SearchObject<any>(),
-  status: 0,
   loading: false,
   success: false,
   messages: [],
@@ -57,16 +56,15 @@ export const ${service.name}Store = signalStore(
                   store, 
                   {
 #if($operation.returnParameter.many || $operation.returnType.listType || $operation.returnType.collectionType) 
-                    dataList: response?.data, 
+                    dataList: response, 
 #elseif($operation.returnTypeName.contains("Page<"))
-                    dataPage: response?.data,
+                    dataPage: response,
 #else
-                    data: response?.data,
+                    data: response,
 #end
                     loading: false, 
-                    status: (response?.status) ,
                     success: true, 
-                    messages: [response.message || 'Success!!'],
+                    messages: ['Success!!'],
                     error: false,
                   }
                 );
