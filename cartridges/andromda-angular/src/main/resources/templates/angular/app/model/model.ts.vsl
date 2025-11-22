@@ -8,7 +8,7 @@ import {$class.generalization.name} from '@$class.generalization.filePath';
 
 #foreach ($import in $class.imports)
 #if($import.name != $class.name)
-import {$import.name} from '@app/$import.filePath';
+import {$import.name} from '@$import.filePath';
 #end
 #end
 

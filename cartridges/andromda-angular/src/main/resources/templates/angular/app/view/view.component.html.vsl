@@ -41,7 +41,7 @@
 #end
 			@if (loading()) {
 			<div>
-				<app-loader [isLoading]="loading()" [size]="2" [message]="loaderMessage()"></app-loader>
+				<app-loader [isLoading]="loading()" [size]="'medium'" [message]="loaderMessage()"></app-loader>
 			</div>
 			}
 #foreach ($variable in $view.variables)

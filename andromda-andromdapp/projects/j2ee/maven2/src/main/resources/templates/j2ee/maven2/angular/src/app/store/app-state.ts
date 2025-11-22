@@ -1,5 +1,5 @@
-import { Page } from "@app/model/page.model";
-import { SearchObject } from "@app/model/search-object";
+import { Page } from "@models/page.model";
+import { SearchObject } from "@models/search-object";
 
 export type AppState<T, L> = {
     data: T;

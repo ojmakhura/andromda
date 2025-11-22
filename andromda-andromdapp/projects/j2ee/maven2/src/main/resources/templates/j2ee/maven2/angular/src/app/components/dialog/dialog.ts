@@ -17,7 +17,7 @@ import { CommonModule, NgComponentOutlet } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { GenericComponent } from "@app/views/generic.component";
+import { GenericComponent } from "@views/generic.component";
 
 @Component({
   selector: "app-dialog",

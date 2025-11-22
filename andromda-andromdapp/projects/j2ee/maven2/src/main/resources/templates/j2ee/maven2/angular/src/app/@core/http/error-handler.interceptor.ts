@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
-import { Logger } from '@app/@shared/logger.service';
+import { Logger } from '@shared/logger.service';
 
 const log = new Logger('ErrorHandlerInterceptor');
 

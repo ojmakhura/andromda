@@ -23,18 +23,18 @@ import { SelectItem } from "@app/utils/select-item";
 #if($component.treePresent)
 import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
-import { TreeOption } from '@app/model/tree-option.model';
+import { TreeOption } from '@models/tree-option.model';
 import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
-import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
+import { DynamicTreeNode } from '@models/dynamic-tree-node.model';
 import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 #end
 ## #if($component.tableVariablesPresent)
 ## import { MatTableDataSource } from '@angular/material/table';
 ## import { MatPaginator } from '@angular/material/paginator';
 ## import { MatSort } from '@angular/material/sort';
-import { TableComponent } from '@app/components/table/table.component';
-import { ColumnModel } from "@app/model/column.model";
-import { ActionTemplate } from '@app/model/action-template';
+import { TableComponent } from '@components/table/table';
+import { ColumnModel } from "@models/column.model";
+import { ActionTemplate } from '@models/action-template';
 ## #end
 import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
@@ -52,7 +52,7 @@ import { MaterialModule } from '@app/material.module';
 #set($buttons = [])
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
-import { ${import.implementationName} } from '@app/components/${import.implementationFilePath}';
+import { ${import.implementationName} } from '@components/${import.implementationFilePath}';
 #else
 #if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
 #if($import.type)
@@ -62,22 +62,22 @@ import { ${import.implementationName} } from '@app/components/${import.implement
 #end
 #end
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
-import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
+import { $import.implementationName } from '@components/${import.implementationFilePath}';
 #elseif($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
 #end
-import { SearchObject } from '@app/model/search-object';
-import { GenericComponent } from "@app/view/generic.component";
+import { SearchObject } from '@models/search-object';
+import { GenericComponent } from "@views/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)

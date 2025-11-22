@@ -7,13 +7,13 @@ import { MatSort } from '@angular/material/sort';
 
 #foreach ($import in $action.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
 import { UseCaseScope } from '@app/utils/use-case-scope';

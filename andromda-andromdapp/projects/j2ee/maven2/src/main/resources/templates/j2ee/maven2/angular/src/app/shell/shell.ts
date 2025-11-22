@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { Route, Router, RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { MaterialModule } from '@app/material.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { TranslationService } from '@app/@core/services/translation.service';
+import { TranslationService } from '@core/services/translation.service';
 import * as nav from './navigation';
 
 @Component({
@@ -36,7 +36,7 @@ export class Shell {
 
   ngOnInit() {
     this.menus = nav.menuItems;
-    
+
     // Watch for breakpoint changes and adjust drawer accordingly
     this.breakpoint.observe([Breakpoints.Small, Breakpoints.XSmall]).subscribe(result => {
       if (this.drawer) {

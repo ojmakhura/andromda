@@ -22,9 +22,9 @@ import { SelectItem } from "@app/utils/select-item";
 #if($component.treePresent)
 import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
-import { TreeOption } from '@app/model/tree-option.model';
+import { TreeOption } from '@models/tree-option.model';
 import { AsTreeNodePipe } from '@app/pipe/tree-node.pipe';
-import { DynamicTreeNode } from '@app/model/dynamic-tree-node.model';
+import { DynamicTreeNode } from '@models/dynamic-tree-node.model';
 import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 #end
 #if($component.tableVariablesPresent)
@@ -48,7 +48,7 @@ import { MaterialModule } from '@app/material.module';
 #set($buttons = [])
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
-import { ${import.implementationName} } from '@app/components/${import.implementationFilePath}'; // 1
+import { ${import.implementationName} } from '@components/${import.implementationFilePath}'; // 1
 #else
 #if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
 #if($import.type)
@@ -58,25 +58,25 @@ import { ${import.implementationName} } from '@app/components/${import.implement
 #end
 #end
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
-import { $import.implementationName } from '@app/components/${import.implementationFilePath}'; // 2
+import { $import.implementationName } from '@components/${import.implementationFilePath}'; // 2
 #elseif($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.implementationComponentName)
-import { $import.implementationComponentName } from '@app/${import.implementationFilePath}';
+import { $import.implementationComponentName } from '@${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
 #end
-import { SearchObject } from '@app/model/search-object';
+import { SearchObject } from '@models/search-object';
 import { $component.name } from './${component.fileName}';
-import { TableComponent } from '@app/components/table/table.component';
+import { TableComponent } from '@components/table/table';
 
 @Component({
   selector: "app-${component.selectorName}",

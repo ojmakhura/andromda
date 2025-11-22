@@ -5,17 +5,17 @@ import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
-import { AppState } from '@app/store/app-state';
-import { SearchObject } from '@app/model/search-object';
-import { Page } from '@app/model/page.model';
+import { AppState } from '@store/app-state';
+import { SearchObject } from '@models/search-object';
+import { Page } from '@models/page.model';
 #foreach ($import in $service.imports)
 #if(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
-import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+import { ${service.name} } from ${escTool.s}@${service.filePath}${escTool.s};
 
 export type ${service.name}State = AppState<any, any> & {};
 

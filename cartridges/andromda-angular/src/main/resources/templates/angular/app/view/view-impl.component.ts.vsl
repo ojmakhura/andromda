@@ -14,9 +14,9 @@
 #end
 #end
 import { Component#if($view.popup), Inject#end } from '@angular/core';
-import { $view.componentName } from '@app/${view.filePath}';
+import { $view.componentName } from '@${view.filePath}';
 #if ($view.nonTableVariablesPresent)
-import { $stringUtils.capitalize($view.varsFormName) } from '@app/${view.filePath}';
+import { $stringUtils.capitalize($view.varsFormName) } from '@${view.filePath}';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 import { MatRadioChange } from '@angular/material/radio';
@@ -28,14 +28,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
-import { TableComponent } from '@app/components/table/table.component';
-import { LoaderComponent } from "@app/@shared/loader/loader.component";
+import { TableComponent } from '@components/table/table';
+import { Loader } from "@shared/loader/loader";
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
-import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
+import { $import.implementationName } from '@components/${import.implementationFilePath}';
 #end
 #end
 
@@ -51,7 +51,7 @@ import { $import.implementationName } from '@app/components/${import.implementat
     TranslateModule,
     MaterialModule,
     TableComponent,
-    LoaderComponent,
+    Loader,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif(${import.hasStereotype("FrontEndComponent")})

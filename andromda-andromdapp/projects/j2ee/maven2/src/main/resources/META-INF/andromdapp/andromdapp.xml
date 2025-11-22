@@ -55,7 +55,7 @@
             <output>webservice/src/main/resources/application.properties.vsl</output>
         </conditions>
         <conditions type="and">
-            <condition id="secure" notEqual="none"/>
+            <condition id="secure" notEqual="false"/>
             <condition id="springws" notEqual="true"/>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringSecurityConfiguration.java.vsl</output>
         </conditions>

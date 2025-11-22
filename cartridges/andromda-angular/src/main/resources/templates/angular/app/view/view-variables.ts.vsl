@@ -16,13 +16,13 @@ import { UseCaseScope } from '@app/utils/use-case-scope';
 ## Find all the fields in the actions of the view
 #foreach ($import in $view.imports)
 #if($import.tableComponentImplementationName)
-import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
 

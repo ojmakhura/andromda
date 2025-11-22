@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MaterialModule } from '@app/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 export type LoaderType = 'spinner' | 'dots' | 'pulse' | 'bars';

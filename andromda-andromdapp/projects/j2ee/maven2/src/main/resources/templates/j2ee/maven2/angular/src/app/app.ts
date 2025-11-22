@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslationService } from '@app/@core/services/translation.service';
+import { TranslationService } from '@core/services/translation.service';
 
 @Component({
   selector: 'app-root',

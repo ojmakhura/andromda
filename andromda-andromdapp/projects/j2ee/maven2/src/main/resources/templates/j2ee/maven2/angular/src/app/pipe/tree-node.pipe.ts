@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { DynamicTreeNode } from "@app/model/dynamic-tree-node.model";
+import { DynamicTreeNode } from "@models/dynamic-tree-node.model";
 
 @Pipe({
   name: 'asTreeNode',

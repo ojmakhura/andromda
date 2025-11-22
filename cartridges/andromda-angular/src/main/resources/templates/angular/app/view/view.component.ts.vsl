@@ -44,26 +44,25 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { UseCaseScope } from '@app/utils/use-case-scope';
-import { Store, select } from '@ngrx/store';
 import { Observable, of, Subscription } from 'rxjs';
-import { SearchObject } from '@app/model/search-object';
+import { SearchObject } from '@models/search-object';
 ##if($targetModal)
 import { MatDialog } from '@angular/material/dialog';
 ##end
 import { MatTableDataSource } from '@angular/material/table';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { TableComponent } from '@app/components/table/table.component';
+import { TableComponent } from '@components/table/table';
 #if($view.popup)
 import {MatDialogRef} from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 #foreach ($service in $view.useCase.controller.allRestControllers)
-import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
+## import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
 #end
-import { ColumnModel } from '@app/model/column.model';
-import { ActionTemplate } from '@app/model/action-template';
+import { ColumnModel } from '@models/column.model';
+import { ActionTemplate } from '@models/action-template';
 
 ## Find all the fields in the actions of the view
 #set($fields = [])
@@ -77,20 +76,20 @@ import { ActionTemplate } from '@app/model/action-template';
 #end
 #end
 #if(${import.hasStereotype("FrontEndComponent")})
-import { $import.implementationName } from '@app/components/${import.implementationFilePath}';
+import { $import.implementationName } from '@components/${import.implementationFilePath}';
 #elseif ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #if(${import.filePath})
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #elseif($import.tableComponentImplementationName)
-// import { $import.tableComponentImplementationName } from '@app/${import.implementationFilePath}';
+// import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.componentImplementationName)
-import { $import.componentImplementationName } from '@app/${import.implementationFilePath}';
+import { $import.componentImplementationName } from '@${import.implementationFilePath}';
 #elseif(${import.implementationFilePath})
-import { $import.implementationName } from '@app/${import.implementationFilePath}';
+import { $import.implementationName } from '@${import.implementationFilePath}';
 #else
 #if(${import.filePath})
-import { $import.name } from '@app/${import.filePath}';
+import { $import.name } from '@${import.filePath}';
 #end
 #end
 #end
@@ -101,18 +100,19 @@ import { $import.name } from '@app/${import.filePath}';
 #set ($targetView = $iter.next())
 #if($targetView.popup)
 #set ($hasPopup = true)
-## import { $targetView.componentImplementationName } from '@app/${targetView.implementationFilePath}';
+## import { $targetView.componentImplementationName } from '@${targetView.implementationFilePath}';
 #end
 #end
 #end
 #if($hasPopup)
 import { MatDialogConfig } from '@angular/material/dialog';
-import { Dialog } from '@app/components/dialog/dialog';
+import { DialogComponent } from '@components/dialog/dialog';
 #end
 #if($view.popup)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
+import { ${view.componentImplementationName} } from '@${view.implementationFilePath}';
 #end
 import { ToastrService } from 'ngx-toastr';
+import { Page } from '@app/models/page.model';
 
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
@@ -170,12 +170,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     toaster: ToastrService = inject(ToastrService);
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
-    readonly ${controller.variableName}Store = inject(${controller.name}Store);
+    readonly ${controller.variableName} = inject(${controller.name});
+    ## readonly ${controller.variableName}Store = inject(${controller.name}Store);
 #end
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName} = inject(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
-    readonly $stringUtils.uncapitalize($service.name)Store = inject(${service.name}Store);
+    readonly $stringUtils.uncapitalize($service.name) = inject(${service.name});
+    ## readonly $stringUtils.uncapitalize($service.name)Store = inject(${service.name}Store);
 #end
 #end
 #set ($formVars = "")

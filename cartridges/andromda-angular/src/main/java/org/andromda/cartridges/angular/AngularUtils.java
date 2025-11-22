@@ -227,16 +227,16 @@ public class AngularUtils {
                 String angPath = "";
                 boolean addImport = false;
                 if (facade instanceof ValueObject || facade instanceof EnumerationFacade) {
-                    angPath = "@app/model/";
+                    angPath = "@models/";
                     addImport = true;
                 } else if (facade instanceof Service) {
-                    angPath = "@app/service/";
+                    angPath = "@services/";
                     addImport = true;
                 } else if (facade instanceof FrontEndController) {
-                    angPath = "@app/controller/";
+                    angPath = "@controllers/";
                     addImport = true;
                 } else if (facade instanceof FrontEndView) {
-                    angPath = "@app/view/";
+                    angPath = "@views/";
                     addImport = true;
                 }
 
@@ -1818,7 +1818,7 @@ public class AngularUtils {
 
     public static String getRestServiceStoreFilePath(AngularService service) {
 
-        return "@app/store/" + service.getPackagePath() + '/' + service.getFileName() + ".store";
+        return "@store/" + service.getPackagePath() + '/' + service.getFileName() + ".store";
     }
 
     public static String getTableColumnMessageKey(Object column, MetafacadeBase parent) {

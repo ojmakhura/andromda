@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 
 #foreach ($import in $class.imports)
-import {$import.name} from '@app/$import.filePath';
+import {$import.name} from '@$import.filePath';
 #end
 
 #foreach ($tmp in $class.attributes)

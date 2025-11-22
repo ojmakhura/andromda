@@ -213,8 +213,8 @@ ${ident}        }
 #else
 ${ident}        <mat-option>
 #if($isComplex)
-${ident}            <ngx-mat-select-search [placeholderLabel]="'Search'" [formControl]="${propertyId}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
-${ident}                     [noEntriesFoundLabel]="'No Entries Found'"></ngx-mat-select-search>
+${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [formControl]="${propertyId}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
+${ident}                     noEntriesFoundLabel="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>
 ${ident}        @for(item of ${propertyId}FilteredList$ | async; track item) {

@@ -136,6 +136,8 @@
 #end
 #if($secure)
                 <property name="secure">true</property>
+#else
+                <property name="secure">false</property>
 #end
                 <property name="persistenceContainerName">jboss</property>
                 <property name="appServer">jboss</property>

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@app/material.module';
 import { Loader } from './loader';
 
-describe('LoaderComponent', () => {
+describe('Loader', () => {
   let component: Loader;
   let fixture: ComponentFixture<Loader>;
 

@@ -18,13 +18,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ActionTemplate } from '@app/models/action-template';
-import { ColumnModel } from '@app/models/column.model';
-import { Page } from '@app/models/page.model';
-import { SelectionType } from '@app/models/selection-type.model';
+import { ActionTemplate } from '@models/action-template';
+import { ColumnModel } from '@models/column.model';
+import { Page } from '@models/page.model';
+import { SelectionType } from '@models/selection-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from "@app/material.module";
-import { sign } from 'crypto';
 
 @Component({
   selector: 'app-table',
@@ -56,9 +55,9 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
   @Input() selectionFilter: any;
 
   dataSource = new MatTableDataSource<T>([]);
-  @ViewChild('tablePaginator', { static: true }) tablePaginator: MatPaginator = new MatPaginator(null!, null!);
-  @ViewChild('tableSort', { static: true }) tableSort: MatSort = new MatSort();
-  @ViewChild('dataTable') dataTable?: MatTable<T>;
+  @ViewChild('tablePaginator', { static: true }) tablePaginator!: MatPaginator = new MatPaginator(null!, null!);
+  @ViewChild('tableSort', { static: true }) tableSort!: MatSort = new MatSort();
+  @ViewChild('dataTable') dataTable!: MatTable<T>;
   totalElements = 0;
 
   allColumns: string[] = [];

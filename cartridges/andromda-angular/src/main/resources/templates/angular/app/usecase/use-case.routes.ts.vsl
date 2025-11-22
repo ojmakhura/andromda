@@ -3,32 +3,31 @@
 import { importProvidersFrom } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { Shell } from '@app/shell/shell.service';
-import { ${useCase.componentName} } from '@app/${useCase.path}';
+import { ${useCase.componentName}Component } from '@${useCase.path}';
 
-#if($secure)
+#if($secure.equals("true"))
 import { AuthenticationGuard } from '@app/auth';
-#end
 
+#end
 #foreach($view in $useCase.views)
-import { ${view.componentImplementationName} } from '@app/${view.implementationFilePath}';
+import { ${view.componentImplementationName} } from '@${view.implementationFilePath}';
 #end
 #if($useCase.controller)
 #set ($controller = $useCase.controller)
-import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+import { ${controller.implementationName} } from ${escTool.s}@${controller.implementationFilePath}${escTool.s};
 #foreach($service in $controller.allRestControllers)
-import { ${service.name} } from ${escTool.s}@app/${service.filePath}${escTool.s};
+import { ${service.name} } from ${escTool.s}@${service.filePath}${escTool.s};
 #end
 #end
 #foreach($controller in $view.targetControllers)
-import { ${controller.implementationName} } from ${escTool.s}@app/${controller.implementationFilePath}${escTool.s};
+import { ${controller.implementationName} } from ${escTool.s}@${controller.implementationFilePath}${escTool.s};
 #end   
 
 export const routes: Routes = [
   { 
       path: '', 
-      component: ${useCase.componentName}, 
-#if($secure)
+      component: ${useCase.componentName}Component, 
+#if($secure.equals("true"))
       canActivate: [AuthenticationGuard],
 #end
       data: { title: '${useCase.titleValue}' },
@@ -46,7 +45,7 @@ export const routes: Routes = [
   { 
       path: '${view.routerPath}', 
       component: ${view.componentImplementationName}, 
-#if($secure)
+#if($secure.equals("true"))
       canActivate: [AuthenticationGuard],
 #end
       data: { title: '${stringUtils.toPhrase(${view.name})}' },
