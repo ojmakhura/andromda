@@ -77,10 +77,11 @@ import { $import.name } from '@${import.filePath}';
 import { SearchObject } from '@models/search-object';
 import { $component.name } from './${component.fileName}';
 import { TableComponent } from '@components/table/table';
+import { Field } from "@angular/forms/signals";
 
 @Component({
   selector: "app-${component.selectorName}",
-  templateUrl: "./${component.selectorName}.component.html",
+  templateUrl: "./${component.selectorName}.html",
   styleUrls: [],
   standalone: true,
   imports: [
@@ -90,6 +91,7 @@ import { TableComponent } from '@components/table/table';
     TranslateModule,
     MaterialModule,
     TableComponent,
+    Field,
 #if($component.treePresent)
     AsTreeNodePipe,
     CdkTreeNodeToggle,

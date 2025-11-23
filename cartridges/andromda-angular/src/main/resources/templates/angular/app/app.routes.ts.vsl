@@ -10,6 +10,7 @@
  */
 import { Routes } from '@angular/router';
 import { Shell } from '@app/shell/shell';
+import { UseCaseScope } from './utils/use-case-scope';
 
 export const routes: Routes = [
   Shell.childRoutes([
@@ -27,6 +28,9 @@ export const routes: Routes = [
     {
       path: '$useCase.routerPath', 
       loadChildren: () => import('@$useCase.routingModuleFilePath').then((m) => m.routes),
+      providers: [
+        UseCaseScope
+      ]
     },
 #end
   ]),

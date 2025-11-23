@@ -125,7 +125,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
      */
     protected String handleGetPath() {
         final StringBuilder path = new StringBuilder();
-        path.append("app/view");
+        path.append("app/views");
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName)) {
             path.append(packageName + '.');
@@ -151,6 +151,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
                 }
             }
         }
+
         return new ArrayList<ModelElementFacade>(forwards.values());
     }
 
@@ -630,6 +631,7 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     @Override
     protected String handleGetModuleFileName() {
         String phrase = StringUtilsHelper.toPhrase(this.getName()).toLowerCase();
+        
         return phrase.replace(" ", "-") + ".module";
     }
 

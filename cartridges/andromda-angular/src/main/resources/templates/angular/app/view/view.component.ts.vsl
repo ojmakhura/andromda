@@ -27,6 +27,15 @@ import {
 #end
     OnDestroy,
 } from '@angular/core';
+import { 
+    form,
+    required,
+    email,
+    min,
+    minLength, 
+    max,
+    maxLength,
+} from "@angular/forms/signals";
 import { ActivatedRoute, Router } from '@angular/router';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { 
@@ -118,7 +127,7 @@ import { Page } from '@app/models/page.model';
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
 #if(!$variable.table && !$variable.inputButton && !$variable.component)
-    $variable.name?: $variable.getterSetterTypeName | any#if($variable.many || $angularUtils.isArray($variable.type.name))[]#end;
+    $variable.name: $variable.getterSetterTypeName | any#if($variable.many || $variable.type.listType|| $variable.type.collectionType|| $variable.type.arrayType|| $variable.type.setType)[] = []#else = null#end;
 #end
 #end
 }
@@ -149,16 +158,42 @@ export class $stringUtils.capitalize(${view.varsFormName}) {
 })
 export abstract class $view.componentName implements OnInit, AfterViewInit, OnDestroy {
 
+#set ($name = $stringUtils.lowerCamelCaseName($view.name))
     separatorKeysCodes: number[] = [ENTER, COMMA];
 #if ($view.nonTableVariablesPresent)
-    @Input() ${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName}) = {};
+    @Input() ${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName}) = new $stringUtils.capitalize(${view.varsFormName})();
+    ${name}Signal = signal(this.${view.varsFormName});
+    ${name}SignalForm = form(this.${name}Signal, (path) => {
+#foreach($variable in $view.variables)
+#if(!$variable.table && !$variable.inputButton && !$variable.component)
+#if($variable.required)
+      required(path.$variable.name, { message: '${variable.messageKey}.required' })
+#end
+#if($variable.inputEmail)
+      email(path.$variable.name, { message: '${variable.messageKey}.email' })
+#end
+#if($variable.min)
+      min(path.$variable.name, $variable.min, { message: '${variable.messageKey}.min' })
+#end
+#if($variable.minLength)
+      minLength(path.$variable.name, $variable.minLength, { message: '${variable.messageKey}.minLength' })
+#end
+#if($variable.max)
+      max(path.$variable.name, $variable.max, { message: '${variable.messageKey}.max' })
+#end
+#if($variable.maxLength)
+      maxLength(path.$variable.name, $variable.maxLength, { message: '${variable.messageKey}.maxLength' })
+#end
+#end
+#end
+    });
 #end
     
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
     dialogData: any;
 #end
-	${view.formName}: FormGroup = new FormGroup({});
+	## ${view.formName}: FormGroup = new FormGroup({});
     hide: boolean = false;
     protected route: ActivatedRoute = inject(ActivatedRoute);
     protected router: Router = inject(Router);
@@ -222,7 +257,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
 #end
 
-    ${view.formName}ValueSubscription?: Subscription;
+    ## ${view.formName}ValueSubscription?: Subscription;
 
     constructor(#if($view.popup)@Inject(MAT_DIALOG_DATA) data: any#{end}) {
 
@@ -252,14 +287,14 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     abstract beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end;
 	
     ngOnInit() {
-        #if ($view.nonTableVariablesPresent)let form: $stringUtils.capitalize(${view.varsFormName}) = #{end}this.beforeOnInit(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
-        this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)form#end);
+        ## #if ($view.nonTableVariablesPresent)let form: $stringUtils.capitalize(${view.varsFormName}) = #{end}this.beforeOnInit(#if ($view.nonTableVariablesPresent)new $stringUtils.capitalize(${view.varsFormName})#end);
+        ## this.${view.formName} = this.newForm(#if ($view.nonTableVariablesPresent)form#end);
 
-        this.${view.formName}ValueSubscription = this.${view.formName}.valueChanges.subscribe(
-            (change: any) => {
-                this.handleFormChanges(change);
-            }
-        );
+        ## this.${view.formName}ValueSubscription = this.${view.formName}.valueChanges.subscribe(
+        ##     (change: any) => {
+        ##         this.handleFormChanges(change);
+        ##     }
+        ## );
         
         this.afterOnInit();
     }
@@ -270,15 +305,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ${view.formName}Reset() {
 
-        ## this.store.dispatch(${view.useCase.storeName}Actions.${stringUtils.uncapitalize(${view.useCase.storeName})}Reset());
-        this.${view.formName}.reset()
-        this.${view.formName}.markAsPristine();
-
-        if(this.router.url.substring(0, this.router.url.indexOf('?'))) {
-            this.router.navigate([this.router.url.substring(0, this.router.url.indexOf('?'))]);
-        } else {
-            this.router.navigate([this.router.url]);
-        }
+        this.${name}Signal.set(new $stringUtils.capitalize(${view.varsFormName})());
     }
 
     afterOnInit(): void {}
@@ -294,13 +321,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     newForm(#if ($view.nonTableVariablesPresent)${view.varsFormName}: $stringUtils.capitalize(${view.varsFormName})#end): FormGroup {
         return this.formBuilder.group({
-#if ($view.nonTableVariablesPresent)
-#foreach( $variable in $view.variables )
-#if(!$variable.table && !$variable.inputButton && !$variable.component && !$variable.inputTable)
-#renderInitForm($variable ${view.varsFormName} "" "           ")
-#end
-#end
-#end
+## #if ($view.nonTableVariablesPresent)
+## #foreach( $variable in $view.variables )
+## #if(!$variable.table && !$variable.inputButton && !$variable.component && !$variable.inputTable)
+## #renderInitForm($variable ${view.varsFormName} "" "           ")
+## #end
+## #end
+## #end
 
         });
     }
@@ -309,9 +336,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
     ngOnDestroy() { 
         this.doNgOnDestroy();
-        if(this.${view.formName}ValueSubscription) {
-            this.${view.formName}ValueSubscription.unsubscribe();
-        }
+        ## if(this.${view.formName}ValueSubscription) {
+        ##     this.${view.formName}ValueSubscription.unsubscribe();
+        ## }
     }
 
 #foreach ($action in $view.actions)
@@ -487,48 +514,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 
 #end
 #end
-#if ($view.nonTableVariablesPresent)
-    get ${view.varsFormName}Control(): FormGroup {
-        return this.getGroupControl('${view.varsFormName}');
-    }
-
-#foreach ($variable in $view.variables)
-#if(!$variable.table && !$variable.inputButton && !$variable.component)
-#renderAttributeFormCreation($variable "" "           ")
-#renderAttributeMethods($variable "" ${view.formName} true "    ")
-#end
-#end
-#end
-    getItemControl(name: string): FormControl {
-        return this.${view.formName}.get(name) as FormControl;
-    }
-
-    getGroupControl(name: string): FormGroup {
-        return this.${view.formName}.get(name) as FormGroup;
-    }
-
-    getArrayControl(name: string): FormArray {
-        return this.${view.formName}.get(name) as FormArray;
-    }
-
-    set$stringUtils.capitalize(${view.formName})Value(form: any) {
-#foreach($variable in $view.variables)
-#if(!$variable.table && !$variable.inputTable && !$variable.inputButton && !$variable.component)
-        if(form.$variable.name) {
-#if($angularUtils.isTable($variable) || $variable.many || $variable.type.collectionType)
-            this.${view.formName}.setControl('$variable.name', this.set$stringUtils.capitalize($variable.name)(form.$variable.name));
-#elseif($variable.complex)
-#if($variable.component)
-            this.${view.formName}.setControl('$variable.name', this.create$stringUtils.capitalize($variable.name)Form(form.$variable.name));
-#end
-#else
-            this.${view.formName}?.get('$variable.name')?.setValue(form.$variable.name);
-#end
-        }
-#end
-#end
-    }
-
+    
 #set($fieldSet = $angularUtils.getFacadeSet($fields))
 
 #if($view.popup)
@@ -544,9 +530,9 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     }
 
     dialogDone() {
-        this.dialogRef.close({
-            dialogData: this.handleDialogDone(this.${view.formName}.value)
-        });
+        //this.dialogRef.close({
+        //    dialogData: this.handleDialogDone(this.${view.formName}.value)
+        //});
     }
 
 #end

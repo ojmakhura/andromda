@@ -20,6 +20,15 @@ import {
   FormArray,
 } from "@angular/forms";
 import { SelectItem } from "@app/utils/select-item";
+import { 
+    form,
+    required,
+    email,
+    min,
+    minLength, 
+    max,
+    maxLength,
+} from "@angular/forms/signals";
 #if($component.treePresent)
 import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeModule, MatTreeNestedDataSource } from '@angular/material/tree';
@@ -81,7 +90,7 @@ import { GenericComponent } from "@views/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
-    ${attribute.name}: ${attribute.getterSetterTypeName};
+    ${attribute.name}: ${attribute.getterSetterTypeName} | any = null;
 
 #end
 }
@@ -95,6 +104,28 @@ export abstract class ${component.name} extends GenericComponent<$stringUtils.ca
     separatorKeysCodes: number[] = [ENTER, COMMA];
     @Input() ${component.formName}: $stringUtils.capitalize(${component.formName}) = new $stringUtils.capitalize(${component.formName})();
     $stringUtils.uncapitalize(${component.name})Signal = signal(this.${component.formName});
+    $stringUtils.uncapitalize(${component.name})SignalForm = form(this.$stringUtils.uncapitalize(${component.name})Signal, (path) => {
+#foreach($attribute in $component.attributes)
+#if($attribute.required)
+      required(path.$attribute.name)
+#end
+#if($attribute.inputEmail)
+      email(path.$attribute.name)
+#end
+#if($attribute.min)
+      min(path.$attribute.name, $attribute.min)
+#end
+#if($attribute.minLength)
+      min(path.$attribute.name, $attribute.minLength)
+#end
+#if($attribute.max)
+      max(path.$attribute.name, $attribute.max)
+#end
+#if($attribute.maxLength)
+      maxLength(path.$attribute.name, $attribute.maxLength)
+#end
+#end
+    });
 
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;
@@ -123,7 +154,7 @@ export abstract class ${component.name} extends GenericComponent<$stringUtils.ca
         //    this.initForm();
         //}
 
-        this.formObject = form(this.$stringUtils.uncapitalize(${component.name})Signal);
+        // this.formObject = this.$stringUtils.uncapitalize(${component.name})SignalForm;
 #foreach($attribute in $component.attributes)
 #if($attribute.tree)
 

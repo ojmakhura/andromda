@@ -18,12 +18,13 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ActionTemplate } from '@models/action-template';
-import { ColumnModel } from '@models/column.model';
-import { Page } from '@models/page.model';
-import { SelectionType } from '@models/selection-type.model';
+import { ActionTemplate } from '@app/models/action-template';
+import { ColumnModel } from '@app/models/column.model';
+import { Page } from '@app/models/page.model';
+import { SelectionType } from '@app/models/selection-type.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from "@app/material.module";
+import { sign } from 'crypto';
 
 @Component({
   selector: 'app-table',
@@ -47,7 +48,7 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
   @Input() showActions: boolean = true;
   @Input() actions: ActionTemplate[] = [];
   @Input({ required: true }) dataColumns: ColumnModel[] = [];
-  @Input() dataSignal: Signal<T[]> | Signal<Page<T>> | Signal<undefined> = signal<undefined>(undefined);
+  @Input() dataSignal: Signal<T[] | Page<T> | undefined> = signal<undefined>(undefined);
   @Input() selectionType = SelectionType.NONE;
 
   @Output() actionClicked: EventEmitter<any> = new EventEmitter<any>();
@@ -55,9 +56,9 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
   @Input() selectionFilter: any;
 
   dataSource = new MatTableDataSource<T>([]);
-  @ViewChild('tablePaginator', { static: true }) tablePaginator!: MatPaginator = new MatPaginator(null!, null!);
-  @ViewChild('tableSort', { static: true }) tableSort!: MatSort = new MatSort();
-  @ViewChild('dataTable') dataTable!: MatTable<T>;
+  @ViewChild('tablePaginator', { static: true }) tablePaginator: MatPaginator = new MatPaginator(null!, null!);
+  @ViewChild('tableSort', { static: true }) tableSort: MatSort = new MatSort();
+  @ViewChild('dataTable') dataTable?: MatTable<T>;
   totalElements = 0;
 
   allColumns: string[] = [];
@@ -73,14 +74,14 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
 
       if (!this.paged) {
         const data: T[] = <T[]>this.dataSignal();
-        this.dataSource = new MatTableDataSource(data);
+        this.dataSource = new MatTableDataSource(data || []);
         this.dataSource.sort = this.tableSort;
-        this.totalElements = data.length;
+        this.totalElements = (data?.length || 0);
       } else {
         const page = <Page<T>>this.dataSignal();
-        this.dataSource = new MatTableDataSource(page.content);
+        this.dataSource = new MatTableDataSource((page?.content || []));
         this.dataSource.sort = this.tableSort;
-        this.totalElements = page.totalElements;
+        this.totalElements = (page?.totalElements || 0);
       }
     });
   }

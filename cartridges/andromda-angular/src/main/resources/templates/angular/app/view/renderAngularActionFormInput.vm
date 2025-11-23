@@ -47,8 +47,18 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #macro(renderAngularActionInput $parameter $ownerParameter $ident)
 #if($view.varsFormName)
 #set ($formName = "$view.varsFormName")
+#if($ownerParameter.name)
+#set ($signalFormName = "$stringUtils.lowerCamelCaseName($view.name)SignalForm.$ownerParameter.name")
+#else
+#set ($signalFormName = "$stringUtils.lowerCamelCaseName($view.name)SignalForm")
+#end
 #else
 #set ($formName = "$component.formName")
+#if($ownerParameter.name)
+#set ($signalFormName = "$stringUtils.uncapitalize($component.name)SignalForm.$ownerParameter.name")
+#else
+#set ($signalFormName = "$stringUtils.uncapitalize($component.name)SignalForm")
+#end
 #end
 #set($isComplex = $angularUtils.isComplex($parameter))
 #if ($parameter.backingListName)
@@ -150,7 +160,7 @@ ${ident}<mat-form-field class="col-md-8">
 ${ident}    <div>
 ${ident}        <mat-label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 ${ident}    </div>
-${ident}    <input matInput id="${propertyId}" form#if($parameter.many)Array#{else}Control#{end}Name="${propertyId}" [hidden]="true" /> 
+${ident}    <input matInput id="${propertyId}" [field]="${signalFormName}.${parameter.name}" [hidden]="true" /> 
 #set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($parameter.many)$index#end)")
 #if($parameter.inputType == "image")
 #set( $displayName = "${propertyId}Preview#if($parameter.many)s#end")
@@ -185,23 +195,23 @@ ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.me
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
-${ident}        <mat-checkbox id="$propertyId" formControlName="${parameter.name}"#if($parameter.required) required#end onLabel="#{yes}" offLabel="#{messages['no']}" onIcon="ui-icon-check" offIcon="ui-icon-close"#if($parameter.readOnly || $ownerParameter.readOnly) (click)="$event.preventDefault()"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}        <mat-checkbox id="$propertyId" [field]="${signalFormName}.${parameter.name}" #if($parameter.readOnly || $ownerParameter.readOnly) (click)="$event.preventDefault()"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 ${ident}            <span translate>$parameter.messageKey</span>
 ${ident}        </mat-checkbox>
 ${ident}    </section>
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter) && !$parameter.inputSelect) formGroupName="${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter) && !$parameter.inputSelect) [field]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #else
-${ident}<fieldset class="mb-3" formGroupName="${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<fieldset class="mb-3" [field]="${signalFormName}.${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input matInput type="$parameter.inputType" id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true" #{end}navigator="true" showOn="button"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="$propertyId" [field]="${signalFormName}.${parameter.name}" #if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end form#if ($multiSelect)Array#{else}Control#{end}Name="${parameter.name}" #if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
 ${ident}        <mat-option>
 ${ident}        </mat-option>
@@ -223,7 +233,7 @@ ${ident}        }
 #end
 ${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
-${ident}	<textarea matInput id="$propertyId" formControlName="${parameter.name}" #if($parameter.required) required#end#if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
+${ident}	<textarea matInput id="$propertyId" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 #elseif ($parameter.inputMultibox)
 ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
@@ -303,59 +313,18 @@ ${ident}    </div>
 ${ident}    <div class="row">
 ${ident}        <mat-form-field class="col-md-8">
 ${ident}            <mat-label for="$colId" class="col-sm-2 col-form-label" translate>$stringUtils.toResourceMessageKey($cname)</mat-label>
-${ident}            <input matInput type="text" [readonly]="true" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
+${ident}            <input matInput type="text" id="$colId" value="{{${propertyId}?.$stringUtils.replace("${columnName}", ".", "?.") #if(${column.inputDate} || ${column.type.dateType}) | date#end}}">
 ${ident}        </mat-form-field>
 ${ident}    </div>
 #if($parameter.displayCondition)${ident}    }#end
 #end
 #else
-${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" name="$parameter.name" formControlName="#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration)id#else${parameter.name}#end"#if($parameter.required) required#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end #if($parameter.readOnly || $ownerParameter.readOnly) [readonly]="true"#{end}/>
+${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
 #end
-#if($parameter.required || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max || $parameter.inputEmail)
-#if($parameter.required)
-${ident}    @if(${propertyId}Control.hasError('required')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>${parameter.messageKey}.required</mat-error>
-${ident}    </ng-container>
+${ident}    @for (error of ${signalFormName}.${parameter.name}.errors; track error) {
+${ident}    <mat-error translate>{{error.message}}</mat-error>
 ${ident}    }
-#end
-#if($parameter.minLength)
-${ident}    @if(${propertyId}Control.hasError('required')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>${parameter.messageKey}.minlength</mat-error>
-${ident}    </ng-container>
-${ident}    }
-#end
-#if($parameter.maxLength)
-${ident}    @if(${propertyId}Control.hasError('required')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>{parameter.messageKey}.maxlength</mat-error>
-${ident}    </ng-container>
-${ident}    }
-#end
-#if($parameter.min)
-${ident}    @if(${propertyId}Control.hasError('required')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>{parameter.messageKey}.min/mat-error>
-${ident}    </ng-container>
-${ident}    }
-#end
-#if($parameter.max)
-${ident}    @if(${propertyId}Control.hasError('max')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>${parameter.messageKey}.max</mat-error>
-${ident}    </ng-container>
-${ident}    }
-#end
-#if($parameter.inputMax)
-${ident}    @if(${propertyId}Control.hasError('email') && !emailFormControl.hasError('required')) {
-${ident}    <ng-container>
-${ident}        <mat-error translate>${parameter.messageKey}.email</mat-error>
-${ident}    </ng-container>
-${ident}    }
-#end
-#end
 #if ($parameter.inputRadio)
 ${ident}    </div>
 ${ident}</fieldset>

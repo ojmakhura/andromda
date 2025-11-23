@@ -30,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
 import { TableComponent } from '@components/table/table';
 import { Loader } from "@shared/loader/loader";
+import { Field } from '@angular/forms/signals';
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)
@@ -52,6 +53,7 @@ import { $import.implementationName } from '@components/${import.implementationF
     MaterialModule,
     TableComponent,
     Loader,
+    Field,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif(${import.hasStereotype("FrontEndComponent")})
