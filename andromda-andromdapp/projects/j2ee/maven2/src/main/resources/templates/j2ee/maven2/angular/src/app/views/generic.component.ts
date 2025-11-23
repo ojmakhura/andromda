@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, signal } from "@angular/core";
 
 import { FieldTree, form } from '@angular/forms/signals';
 
@@ -11,9 +11,8 @@ import { FieldTree, form } from '@angular/forms/signals';
 })
 export abstract class GenericComponent<D> {
 
-    @Input() formObject: FieldTree<D | any> = form({} as D | any);
+    @Input() formObject: FieldTree<D> = form(signal<D>({} as D));
 
     constructor() {
     }
-
 }

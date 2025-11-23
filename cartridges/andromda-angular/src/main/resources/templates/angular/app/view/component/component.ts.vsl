@@ -81,7 +81,7 @@ import { GenericComponent } from "@views/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
-    ${attribute.name}?: ${attribute.getterSetterTypeName} | undefined;
+    ${attribute.name}: ${attribute.getterSetterTypeName};
 
 #end
 }
@@ -90,10 +90,11 @@ export class $stringUtils.capitalize(${component.formName}) {
   selector: "app-${component.selectorName}-base",
   template: "",
 })
-export abstract class ${component.name} extends GenericComponent implements OnInit, OnDestroy, AfterViewInit {
+export abstract class ${component.name} extends GenericComponent<$stringUtils.capitalize(${component.formName})> implements OnInit, OnDestroy, AfterViewInit {
 
     separatorKeysCodes: number[] = [ENTER, COMMA];
-    @Input() ${component.formName}: $stringUtils.capitalize(${component.formName}) = {};
+    @Input() ${component.formName}: $stringUtils.capitalize(${component.formName}) = new $stringUtils.capitalize(${component.formName})();
+    $stringUtils.uncapitalize(${component.name})Signal = signal(this.${component.formName});
 
 #if($component.treePresent)
     protected readonly TreeOption = TreeOption;
@@ -118,9 +119,11 @@ export abstract class ${component.name} extends GenericComponent implements OnIn
     }
 
     #if($component.treePresent)async #{end}ngOnInit() {
-        if(!this.formGroupControl) {
-            this.initForm();
-        }
+        //if(!this.formGroupControl) {
+        //    this.initForm();
+        //}
+
+        this.formObject = form(this.$stringUtils.uncapitalize(${component.name})Signal);
 #foreach($attribute in $component.attributes)
 #if($attribute.tree)
 
@@ -136,10 +139,10 @@ export abstract class ${component.name} extends GenericComponent implements OnIn
     }
 
     initForm() {
-        this.formGroupControl = this.formBuilder.group({
-#foreach($attribute in $component.attributes)
-#renderInitForm($attribute ${component.formName} "" "           ")
-#end
+//        this.formGroupControl = this.formBuilder.group({
+//#foreach($attribute in $component.attributes)
+//#renderInitForm($attribute ${component.formName} "" "           ")
+//#end
         });
     }
 

@@ -9,19 +9,19 @@
 #end
  */
 import { Routes } from '@angular/router';
-import { Shell } from '@shell';
+import { Shell } from '@app/shell/shell';
 
 export const routes: Routes = [
   Shell.childRoutes([
     {
       path: '',
       data: { title: 'Home' },
-      loadChildren: () => import('./views/home/home.routes').then((m) => m.routes),
+      loadComponent: () => import('./views/home/home').then((c) => c.Home),
     },
     {
       path: 'about',
       data: { title: 'About' },
-      loadChildren: () => import('./views/about/about.routes').then((m) => m.routes),
+      loadComponent: () => import('./views/about/about').then((c) => c.About),
     },
 #foreach($useCase in $useCases)
     {
