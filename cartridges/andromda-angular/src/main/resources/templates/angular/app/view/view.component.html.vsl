@@ -18,13 +18,13 @@
 #end
 	<div class="card-body">
     	<!-- <form [formGroup]="${view.formName}"> -->
-    	<form>
+    	<div>
 #if(!$view.popup)
 			<div class="row">
 				<div class="col my-3 view-buttons">
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-					<button #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
+					<button type="button" #if($action.icon)mat-mini-fab matTooltip="{{'$action.trigger.messageKey' | translate}}"#{else}mat-flat-button#end color="primary" (click)="${action.triggerName}()" #if($action.displayCondition) *ngIf="${action.displayCondition}"#end>
 #if($action.icon)
 						<mat-icon fontIcon="$action.icon" aria-hidden="false" aria-label="$action.icon"></mat-icon>
 #else
@@ -34,7 +34,7 @@
 #end
 #end
 #if ($view.nonTableVariablesPresent)
-					<button mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
+					<button type="button" mat-mini-fab matTooltip="{{'reset' | translate}}" (click)="${view.formName}Reset()" color="primary">
 						<mat-icon fontIcon="restore" aria-hidden="false" aria-label="restore"></mat-icon>
 					</button>
 #end
@@ -73,7 +73,7 @@
 #end
 #end
 #end
-    	</form>
+    	</div>
 	</div>
 #if ( $view.tables.size() > 0 )
 	<mat-tab-group animationDuration="0ms" class = "tables">

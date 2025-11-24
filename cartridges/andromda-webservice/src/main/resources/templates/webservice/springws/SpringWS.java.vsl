@@ -32,10 +32,10 @@ public interface ${serviceName} {
 #end
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<?>")
+#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
 #else
 #set ($return = "void")
 #end
-    $operation.visibility $return ${operation.name}(#getOperationArgs($operation));
+    $operation.visibility $return ${operation.name}(#getOperationArgs($operation)) throws Exception;
 #end
 }

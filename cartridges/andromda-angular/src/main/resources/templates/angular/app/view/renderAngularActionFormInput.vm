@@ -120,7 +120,7 @@ ${ident}      style="display: flex; flex-direction: column" [trackBy]="track${st
 ${ident}    <mat-nested-tree-node *cdkTreeNodeDef="let node" class="source-tree-node">
 ${ident}        <div style="flex-direction: row">
 ${ident}            @if ((node | asTreeNode).data.numberOfChildComponents > 0) {
-${ident}            <button mat-icon-button cdkTreeNodeToggle>
+${ident}            <button type="button" mat-icon-button cdkTreeNodeToggle>
 ${ident}                <mat-icon>
 ${ident}                    @if (${propertyId}TreeControl.isExpanded(node)) {
 ${ident}                    expand_more
@@ -130,7 +130,7 @@ ${ident}                    }
 ${ident}                </mat-icon>
 ${ident}            </button>
 ${ident}            } @else {
-${ident}            <button disabled mat-icon-button>
+${ident}            <button type="button" disabled mat-icon-button>
 ${ident}                <mat-icon></mat-icon>
 ${ident}            </button>
 ${ident}            }
@@ -151,7 +151,7 @@ ${ident}    </mat-nested-tree-node>
 ${ident}</mat-tree>
 #elseif($parameter.inputButton)
 ${ident}<div class="mb-3">
-${ident}    <button mat-flat-button color="primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
+${ident}    <button type="button" mat-flat-button color="primary" (click)="on${stringUtils.capitalize(${propertyId})}Click()" id="${propertyId}" name="${propertyId}">
 ${ident}        <span translate>$parameter.messageKey</span>
 ${ident}    </button>
 ${ident}</div>
@@ -178,7 +178,7 @@ ${ident}        <mat-list-item>
 ${ident}            <div matListItemTitle>{{${item}.name}}</div>
 #end
 #if(!$parameter.readOnly && !$ownerParameter.readOnly)
-${ident}            <button mat-icon-button color="primary" matListItemMeta  (click)="$deleteFunc">
+${ident}            <button type="button" mat-icon-button color="primary" matListItemMeta  (click)="$deleteFunc">
 ${ident}                <mat-icon>delete</mat-icon>
 ${ident}            </button>
 #end
@@ -239,7 +239,7 @@ ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
 ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i, selectItem)">
 ${ident}              {{ selectItem }}
-${ident}              <button matChipRemove [attr.aria-label]="'remove ' + selectItem">
+${ident}              <button type="button" matChipRemove [attr.aria-label]="'remove ' + selectItem">
 ${ident}                <mat-icon fontIcon="cancel" aria-hidden="false" aria-label="Cancel"></mat-icon>
 ${ident}              </button>
 ${ident}            </mat-chip-row>
@@ -256,17 +256,17 @@ ${ident}         }
 ${ident}    </mat-autocomplete>
 #elseif($parameter.inputTable || $parameter.table  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div> 
-${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button type="button" mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
 ${ident}		<mat-table matSort [dataSource]="${propertyId}" #${propertyId}Sort="matSort" class="table table-bordered table-striped" style="width: 100%;">
 ${ident}			<ng-container matColumnDef="actions">
 ${ident}				<mat-header-cell *matHeaderCellDef translate>actions</mat-header-cell>
 ${ident}                <mat-cell *matCellDef="let row; index as i">
-${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
+${ident}                    <button type="button" mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(i)" class="btn btn-info">
 ${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
 ${ident}                    </button>
-${ident}                    <button mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
+${ident}                    <button type="button" mat-button color="accent" (click)="deleteFrom$stringUtils.capitalize(${propertyId})(row)" class="btn btn-info">
 ${ident}                        <mat-icon fontIcon="delete" aria-hidden="false" aria-label="Delete"></mat-icon>
 ${ident}                    </button>
 ${ident}                </mat-cell>
@@ -294,10 +294,10 @@ ${ident}	</div>
 #else
 #if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many)
 ${ident}    <div class="col my-3 view-buttons">
-${ident}        <button mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
+${ident}        <button type="button" mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
 ${ident}            <mat-icon fontIcon="add_box" aria-hidden="false" aria-label="Add"></mat-icon>
 ${ident}        </button>
-${ident}        <button mat-button (click)="${propertyId}Clear()" class="btn btn-primary">
+${ident}        <button type="button" mat-button (click)="${propertyId}Clear()" class="btn btn-primary">
 ${ident}            <mat-icon fontIcon="clear" aria-hidden="false" aria-label="Clear"></mat-icon>
 ${ident}        </button>
 ${ident}    </div>
@@ -426,7 +426,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                     action.select
                     <span translate>$parameter.messageKey</span>
                 </h5>
-                <button mat-button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" mat-button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div>
@@ -436,7 +436,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                             <input matInput type="text" [formControl]="${propertyId}SearchField"
                                 id="${propertyId}SearchField" />
                         </mat-form-field>
-                        <button mat-button (click)="${propertyId}Search()" class="btn btn-primary">
+                        <button type="button" mat-button (click)="${propertyId}Search()" class="btn btn-primary">
                             <mat-icon fontIcon="search" aria-hidden="false" aria-label="Search"></mat-icon>
                         </button>
                     </form>
@@ -444,8 +444,8 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
 #renderTableInput($parameter $ownerParameter "             " $radio)
             </div>
             <div class="modal-footer">
-                <button mat-button class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
-                <button mat-button class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save</button>
+                <button type="button" mat-button class="btn btn-secondary" data-bs-dismiss="modal" translate>action.close</button>
+                <button type="button" mat-button class="btn btn-primary" (click)="addSelected$stringUtils.capitalize(${propertyId})()" data-bs-dismiss="modal" translate>save</button>
             </div>
         </div>
     </div>
