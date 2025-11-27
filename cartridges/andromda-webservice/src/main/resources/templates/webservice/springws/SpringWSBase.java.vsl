@@ -79,7 +79,7 @@ public abstract class ${serviceName}Base implements ${serviceName} {
 
 #set ($responseStatus = $operation.restResponseStatus)
 #set ($restPath = ${operation.restPath})
-    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
+    ## $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)"${operation.restPath}"#end)
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
 #set ($return = "org.springframework.http.ResponseEntity<$returnType>")

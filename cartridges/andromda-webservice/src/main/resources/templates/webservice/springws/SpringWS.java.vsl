@@ -15,6 +15,7 @@ package ${service.packageName};
  * 
 $service.getDocumentation(" * ")
  */
+@org.springframework.web.bind.annotation.RequestMapping(#if ($stringUtils.isNotBlank($service.restPath))"$service.restPath"#else"${service.name.toLowerCase()}sws"#end)
 public interface ${serviceName} {
 #foreach ($operation in $service.allowedOperations)
 
