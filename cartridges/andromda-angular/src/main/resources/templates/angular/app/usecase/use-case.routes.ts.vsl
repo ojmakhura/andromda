@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ${useCase.componentName}Component } from '@${useCase.path}';
 
 #if($secure.equals("true"))
-import { AuthenticationGuard } from '@app/auth';
+import { AuthenticationGuard } from '@app/auth/authentication.guard';
 
 #end
 #foreach($view in $useCase.views)

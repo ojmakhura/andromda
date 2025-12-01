@@ -9,6 +9,7 @@ import {
   signal,
   Signal,
   OnDestroy,
+  linkedSignal,
 } from "@angular/core";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {

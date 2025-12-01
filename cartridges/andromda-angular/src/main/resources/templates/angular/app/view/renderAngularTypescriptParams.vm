@@ -70,7 +70,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     filter$stringUtils.capitalize(${propertyId})() {}
 
     ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end = [];
-    ${propertyId}FilteredList$: Observable<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end | any[]> = of([]);
+    ${propertyId}FilteredList = linkedSignal<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end>(() => []);
     ${propertyId}ChipControl: FormControl = new FormControl([]);
 
     ${propertyId}Displays: string[] = [
@@ -253,10 +253,14 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 
 #elseif($parameter.inputMultibox && !$parameter.component)
 
-        this.${propertyId}FilteredList$ = this.${propertyId}ChipControl.valueChanges.pipe(
+        this.${propertyId}ChipControl.valueChanges.pipe(
             startWith(null),
             map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
-        );
+        ).subscribe({
+            next: (data) => {
+                this.${propertyId}FilteredList.set(data);
+            }
+        });
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.component && $renderComplex)
 #if($parameter.generalization)
 #foreach($attribute in $parameter.generalization.attributes)
