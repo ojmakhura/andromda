@@ -7,7 +7,7 @@
 #if($spring)
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
+        <version>4.0.0</version>
         <relativePath/>
 #else
         <groupId>org.andromda.maven</groupId>
@@ -504,6 +504,11 @@
 #end
 #end
 #if ($spring)
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>5.0.1</version>
+            </dependency>
             <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
