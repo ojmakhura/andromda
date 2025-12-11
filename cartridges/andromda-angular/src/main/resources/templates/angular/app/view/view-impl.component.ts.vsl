@@ -28,8 +28,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
-import { TableComponent } from '@app/components/table/table.component';
-import { LoaderComponent } from "@app/@shared/loader/loader.component";
+import { Table } from '@app/components/table/table';
+import { Loader } from "@app/@shared/loader/loader";
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)
@@ -50,8 +50,8 @@ import { $import.implementationName } from '@app/components/${import.implementat
     ReactiveFormsModule,
     TranslateModule,
     MaterialModule,
-    TableComponent,
-    LoaderComponent,
+    Table,
+    Loader,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif(${import.hasStereotype("FrontEndComponent")})
