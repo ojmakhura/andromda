@@ -12,11 +12,18 @@ package ${service.packageName};
 #set ( $serviceImplName = "${service.name}Impl")
 #end
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 @org.springframework.web.bind.annotation.RestController
-#foreach($annotation in $service.additionalAnnotations)
-@$annotation
+public class ${serviceImplName} implements #if($isService)${service.name}WS#else${service.name}#end {
+#if($isService)
+
+    protected final ${service.fullyQualifiedName} $stringUtils.uncapitalize(${service.name});
 #end
-public class ${serviceImplName} extends #if($isService)${service.name}WSBase#else${service.name}Base#end {
+#foreach($ref in $service.allServiceReferences)
+        protected final $ref.targetElement.fullyQualifiedName $ref.name;
+#end
     
     public ${serviceImplName}(
 #if($isService)
@@ -37,61 +44,63 @@ public class ${serviceImplName} extends #if($isService)${service.name}WSBase#els
 #end
     ) {
         
-        super(
 #if($isService)
-            $stringUtils.uncapitalize(${service.name})#if($service.allServiceReferences.size() > 0 || $service.entityReferences.size() > 0),#end
+        this.$stringUtils.uncapitalize(${service.name}) = $stringUtils.uncapitalize(${service.name});
 #end
-#set ($iter = $service.allServiceReferences.iterator())
 #foreach($ref in $service.allServiceReferences)
-#set($serviceRef = $iter.next())
-            $ref.name#if($iter.hasNext() || $service.entityReferences.size() > 0),#end
+        this.$ref.name = $ref.name;
 #end
 #set ($iter = $service.entityReferences.iterator())
 #foreach($ref in $service.entityReferences)
-#set($entityRef = $iter.next())
-#set ($ent = $ref.targetElement)
-            $ref.daoName,
-            ${ent.name}Repository#if($iter.hasNext()),#end
-#end
-        );
+        this.$serviceRef.name = $serviceRef.name;
+        ${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+#end 
     }
 
 #foreach ($operation in $service.allowedOperations)
 
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
-#set ($return = "org.springframework.http.ResponseEntity<$returnType>")
+#set ($return = "ResponseEntity<${returnType}>")
 #else
 #set ($return = "void")
 #end
+
     @Override
-    $operation.visibility $return handle$stringUtils.capitalize(${operation.signature}) throws Exception {
+    $operation.visibility $return ${operation.signature} throws Exception {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
-#set ($optional = "java.util.Optional.of($call)")
+#set ($optional = "$call")
 #else
 #set ($call = "// TODO: Add custom code here")
-#set ($optional = "java.util.Optional.empty(); $call")
+#set ($optional = "null;")
 #end
-#if ($operation.returnTypePresent)
         try {
-            java.util.Optional<?> data = $optional;
-            org.springframework.http.ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.OK).body(data.get());
-            } else {
-                response = org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+#if ($operation.returnTypePresent)
+#if($isService)
+            return ResponseEntity.ok($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
 #else
-        $call;
+            return ResponseEntity.ok(null);
 #end
+#else
+            $call;
+#end
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw e;
+        } 
+    }
+#end
+#foreach($serviceRef in $service.serviceReferences)
+    
+    /**
+     * Gets the reference to <code>$serviceRef.daoName</code>.
+     * @return ${serviceRef.name}
+     */
+    protected $serviceRef.targetElement.fullyQualifiedName ${serviceRef.getterName}()
+    {
+        return this.$serviceRef.name;
     }
 #end
 }

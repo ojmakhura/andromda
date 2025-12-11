@@ -1170,7 +1170,7 @@
         </modelElements>
     </template> -->
     
-    <template
+    <!-- <template
         path="templates/webservice/springws/SpringWSBase.java.vsl"
         outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/${serviceName}Base.java"
         outlet="webservice-types"
@@ -1183,7 +1183,7 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template>
+    </template> -->
     <template
         path="templates/webservice/springws/SpringWSImpl.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceImplName}.java"
