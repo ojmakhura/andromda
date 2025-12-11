@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 @org.springframework.web.bind.annotation.RestController
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public class ${serviceImplName} implements #if($isService)${service.name}WS#else${service.name}#end {
 #if($isService)
 
@@ -57,6 +60,21 @@ public class ${serviceImplName} implements #if($isService)${service.name}WS#else
 #end 
     }
 
+#foreach($attribute in $service.attributes)
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
+#end
+#if($attribute.many)
+    private java.util.Collection<$attribute.type.fullyQualifiedName> $attribute.name; 
+#else
+    private $attribute.type.fullyQualifiedName $attribute.name; 
+#end
+
+    $attribute.visibility #if($attribute.many)java.util.Collection<$attribute.type.fullyQualifiedName>#else$attribute.type.fullyQualifiedName#end ${attribute.getterName}() {
+        return $attribute.name; 
+    }
+
+#end
 #foreach ($operation in $service.allowedOperations)
 
 #if($operation.returnTypePresent)
@@ -67,6 +85,9 @@ public class ${serviceImplName} implements #if($isService)${service.name}WS#else
 #end
 
     @Override
+#foreach($annotation in $operation.additionalAnnotations)
+    @$annotation
+#end
     $operation.visibility $return ${operation.signature} throws Exception {
 #if($isService)
 #set ($call = "$stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames)")
