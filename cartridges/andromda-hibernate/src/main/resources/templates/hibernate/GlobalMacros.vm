@@ -314,7 +314,7 @@
 
 #if($attribute.many)
 #if (!$attribute.findTaggedValue("andromda_persistence_column_definition"))
-    @jakarta.persistence.ElementCollection
+    @jakarta.persistence.ElementCollection(fetch = jakarta.persistence.FetchType.EAGER)
     @jakarta.persistence.CollectionTable(name = "${entity.tableName}_${attribute.columnName}", joinColumns = @jakarta.persistence.JoinColumn(name = "${entity.tableName}_ID"))
 #end
     @jakarta.persistence.Column(name = "${attribute.columnName}"#if ($attribute.findTaggedValue("andromda_persistence_column_definition")), columnDefinition = "${attribute.findTaggedValue("andromda_persistence_column_definition")}"#end)

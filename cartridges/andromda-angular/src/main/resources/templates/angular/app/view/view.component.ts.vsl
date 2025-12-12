@@ -69,7 +69,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 #end
 #set ($base = "${metafacadeWebUtils.toWebResourceName($view.useCase.storeName)}")
 #foreach ($service in $view.useCase.controller.allRestControllers)
-## import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
+import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
 #end
 import { ColumnModel } from '@models/column.model';
 import { ActionTemplate } from '@models/action-template';
