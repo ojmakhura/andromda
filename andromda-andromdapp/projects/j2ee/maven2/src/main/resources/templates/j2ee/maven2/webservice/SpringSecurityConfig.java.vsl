@@ -16,19 +16,36 @@ import org.springframework.context.annotation.Configuration;
 @EnableWebSecurity
 #end
 public class SpringSecurityConfiguration {
-
 #if($secure.equals("true"))
+
+	@Value("${app.security.permit}")
+	private String[] permitedEndpoints;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/css/**", "/images/**", "/js/**", "/index").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/", "/index.html", "/public-page").permitAll()
-                        .anyRequest().authenticated())
-                .oauth2Client(Customizer.withDefaults()) 
-                .oauth2Login(Customizer.withDefaults());
-        return http.build();
+        http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests((authz) -> authz
+						.requestMatchers(
+								"/swagger-ui/*",
+								"/swagger-ui.html",
+								"/webjars/**",
+								"/v3/**",
+								"/swagger-resources/**",
+								"/actuator/**",
+								"/public/**")
+						.permitAll()
+					);
+
+		if (permitedEndpoints != null && permitedEndpoints.length > 0) {
+			http.authorizeHttpRequests(authz -> authz
+					.requestMatchers(permitedEndpoints).permitAll());
+		}
+		
+		http.authorizeHttpRequests((authz) -> authz
+						.anyRequest().authenticated());
+
+		return http.build();
     }
 #end
 }

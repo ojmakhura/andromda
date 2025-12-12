@@ -17,3 +17,8 @@ spring:
             time: HH:mm:ss
         pathmatch:
             matching-strategy: ANT_PATH_MATCHER
+#if($secure)
+app:
+    security:
+        permit: ${SECURE_PERMIT:/public/**}
+#end
