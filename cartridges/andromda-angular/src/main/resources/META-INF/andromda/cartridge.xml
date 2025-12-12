@@ -371,7 +371,7 @@
         </modelElements>
     </template>
 
-    <!-- <template
+    <template
         path="templates/angular/app/usecase/store/store.ts.vsl"
         outputPattern="${service.packagePath}/${service.fileName}.store.ts"
         outlet="ngrx-store-impl"
@@ -383,11 +383,39 @@
                 </type>
             </modelElement>
         </modelElements>
-    </template> -->
+    </template>
 
     <template
         path="templates/angular/app/usecase/use-case.component.ts.vsl"
         outputPattern="${useCase.path}.ts"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/use-case.component.html.vsl"
+        outputPattern="${useCase.path}.html"
+        outlet="views"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.angular.metafacades.AngularController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/angular/app/usecase/use-case.component.scss.vsl"
+        outputPattern="${useCase.path}.scss"
         outlet="views"
         overwrite="true">
         <modelElements variable="controller">
