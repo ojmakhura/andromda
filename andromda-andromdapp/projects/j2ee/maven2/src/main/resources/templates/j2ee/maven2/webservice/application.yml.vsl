@@ -1,10 +1,15 @@
 server:
     port: 8085
     servlet:
-        context-path: /$applicationId/api/
+        context-path: ${CONTEXT_PATH:/$applicationId/api/}
+    http2:
+        enabled: true
 spring:
     thymeleaf:
         cache: false
+    threads:
+        virtual:
+            enabled: true
     mvc:
         format:
             date: iso
