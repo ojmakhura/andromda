@@ -3,6 +3,14 @@
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
 <div#if($view.popup) mat-dialog-content#end class="edit-container">
+  <div class="breadcrumb-section">
+    <mat-icon class="breadcrumb-icon">home</mat-icon>
+    <span class="breadcrumb-text">{{ 'home' | translate }}</span>
+    <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+    <span class="breadcrumb-text">{{ '${view.useCase.titleKey}' | translate }}</span>
+    <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+    <span class="breadcrumb-text active">{{ '${view.titleKey}' | translate }}</span>
+  </div>
 ## Render non table variables
 #set ($complex = [])
 #set ($simple = [])

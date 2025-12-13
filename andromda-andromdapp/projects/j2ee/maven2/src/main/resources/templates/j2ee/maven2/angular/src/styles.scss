@@ -920,3 +920,37 @@ body {
     margin-bottom: 16px !important;
   }
 }
+
+/* Breadcrumb Section */
+.breadcrumb-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  .breadcrumb-icon,
+  .breadcrumb-separator {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #9e9e9e;
+  }
+
+  .breadcrumb-text {
+    font-size: 14px;
+    color: #757575;
+
+    &.active {
+      color: #1976d2;
+      font-weight: 500;
+    }
+  }
+}
+
+.breadcrumb-section {
+  animation: slideIn 0.4s ease-out;
+}
