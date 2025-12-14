@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,9 +37,28 @@ public class ${service.name}ExceptionHandler
     public ResponseEntity<ApiErrorResponse> handle${service.name}Exception(${service.name}Exception ex) {
         ApiErrorResponse error = new ApiErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ex.getCause().getMessage(),
+                ex.getMessage(),
                 LocalDateTime.now()
         );
+
+        List<String> details = new ArrayList<>();
+
+        if (ex.getCause() != null) {
+
+            Throwable cause = ex.getCause();
+            details.add(cause.getMessage());
+
+            if (cause.getCause() != null) {
+                details.add(cause.getCause().getMessage());
+
+                if (cause.getCause().getCause() != null) {
+                    details.add(cause.getCause().getCause().getMessage());
+                }
+            }
+        }
+
+        error.setDetails(details);
+
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
