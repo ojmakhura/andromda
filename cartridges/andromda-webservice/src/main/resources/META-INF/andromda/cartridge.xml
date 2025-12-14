@@ -1198,6 +1198,22 @@
             </modelElement>
         </modelElements>
     </template>
+    <template
+        path="templates/webservice/springws/SpringExceptionHandler.java.vsl"
+        outputPattern="java/$stringUtils.replace($service.packageName, '.', '/')/exception/${service.name}ExceptionHandler.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputOnEmptyElements="false"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+            <modelElement stereotype="SERVICE"/>
+        </modelElements>
+    </template>
 
     <!-- cartridge-template merge-point -->
 
