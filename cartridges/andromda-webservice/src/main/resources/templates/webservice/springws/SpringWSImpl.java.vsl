@@ -13,9 +13,9 @@ package ${service.packageName};
 #end
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-@org.springframework.web.bind.annotation.RestController
+@RestController
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end
