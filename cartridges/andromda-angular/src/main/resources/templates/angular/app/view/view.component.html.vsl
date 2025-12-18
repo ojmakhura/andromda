@@ -57,7 +57,6 @@
 #foreach ($variable in $view.variables)
 #if(!$variable.inputHidden)
 #set($propertyId = $variable.name)
-<!-- Rendering variable: $variable.name : $variable.inputTable - $variable.table -->
 #if($variable.component)
 			<app-$variable.type.selectorName
 				#${variable.name}>
