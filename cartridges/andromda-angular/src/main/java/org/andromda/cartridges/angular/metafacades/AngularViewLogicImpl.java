@@ -155,23 +155,23 @@ public class AngularViewLogicImpl extends AngularViewLogic {
         return new ArrayList<ModelElementFacade>(forwards.values());
     }
 
-    /**
-     * @return tables
-     * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableLink()
-     */
-    protected List<AngularParameter> handleGetTables() {
-        final List<AngularParameter> tables = new ArrayList<AngularParameter>();
-        final List<FrontEndParameter> variables = this.getVariables();
-        for (FrontEndParameter parameter : variables) {
-            if (parameter instanceof AngularParameter) {
-                final AngularParameter variable = (AngularParameter) parameter;
-                if (variable.isTable()) {
-                    tables.add(variable);
-                }
-            }
-        }
-        return tables;
-    }
+    // /**
+    //  * @return tables
+    //  * @see org.andromda.cartridges.angular.metafacades.AngularAction#isTableLink()
+    //  */
+    // protected List<AngularParameter> handleGetTables() {
+    //     final List<AngularParameter> tables = new ArrayList<AngularParameter>();
+    //     final List<FrontEndParameter> variables = this.getVariables();
+    //     for (FrontEndParameter parameter : variables) {
+    //         if (parameter instanceof AngularParameter) {
+    //             final AngularParameter variable = (AngularParameter) parameter;
+    //             if (variable.isTable()) {
+    //                 tables.add(variable);
+    //             }
+    //         }
+    //     }
+    //     return tables;
+    // }
 
     /**
      * @return actionForwards
@@ -540,7 +540,19 @@ public class AngularViewLogicImpl extends AngularViewLogic {
 
     @Override
     protected String handleGetViewPath() {
-        return "views/" + this.getPackagePath();
+
+        StringBuilder path = new StringBuilder();
+        path.append("views/");
+        path.append(getPackagePath());
+
+        String routerPath = this.getRouterPath();
+        if(!routerPath.startsWith("/") && !getPackagePath().endsWith("/")) {
+            path.append("/");
+        }
+
+        path.append(routerPath);
+
+        return path.toString();
     }
 
     @Override

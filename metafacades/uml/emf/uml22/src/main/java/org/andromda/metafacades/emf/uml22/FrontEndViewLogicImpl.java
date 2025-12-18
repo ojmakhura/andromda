@@ -168,7 +168,7 @@ public class FrontEndViewLogicImpl
         for (final Iterator iterator = variables.iterator(); iterator.hasNext();)
         {
             final FrontEndParameter parameter = (FrontEndParameter)iterator.next();
-            if (!parameter.isTable())
+            if (!(parameter.isInputTable() || parameter.isTable()))
             {
                 iterator.remove();
             }

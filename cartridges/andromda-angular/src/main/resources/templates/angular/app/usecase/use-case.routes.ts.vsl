@@ -21,16 +21,17 @@ import { ${service.name} } from ${escTool.s}@${service.filePath}${escTool.s};
 #end
 #foreach($controller in $view.targetControllers)
 import { ${controller.implementationName} } from ${escTool.s}@${controller.implementationFilePath}${escTool.s};
-#end   
+#end
+#set($hasViews = $useCase.views.size() > 0)
 
 export const routes: Routes = [
   { 
       path: '', 
-      component: ${useCase.componentName}Component, 
+      component: #if($hasViews)${useCase.initialView.componentImplementationName}#else${useCase.componentName}Component#end, 
 #if($secure.equals("true"))
       canActivate: [AuthenticationGuard],
 #end
-      data: { title: '${useCase.titleValue}' },
+      data: { title: #if($hasViews)'${useCase.initialView.titleValue}'#else'${useCase.titleValue}'#end },
       providers: [
 #if($useCase.controller)
 #set ($controller = $useCase.controller)
@@ -42,13 +43,15 @@ export const routes: Routes = [
       ] 
   },
 #foreach($view in $useCase.views)
+#set($isInitialView = $useCase.initialView == $view)
+#if(!$isInitialView)
   { 
       path: '${view.routerPath}', 
       component: ${view.componentImplementationName}, 
 #if($secure.equals("true"))
       canActivate: [AuthenticationGuard],
 #end
-      data: { title: '${stringUtils.toPhrase(${view.name})}' },
+      data: { title: '${view.titleValue}' },
       providers: [ 
 #foreach($controller in $view.targetControllers)
       $controller.variableName: ${controller.implementationName};
@@ -59,6 +62,7 @@ export const routes: Routes = [
 #end
       ] 
   },
+#end
 #end
 ];
 

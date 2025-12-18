@@ -47,6 +47,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #macro(renderAngularActionInput $parameter $ownerParameter $ident)
 #if($view.varsFormName)
 #set ($formName = "$view.varsFormName")
+#set ($formSignalName = "$stringUtils.lowerCamelCaseName($view.name)Signal")
 #if($ownerParameter.name)
 #set ($signalFormName = "$stringUtils.lowerCamelCaseName($view.name)SignalForm.$ownerParameter.name")
 #else
@@ -54,6 +55,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #end
 #else
 #set ($formName = "$component.formName")
+#set ($formSignalName = "$stringUtils.uncapitalize($component.name)Signal")
 #if($ownerParameter.name)
 #set ($signalFormName = "$stringUtils.uncapitalize($component.name)SignalForm.$ownerParameter.name")
 #else
@@ -86,7 +88,7 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($backingValueName = $metafacadeWebUtils.getBackingValueName($parameter, $ownerParameter))
 #end
 #end
-#if($parameter.inputTable || $parameter.table)
+#if($parameter.table || $parameter.inputTable)
 #set ($allColumnActions = [])
 #foreach($column in $parameter.tableColumnNames)
 #if($column.name)
@@ -199,9 +201,32 @@ ${ident}        <mat-checkbox id="$propertyId" [field]="${signalFormName}.${para
 ${ident}            <span translate>$parameter.messageKey</span>
 ${ident}        </mat-checkbox>
 ${ident}    </section>
+#elseif($parameter.inputMultibox)
+${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
+#if(!($parameter.readOnly || $ownerParameter.readOnly))
+${ident}    <div class="mb-3">
+${ident}        <button type="button" mat-mini-fab matTooltip="{{'add' | translate}}" color="primary" (click)="${propertyId}Add()" >
+${ident}		    <mat-icon fontIcon="add" aria-hidden="false" aria-label="add"></mat-icon>
+${ident}		</button>
+#end
+#if($parameter.attributes.size() > 0)
+${ident}        <div class="row">
+${ident}        @for(item of ${formSignalName}().${parameter.name}; track item; let i = $index){
+#foreach($pa in $parameter.attributes)
+${ident}        <mat-form-field class="col-md-4">
+${ident}            <mat-label for="${pa.name}" class="col-sm-2 col-form-label" translate>$pa.messageKey</mat-label>
+${ident}            <input matInput type="text" id="${pa.name}" [field]="${signalFormName}.${parameter.name}[i]"#if($pa.minLength) minlength="$pa.minLength"#end#if($pa.minLength) maxlength="$pa.maxLength"#end#if($pa.min) min="$pa.min"#end#if($pa.max) max="$pa.max"#end/>
+${ident}        </mat-form-field>
+#end
+${ident}        }
+${ident}        </div>
+#end
+${ident}    </div>
+${ident}</fieldset>
 #else
-#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $angularUtils.isTable($parameter))
-${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$angularUtils.isTable($parameter) && !$parameter.inputSelect) [field]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.table || $parameter.inputTable)
+${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.table && !$parameter.inputTable && !$parameter.inputSelect) [field]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #else
 ${ident}<fieldset class="mb-3" [field]="${signalFormName}.${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
@@ -242,26 +267,26 @@ ${ident}        }
 ${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
 ${ident}	<textarea matInput id="$propertyId" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
-#elseif ($parameter.inputMultibox)
-${ident}    <mat-chip-grid #${propertyId}ChipGrid>
-${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
-${ident}            <mat-chip-row (removed)="${propertyId}Remove(i, selectItem)">
-${ident}              {{ selectItem }}
-${ident}              <button type="button" matChipRemove [attr.aria-label]="'remove ' + selectItem">
-${ident}                <mat-icon fontIcon="cancel" aria-hidden="false" aria-label="Cancel"></mat-icon>
-${ident}              </button>
-${ident}            </mat-chip-row>
-${ident}        }
-${ident}    </mat-chip-grid>
-${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="${propertyId}ChipControl"
-${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="auto"
-${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
-${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
-${ident}         @for (item of ${propertyId}FilteredList(); track item) {
-${ident}            <mat-option [value]="item">{{item}}</mat-option>
-${ident}         }
-${ident}    </mat-autocomplete>
+## #elseif ($parameter.inputMultibox)
+## ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
+## ${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
+## ${ident}            <mat-chip-row (removed)="${propertyId}Remove(i, selectItem)">
+## ${ident}              {{ selectItem }}
+## ${ident}              <button type="button" matChipRemove [attr.aria-label]="'remove ' + selectItem">
+## ${ident}                <mat-icon fontIcon="cancel" aria-hidden="false" aria-label="Cancel"></mat-icon>
+## ${ident}              </button>
+## ${ident}            </mat-chip-row>
+## ${ident}        }
+## ${ident}    </mat-chip-grid>
+## ${ident}    <input placeholder="Select ..." #${propertyId}Input [formControl]="${propertyId}ChipControl"
+## ${ident}          [matChipInputFor]="${propertyId}ChipGrid" [matAutocomplete]="auto"
+## ${ident}          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+## ${ident}          (matChipInputTokenEnd)="${propertyId}Add($event)"/>
+## ${ident}    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="${propertyId}Selected($event)">
+## ${ident}         @for (item of ${propertyId}FilteredList(); track item) {
+## ${ident}            <mat-option [value]="item">{{item}}</mat-option>
+## ${ident}         }
+## ${ident}    </mat-autocomplete>
 #elseif($parameter.inputTable || $parameter.table  && !($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.many))
 ${ident}	<div> 
 ${ident}        <button type="button" mat-button (click)="${propertyId}AddDialog()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${propertyId}Modal">
@@ -333,11 +358,11 @@ ${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [fiel
 ${ident}    @for (error of ${signalFormName}.${parameter.name}.errors; track error) {
 ${ident}    <mat-error translate>{{error.message}}</mat-error>
 ${ident}    }
-#if ($parameter.inputRadio)
+#if ($parameter.inputRadio || $parameter.inputMultibox)
 ${ident}    </div>
 ${ident}</fieldset>
 #else
-#if(!$angularUtils.isComplex($parameter) || $parameter.inputMultibox || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
+#if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.type.enumeration || $angularUtils.isTable($parameter))
 ${ident}</mat-form-field>
 #else
 ${ident}</fieldset>

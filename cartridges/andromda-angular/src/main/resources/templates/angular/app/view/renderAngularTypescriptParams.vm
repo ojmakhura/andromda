@@ -60,7 +60,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 ## $ident${propertyId}T: any = $parameter.getterSetterTypeName;
 ## $ident${propertyId}Options = Object.keys(this.${propertyId}T);
 ## Drop down selection list
-#if($parameter.inputSelect || $parameter.inputMultibox )
+#if($parameter.inputSelect )
     ${propertyId}FilterCtrl: FormControl = new FormControl();
 
     ${propertyId}Compare(o1: ${parameter.getterSetterTypeName} | any, o2: ${parameter.getterSetterTypeName} | any) {
@@ -80,7 +80,15 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 #end
 #end
     ];
+#elseif($parameter.inputMultibox)
 
+    ${propertyId}Add() {
+
+    }
+
+    ${propertyId}Remove(i: number, selected: any) {
+
+    }
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
     @ViewChild('${propertyId}Table') ${propertyId}Table!: TableComponent<$angularUtils.getDatatype($parameter.getterSetterTypeName)>;
@@ -251,16 +259,16 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     );
     this.${propertyId}DataSource = new MatTreeNestedDataSource<DynamicTreeNode>();
 
-#elseif($parameter.inputMultibox && !$parameter.component)
-
-        this.${propertyId}ChipControl.valueChanges.pipe(
-            startWith(null),
-            map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
-        ).subscribe({
-            next: (data) => {
-                this.${propertyId}FilteredList.set(data);
-            }
-        });
+## #elseif($parameter.inputMultibox && !$parameter.component)
+##
+##         this.${propertyId}ChipControl.valueChanges.pipe(
+##             startWith(null),
+##             map((value: string | null) => (value ? this._${propertyId}Filter(value) : this.${propertyId}BackingList.slice())),
+##         ).subscribe({
+##             next: (data) => {
+##                 this.${propertyId}FilteredList.set(data);
+##             }
+##         });
 #elseif(!$angularUtils.isSimpleType($parameter.type) && !$parameter.component && $renderComplex)
 #if($parameter.generalization)
 #foreach($attribute in $parameter.generalization.attributes)
@@ -312,7 +320,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 ## No need to generate reactive forms for buttons, components and trees 
 ##
 #if(!$parameter.inputButton && !$parameter.component && !$parameter.tree)
-#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($parameter.table || $parameter.inputTable || $parameter.many || $parameter.type.collectionType)
 #if($angularUtils.isSimpleType($parameter.type))
 //            $parameter.name: this.formBuilder.array(this.${formName}.${parameter.name} ? this.${formName}.${parameter.name} : []),
 //            $parameter.name: [{ value: this.${formName}.${parameter.name} || [], disabled: false }],
@@ -502,7 +510,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     return ``;
   }
 #elseif(!$parameter.component)
-#if($angularUtils.isTable($parameter) || $parameter.many || $parameter.type.collectionType)
+#if($parameter.table || $parameter.inputTable || $parameter.many || $parameter.type.collectionType)
 #set ($controlType = "FormControl")
 #elseif($angularUtils.isComplex($parameter) && !$parameter.component && !$parameter.inputSelect)
 #set ($controlType = "FormGroup")
@@ -523,15 +531,10 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     //    this.${propertyId}Control.setValue(t);
     // }
 
-     ${propertyId}Remove(i: number, selected: any){
-    //     this.${formName}.${propertyId}?.splice(i, 1);
-    //    this.${propertyId}BackingList.push(selected);
-    //    this.set${stringUtils.capitalize(${propertyId})}Control();
+    ${propertyId}Remove(i: number, selected: any) {
     }
 
-    ${propertyId}Add(event: MatChipInputEvent){
-    //    event.chipInput!.clear();
-    //    this.${propertyId}FilteredList$ = of(this.${propertyId}BackingList);
+    ${propertyId}Add() {
     }
     
     ${propertyId}Selected(event: MatAutocompleteSelectedEvent): void {
@@ -570,7 +573,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 #end
 #if($angularUtils.isComplex($parameter) && !$parameter.component && $renderAttributes && !$parameter.inputSelect && !$parameter.table && !$parameter.inputTable)
 #foreach($attr in $parameter.type.attributes)
-#if($angularUtils.isTable($attr) || $attr.many || $attr.type.collectionType)
+#if($attr.table || $attr.inputTable || $attr.many || $attr.type.collectionType)
 #set ($attrControlType = "FormControl")
 #elseif($angularUtils.isComplex($attr) && !$attr.component)
 #set ($attrControlType = "FormGroup")

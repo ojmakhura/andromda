@@ -1,6 +1,7 @@
 #set ($useCase = $controller.useCase)
 #if($useCase.views.size() > 0)
-<router-outlet/>
+## <router-outlet/>
+<$useCase.initialView.selectorName></$useCase.initialView.selectorName>
 #else
 <p>No views defined for this use case.</p>
 #end

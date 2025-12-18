@@ -544,8 +544,24 @@ public class AngularUtils {
         return signature.toString();
     }
 
-    public static boolean isTable(AngularAttribute attribute) {
+    public static boolean isTable(Object in) {
 
+        if(in == null) {
+            return false;
+        }
+
+        if(!(in instanceof AngularAttribute)) {
+
+            if(in instanceof AngularParameter) {
+                AngularParameter parameter = (AngularParameter) in;
+
+                return parameter.isInputTable();
+            } 
+
+            return false;
+        }
+
+        AngularAttribute attribute = (AngularAttribute) in;
 
         if(attribute.isInputSelect() || attribute.isInputRadio() || attribute.isInputCheckbox() || attribute.isInputText() || attribute.isInputTextarea() || attribute.isInputDate() || attribute.isInputTime() || attribute.isInputEmail() || attribute.isInputSecret() || attribute.isInputUrl() || attribute.isInputNumber() || attribute.isInputFile() || attribute.isInputHidden() || attribute.isInputButton()) {
             return false;
@@ -595,7 +611,7 @@ public class AngularUtils {
 
         for (Object tmp : attributes) {
             AngularAttribute attribute = (AngularAttribute) tmp;
-            if (!isTable(attribute) && !attribute.isInputTable()) {
+            if (!attribute.isInputTable()) {
                 standardAttributes.add(attribute);
             }
         }
@@ -620,7 +636,8 @@ public class AngularUtils {
 
         for (Object tmp : attributes) {
             AngularAttribute attribute = (AngularAttribute) tmp;
-            if (isTable(attribute)) {
+            
+            if (attribute.isInputTable()) {
                 tableAttributes.add(attribute);
             }
 

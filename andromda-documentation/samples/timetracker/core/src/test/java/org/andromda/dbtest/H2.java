@@ -112,7 +112,7 @@ public class H2
                             }
                             catch (Exception e)
                             {
-                                LOGGER.error(e);
+                                LOGGER.error(e.getMessage());
                             }
                         }
                         else if (stat.getUpdateCount() > 0)
@@ -133,7 +133,7 @@ public class H2
                     }
                     catch (SQLException e)
                     {
-                        LOGGER.error(e);
+                        LOGGER.error(e.getMessage());
                     }
                 }
             }
@@ -149,15 +149,15 @@ public class H2
         }
         catch (IOException e)
         {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
         }
         catch (ClassNotFoundException e)
         {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
         }
         catch (SQLException e)
         {
-            LOGGER.error(e);
+            LOGGER.error(e.getMessage());
         }
     }
 

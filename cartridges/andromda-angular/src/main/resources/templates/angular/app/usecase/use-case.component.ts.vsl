@@ -17,6 +17,9 @@ import { $service.name } from '@${service.filePath}';
 import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath($service)}';
 #end
 #end
+#if($useCase.views.size() > 0)
+import { ${useCase.initialView.componentImplementationName} } from '@${useCase.initialView.implementationFilePath}';
+#end
 
 @Component({
   selector: 'app-${useCase.selectorName}',
@@ -24,13 +27,16 @@ import { ${service.name}Store } from '${angularUtils.getRestServiceStoreFilePath
   styleUrls: ['./${useCase.selectorName}.scss'],
   standalone: true,
   imports: [
+#if($useCase.views.size() > 0)
+    ${useCase.initialView.componentImplementationName}
+#end
   ],
 })
 export class ${useCase.componentName}Component implements OnInit, AfterViewInit {
 
     protected route: ActivatedRoute = inject(ActivatedRoute);
     protected router: Router = inject(Router);
-    $controller.variableName: $controller.implementationName = inject($controller.implementationName);
+    ## $controller.variableName: $controller.implementationName = inject($controller.implementationName);
 #if($useCase.views.size() == 0 && ${useCase.controller})
 #foreach ($service in $useCase.controller.allRestControllers)
     readonly $stringUtils.uncapitalize($service.name) = inject(${service.name});
@@ -48,12 +54,6 @@ export class ${useCase.componentName}Component implements OnInit, AfterViewInit 
     }
 	
     ngOnInit() {
-#if($useCase.views.size() > 0)
-        let forward = this.${controller.variableName}.startUseCase();
-        if(forward !== null) {
-            this.router.navigate(['/' + forward]);
-        }
-#end
     }
 
     ngAfterViewInit() {

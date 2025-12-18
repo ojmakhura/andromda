@@ -143,12 +143,9 @@ public class FrontEndParameterLogicImpl
         if (type != null) {
             isTable = isMany() || type.isCollectionType() || type.isArrayType();
             if (isTable) {
-                final String tableTaggedValue = ObjectUtils
-                        .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
-                isTable = StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()) : true;
-                if (!isTable) {
-                    isTable = !this.getTableColumnNames().isEmpty();
-                }
+                final String tableTaggedValue = Objects
+                        .toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE), "");
+                isTable = StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()) : false;
             }
         }
         return isTable && this.getOperation() == null;

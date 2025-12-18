@@ -6,8 +6,8 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 import { AppState } from '@app/store/app-state';
-import { SearchObject } from '@app/models/search-object';
-import { Page } from '@app/models/page.model';
+import { SearchObject } from '@models/search-object';
+import { Page } from '@models/page.model';
 #foreach ($import in $service.imports)
 #if(${import.implementationFilePath})
 import { $import.implementationName } from '@app/${import.implementationFilePath}';
