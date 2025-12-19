@@ -92,7 +92,9 @@ import { GenericComponent } from "@views/generic.component";
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
     ${attribute.name}: ${attribute.getterSetterTypeName} | any = null;
-
+#if ($attribute.inputSelect)
+    ${attribute.name}Filter: ${attribute.getterSetterTypeName} | any = null;
+#end
 #end
 }
 

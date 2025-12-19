@@ -41,14 +41,14 @@ import {
 } from "@angular/forms/signals";
 import { ActivatedRoute, Router } from '@angular/router';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { 
-    FormGroup, 
-    FormControl, 
-    FormArray, 
-    FormBuilder, 
-    ReactiveFormsModule, 
-    Validators 
-} from '@angular/forms';
+## import { 
+##     FormGroup, 
+##     FormControl, 
+##     FormArray, 
+##     FormBuilder, 
+##     ReactiveFormsModule, 
+##     Validators 
+## } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -129,8 +129,11 @@ import { Page } from '@app/models/page.model';
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
-#if(!($variable.inputTable || $variable.table || $variable.inputButton || $variable.component))
+#if(!($variable.inputButton || $variable.component))
     $variable.name: $variable.getterSetterTypeName | any#if($variable.many || $variable.type.listType|| $variable.type.collectionType|| $variable.type.arrayType|| $variable.type.setType)[] = []#else = null#end;
+#if ($variable.inputSelect)
+    ${variable.name}Filter: $variable.getterSetterTypeName | any = null;
+#end
 #end
 #end
 }
@@ -200,7 +203,6 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
     hide: boolean = false;
     protected route: ActivatedRoute = inject(ActivatedRoute);
     protected router: Router = inject(Router);
-    protected formBuilder: FormBuilder = inject(FormBuilder);
     protected useCaseScope: UseCaseScope = inject(UseCaseScope);
 ###if($targetModal)
     dialog: MatDialog = inject(MatDialog);
@@ -209,13 +211,13 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #foreach($controller in $view.targetControllers)
     $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
     readonly ${controller.variableName} = inject(${controller.name});
-    ## readonly ${controller.variableName}Store = inject(${controller.name}Store);
+    readonly ${controller.variableName}Store = inject(${controller.name}Store);
 #end
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName} = inject(${view.useCase.controller.implementationName});
 #foreach ($service in $view.useCase.controller.allRestControllers)
     readonly $stringUtils.uncapitalize($service.name) = inject(${service.name});
-    ## readonly $stringUtils.uncapitalize($service.name)Store = inject(${service.name}Store);
+    readonly $stringUtils.uncapitalize($service.name)Store = inject(${service.name}Store);
 #end
 #end
 #set ($formVars = "")

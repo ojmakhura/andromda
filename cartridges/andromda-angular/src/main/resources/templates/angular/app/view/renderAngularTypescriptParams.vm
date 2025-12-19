@@ -61,7 +61,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 ## $ident${propertyId}Options = Object.keys(this.${propertyId}T);
 ## Drop down selection list
 #if($parameter.inputSelect )
-    ${propertyId}FilterCtrl: FormControl = new FormControl();
+    ## ${propertyId}FilterCtrl: FormControl = new FormControl();
 
     ${propertyId}Compare(o1: ${parameter.getterSetterTypeName} | any, o2: ${parameter.getterSetterTypeName} | any) {
         return false;
@@ -71,7 +71,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 
     ${propertyId}BackingList: ${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end = [];
     ${propertyId}FilteredList = linkedSignal<${parameter.getterSetterTypeName}#if(!$parameter.many)[]#end>(() => []);
-    ${propertyId}ChipControl: FormControl = new FormControl([]);
+    ## ${propertyId}ChipControl: FormControl = new FormControl([]);
 
     ${propertyId}Displays: string[] = [
 #if($parameter.type.attributes.size() > 0)

@@ -204,8 +204,8 @@ ${ident}    </section>
 #elseif($parameter.inputMultibox)
 ${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
 ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
-#if(!($parameter.readOnly || $ownerParameter.readOnly))
 ${ident}    <div class="mb-3">
+#if(!($parameter.readOnly || $ownerParameter.readOnly))
 ${ident}        <button type="button" mat-mini-fab matTooltip="{{'add' | translate}}" color="primary" (click)="${propertyId}Add()" >
 ${ident}		    <mat-icon fontIcon="add" aria-hidden="false" aria-label="add"></mat-icon>
 ${ident}		</button>
@@ -214,10 +214,10 @@ ${ident}		</button>
 ${ident}        <div class="row">
 ${ident}        @for(item of ${formSignalName}().${parameter.name}; track item; let i = $index){
 #foreach($pa in $parameter.attributes)
-${ident}        <mat-form-field class="col-md-4">
-${ident}            <mat-label for="${pa.name}" class="col-sm-2 col-form-label" translate>$pa.messageKey</mat-label>
-${ident}            <input matInput type="text" id="${pa.name}" [field]="${signalFormName}.${parameter.name}[i]"#if($pa.minLength) minlength="$pa.minLength"#end#if($pa.minLength) maxlength="$pa.maxLength"#end#if($pa.min) min="$pa.min"#end#if($pa.max) max="$pa.max"#end/>
-${ident}        </mat-form-field>
+${ident}            <mat-form-field class="col-md-4">
+${ident}                <mat-label for="${pa.name}" class="col-sm-2 col-form-label" translate>$pa.messageKey</mat-label>
+${ident}                <input matInput type="text" id="${pa.name}" [field]="${signalFormName}.${parameter.name}[i]"#if($pa.minLength) minlength="$pa.minLength"#end#if($pa.minLength) maxlength="$pa.maxLength"#end#if($pa.min) min="$pa.min"#end#if($pa.max) max="$pa.max"#end/>
+${ident}            </mat-form-field>
 #end
 ${ident}        }
 ${ident}        </div>
@@ -248,7 +248,7 @@ ${ident}        }
 #else
 ${ident}        <mat-option>
 #if($isComplex)
-${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [formControl]="${propertyId}FilterCtrl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
+${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [field]="${signalFormName}.${propertyId}Filter" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
 ${ident}                     noEntriesFoundLabel="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>
@@ -355,9 +355,18 @@ ${ident}    </div>
 ${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
 #end
+#set($hasValidations=false)
+#if($parameter.required || $parameter.minLength || $parameter.maxLength || $parameter.min || $parameter.max)
+#set($hasValidations=true)
+#end
+#if($parameter.inputType == "email")
+#set($hasValidations=true)
+#end
+#if($hasValidations)
 ${ident}    @for (error of ${signalFormName}.${parameter.name}.errors; track error) {
 ${ident}    <mat-error translate>{{error.message}}</mat-error>
 ${ident}    }
+#end
 #if ($parameter.inputRadio || $parameter.inputMultibox)
 ${ident}    </div>
 ${ident}</fieldset>
@@ -466,7 +475,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                     <form>
                         <mat-form-field class="col-md-4">
                             <mat-label translate>search</mat-label>
-                            <input matInput type="text" [formControl]="${propertyId}SearchField"
+                            <input matInput type="text" [field]="${propertyId}SearchField"
                                 id="${propertyId}SearchField" />
                         </mat-form-field>
                         <button type="button" mat-button (click)="${propertyId}Search()" class="btn btn-primary">

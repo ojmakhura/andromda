@@ -71,12 +71,6 @@ export class ${view.componentImplementationName} extends ${view.componentName} {
         super(#if($view.popup)data#{end});
     }
 
-    override beforeOnInit(#if ($view.nonTableVariablesPresent)form: $stringUtils.capitalize(${view.varsFormName})#end):#if ($view.nonTableVariablesPresent) $stringUtils.capitalize(${view.varsFormName})#else void#end{     
-#if ($view.nonTableVariablesPresent)
-        return form;
-#end
-    }
-
     doNgOnDestroy(): void {
     }
 }
