@@ -91,9 +91,24 @@ import { GenericComponent } from "@views/generic.component";
 
 export class $stringUtils.capitalize(${component.formName}) {
 #foreach($attribute in $component.attributes)
-    ${attribute.name}: ${attribute.getterSetterTypeName} | any = null;
+#set($default = " | any = null")
+#if($attribute.many || $attribute.type.listType|| $attribute.type.collectionType|| $attribute.type.arrayType|| $attribute.type.setType)
+#set($default = " = []")
+#end
+## #if($attribute.defaultValuePresent)
+## #set($default = " = ${attribute.defaultValue}")
+## #elseif($attribute.type.stringType)
+## #set($default = " = ''")
+## #elseif($attribute.type.mapType)
+## #set($default = " = {}")
+## #elseif($attribute.many || $attribute.type.listType|| $attribute.type.collectionType|| $attribute.type.arrayType|| $attribute.type.setType)
+## #set($default = " = []")
+## #elseif($angularUtils.isComplex($attribute))
+## #set($default = " = new ${attribute.getterSetterTypeName}()")
+## #end
+    ${attribute.name}: ${attribute.getterSetterTypeName}$default;
 #if ($attribute.inputSelect)
-    ${attribute.name}Filter: ${attribute.getterSetterTypeName} | any = null;
+    ${attribute.name}Filter: ${attribute.getterSetterTypeName} | null = null;
 #end
 #end
 }

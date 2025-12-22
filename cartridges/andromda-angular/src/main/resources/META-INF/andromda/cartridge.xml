@@ -92,7 +92,7 @@
 
     <template
         path="templates/angular/translations/en-US.json.vsl"
-        outputPattern="src/translations/en-US.json"
+        outputPattern="public/i18n/en.json"
         outlet="angularBase"
         overwrite="true"
         outputToSingleFile="true">

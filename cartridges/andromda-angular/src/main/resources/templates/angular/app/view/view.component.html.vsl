@@ -3,7 +3,7 @@
 #if($view.popup)
 <h1 mat-dialog-title translate>$view.messageKey</h1>
 #end
-<div#if($view.popup) mat-dialog-content#end class="card">
+<div#if($view.popup) mat-dialog-content#end class="edit-container">
   <div class="breadcrumb-section">
     <mat-icon class="breadcrumb-icon">home</mat-icon>
     <span class="breadcrumb-text">{{ 'home' | translate }}</span>
@@ -61,7 +61,7 @@
 			<app-$variable.type.selectorName
 				#${variable.name}>
 			</app-$variable.type.selectorName>
-#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree || $variable.inputTable)
+#elseif(!$angularUtils.isComplex($variable) || $variable.inputMultibox || $variable.inputSelect || $variable.type.enumeration || $variable.tree)
     		<div class="row">
 #renderAngularActionInput($variable "" "       				")
     		</div>
@@ -83,16 +83,16 @@
 #end
     	</div>
 	</div>
-## #if ( $view.tables.size() > 0 )
-## 	<mat-tab-group animationDuration="0ms" class = "tables">
-## #foreach ( $table in $view.tables )
-## 		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
-## 			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
-## #renderAngularActionInput($table "" "       		")
-## 		</mat-tab>
-## #end
-## 	</mat-tab-group>
-## #end
+#if ( $view.tables.size() > 0 )
+	<mat-tab-group animationDuration="0ms" class = "tables">
+#foreach ( $table in $view.tables )
+		<mat-tab class="${table.name}"#if($table.displayCondition) *ngIf="$table.displayCondition"#end>
+			<ng-template mat-tab-label><span translate>$table.messageKey</span></ng-template>
+#renderAngularActionInput($table "" "       		")
+		</mat-tab>
+#end
+	</mat-tab-group>
+#end
 </div>
 #if($view.popup)
 <div mat-dialog-actions class="view-buttons">

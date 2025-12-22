@@ -17,7 +17,12 @@
         forward = this.closeDialog();
 #end
 #elseif ($transition.enteringView)
+#set($isInitialViewNext = $transition.target.useCase.initialView == $transition.target)
+#if($isInitialViewNext)
+        forward = '${transition.target.useCase.routerPath}';
+#else
         forward = '${transition.target.useCase.routerPath}/${transition.target.routerPath}';
+#end
 #elseif ($transition.enteringDecisionPoint)
         forward = this.__${transition.operationCall.name}($transitionParams);
 #else

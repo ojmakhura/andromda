@@ -82,18 +82,34 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     ];
 #elseif($parameter.inputMultibox)
 
+    abstract createNew${stringUtils.capitalize(${propertyId})}(): ${parameter.type.name};
+
     ${propertyId}Add() {
 
+        this.${name}Signal.update((value) => ({
+            ...value,
+            ${propertyId}: [
+                ...value.${propertyId},
+                this.createNew${stringUtils.capitalize(${propertyId})}()
+            ]
+        }))
     }
 
-    ${propertyId}Remove(i: number, selected: any) {
+    ${propertyId}Remove(i: number, selected: ${parameter.type.name}) {
+        this.${name}Signal.update((value) => {
+            const ${propertyId} = value.${propertyId}.filter((_: any, index: number) => index !== i);
 
+            return {
+                ...value,
+                ${propertyId}: ${propertyId}
+            }
+        });
     }
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
     @ViewChild('${propertyId}Table') ${propertyId}Table!: TableComponent<$angularUtils.getDatatype($parameter.getterSetterTypeName)>;
     ${propertyId}TableSignal: Signal<$parameter.angularTypeName | Page<any> | undefined> = signal(undefined);
-    ${propertyId}TablePaged: boolean = true;
+    ${propertyId}TablePaged: boolean = $parameter.pageableTable;
     
 #set ($tableColumnActions = [])
     ${propertyId}TableColumns: ColumnModel[] = [
@@ -531,7 +547,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     //    this.${propertyId}Control.setValue(t);
     // }
 
-    ${propertyId}Remove(i: number, selected: any) {
+    ${propertyId}Remove(i: number, selected: ${parameter.type.name}) {
     }
 
     ${propertyId}Add() {

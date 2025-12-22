@@ -112,9 +112,9 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onActionClicked(action: string, id: string) {
+  onActionClicked(action: string, row: T) {
     if (this.actionClicked) {
-      this.actionClicked.emit({ action, id });
+      this.actionClicked.emit({ action, row });
     }
   }
 

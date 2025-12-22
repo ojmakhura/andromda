@@ -130,7 +130,22 @@ import { Page } from '@app/models/page.model';
 export class $stringUtils.capitalize(${view.varsFormName}) {
 #foreach($variable in $view.variables)
 #if(!($variable.inputButton || $variable.component))
-    $variable.name: $variable.getterSetterTypeName | any#if($variable.many || $variable.type.listType|| $variable.type.collectionType|| $variable.type.arrayType|| $variable.type.setType)[] = []#else = null#end;
+#set($default = " | any = null")
+#if($variable.many || $variable.type.listType|| $variable.type.collectionType|| $variable.type.arrayType|| $variable.type.setType)
+#set($default = " = []")
+#end
+## #if($variable.defaultValuePresent)
+## #set($default = " = ${variable.defaultValue}")
+## #elseif($variable.type.stringType)
+## #set($default = " = ''")
+## #elseif($variable.type.mapType)
+## #set($default = " = {}")
+## #elseif($variable.many || $variable.type.listType|| $variable.type.collectionType|| $variable.type.arrayType|| $variable.type.setType)
+## #set($default = " = []")
+## #elseif($variable.complex || $angularUtils.isComplex($variable))
+## #set($default = " = new ${variable.getterSetterTypeName}()")
+## #end
+    $variable.name: $variable.getterSetterTypeName$default;
 #if ($variable.inputSelect)
     ${variable.name}Filter: $variable.getterSetterTypeName | any = null;
 #end

@@ -1,111 +1,90 @@
 {
-  "app": {
-    "title": "Application",
-    "name": "Application"
-  },
-  "common": {
-    "home": "Home",
-    "about": "About",
-    "profile": "Profile",
-    "settings": "Settings",
-    "login": "Login",
-    "logout": "Logout",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "cancel": "Cancel",
-    "save": "Save",
-    "delete": "Delete",
-    "edit": "Edit",
-    "add": "Add",
-    "search": "Search",
-    "getStarted": "Get Started",
-    "learnMore": "Learn More"
-  },
-  "menu": {
-    "home": "Home",
-    "about": "About"
-  },
-  "home": {
-    "welcome": "Welcome to Application",
-    "description": "Your modern solution for business management",
-    "intro": "Streamline your workflow with our comprehensive platform designed to boost productivity and collaboration.",
-    "features": "Key Features",
-    "featuresDesc": "Powerful features designed to help you succeed",
-    "feature1": {
-      "title": "Dashboard",
-      "description": "Get real-time insights with our intuitive dashboard interface"
-    },
-    "feature2": {
-      "title": "Performance",
-      "description": "Lightning-fast performance optimized for your workflow"
-    },
-    "feature3": {
-      "title": "Security",
-      "description": "Enterprise-grade security to protect your data"
-    },
-    "feature4": {
-      "title": "Cloud Infrastructure",
-      "description": "Reliable cloud hosting with automatic scaling and backups"
-    },
-    "feature5": {
-      "title": "Easy Integration",
-      "description": "Connect with your favorite tools and services seamlessly"
-    },
-    "feature6": {
-      "title": "Analytics",
-      "description": "Make data-driven decisions with advanced analytics and reporting"
-    },
-    "whyChooseUs": "Why Choose Us?",
-    "benefit1": "No credit card required to start",
-    "benefit2": "Free trial with full features access",
-    "benefit3": "24/7 dedicated customer support",
-    "benefit4": "Regular updates and new features",
-    "getStarted": "Ready to Get Started?",
-    "getStartedDesc": "Join thousands of users who have transformed their business with our platform.",
-    "contactSales": "Contact Sales",
-    "bookDemo": "Book a Demo"
-  },
-  "user": {
-    "logged_in_as": "Logged in as",
-    "profile": "Profile",
-    "settings": "Settings",
-    "logout": "Logout"
-  },
-  "about": {
-    "title": "About Us",
-    "subtitle": "Learn more about our company and mission",
-    "mission": "We are committed to delivering innovative solutions that empower businesses to achieve their goals through cutting-edge technology and exceptional service.",
-    "overview": {
-      "title": "Our Company",
-      "vision": {
-        "title": "Vision",
-        "description": "To be the leading provider of business management solutions, transforming how organizations operate and grow."
-      },
-      "mission": {
-        "title": "Mission",
-        "description": "Empower businesses with intelligent, scalable, and user-friendly tools that drive efficiency and innovation."
-      },
-      "values": {
-        "title": "Values",
-        "description": "Innovation, integrity, customer focus, and continuous improvement guide everything we do."
-      }
-    },
-    "technologies": {
-      "title": "Technologies We Use",
-      "description": "Built with modern, enterprise-grade technologies to ensure performance, scalability, and reliability."
-    },
-    "team": {
-      "title": "Meet Our Team",
-      "description": "Talented professionals dedicated to creating exceptional experiences and driving innovation."
-    },
-    "timeline": {
-      "title": "Our Journey"
-    },
-    "contact": {
-      "title": "Get in Touch",
-      "description": "Have questions or want to learn more? We'd love to hear from you.",
-      "button": "Contact Us"
-    }
-  }
+  "application.name": "${applicationName}",
+  "APP_NAME": "${applicationName}",
+  "About": "About",
+  "about": "About",
+  "select": "Select",
+  "Hello world !": "Hello world !",
+  "Home": "Home",
+  "home": "Home",
+  "Version": "Version",
+  "required.fields.asterisk": "Fields marked with an asterisk are required",
+  "online.help.href": "Help",
+  "online.help.main": "Overview",
+  "online.help.close": "Close",
+  "online.help.title": "Online Help:",
+  "online.help.inputfield": "Field",
+  "online.help.description": "Description",
+  "click.to.go.back": "Click to go back",
+  "yes": "Yes",
+  "no": "No",
+  "reset": "Reset",
+  "form.already.submitted": "This form has already been submitted",
+  "menu.usecases.title": "Other links",
+  "calendar.title": "Calendar",
+  "calendar.dialog": "Click here to dialog a calendar to choose the date from",
+  "calendar.info": "About this calendar",
+  "calendar.toggle": "Toggle",
+  "calendar.previous.year": "Prev. year (hold for menu)",
+  "calendar.previous.month": "Prev. month (hold for menu)",
+  "calendar.go.today": "Go Today",
+  "calendar.next.month": "Next month (hold for menu)",
+  "calendar.next.year": "Next year (hold for menu)",
+  "calendar.select.date": "Select date",
+  "calendar.drag.to.move": "Drag to move",
+  "calendar.part.today": " (today)",
+  "calendar.week": "wk",
+  "calendar.time": "Time:",
+  "calendar.time.part": "(Shift-)Click or drag to change value",
+  "calendar.day.first": "Display %s first",
+  "calendar.today": "Today",
+  "calendar.close": "Close",
+  "calendar.about": "DHTML Date/Time Selector\\n(c) dynarch.com 2002-2005 / Author: Mihai Bazon\\nFor latest version visit: http://www.dynarch.com/projects/calendar/\\n      Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details.\\n\\n Date selection:\\n - Use the \u00ab \u00bb buttons to select year\\n - Use the < >  buttons to select month\\n - Hold mouse button on any of the above buttons for faster selection.;",
+  "calendar.about.time": "\\n\\nTime selection:\\n - Click on any of the time parts to increase it\\n - or Shift-click to decrease it\\n - or click and drag for faster selection.",
+  "month.0": "January",
+  "month.1": "February",
+  "month.2": "March",
+  "month.3": "April",
+  "month.4": "May",
+  "month.5": "June",
+  "month.6": "July",
+  "month.7": "August",
+  "month.8": "September",
+  "month.9": "October",
+  "month.10": "November",
+  "month.11": "December",
+  "day.0": "Monday",
+  "day.1": "Tuesday",
+  "day.2": "Wednesday",
+  "day.3": "Thursday",
+  "day.4": "Friday",
+  "day.5": "Saturday",
+  "day.6": "Sunday",
+  "login.text": "Please enter your username and password below and click the Login button to continue.<br/>If you have reached this page unexpectedly, your session has expired and you need to re-login to the system.",
+  "login.submit": "Login",
+  "login.reset": "Reset",
+  "login.title": "Please Log-In",
+  "login.username": "Username",
+  "login.password": "Password",
+  "login.register.as.new.user": "Register as new user",
+  "login.error.role": "Your username/password combination is valid.<br/>However, it appears that you are missing a necessary role required to fully authenticate to this application.",
+  "login.error": "Login failed, please try again or register as a new user.",
+  "login.howto.title": "How to login",
+  "login.howto": "If you are a registered user you simply enter your user name and password and click on the submit button. In case this is your first time, you should register yourself to the system.",
+  "login.register.user": "Register a new user",
+  "login.login.user": "Log in a registered user",
+  "login.na": "This feature is not available yet",
+  "errors.header": "You have one or more errors present:",
+  "there.are.field.validation.errors": "One of more fields have invalid values.",
+  "logout.action": "logout",
+  "select.value.text": "Select an option",
+  "footer.message": "Generated by the <a href=\"http://www.andromda.org\">AndroMDA</a> JSF cartridge",
+  "return.link.uri": "http://www.andromda.org",
+  "return.link.text": "Return to AndroMDA Home",
+  "table.results": "{0} found, displaying {1}, from {2} to {3}. Page {4} / {5}",
+  "table.results.none.found": "No Items Found",
+  "email.format.error": "Wrong email format (e.g. nna@wena.co.bw)",
+  "": "",
+  ".documentation": "TODO: Model Documentation for user.Initialise Edit Screen",
+  ".reset.message": "Reset",
 }

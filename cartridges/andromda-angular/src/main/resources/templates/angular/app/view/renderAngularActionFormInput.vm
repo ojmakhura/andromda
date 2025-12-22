@@ -202,28 +202,34 @@ ${ident}            <span translate>$parameter.messageKey</span>
 ${ident}        </mat-checkbox>
 ${ident}    </section>
 #elseif($parameter.inputMultibox)
-${ident}<fieldset class="row form-group border p-3"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
-${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</legend>
-${ident}    <div class="mb-3">
+${ident}<div class="field-full"#if($parameter.displayCondition) *ngIf="${parameter.displayCondition}"#end>
+${ident}    <h3 class="col-form-label col-sm-2 pt-0" translate>$parameter.messageKey</h3>
 #if(!($parameter.readOnly || $ownerParameter.readOnly))
+${ident}    <div class="field-row">
 ${ident}        <button type="button" mat-mini-fab matTooltip="{{'add' | translate}}" color="primary" (click)="${propertyId}Add()" >
 ${ident}		    <mat-icon fontIcon="add" aria-hidden="false" aria-label="add"></mat-icon>
 ${ident}		</button>
+${ident}    </div>
 #end
+${ident}    <div class="mb-3">
 #if($parameter.attributes.size() > 0)
-${ident}        <div class="row">
-${ident}        @for(item of ${formSignalName}().${parameter.name}; track item; let i = $index){
+${ident}        @for(item of ${signalFormName}.${parameter.name}; track i; let i = $index){
+${ident}        <div class="field-row">
 #foreach($pa in $parameter.attributes)
 ${ident}            <mat-form-field class="col-md-4">
 ${ident}                <mat-label for="${pa.name}" class="col-sm-2 col-form-label" translate>$pa.messageKey</mat-label>
-${ident}                <input matInput type="text" id="${pa.name}" [field]="${signalFormName}.${parameter.name}[i]"#if($pa.minLength) minlength="$pa.minLength"#end#if($pa.minLength) maxlength="$pa.maxLength"#end#if($pa.min) min="$pa.min"#end#if($pa.max) max="$pa.max"#end/>
+${ident}                <input matInput type="text" id="${pa.name}" [field]="item.${pa.name}"/>
 ${ident}            </mat-form-field>
 #end
-${ident}        }
+${ident}            <button type="button" mat-mini-fab matTooltip="{{'remove' | translate}}" color="warn"
+${ident}                 (click)="${propertyId}Remove(i, item().value())">
+${ident}                 <mat-icon fontIcon="delete" aria-hidden="false" aria-label="remove"></mat-icon>
+${ident}            </button>
 ${ident}        </div>
+${ident}        }
 #end
 ${ident}    </div>
-${ident}</fieldset>
+${ident}</div>
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.table || $parameter.inputTable)
 ${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.table && !$parameter.inputTable && !$parameter.inputSelect) [field]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
@@ -363,7 +369,7 @@ ${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [fiel
 #set($hasValidations=true)
 #end
 #if($hasValidations)
-${ident}    @for (error of ${signalFormName}.${parameter.name}.errors; track error) {
+${ident}    @for (error of ${signalFormName}.${parameter.name}().errors(); track error) {
 ${ident}    <mat-error translate>{{error.message}}</mat-error>
 ${ident}    }
 #end

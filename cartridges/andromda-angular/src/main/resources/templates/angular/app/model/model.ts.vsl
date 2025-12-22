@@ -24,13 +24,13 @@ export class $class.name#if($class.generalization) extends $class.generalization
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
 
-    $attribute.name?: ${attribute.getterSetterTypeName};
+    $attribute.name: ${attribute.getterSetterTypeName} | any;
 #else
 #set ($default = "$attribute.defaultValue")
 #if($attribute.many)
 #set ($default = "new Array()")
 #end 
-    $attribute.name?: $attribute.getterSetterTypeName#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
+    $attribute.name: $attribute.getterSetterTypeName | any#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
     
 #end
 #end
@@ -38,6 +38,16 @@ export class $class.name#if($class.generalization) extends $class.generalization
     constructor() {
 #if($class.generalization)
         super();
+#end
+#foreach ($attribute in $class.attributes)
+#if(!$attribute.inputButton)
+#if($attribute.many || $attribute.type.listType|| $attribute.type.collectionType|| $attribute.type.arrayType|| $attribute.type.setType)
+#set($defaultValue = "[]")
+#else
+#set($defaultValue = "null")
+#end
+        this.$attribute.name = $defaultValue;
+#end
 #end
     }
 }

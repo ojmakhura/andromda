@@ -122,7 +122,6 @@ public class AngularAttributeLogicImpl
         if (this.isInputFile() || this.getType().isBlobType()) {
             return "File";
         }
-
         return AngularUtils.getDatatype(this.getType().getFullyQualifiedName());
     }
 
