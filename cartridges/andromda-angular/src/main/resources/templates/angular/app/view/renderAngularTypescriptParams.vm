@@ -202,7 +202,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
                 this.useCaseScope.pageVariables = Object.assign({}, params);
                 this.${action.controller.variableName}.${action.triggerName}(
 #foreach($param in $action.parameters)
-                    event.$param.name,
+                    event.row.$param.name,
 #end
                 );
                 break;
@@ -217,7 +217,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
                 this.useCaseScope.pageVariables = Object.assign({}, params);
                 this.${action.controller.variableName}.${action.triggerName}(
 #foreach($param in $action.parameters)
-                    event.$param.name,
+                    event.row.$param.name,
 #end
                 );
                 break;
@@ -534,19 +534,9 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 #set ($controlType = "FormControl")
 #end
 #set ($propertyId = $parameter.name)    
-    //get ${propertyId}Control(): $controlType {
-    //    return this.#if($parameter.view)$parameter.view.formName#{else}formGroupControl#{end}?.get('$parameter.name') as $controlType;
-   // }
-
+    
 #if($parameter.inputMultibox)
-    //set${stringUtils.capitalize(${propertyId})}Control() {
-    //    let t: any[] = [];
-    //    this.${formName}.${propertyId}?.forEach((role: any) => {
-    //        t.push(role.value);
-    //    });
-    //    this.${propertyId}Control.setValue(t);
-    // }
-
+    
     ${propertyId}Remove(i: number, selected: ${parameter.type.name}) {
     }
 
@@ -597,10 +587,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 #set ($attrControlType = "FormControl")
 #end
 #set($attrPropertyId = "${propertyId}$stringUtils.capitalize(${attr.name})")
-    //get ${attrPropertyId}Control(): $attrControlType {
-    //    return this.${propertyId}Control?.get('$attr.name') as $attrControlType;
-    //}
-
+    
 #if($attr.inputMultibox)
     //set${stringUtils.capitalize(${attrPropertyId})}Control() {
     //    let t: any[] = [];

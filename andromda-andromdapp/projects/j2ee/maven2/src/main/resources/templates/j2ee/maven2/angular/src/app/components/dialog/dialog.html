@@ -7,6 +7,10 @@
 <mat-dialog-actions>
     <button mat-button (click)="close()">Close</button>
     @for(action of data?.actions; track action.id) {
-    <button mat-button (click)="doDialogAction(action.id)" [disabled]="!formValid()" translate>{{action.label}}</button>
+    @if(dialogChild) {
+    <button mat-button (click)="doDialogAction(action.id)" [disabled]="dialogChild.componentInstance?.formObject()?.invalid()" translate>{{action.label}}</button>
+    } @else {
+    <button mat-button (click)="doDialogAction(action.id)"  translate>{{action.label}}</button>
+    }
     }
 </mat-dialog-actions>

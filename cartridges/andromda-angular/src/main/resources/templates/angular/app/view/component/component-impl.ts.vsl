@@ -77,7 +77,7 @@ import { $import.name } from '@${import.filePath}';
 import { SearchObject } from '@models/search-object';
 import { $component.name } from './${component.fileName}';
 import { TableComponent } from '@components/table/table';
-import { Field } from "@angular/forms/signals";
+import { Field, PathKind, SchemaPathTree } from "@angular/forms/signals";
 
 @Component({
   selector: "app-${component.selectorName}",
@@ -110,5 +110,4 @@ export class ${component.implementationName} extends ${component.name} {
     constructor() {
         super();
     }
-
 }
