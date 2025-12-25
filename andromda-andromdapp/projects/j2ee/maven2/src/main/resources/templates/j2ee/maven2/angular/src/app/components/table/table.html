@@ -25,12 +25,14 @@
             {{ col.label }}
           </mat-header-cell>
           <mat-cell *matCellDef="let row" class="table-cell">
+            @let colValue = col?.pipe?.transform ? col.pipe?.transform(row[col.id], col.pipeArgs || []) : row[col.id];
+
             @if (col?.link) {
-              <a class="link-cell" (click)="onActionClicked(col.actionId || col.id, row)">
-                {{ row[col.id] }}
+              <a class="link-cell" (click)="onActionClicked(col.actionId || col.id, row.id)">
+                {{ colValue }}
               </a>
             } @else {
-              {{ row[col.id] }}
+              {{ colValue }}
             }
           </mat-cell>
         </ng-container>
