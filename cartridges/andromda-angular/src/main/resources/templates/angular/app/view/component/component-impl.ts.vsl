@@ -9,15 +9,6 @@ import {
   ViewChild,
 } from "@angular/core";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators,
-  FormArray,
-} from "@angular/forms";
 import { SelectItem } from "@app/utils/select-item";
 #if($component.treePresent)
 import { CdkTreeNodeDef, CdkTreeNodeOutlet, CdkTreeNodeToggle, NestedTreeControl } from '@angular/cdk/tree';
@@ -86,8 +77,6 @@ import { Field, PathKind, SchemaPathTree } from "@angular/forms/signals";
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     TranslateModule,
     MaterialModule,
     TableComponent,

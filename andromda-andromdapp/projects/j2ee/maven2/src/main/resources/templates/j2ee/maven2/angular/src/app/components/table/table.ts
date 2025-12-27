@@ -81,7 +81,7 @@ export class TableComponent<T> implements OnInit, OnDestroy, AfterViewInit {
         const page = <Page<T>>this.dataSignal();
         this.dataSource = new MatTableDataSource((page?.content || []));
         this.dataSource.sort = this.tableSort;
-        this.totalElements = (page?.totalElements || 0);
+        this.totalElements = page.page ? page.page.totalElements : (page?.totalElements || 0);
       }
     });
   }

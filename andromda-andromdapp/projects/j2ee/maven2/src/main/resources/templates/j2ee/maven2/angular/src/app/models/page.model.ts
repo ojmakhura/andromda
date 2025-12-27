@@ -8,4 +8,15 @@ export class Page<T> {
     size: number = 0;
     number: number = 0;
     empty: boolean = false;
+    page: {
+      size: number;
+      totalElements: number;
+      totalPages: number;
+      number: number;
+    } = {
+      size: 0,
+      totalElements: 0,
+      totalPages: 0,
+      number: 0
+    }
 }
