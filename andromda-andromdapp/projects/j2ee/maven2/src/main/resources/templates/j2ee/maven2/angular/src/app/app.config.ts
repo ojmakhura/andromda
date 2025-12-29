@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter, RouteReuseStrategy, withHashLocation } from '@angular/router';
+import { provideRouter, RouteReuseStrategy, withComponentInputBinding, withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -32,14 +32,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig = (env: any) => {
   return {
     providers: [
-      provideRouter(routes, withHashLocation()),
+      provideRouter(routes, withComponentInputBinding(), withHashLocation()),
       provideAnimations(),
       provideHttpClient(
         withFetch(),
         withInterceptorsFromDi(),
         withInterceptors([
-          apiPrefixInterceptor, 
-          errorHandlerInterceptor, 
+          apiPrefixInterceptor,
+          errorHandlerInterceptor,
         ]),
       ),
       provideToastr({
