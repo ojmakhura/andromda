@@ -399,6 +399,7 @@
             <properties>
 #if($springws)
                 <property name="webserviceStack">spring</property>
+                <property name="languageMappingsUri">SpringWebMappings</property>
 #else
                 <property name="webserviceStack">$webserviceStack</property>
 #end

@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This is used to map the model types to Typescript types
-  for the generated code.
+  This is used to map the model types to
+  spring web types.
 -->
-<mappings name="TypescriptMappings">
-    <!-- <extends>Java</extends> -->
+<mappings name="SpringWebMappings">
+    <mapping>
+        <from>package</from>
+        <to/>
+    </mapping>
+    <mapping>
+        <from>concurrent</from>
+        <to/>
+    </mapping>
+    <mapping>
+        <from>guarded</from>
+        <to>synchronized</to>
+    </mapping>
+    <mapping>
+        <from>sequential</from>
+        <to/>
+    </mapping>
     <mapping>
         <from>File</from>
         <from>PrimitiveTypes::File</from>
         <from>datatype::File</from>
         <from>AndroMDADatatypes::datatype::File</from>
-        <to>File</to>
+        <to>org.springframework.web.multipart.MultipartFile</to>
     </mapping>
     <mapping>
         <from>String</from>
@@ -22,7 +37,7 @@
         <from>AndroMDADatatypes::datatype::String</from>
         <from>XSDDatatypes::string</from>
         <from>RoseJavaDatatypes::java::lang::String</from>
-        <to>string</to>
+        <to>java.lang.String</to>
     </mapping>
     <mapping>
         <from>Time</from>
@@ -31,7 +46,7 @@
         <from>AndroMDADatatypes::datatype::Time</from>
         <from>XSDDatatypes::time</from>
         <from>RoseJavaDatatypes::java::sql::Time</from>
-        <to>string</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>DateTime</from>
@@ -39,7 +54,7 @@
         <from>datatype::DateTime</from>
         <from>AndroMDADatatypes::datatype::DateTime</from>
         <from>XSDDatatypes::dateTime</from>
-        <to>Date</to>
+        <to>java.util.Date</to>
     </mapping>
     <mapping>
         <from>Date</from>
@@ -49,7 +64,24 @@
         <from>XSDDatatypes::date</from>
         <from>RoseAnalysisDatatypes::Date</from>
         <from>RoseJavaDatatypes::java::sql::Date</from>
-        <to>Date</to>
+        <to>java.util.Date</to>
+    </mapping>
+    <mapping>
+        <from>LocalTime</from>
+        <from>PrimitiveTypes::LocalTime</from>
+        <from>datatype::LocalTime</from>
+        <from>AndroMDADatatypes::datatype::LocalTime</from>
+        <from>XSDDatatypes::localTime</from>
+        <from>RoseJavaDatatypes::java::sql::LocalTime</from>
+        <to>java.time.LocalTime</to>
+    </mapping>
+    <mapping>
+        <from>LocalDateTime</from>
+        <from>PrimitiveTypes::LocalDateTime</from>
+        <from>datatype::LocalDateTime</from>
+        <from>AndroMDADatatypes::datatype::LocalDateTime</from>
+        <from>XSDDatatypes::localDateTime</from>
+        <to>java.time.LocalDateTime</to>
     </mapping>
     <mapping>
         <from>LocalDate</from>
@@ -59,41 +91,17 @@
         <from>XSDDatatypes::localDate</from>
         <from>RoseAnalysisDatatypes::LocalDate</from>
         <from>RoseJavaDatatypes::java::sql::LocalDate</from>
-        <to>Date</to>
-    </mapping>
-    <mapping>
-        <from>LocalDateTime</from>
-        <from>Timestamp</from>
-        <from>PrimitiveTypes::DateTime</from>
-        <from>PrimitiveTypes::Timestamp</from>
-        <from>datatype::DateTime</from>
-        <from>datatype::Timestamp</from>
-        <from>datatype::LocalDateTime</from>
-        <from>datatype.LocalDateTime</from>
-        <from>AndroMDADatatypes::datatype::DateTime</from>
-        <from>AndroMDADatatypes::datatype::Timestamp</from>
-        <from>XSDDatatypes::time</from>
-        <from>XSDDatatypes::dateTime</from>
-        <to>Date</to>
-    </mapping>
-    <mapping>
-        <from>LocalTime</from>
-        <from>PrimitiveTypes::LocalTime</from>
-        <from>datatype::LocalTime</from>
-        <from>AndroMDADatatypes::datatype::LocalTime</from>
-        <from>XSDDatatypes::localTime</from>
-        <from>RoseJavaDatatypes::java::sql::LocalTime</from>
-        <to>Date</to>
+        <to>java.time.LocalDate</to>
     </mapping>
     <!-- Timestamp contains nanoseconds, required by some database implementations. Use for persistent attributes -->
-    <!-- <mapping>
+    <mapping>
         <from>Timestamp</from>
         <from>PrimitiveTypes::Timestamp</from>
         <from>datatype::Timestamp</from>
         <from>AndroMDADatatypes::datatype::Timestamp</from>
         <from>RoseJavaDatatypes::java::sql::Timestamp</from>
         <to>java.sql.Timestamp</to>
-    </mapping> -->
+    </mapping>
     <mapping>
         <from>Java::char</from>
         <from>UML Standard Profile::char</from>
@@ -102,7 +110,7 @@
         <from>datatype::char</from>
         <from>AndroMDADatatypes::datatype::char</from>
         <from>RoseCppDatatypes::char</from>
-        <to>string</to>
+        <to>char</to>
     </mapping>
     <mapping>
         <from>Character</from>
@@ -110,7 +118,7 @@
         <from>datatype::Character</from>
         <from>AndroMDADatatypes::datatype::Character</from>
         <from>RoseJavaDatatypes::java::lang::Character</from>
-        <to>string</to>
+        <to>java.lang.Character</to>
     </mapping>
     <mapping>
         <from>Java::byte</from>
@@ -121,7 +129,7 @@
         <from>AndroMDADatatypes::datatype::byte</from>
         <from>XSDDatatypes::byte</from>
         <from>RoseCppDatatypes::byte</from>
-        <to>string</to>
+        <to>byte</to>
     </mapping>
     <mapping>
         <from>Byte</from>
@@ -130,7 +138,7 @@
         <from>AndroMDADatatypes::datatype::Byte</from>
         <from>RoseAnalysisDatatypes::Byte</from>
         <from>RoseJavaDatatypes::java::lang::Byte</from>
-        <to>string</to>
+        <to>java.lang.Byte</to>
     </mapping>
     <mapping>
         <from>Java::short</from>
@@ -141,7 +149,7 @@
         <from>AndroMDADatatypes::datatype::short</from>
         <from>XSDDatatypes::short</from>
         <from>RoseCppDatatypes::short</from>
-        <to>number</to>
+        <to>short</to>
     </mapping>
     <mapping>
         <from>Short</from>
@@ -149,7 +157,7 @@
         <from>datatype::Short</from>
         <from>AndroMDADatatypes::datatype::Short</from>
         <from>RoseJavaDatatypes::java::lang::Short</from>
-        <to>number</to>
+        <to>java.lang.Short</to>
     </mapping>
     <mapping>
         <from>Java::int</from>
@@ -160,7 +168,7 @@
         <from>AndroMDADatatypes::datatype::int</from>
         <from>XSDDatatypes::int</from>
         <from>RoseCppDatatypes::int</from>
-        <to>number</to>
+        <to>int</to>
     </mapping>
     <mapping>
         <from>Integer</from>
@@ -172,7 +180,7 @@
         <from>AndroMDADatatypes::datatype::Integer</from>
         <from>XSDDatatypes::integer</from>
         <from>RoseJavaDatatypes::java::lang::Integer</from>
-        <to>number</to>
+        <to>java.lang.Integer</to>
     </mapping>
     <mapping>
         <from>Java::long</from>
@@ -183,7 +191,7 @@
         <from>AndroMDADatatypes::datatype::long</from>
         <from>XSDDatatypes::long</from>
         <from>RoseCppDatatypes::long</from>
-        <to>number</to>
+        <to>long</to>
     </mapping>
     <mapping>
         <from>Long</from>
@@ -195,7 +203,7 @@
         <from>datatype::Long</from>
         <from>AndroMDADatatypes::datatype::Long</from>
         <from>RoseAnalysisDatatypes::Long</from>
-        <to>number</to>
+        <to>java.lang.Long</to>
     </mapping>
     <mapping>
         <from>Java::float</from>
@@ -206,7 +214,7 @@
         <from>AndroMDADatatypes::datatype::float</from>
         <from>XSDDatatypes::float</from>
         <from>RoseCppDatatypes::float</from>
-        <to>number</to>
+        <to>float</to>
     </mapping>
     <mapping>
         <from>Float</from>
@@ -214,7 +222,7 @@
         <from>datatype::Float</from>
         <from>AndroMDADatatypes::datatype::Float</from>
         <from>RoseJavaDatatypes::java::lang::Float</from>
-        <to>number</to>
+        <to>java.lang.Float</to>
     </mapping>
     <mapping>
         <from>Java::double</from>
@@ -223,14 +231,14 @@
         <from>PrimitiveTypes::double</from>
         <from>datatype::double</from>
         <from>AndroMDADatatypes::datatype::double</from>
-        <to>number</to>
+        <to>double</to>
     </mapping>
     <mapping>
         <from>Double</from>
         <from>PrimitiveTypes::Double</from>
         <from>datatype::Double</from>
         <from>AndroMDADatatypes::datatype::Double</from>
-        <to>number</to>
+        <to>java.lang.Double</to>
     </mapping>
     <mapping>
         <from>BigInteger</from>
@@ -238,7 +246,7 @@
         <from>datatype::BigInteger</from>
         <from>AndroMDADatatypes::datatype::BigInteger</from>
         <from>RoseJavaDatatypes::java::math::BigInteger</from>
-        <to>number</to>
+        <to>java.math.BigInteger</to>
     </mapping>
     <mapping>
         <from>BigDecimal</from>
@@ -261,7 +269,7 @@
         <from>PrimitiveTypes::Money</from>
         <from>RoseJavaDatatypes::java::math::BigDecimal</from>
         <from>XSDDatatypes::decimal</from>
-        <to>number</to>
+        <to>java.math.BigDecimal</to>
     </mapping>
     <mapping>
         <from>Boolean</from>
@@ -271,9 +279,9 @@
         <from>datatype::Boolean</from>
         <from>AndroMDADatatypes::datatype::Boolean</from>
         <from>RoseJavaDatatypes::java::lang::Boolean</from>
-        <to>boolean</to>
+        <to>java.lang.Boolean</to>
     </mapping>
-    <!-- <mapping>
+    <mapping>
         <from>Java::boolean</from>
         <from>UML Standard Profile::boolean</from>
         <from>JavaPrimitiveTypes::boolean</from>
@@ -282,14 +290,14 @@
         <from>AndroMDADatatypes::datatype::boolean</from>
         <from>XSDDatatypes::boolean</from>
         <to>boolean</to>
-    </mapping> -->
+    </mapping>
     <mapping>
         <from>Collection</from>
         <from>PrimitiveTypes::Collection</from>
         <from>datatype::Collection</from>
         <from>AndroMDADatatypes::datatype::Collection</from>
         <from>RoseJavaDatatypes::java::util::Collection</from>
-        <to>Array</to>
+        <to>java.util.Collection</to>
     </mapping>
     <mapping>
         <from>List</from>
@@ -297,7 +305,7 @@
         <from>datatype::List</from>
         <from>AndroMDADatatypes::datatype::List</from>
         <from>RoseJavaDatatypes::java::util::List</from>
-        <to>Array</to>
+        <to>java.util.List</to>
     </mapping>
     <mapping>
         <from>ArrayList</from>
@@ -305,7 +313,7 @@
         <from>datatype::ArrayList</from>
         <from>AndroMDADatatypes::datatype::ArrayList</from>
         <from>RoseJavaDatatypes::java::util::ArrayList</from>
-        <to>Array</to>
+        <to>java.util.ArrayList</to>
     </mapping>
     <mapping>
         <from>Set</from>
@@ -313,7 +321,7 @@
         <from>datatype::Set</from>
         <from>AndroMDADatatypes::datatype::Set</from>
         <from>RoseJavaDatatypes::java::util::Set</from>
-        <to>Array</to>
+        <to>java.util.Set</to>
     </mapping>
     <mapping>
         <from>HashSet</from>
@@ -321,7 +329,7 @@
         <from>datatype::HashSet</from>
         <from>AndroMDADatatypes::datatype::HashSet</from>
         <from>RoseJavaDatatypes::java::util::HashSet</from>
-        <to>Array</to>
+        <to>java.util.HashSet</to>
     </mapping>
     <mapping>
         <from>SortedSet</from>
@@ -329,7 +337,7 @@
         <from>datatype::SortedSet</from>
         <from>AndroMDADatatypes::datatype::SortedSet</from>
         <from>RoseJavaDatatypes::java::util::SortedSet</from>
-        <to>Array</to>
+        <to>java.util.SortedSet</to>
     </mapping>
     <mapping>
         <from>TreeSet</from>
@@ -337,14 +345,14 @@
         <from>datatype::TreeSet</from>
         <from>AndroMDADatatypes::datatype::TreeSet</from>
         <from>RoseJavaDatatypes::java::util::TreeSet</from>
-        <to>Array</to>
+        <to>java.util.TreeSet</to>
     </mapping>
     <mapping>
         <from>Clob</from>
         <from>PrimitiveTypes::Clob</from>
         <from>datatype::Clob</from>
         <from>AndroMDADatatypes::datatype::Clob</from>
-        <to>string</to>
+        <to>java.lang.String</to>
     </mapping>
     <mapping>
         <from>Blob</from>
@@ -359,7 +367,7 @@
         <from>datatype::Map</from>
         <from>AndroMDADatatypes::datatype::Map</from>
         <from>RoseJavaDatatypes::java::util::Map</from>
-        <to>any</to>
+        <to>java.util.Map</to>
     </mapping>
     <mapping>
         <from>HashMap</from>
@@ -367,7 +375,7 @@
         <from>datatype::HashMap</from>
         <from>AndroMDADatatypes::datatype::HashMap</from>
         <from>RoseJavaDatatypes::java::util::HashMap</from>
-        <to>any</to>
+        <to>java.util.HashMap</to>
     </mapping>
     <mapping>
         <from>SortedMap</from>
@@ -375,7 +383,7 @@
         <from>datatype::SortedMap</from>
         <from>AndroMDADatatypes::datatype::SortedMap</from>
         <from>RoseJavaDatatypes::java::util::SortedMap</from>
-        <to>any</to>
+        <to>java.util.SortedMap</to>
     </mapping>
     <mapping>
         <from>TreeMap</from>
@@ -383,7 +391,28 @@
         <from>datatype::TreeMap</from>
         <from>AndroMDADatatypes::datatype::TreeMap</from>
         <from>RoseJavaDatatypes::java::util::TreeMap</from>
-        <to>any</to>
+        <to>java.util.TreeMap</to>
+    </mapping>
+    <mapping>
+        <from>Mappings</from>
+        <from>PrimitiveTypes::Mappings</from>
+        <from>datatype::Mappings</from>
+        <from>AndroMDADatatypes::datatype::Mappings</from>
+        <to>org.andromda.metafacades.uml.TypeMappings</to>
+    </mapping>
+    <mapping>
+        <from>URI</from>
+        <from>PrimitiveTypes::URI</from>
+        <from>datatype::URI</from>
+        <from>AndroMDADatatypes::datatype::URI</from>
+        <to>java.net.URI</to>
+    </mapping>
+    <mapping>
+        <from>URL</from>
+        <from>PrimitiveTypes::URL</from>
+        <from>datatype::URL</from>
+        <from>AndroMDADatatypes::datatype::URL</from>
+        <to>java.net.URL</to>
     </mapping>
     <mapping>
         <from>Object</from>
@@ -391,7 +420,7 @@
         <from>PrimitiveTypes::Object</from>
         <from>datatype::Object</from>
         <from>AndroMDADatatypes::datatype::Object</from>
-        <to>any</to>
+        <to>java.lang.Object</to>
     </mapping>
     <mapping>
         <from>Void</from>
@@ -403,5 +432,26 @@
         <from>RoseJavaDatatypes::java::lang::Void</from>
         <from>RoseCppDatatypes::void</from>
         <to>void</to>
+    </mapping>
+    <mapping>
+        <from>Document</from>
+        <from>PrimitiveTypes::Document</from>
+        <from>datatype::Document</from>
+        <from>AndroMDADatatypes::datatype::Document</from>
+        <to>org.w3c.dom.Document</to>
+    </mapping>
+    <mapping>
+        <from>ContentHandler</from>
+        <from>PrimitiveTypes::ContentHandler</from>
+        <from>datatype::ContentHandler</from>
+        <from>AndroMDADatatypes::datatype::ContentHandler</from>
+        <to>org.xml.sax.ContentHandler</to>
+    </mapping>
+    <mapping>
+        <from>TreeNode</from>
+        <from>PrimitiveTypes::TreeNode</from>
+        <from>datatype::TreeNode</from>
+        <from>AndroMDADatatypes::datatype::TreeNode</from>
+        <to>javax.swing.tree.TreeNode</to>
     </mapping>
 </mappings>
