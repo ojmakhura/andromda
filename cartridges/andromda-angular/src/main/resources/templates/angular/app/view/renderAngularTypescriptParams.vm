@@ -82,7 +82,17 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     ];
 #elseif($parameter.inputMultibox)
 
+#if($parameter.complex || $parameter.type.stringType)
+    createNew${stringUtils.capitalize(${propertyId})}(): ${parameter.type.name} {
+#if($parameter.complex)
+        return new ${parameter.type.name}();
+#else
+        return '';
+#end
+    }
+#else
     abstract createNew${stringUtils.capitalize(${propertyId})}(): ${parameter.type.name};
+#end
 
     ${propertyId}Add() {
 
