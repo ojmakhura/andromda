@@ -90,7 +90,8 @@
 #foreach ($message in $applicationUseCase.allMessages.entrySet())
   "$message.key": "$message.value.replaceAll("[\n\r\\]", "")",
 #end
-
+  "search.filters": "Search Filters",
+  "search.results": "Search Results",
 #if(!$enumerations.empty)
 #foreach($enumeration in $enumerations)
 #foreach ($literal in $enumeration.literals)

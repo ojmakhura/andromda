@@ -9,29 +9,31 @@
 #end
  */
 import { Routes } from '@angular/router';
-import { Shell } from '@app/shell/shell';
-import { UseCaseScope } from './utils/use-case-scope';
+import { Shell } from './shell';
+// import { LoginComponent } from './auth/login.component';
+#foreach($useCase in $useCases)
+import { $stringUtils.uncapitalize(${useCase.componentName})Routes } from '@app/${useCase.routingModuleFilePath}';
+#end
 
 export const routes: Routes = [
+  // Uncomment the following lines to enable login route
+  //{
+  //  path: 'login',
+  //  component: LoginComponent,
+  //},
   Shell.childRoutes([
     {
       path: '',
       data: { title: 'Home' },
-      loadComponent: () => import('./views/home/home').then((c) => c.Home),
+      loadComponent: () => import('./views/home/home').then((m) => m.Home),
     },
     {
       path: 'about',
       data: { title: 'About' },
-      loadComponent: () => import('./views/about/about').then((c) => c.About),
+      loadComponent: () => import('./views/about/about').then((m) => m.About),
     },
 #foreach($useCase in $useCases)
-    {
-      path: '$useCase.routerPath', 
-      loadChildren: () => import('@$useCase.routingModuleFilePath').then((m) => m.routes),
-      providers: [
-        UseCaseScope
-      ]
-    },
+    ...$stringUtils.uncapitalize(${useCase.componentName})Routes,
 #end
   ]),
   // Fallback when no prior route is matched

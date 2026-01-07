@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router#if($useCase.views.size() > 0), RouterModule#end } from '@angular/router';
 import { $controller.implementationName } from '@$controller.implementationFilePath';
-import { UseCaseScope } from '@app/utils/use-case-scope';
 #if($useCase.views.size() == 0 && ${useCase.controller})
 #foreach ($service in $useCase.controller.allRestControllers)
 import { $service.name } from '@${service.filePath}';
@@ -36,7 +35,6 @@ export class ${useCase.componentName}Component implements OnInit, AfterViewInit 
 
     protected route: ActivatedRoute = inject(ActivatedRoute);
     protected router: Router = inject(Router);
-    ## $controller.variableName: $controller.implementationName = inject($controller.implementationName);
 #if($useCase.views.size() == 0 && ${useCase.controller})
 #foreach ($service in $useCase.controller.allRestControllers)
     readonly $stringUtils.uncapitalize($service.name) = inject(${service.name});
