@@ -1,0 +1,74 @@
+<div class="fancy-table-container">
+  @if (dataItems()) {
+  <div class="table-wrapper">
+    @if (dataItems().length > 0) {
+    <div class="data-list">
+      @for (row of dataItems(); track row.id || $index) {
+      <div class="data-item">
+        @if (selectionType !== s.NONE) {
+        <div class="selection-area">
+          @if (selectionType === s.SINGLE) {
+          <mat-radio-button [value]="row" [checked]="selectedItems.includes(row)" (change)="radioSelected($event, row)">
+          </mat-radio-button>
+          }
+          @if (selectionType === s.MULTIPLE) {
+          <mat-checkbox [checked]="selectedItems.includes(row)" (change)="checkboxSelected($event, row)">
+          </mat-checkbox>
+          }
+        </div>
+        }
+
+        <div class="item-content">
+          <div class="item-header">
+            @if(mainColumns && mainColumns.length > 0) {
+            <div class="item-header">
+              <h6>{{ row[mainColumns[0].id] }}</h6>
+              @if(mainColumns.length > 1) {
+              <span class="item-code">{{ row[mainColumns[1].id] }}</span>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="item-details">
+            @for (column of dataColumns; track column.id) {
+            @if (row[column.id]) {
+            <span class="detail-item">
+              @if (column.icon) {
+              <mat-icon>{{ column.icon }}</mat-icon>
+              }
+              <!-- <span class="detail-label" *ngIf="column.label" translate>{{ column.label }}</span> -->
+              <span class="detail-value">{{ row[column.id] }}</span>
+            </span>
+            }
+            }
+          </div>
+
+          @if (showActions && actions.length > 0) {
+          <div class="item-actions">
+            @for (action of actions; track action.id) {
+            <button mat-icon-button type="button" [matTooltip]="action.label | translate"
+              (click)="onActionClicked(action.id, row.id)">
+              <mat-icon>{{ action.icon }}</mat-icon>
+            </button>
+            }
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </div>
+
+    @if (paged) {
+    <mat-paginator [length]="totalElements" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
+    }
+    } @else {
+    <div class="empty-state">
+      <mat-icon>inbox</mat-icon>
+      <p translate>No data available</p>
+    </div>
+    }
+  </div>
+  }
+</div>
