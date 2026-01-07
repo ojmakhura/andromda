@@ -16,19 +16,16 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '@app/@shared/shared.module';
 import { MaterialModule } from '@app/material.module';
-import { ActionTemplate } from '@app/model/action-template';
-import { ColumnModel } from '@app/model/column.model';
-import { IdLabel } from '@app/model/id-label.model';
-import { Page } from '@app/model/page.model';
-import { SelectionType } from '@app/model/selection-type.model';
-import { DeepSignal } from '@ngrx/signals';
 import { TranslateModule } from '@ngx-translate/core';
+import { ActionTemplate } from '@app/models/action-template';
+import { ColumnModel } from '@app/models/column.model';
+import { DeepSignal } from '@ngrx/signals';
+import { Page } from '@app/models/page.model';
+import { SelectionType } from '@app/models/selection-type.model';
 
 interface HasId {
   id?: string | number;
@@ -43,7 +40,6 @@ interface HasId {
   imports: [
     CommonModule,
     TranslateModule,
-    SharedModule,
     MaterialModule,
     MatIconModule,
     MatCheckboxModule,
@@ -59,7 +55,7 @@ export class FancyTableComponent<T extends HasId> implements OnInit, OnDestroy, 
   @Input() actions: ActionTemplate[] = [];
   @Input({ required: true }) mainColumns: ColumnModel[] = [];
   @Input({ required: true }) dataColumns: ColumnModel[] = [];
-  @Input() dataSignal: Signal<T[]> | DeepSignal<Page<T>> | Signal<undefined>;
+  @Input() dataSignal: Signal<T[]> | DeepSignal<Page<T>> | Signal<undefined> = signal<undefined>(undefined);
   dataItems = signal([] as T[]);
   @Input() selectionType = SelectionType.NONE;
 
@@ -82,9 +78,7 @@ export class FancyTableComponent<T extends HasId> implements OnInit, OnDestroy, 
   }
 
   totalElements = 0;
-
   allColumns: string[] = [];
-
   s = SelectionType;
   selectedItems: any[] = [];
 

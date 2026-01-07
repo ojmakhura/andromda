@@ -42,27 +42,29 @@ export const $stringUtils.uncapitalize(${useCase.componentName})Routes: Routes =
 #end
 #end
       ],
-      children: [
+  },
 #foreach($view in $useCase.views)
 #set( $notFirstView = $view != $useCase.initialView )
 #if($notFirstView)
-        { 
-          path: '${view.routerPath}', 
-          component: ${view.componentImplementationName}, 
+  {
+      path: '${useCase.routerPath}/${view.routerPath}', 
+      component: ${view.componentImplementationName}, 
 #if($secure)
-          canActivate: [AuthenticationGuard],
+      canActivate: [AuthenticationGuard],
 #end
-          data: { title: '${stringUtils.toPhrase(${view.name})}' },
-          providers: [ 
-#foreach($controller in $view.targetControllers)
-            $controller.variableName: ${controller.implementationName};
+    data: { title: '${stringUtils.toPhrase(${view.name})}' },
+    providers: [ 
+        UseCaseScope,
+#if($useCase.controller)
+#set ($controller = $useCase.controller)
+        ${useCase.controller.implementationName},
+#foreach($service in $controller.allRestControllers)
+        ${service.name},
+#end
 #end   
-          ] 
-        },
-#end
-#end
-      ]
+      ] 
   },
-
+#end
+#end
 ];
 

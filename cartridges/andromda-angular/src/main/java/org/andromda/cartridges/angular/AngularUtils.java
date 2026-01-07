@@ -394,7 +394,6 @@ public class AngularUtils {
                     builder.append(getDatatype(arg.getGetterSetterTypeName()));
                 }
             }
-            builder.append(" | any ");
         }
 
         return builder.toString();

@@ -6,7 +6,6 @@ export class PropertySearchOrder {
 
     order?: SortOrder | any = null;
 
-    
     constructor() {
     }
 }

@@ -634,8 +634,6 @@ public class AngularServiceOperationLogicImpl extends AngularServiceOperationLog
                 builder.append("[]");
             }
 
-            builder.append(" | any");
-
             if (this.isMany()) {
                 builder.append("[]");
             }

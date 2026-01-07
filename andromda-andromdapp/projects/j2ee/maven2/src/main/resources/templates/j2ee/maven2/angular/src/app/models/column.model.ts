@@ -5,6 +5,7 @@ export class ColumnModel {
   link: boolean = false;
   pipe?: { transform: (...args: any[]) => any };
   pipeArgs?: any[];
+  icon?: string;
 
   constructor(
     id: string,
@@ -13,6 +14,7 @@ export class ColumnModel {
     actionId?: string,
     pipe?: { transform: (...args: any[]) => any },
     pipeArgs?: any[],
+    icon?: string
   ) {
     this.id = id;
     this.label = label;
@@ -20,5 +22,6 @@ export class ColumnModel {
     this.actionId = actionId;
     this.pipe = pipe;
     this.pipeArgs = pipeArgs;
+    this.icon = icon;
   }
 }
