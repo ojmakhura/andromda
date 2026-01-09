@@ -528,6 +528,18 @@
             </modelElement>
         </modelElements>
     </template>
+    <template
+        path="templates/spring/EntityMapper.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="dao-impls"
+        overwrite="false"
+        outputOnEmptyElements="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <template
         path="templates/spring/hibernate/H2.java.vsl"
