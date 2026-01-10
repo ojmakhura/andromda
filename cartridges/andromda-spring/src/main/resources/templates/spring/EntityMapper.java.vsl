@@ -111,6 +111,7 @@ public interface ${entity.name}Mapper {
 #end
 #end
 #end
+    @org.mapstruct.InheritInverseConfiguration
     void update${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.targetElement.name), @org.mapstruct.MappingTarget $entity.fullyQualifiedEntityName entity);
 
 #end
