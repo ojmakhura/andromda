@@ -307,80 +307,6 @@
         outputOnEmptyElements="true">
     </template>
 
-    <!-- <template
-        path="templates/spring/applicationContext.xml.vsl"
-        outputPattern="$applicationContext"
-        outlet="spring-configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="abstract">false</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/applicationContext-dataSource.xml.vsl"
-        outputPattern="$applicationContextDataSource"
-        outlet="spring-configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/applicationContext-localDataSource.xml.vsl"
-        outputPattern="$applicationContextLocalDataSource"
-        outlet="spring-configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false"
-        outputCondition="dataSourceEnabled">
-        <modelElements>
-            <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/applicationContext-testDataSource.xml.vsl"
-        outputPattern="applicationContext-testDataSource.xml"
-        outlet="server-test-config"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="true">
-        <modelElements>
-            <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <!-- this configuration is supposed to be used by web components, typically Hessian or Burlap -->
     <template
         path="templates/spring/applicationContext-server.xml.vsl"
@@ -668,34 +594,6 @@
         </modelElements>
     </template>
 
-    <!-- <template
-        path="templates/spring/richclient/web.xml.vsl"
-        outputPattern="WEB-INF/web.xml"
-        outlet="server-config"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="remotable"/>
-                    <property name="richClient">true</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity">
-                    <property name="remotable"/>
-                </type>
-            </modelElement>
-            <modelElement variable="topics">
-                <type name="org.andromda.metafacades.uml.Topic"/>
-            </modelElement>
-            <modelElement variable="queues">
-                <type name="org.andromda.metafacades.uml.Queue"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/spring/ejb/applicationContext-remoteEjb.xml.vsl"
         outputPattern="$applicationContextRemoteEjb"
@@ -800,55 +698,6 @@
         </modelElements>
     </template>
 
-    <!-- <template
-        path="templates/spring/beanRefFactory.xml.vsl"
-        outputPattern="$beanRefFactory"
-        outlet="spring-configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
-            </modelElement>
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-            <modelElement variable="destinations">
-                <type name="org.andromda.metafacades.uml.Destination"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/richclient/serverTestBeanRefFactory.xml.vsl"
-        outputPattern="$serverTestBeanRefFactory"
-        outlet="server-test-config"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="richClient">true</property>
-                </type>
-            </modelElement>
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
-                    <property name="richClient">true</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity">
-                    <property name="richClient">true</property>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
     <template
         path="templates/spring/richclient/serverTestBeanRefFactory.properties.vsl"
         outputPattern="$generatedFile"
@@ -864,104 +713,6 @@
             </modelElement>
         </modelElements>
     </template>
-
-    <!-- <template
-        path="templates/spring/hibernate/search/SearchParameter.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/search/Search.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/search/PropertySearch.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/paging/PaginationResult.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="service-interfaces"
-        overwrite="true"
-        outputToSingleFile="true"/> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/HibernateSearch.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/HibernateSearchProperties.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/HibernateSearchConfiguration.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
-
-    <!-- <template
-        path="templates/spring/hibernate/HibernateSearchParameter.vsl"
-        outputPattern="$generatedFile"
-        outlet="daos"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="entities">
-            <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
 
     <template
         path="templates/spring/hibernate/SearchCriteria.vsl"
@@ -1002,44 +753,6 @@
         overwrite="false"
         outputToSingleFile="true"
         outputOnEmptyElements="true"/>
-
-     <!-- <template
-        path="templates/spring/ApplicationContextProvider.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="true"/> -->
-        
-     <!-- <template
-        path="templates/spring/BeanFactory.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="true">        
-        <modelElements>
-            <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
-            </modelElement>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="abstract">false</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-        </modelElements>
-     </template> -->
-        
-     <!-- <template
-        path="templates/spring/SpringBeanLocator.java.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="true"/> -->
 
      <template
         path="templates/spring/remoting/RemoteDispatcherServlet.java.vsl"
@@ -1169,47 +882,6 @@
             </modelElement>
         </modelElements>
     </template>
-
-    <!--<template
-        path="templates/spring/SpringServiceLocator.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="richClient">false</property>
-                    <property name="abstract">false</property>
-                    <property name="private">false</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>-->
-
-    <!--<template
-        path="templates/spring/SpringServiceLocator.vsl"
-        outputPattern="$generatedFile"
-        outlet="server"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="richClient">true</property>
-                    <property name="private">false</property>
-                </type>
-            </modelElement>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template>-->
 
     <template
         path="templates/spring/richclient/SpringServerTest.vsl"
@@ -1536,20 +1208,6 @@
             </modelElement>
         </modelElements>
     </template>
-
-    <!-- <template
-        path="templates/spring/crud/SpringCrudServiceLocator.vsl"
-        outputPattern="$generatedFile"
-        outlet="services"
-        overwrite="true"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
-            </modelElement>
-        </modelElements>
-    </template> -->
 
     <template
         path="templates/spring/crud/SpringCrudService.vsl"

@@ -53,6 +53,22 @@ public interface ${entity.name}Mapper {
      * @param entity
      * @return $valueObjectRef.targetElement.fullyQualifiedName
      */
+#foreach ($property in $valueObjectRef.targetElement.allProperties)
+#foreach ($entityProp in $entity.allProperties)
+#if ($property.name == $entityProp.name)
+#set ($getVal = false)
+#set ($getVal = $converter.typeConvert($entityProp.type.fullyQualifiedName, "source.${entityProp.getterName}()", $property.type.fullyQualifiedName) )
+#if (!$getVal)
+#set ($doMapping = $springUtils.isEntity($entityProp.type) && $springUtils.isValueObject($property) )
+#if($doMapping)
+    @org.mapstruct.Mapping(source = "${entityProp.name}", target = "${property.name}")
+#else
+    // WARNING! No conversion for target.${property.name} (can't convert source.${entityProp.getterName}():${entityProp.type.fullyQualifiedName} to $property.type.fullyQualifiedName
+#end
+#end
+#end
+#end
+#end
     $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
      /**
@@ -67,9 +83,34 @@ public interface ${entity.name}Mapper {
      * @param $stringUtils.uncapitalize($valueObjectRef.name)
      * @return $entity.fullyQualifiedEntityName
      */
+#set ($attributes = $entity.getAttributes(true,false))
+#foreach ($attribute in $attributes)
+#foreach ($voProperty in $valueObjectRef.targetElement.allProperties)
+#if ($attribute.name == $voProperty.name)
+#set ($getVal = false)
+#set ($getVal = $converter.typeConvert($voProperty.type.fullyQualifiedName, "source.${voProperty.getterName}()", $attribute.type.fullyQualifiedName) )
+#if (!$getVal)
+#set ($doMapping = $springUtils.isEntity($entityProp.type) && $springUtils.isValueObject($property) )
+    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName
+#end
+#end
+#end
+#end
+    @org.mapstruct.InheritInverseConfiguration
     $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
 
     @org.mapstruct.BeanMapping(nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
+#foreach ($attribute in $attributes)
+#foreach ($voProperty in $valueObjectRef.targetElement.allProperties)
+#if ($attribute.name == $voProperty.name)
+#set ($getVal = false)
+#set ($getVal = $converter.typeConvert($voProperty.type.fullyQualifiedName, "source.${voProperty.getterName}()", $attribute.type.fullyQualifiedName) )
+#if (!$getVal)
+    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName
+#end
+#end
+#end
+#end
     void update${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.targetElement.name), @org.mapstruct.MappingTarget $entity.fullyQualifiedEntityName entity);
 
 #end

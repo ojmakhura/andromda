@@ -238,4 +238,23 @@ public class SpringUtils
     public boolean isCriteria(ClassifierFacade facade) { 
         return facade instanceof SpringCriteriaSearch;
     }
+
+    public boolean isEntity(ClassifierFacade facade) { 
+
+        if(facade == null) {
+
+            return false;
+        }
+
+        return facade instanceof Entity;
+    }
+
+    public boolean isValueObject(AttributeFacade facade) { 
+
+        if(facade == null) {
+            return false;
+        }
+
+        return facade != null && facade.getType().getStereotypeNames().contains("ValueObject");
+    }
 }
