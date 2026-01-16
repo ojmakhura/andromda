@@ -27,8 +27,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@app/material.module';
 import { TableComponent } from '@components/table/table';
+import { TranslateModule } from '@ngx-translate/core';
 import { Loader } from "@shared/loader/loader";
-import { Field } from '@angular/forms/signals';
+import { FormField } from '@angular/forms/signals';
 #foreach($import in $view.imports)
 #if($import.tableComponentImplementationName)
 #elseif($import.componentImplementationName)
@@ -49,7 +50,7 @@ import { $import.implementationName } from '@components/${import.implementationF
     MaterialModule,
     TableComponent,
     Loader,
-    Field,
+    FormField,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif(${import.hasStereotype("FrontEndComponent")})

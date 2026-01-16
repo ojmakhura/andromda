@@ -162,7 +162,7 @@ ${ident}<mat-form-field class="col-md-8">
 ${ident}    <div>
 ${ident}        <mat-label id="${propertyId}_label" class="col-sm-2 col-form-label" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 ${ident}    </div>
-${ident}    <input matInput id="${propertyId}" [field]="${signalFormName}.${parameter.name}" [hidden]="true" /> 
+${ident}    <input matInput id="${propertyId}" [formField]="${signalFormName}.${parameter.name}" [hidden]="true" /> 
 #set ($deleteFunc = "deleteFromSelected$stringUtils.capitalize(${propertyId})(#if($parameter.many)$index#end)")
 #if($parameter.inputType == "image")
 #set( $displayName = "${propertyId}Preview#if($parameter.many)s#end")
@@ -197,7 +197,7 @@ ${ident}    <legend class="col-form-label col-sm-2 pt-0" translate>$parameter.me
 ${ident}    <div class="mb-3">
 #elseif($parameter.inputCheckbox || $parameter.type.booleanType)
 ${ident}    <section>
-${ident}        <mat-checkbox id="$propertyId" [field]="${signalFormName}.${parameter.name}" #if($parameter.readOnly || $ownerParameter.readOnly) (click)="$event.preventDefault()"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}        <mat-checkbox id="$propertyId" [formField]="${signalFormName}.${parameter.name}" #if($parameter.readOnly || $ownerParameter.readOnly) (click)="$event.preventDefault()"#end#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 ${ident}            <span translate>$parameter.messageKey</span>
 ${ident}        </mat-checkbox>
 ${ident}    </section>
@@ -218,7 +218,7 @@ ${ident}        <div class="field-row">
 #foreach($pa in $parameter.attributes)
 ${ident}            <mat-form-field class="col-md-4">
 ${ident}                <mat-label for="${pa.name}" class="col-sm-2 col-form-label" translate>$pa.messageKey</mat-label>
-${ident}                <input matInput type="text" id="${pa.name}" [field]="item.${pa.name}"/>
+${ident}                <input matInput type="text" id="${pa.name}" [formField]="item.${pa.name}"/>
 ${ident}            </mat-form-field>
 #end
 ${ident}            <button type="button" mat-mini-fab matTooltip="{{'remove' | translate}}" color="warn"
@@ -232,17 +232,17 @@ ${ident}    </div>
 ${ident}</div>
 #else
 #if(!$angularUtils.isComplex($parameter) || $parameter.inputSelect || $parameter.type.enumeration || $parameter.table || $parameter.inputTable)
-${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.table && !$parameter.inputTable && !$parameter.inputSelect) [field]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<mat-form-field class="col-md-8"#if($angularUtils.isComplex($parameter) && !$parameter.type.enumeration && !$parameter.table && !$parameter.inputTable && !$parameter.inputSelect) [formField]="${signalFormName}.${parameter.name}"#end#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <mat-label id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span></mat-label>
 #else
-${ident}<fieldset class="mb-3" [field]="${signalFormName}.${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
+${ident}<fieldset class="mb-3" [formField]="${signalFormName}.${parameter.name}"#if($parameter.displayCondition) *ngIf="$parameter.displayCondition"#end>
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input matInput type="$parameter.inputType" id="$propertyId" [field]="${signalFormName}.${parameter.name}" #if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="$propertyId" [formField]="${signalFormName}.${parameter.name}" #if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
-${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
+${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end [formField]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>
 #if ($parameter.type.enumeration)
 ${ident}        <mat-option>
 ${ident}        </mat-option>
@@ -254,7 +254,7 @@ ${ident}        }
 #else
 ${ident}        <mat-option>
 #if($isComplex)
-${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [field]="${signalFormName}.${propertyId}Filter" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
+${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [formField]="${signalFormName}.${propertyId}Filter" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
 ${ident}                     noEntriesFoundLabel="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>
@@ -272,7 +272,7 @@ ${ident}        }
 #end
 ${ident}    </mat-select>
 #elseif ($parameter.inputTextarea)
-${ident}	<textarea matInput id="$propertyId" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
+${ident}	<textarea matInput id="$propertyId" [formField]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end></textarea>
 ## #elseif ($parameter.inputMultibox)
 ## ${ident}    <mat-chip-grid #${propertyId}ChipGrid>
 ## ${ident}        @for (selectItem of ${formName}.${propertyId}; track selectItem; let i = $index) {
@@ -358,7 +358,7 @@ ${ident}    </div>
 #if($parameter.displayCondition)${ident}    }#end
 #end
 #else
-${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [field]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput type="$parameter.inputType" id="${propertyId}" [formField]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
 #end
 #end
 #set($hasValidations=false)
@@ -481,7 +481,7 @@ $ident<mat-paginator #${propertyId}ModalPaginator="matPaginator" [pageSize]="10"
                     <form>
                         <mat-form-field class="col-md-4">
                             <mat-label translate>search</mat-label>
-                            <input matInput type="text" [field]="${propertyId}SearchField"
+                            <input matInput type="text" [formField]="${propertyId}SearchField"
                                 id="${propertyId}SearchField" />
                         </mat-form-field>
                         <button type="button" mat-button (click)="${propertyId}Search()" class="btn btn-primary">

@@ -68,7 +68,7 @@ import { $import.name } from '@${import.filePath}';
 import { SearchObject } from '@models/search-object';
 import { $component.name } from './${component.fileName}';
 import { TableComponent } from '@components/table/table';
-import { Field, PathKind, SchemaPathTree } from "@angular/forms/signals";
+import { FormField, PathKind, SchemaPathTree } from "@angular/forms/signals";
 
 @Component({
   selector: "app-${component.selectorName}",
@@ -80,7 +80,7 @@ import { Field, PathKind, SchemaPathTree } from "@angular/forms/signals";
     TranslateModule,
     MaterialModule,
     TableComponent,
-    Field,
+    FormField,
 #if($component.treePresent)
     AsTreeNodePipe,
     CdkTreeNodeToggle,
