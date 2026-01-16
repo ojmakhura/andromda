@@ -7,7 +7,7 @@
 #if($spring)
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
         <relativePath/>
 #else
         <groupId>org.andromda.maven</groupId>
@@ -1556,7 +1556,7 @@
 #end
 #if ($spring || $hibernate || $ejb3)
         <!-- Set andromda.xml hibernateVersion=7, sessionFactory and localTransactionManager to hibernate4.-->
-        <hibernate.version>7.1.10.Final</hibernate.version>
+        <!-- <hibernate.version>7.1.10.Final</hibernate.version> -->
 #end
 #if ($jetty || !$webservice.equals("none"))
         <!-- v 9.x only supports JDK7 and you cannot configure jetty.port from maven.-->
@@ -2025,8 +2025,12 @@
                     <sourcepath>${project.basedir}/src/main/java;${project.basedir}/target/src/main/java</sourcepath>
                     <detectLinks/>
                     <links>
-                                    <link>http://docs.oracle.com/javase/8/docs/api/</link>
-                                    <link>http://docs.oracle.com/javaee/7/api/</link>
+                        <link>http://docs.oracle.com/javase/25/docs/api/</link>
+                        <link>http://docs.oracle.com/javase/21/docs/api/</link>
+                        <link>http://docs.oracle.com/javase/17/docs/api/</link>
+                        <link>http://docs.oracle.com/javase/11/docs/api/</link>
+                        <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>http://docs.oracle.com/javaee/7/api/</link>
 #if ($spring || $hibernate || $cxf)
                         <link>http://docs.jboss.org/hibernate/stable/orm/javadocs/</link>
                         <link>http://docs.spring.io/spring/docs/current/javadoc-api/</link>

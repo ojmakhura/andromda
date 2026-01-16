@@ -1,5 +1,7 @@
 {
   "apiUrl": "/api",
   "redirectUri": "<redirectUri>",
-  "authDomain": "<<keycloakIssuer>>"
+  "authDomain": "<<keycloakIssuer>>",
+  "realm": "<<realm>>",
+  "clientId": "<<clientid>>"
 }

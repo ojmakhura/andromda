@@ -1,10 +1,13 @@
 server:
     port: 8085
     servlet:
-        context-path: ${CONTEXT_PATH:/$applicationId/api/}
+        context-path: /
     http2:
         enabled: true
 spring:
+    threads:
+        virtual:
+            enabled: true
     thymeleaf:
         cache: false
     threads:
@@ -20,5 +23,5 @@ spring:
 #if($secure)
 app:
     security:
-        permit: ${SECURE_PERMIT:/public/**}
+        permit: /public/**
 #end
