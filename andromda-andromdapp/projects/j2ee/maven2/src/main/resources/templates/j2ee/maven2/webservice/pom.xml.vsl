@@ -35,10 +35,10 @@
         </dependency>
     </dependencies>
 #elseif ($cxf)
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
+        ## <dependency>
+        ##     <groupId>org.slf4j</groupId>
+        ##     <artifactId>slf4j-log4j12</artifactId>
+        ## </dependency>
         <!-- Includes spring core, beans, and context -->
         <dependency>
             <groupId>org.springframework</groupId>

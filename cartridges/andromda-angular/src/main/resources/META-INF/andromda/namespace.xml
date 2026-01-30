@@ -409,6 +409,12 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="enableTemplating">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not templated (strongly typed) Lists will be generated.
+                </documentation>
+            </property>
             <property name="virtualHost" required="false">
                 <documentation>
                     The name to use for the virtual host (if one is required).  For example application.myserver.com.

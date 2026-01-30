@@ -1,5 +1,16 @@
 #set($destination = $stringUtils.replaceChars(${class.packageName}, "\\.", "\\/"))
 #set($fileName = $angularUtils.getComponentFileName(${class.name}))
+## Use a different name for VO Fault than for Exception, if needed
+##set ($className = ${class.getName(true)})
+#if ($class.hasStereotype("WebFault") && ($type.hasStereotype("Exception") || $type.hasStereotype("ApplicationException") || $type.hasStereotype("UnexpectedException")))
+#if ($class.name.contains("Exception"))
+#set ($className = $class.name.replace("Exception", "Fault"))
+#else
+#set ($className = "${class.name}Fault")
+#end
+#else
+#set ($className = "$class.name")
+#end
 #set ($attributes = [])
 import { FormBuilder } from "@angular/forms";
 #if($class.generalization)
@@ -19,7 +30,7 @@ import {$import.name} from '@$import.filePath';
 #end
 #end
 #end
-export class $class.name#if($class.generalization) extends $class.generalization.name#end {
+export class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)#if($class.generalization) extends $class.generalization.name#end {
 #foreach ($attribute in $class.attributes)
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)

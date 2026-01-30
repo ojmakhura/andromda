@@ -106,15 +106,16 @@ ${ident}    <td id="column_${column.name}">${theValue}#if ($column.type.dateType
 #set ($hasActions = false)
 #end
 ${ident}<app-table 
-					#${propertyId}Table 
-					[dataColumns]="${propertyId}TableColumns" 
-					[showActions]="show$stringUtils.capitalize($propertyId)Actions" 
-					[paged]="${propertyId}TablePaged"
-					[actions]="${propertyId}TableColumnsActions"
+${ident}    #${propertyId}Table 
+${ident}	[dataColumns]="${propertyId}TableColumns" 
+${ident}	[showActions]="show$stringUtils.capitalize($propertyId)Actions" 
+${ident}	[paged]="${propertyId}TablePaged"
+${ident}	[actions]="${propertyId}TableColumnsActions"
 #if($hasActions || $allColumnActions.size() > 0)
-					(actionClicked)="${propertyId}TableActionClicked($event)"
+${ident}	(actionClicked)="${propertyId}TableActionClicked($event)"
 #end
-					[dataSignal]="${propertyId}TableSignal">
+${ident}    (tableLoadEmitter)="${propertyId}TableLoadEmitter($event)"
+${ident}    [dataSignal]="${propertyId}TableSignal">
 ${ident}</app-table>
 #elseif($parameter.tree)
 ${ident}<mat-tree [dataSource]="${propertyId}DataSource" [treeControl]="${propertyId}TreeControl"
