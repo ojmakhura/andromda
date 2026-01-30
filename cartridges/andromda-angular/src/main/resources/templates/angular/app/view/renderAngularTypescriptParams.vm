@@ -118,7 +118,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 ## Table
 #elseif($parameter.inputTable || $parameter.table)
     @ViewChild('${propertyId}Table') ${propertyId}Table!: TableComponent<$angularUtils.getDatatype($parameter.getterSetterTypeName)>;
-    ${propertyId}TableSignal: Signal<$parameter.angularTypeName[] | Page<any> | undefined> = signal(undefined);
+    ${propertyId}TableSignal: Signal<$parameter.angularTypeName | Page<any> | undefined> = signal(undefined);
     ${propertyId}TablePaged: boolean = #if($parameter.pageableTable)$parameter.pageableTable#{else}false#{end};
     
 #set ($tableColumnActions = [])
@@ -196,7 +196,7 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 
 #end
 
-    abstract ${propertyId}TableLoadEmitter(event: any);
+    ${propertyId}TableLoadEmitter(event: any): void {}
 
     ${propertyId}TableActionClicked(event: any): void {
 
