@@ -65,6 +65,22 @@ package $entity.packageName;
 #end
 #end
 
+#set ($generatorClass = $entity.findTaggedValue('andromda_hibernate_generator_class'))
+#set ($generationStatergy = $entity.hibernateGenerationTypeStrategy)
+#set ($isUUID = false)
+#if($generatorClass && $generatorClass.contains("uuid"))
+#set ($isUUID = true)
+#end
+#if($entity.identifiers.size() == 1) 
+#if($isUUID)
+#set ($typeName = "java.util.UUID")
+#else
+#set ($typeName = $entity.identifiers.get(0).getterSetterTypeName)
+#if ($entity.identifiers.get(0).containsEmbeddedObject)
+#set ($typeName = $entity.identifiers.get(0).type.fullyQualifiedEntityName)
+#end
+#end
+#end
 /**
  * <p>
  * Base Spring DAO Class: is able to create, update, remove, load, and find
@@ -1348,7 +1364,7 @@ public abstract class $entity.daoBaseName
 #*        *##elseif(${entityProperty.many} != $property.many || ${entityProperty.type.fullyQualifiedName} != ${property.type.fullyQualifiedName})
         // No conversion for target.${property.name} (can't convert source.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
 #*        *##else
-        target.${property.setterName}($entityPropertyGetterValue);
+        target.${property.setterName}($entityPropertyGetterValue#if($entityProperty.type.stringType && $property.type.stringType && $entityProperty.identifier && $isUUID).toString()#end);
 #*        *##end
 #*      *##else
         // No conversion for target.${property.name} (can't convert source.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
@@ -1419,7 +1435,11 @@ public abstract class $entity.daoBaseName
 #*              *##else
         if (copyIfNull || source.${property.getterName}() != $property.type.javaNullString)
         {
+#if($entityProperty.type.stringType && $property.type.stringType && $entityProperty.identifier && $isUUID)
+            target.${entityProperty.setterName}(java.util.UUID.fromString($propertyGetterValue));
+#else
             target.${entityProperty.setterName}($propertyGetterValue);
+#end
         }
 #*            *##end
 #*          *##else

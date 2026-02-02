@@ -215,6 +215,13 @@
 ##
 #macro (renderAttribute $entity $attribute)
 #set ($typeName = $attribute.getterSetterTypeName)
+#if($attribute.identifier) 
+#set ($generationStatergy = $entity.hibernateGenerationTypeStrategy)
+#set ($isUUID = $generationStatergy.contains("GenerationType.UUID"))
+#if($isUUID)
+#set ($typeName = "java.util.UUID")
+#end
+#end
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
 #end
@@ -243,7 +250,7 @@
 #*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
     @jakarta.persistence.Id
 #*        *##if ($entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}")
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}") // 1
     @jakarta.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
 #*        *##elseif ($attribute.generatorTypeTable)
     @jakarta.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
@@ -255,7 +262,7 @@
     @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
 #*            *##end
 #*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy})
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}) // 2
 #*          *##end 
 #*        *##end
 #*      *##end
@@ -398,7 +405,7 @@
 $attribute.getDocumentation("     * ")
      * @return this.${attribute.name} $typeName
      */
-    $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
+    $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${typeName}#end ${attribute.getterName}()
     {
 #if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
         return this.${attribute.name};
