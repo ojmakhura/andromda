@@ -209,6 +209,10 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 #end
     });
 #end
+#foreach($variable in $view.variables)
+
+    ${variable.name}FilterControl = new FormControl('');
+#end
     
 #if($view.popup)
     public dialogRef: MatDialogRef<${view.componentImplementationName}> = inject(MatDialogRef);
