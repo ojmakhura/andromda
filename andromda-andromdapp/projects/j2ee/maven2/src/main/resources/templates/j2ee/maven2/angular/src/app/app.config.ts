@@ -4,8 +4,9 @@ import { provideRouter, RouteReuseStrategy, withComponentInputBinding, withHashL
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi, HttpClient } from '@angular/common/http';
-import { CUSTOM_DATE_FORMATS } from './@shared/custom-date-formats';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { DD_MM_YYYY_FORMAT } from './@shared/custom-date-formats';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { RouteReusableStrategy } from './@core/route-reusable-strategy';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
@@ -69,7 +70,13 @@ export const appConfig = (env: any) => {
         provide: RouteReuseStrategy,
         useClass: RouteReusableStrategy,
       },
-      { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+      {
+        provide: DateAdapter,
+        useClass: MomentDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      },
+      { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
     ],
   } as ApplicationConfig;
 };

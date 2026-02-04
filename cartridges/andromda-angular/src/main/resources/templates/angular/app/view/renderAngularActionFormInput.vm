@@ -240,7 +240,10 @@ ${ident}<fieldset class="mb-3" [formField]="${signalFormName}.${parameter.name}"
 ${ident}    <legend id="${propertyId}_label" class="col-sm-2 #if ($parameter.inputMultibox || $parameter.type.booleanType)form-check-label#{else}col-form-label#end" for="${propertyId}"><span translate>$parameter.messageKey</span>#if($parameter.required)*#end</legend>
 #end
 #if ($parameter.type.dateType || $parameter.inputDate)
-${ident}    <input matInput type="$parameter.inputType" id="$propertyId" [formField]="${signalFormName}.${parameter.name}" #if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <input matInput [matDatepicker]="${propertyId}Picker" id="$propertyId" [formField]="${signalFormName}.${parameter.name}" #if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.minLenmingth) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end/>
+${ident}    <mat-hint>DD/MM/YYYY</mat-hint>
+${ident}    <mat-datepicker-toggle matIconSuffix [for]="${propertyId}Picker"></mat-datepicker-toggle>
+${ident}    <mat-datepicker #${propertyId}Picker></mat-datepicker>
 #elseif ($parameter.inputSelect || $parameter.type.enumeration)
 #set ($multiSelect = $parameter.many || $parameter.type.collectionType || $parameter.type.arrayType)
 ${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"#if($isComplex && !$parameter.type.enumeration) [compareWith]="${propertyId}Compare"#end [formField]="${signalFormName}.${parameter.name}"#if($parameter.minLength) minlength="$parameter.minLength"#end#if($parameter.minLength) maxlength="$parameter.maxLength"#end#if($parameter.min) min="$parameter.min"#end#if($parameter.max) max="$parameter.max"#end>

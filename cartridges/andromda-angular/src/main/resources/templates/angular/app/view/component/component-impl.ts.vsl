@@ -39,7 +39,7 @@ import { MaterialModule } from '@app/material.module';
 #set($buttons = [])
 #foreach($import in $component.imports)
 #if($metafacadeWebUtils.isComponent($import))
-import { ${import.implementationName} } from '@components/${import.implementationFilePath}'; // 1
+import { ${import.implementationName} } from '@components/${import.implementationFilePath}';
 #else
 #if($import.attributes && $import.attributes.size() > 0 && !$import.enumeration)
 #if($import.type)
@@ -51,7 +51,7 @@ import { ${import.implementationName} } from '@components/${import.implementatio
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 import { $import.name } from '@${import.filePath}';
 #elseif(${import.hasStereotype("FrontEndComponent")})
-import { $import.implementationName } from '@components/${import.implementationFilePath}'; // 2
+import { $import.implementationName } from '@components/${import.implementationFilePath}';
 #elseif($import.tableComponentImplementationName)
 import { $import.tableComponentImplementationName } from '@${import.implementationFilePath}';
 #elseif($import.implementationComponentName)

@@ -2815,6 +2815,9 @@ public class WebServiceUtils
             } else if(paramType.contains("PathParam")) {
                 annotation = "PathVariable(name = \"";
 
+            } else if(paramType.contains("FormParam")) {
+                annotation = "RequestPart(name = \"";
+
             } else if(paramType.contains("RequestAttribute")) {
                 annotation = "RequestAttribute(name = \"";
 

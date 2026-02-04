@@ -262,7 +262,7 @@
     @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
 #*            *##end
 #*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}) // 2
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy})
 #*          *##end 
 #*        *##end
 #*      *##end

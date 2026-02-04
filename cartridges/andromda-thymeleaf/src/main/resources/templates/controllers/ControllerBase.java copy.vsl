@@ -265,7 +265,7 @@ $action.trigger.getDocumentation("     * ")
         
 #else
 #if ($formPopulationOperationRequired && ${action.source.fullyQualifiedPageObjectClassName})
-        final ${action.source.fullyQualifiedPageObjectClassName}Form form = this.get${action.source.pageObjectClassName}Form(); // 1
+        final ${action.source.fullyQualifiedPageObjectClassName}Form form = this.get${action.source.pageObjectClassName}Form();
 #foreach($field in $action.formFields)
 #if($field.actionParameter)
         form.set${stringUtils.capitalize($field.name)}(${formBeanName}.get${stringUtils.capitalize($field.name)}());

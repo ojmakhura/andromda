@@ -184,6 +184,8 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
 #if(!$allColumnActions.empty)
 #set ($hasActions = true)
 #end
+
+    ${propertyId}TableLoadEmitter(event: any): void {}
 #if($hasActions)
 #foreach($action in $parameter.tableFormActions)
     // Should be overriden to handle the actions
@@ -195,8 +197,6 @@ $ident@ViewChild('${propertyId}') ${propertyId}!: ${parameter.type.implementatio
     do$stringUtils.capitalize(${action.triggerName})(form: any): any {}
 
 #end
-
-    ${propertyId}TableLoadEmitter(event: any): void {}
 
     ${propertyId}TableActionClicked(event: any): void {
 

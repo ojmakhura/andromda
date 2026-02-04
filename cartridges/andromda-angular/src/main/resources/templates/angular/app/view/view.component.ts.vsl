@@ -224,9 +224,7 @@ export abstract class $view.componentName implements OnInit, AfterViewInit, OnDe
 ##end
     toaster: ToastrService = inject(ToastrService);
 #foreach($controller in $view.targetControllers)
-    $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
-    readonly ${controller.variableName} = inject(${controller.name});
-    readonly ${controller.variableName}Store = inject(${controller.name}Store);
+    readonly $controller.variableName: ${controller.implementationName} = inject(${controller.implementationName});
 #end
 #if(${view.useCase.controller})
     ${view.useCase.controller.variableName}: ${view.useCase.controller.implementationName} = inject(${view.useCase.controller.implementationName});
