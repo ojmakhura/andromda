@@ -394,6 +394,19 @@
                     Enumeration Literal
                 </appliedOnElement>
             </element>
+            <element name="PERSISTENCE_ENUMERATION_LITERAL_DISPLAY">
+                <documentation>
+                    Specifies the enumeration literal parameters which are
+                    passed to the appropriate constructor when created.
+                    The parameters are comma separated. Deprecated: Use UML Enumerations instead.
+                </documentation>
+                <value>
+                    andromda_persistence_enumeration_literal_display
+                </value>
+                <appliedOnElement>
+                    Enumeration Literal
+                </appliedOnElement>
+            </element>
             <element name="PERSISTENCE_ASSOCIATION_END_PRIMARY">
                 <documentation>
                   Indicates whether or not the association end is considered "primary", to indicate which side of a one-to-one
@@ -551,6 +564,19 @@
                 <value>andromda_presentation_view_table</value>
                 <appliedOnElement>
                     A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
+            <element name="JAVA_RECORD">
+                <documentation>
+                    A flag indicating whether or not the object is a java record.
+                </documentation>
+                <value>andromda_java_record</value>
+                <appliedOnElement>
+                    A class with the <![CDATA[<<ValueObject>>]]> stereotype
                 </appliedOnElement>
                 <allowedValues>
                     <value>true</value>

@@ -30,20 +30,21 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Represents a controller for a Angular application.
- * MetafacadeLogic implementation for org.andromda.cartridges.angular.metafacades.AngularController.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.angular.metafacades.AngularController.
  *
  * @see org.andromda.cartridges.angular.metafacades.AngularController
  */
 public class AngularControllerLogicImpl
-    extends AngularControllerLogic
-{
+        extends AngularControllerLogic {
     private static final long serialVersionUID = 34L;
+
     /**
      * Public constructor for AngularControllerLogicImpl
+     * 
      * @see org.andromda.cartridges.angular.metafacades.AngularController
      */
-    public AngularControllerLogicImpl (Object metaObject, String context)
-    {
+    public AngularControllerLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -53,9 +54,11 @@ public class AngularControllerLogicImpl
      */
     // protected String handleGetImplementationName()
     // {
-    //     final String pattern = Objects.toString(
-    //         this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN), "");
-    //     return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
+    // final String pattern = Objects.toString(
+    // this.getConfiguredProperty(AngularGlobals.CONTROLLER_IMPLEMENTATION_PATTERN),
+    // "");
+    // return pattern.replaceFirst("\\{0\\}",
+    // StringUtils.capitalize(this.getName()));
     // }
 
     /**
@@ -64,13 +67,13 @@ public class AngularControllerLogicImpl
      */
     // protected String handleGetFullyQualifiedImplementationName()
     // {
-    //     final StringBuilder fullyQualifiedName = new StringBuilder();
-    //     final String packageName = this.getPackageName();
-    //     if (StringUtils.isNotBlank(packageName))
-    //     {
-    //         fullyQualifiedName.append(packageName + '.');
-    //     }
-    //     return fullyQualifiedName.append(this.getImplementationName()).toString();
+    // final StringBuilder fullyQualifiedName = new StringBuilder();
+    // final String packageName = this.getPackageName();
+    // if (StringUtils.isNotBlank(packageName))
+    // {
+    // fullyQualifiedName.append(packageName + '.');
+    // }
+    // return fullyQualifiedName.append(this.getImplementationName()).toString();
     // }
 
     /**
@@ -79,8 +82,8 @@ public class AngularControllerLogicImpl
      */
     // protected String handleGetFullyQualifiedImplementationPath()
     // {
-    //     String packagePath = this.getPackagePath();
-    //     return this.getFullyQualifiedImplementationName().replace('.', '/');
+    // String packagePath = this.getPackagePath();
+    // return this.getFullyQualifiedImplementationName().replace('.', '/');
     // }
 
     /**
@@ -89,7 +92,7 @@ public class AngularControllerLogicImpl
      */
     // protected String handleGetBeanName()
     // {
-    //     return StringUtilsHelper.lowerCamelCaseName(this.getName());
+    // return StringUtilsHelper.lowerCamelCaseName(this.getName());
     // }
 
     /**
@@ -98,16 +101,19 @@ public class AngularControllerLogicImpl
      */
     // protected List<DependencyFacade> handleGetSessionObjectReferences()
     // {
-    //     final List<DependencyFacade> references = new ArrayList<DependencyFacade>(this.getSourceDependencies());
-    //     for (final Iterator<DependencyFacade> iterator = references.iterator(); iterator.hasNext();)
-    //     {
-    //         final ModelElementFacade targetElement = (iterator.next()).getTargetElement();
-    //         if (!(targetElement instanceof AngularSessionObject))
-    //         {
-    //             iterator.remove();
-    //         }
-    //     }
-    //     return references;
+    // final List<DependencyFacade> references = new
+    // ArrayList<DependencyFacade>(this.getSourceDependencies());
+    // for (final Iterator<DependencyFacade> iterator = references.iterator();
+    // iterator.hasNext();)
+    // {
+    // final ModelElementFacade targetElement =
+    // (iterator.next()).getTargetElement();
+    // if (!(targetElement instanceof AngularSessionObject))
+    // {
+    // iterator.remove();
+    // }
+    // }
+    // return references;
     // }
 
     /**
@@ -116,18 +122,18 @@ public class AngularControllerLogicImpl
      */
     // protected String handleGetControllerSerialVersionUID()
     // {
-    //    final StringBuilder buffer = new StringBuilder();
-    //    buffer.append(this.getFullyQualifiedImplementationName());
-    //    addSerialUIDData(buffer);
-    //    return AngularUtils.calcSerialVersionUID(buffer);
+    // final StringBuilder buffer = new StringBuilder();
+    // buffer.append(this.getFullyQualifiedImplementationName());
+    // addSerialUIDData(buffer);
+    // return AngularUtils.calcSerialVersionUID(buffer);
     // }
 
     // private void addSerialUIDData(StringBuilder buffer)
     // {
-    //     for (final FrontEndAction action : this.getUseCase().getActions())
-    //     {
-    //         buffer.append(action.getName());
-    //     }
+    // for (final FrontEndAction action : this.getUseCase().getActions())
+    // {
+    // buffer.append(action.getName());
+    // }
     // }
 
     /**
@@ -135,65 +141,56 @@ public class AngularControllerLogicImpl
      */
     // @Override
     // protected Collection<Service> handleGetAllServices() {
-    //     final Set<Service> allServices=new HashSet<Service>();
-    //     for(final DependencyFacade dependency: this.getServiceReferences())
-    //     {
-    //         allServices.add((Service)dependency.getTargetElement());
-    //     }
-    //     for(final DependencyFacade dependency: this.getServicesPackagesReferences())
-    //     {
-    //         final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
-    //         for(final ClassifierFacade clazz: pack.getClasses())
-    //         {
-    //             if(clazz instanceof Service)
-    //             {
-    //                 allServices.add((Service)clazz);
-    //             }
-    //         }
-    //     }
-    //     for(final FrontEndAction action: getUseCase().getActions())
-    //     {
-    //         for(final FrontEndActionState as: action.getActionStates())
-    //         {
-    //             for(final OperationFacade operation: as.getServiceCalls())
-    //             {
-    //                 allServices.add((Service)operation.getOwner());
-    //             }
-    //         }
-    //     }
-    //     return allServices;
+    // final Set<Service> allServices=new HashSet<Service>();
+    // for(final DependencyFacade dependency: this.getServiceReferences())
+    // {
+    // allServices.add((Service)dependency.getTargetElement());
+    // }
+    // for(final DependencyFacade dependency: this.getServicesPackagesReferences())
+    // {
+    // final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
+    // for(final ClassifierFacade clazz: pack.getClasses())
+    // {
+    // if(clazz instanceof Service)
+    // {
+    // allServices.add((Service)clazz);
+    // }
+    // }
+    // }
+    // for(final FrontEndAction action: getUseCase().getActions())
+    // {
+    // for(final FrontEndActionState as: action.getActionStates())
+    // {
+    // for(final OperationFacade operation: as.getServiceCalls())
+    // {
+    // allServices.add((Service)operation.getOwner());
+    // }
+    // }
+    // }
+    // return allServices;
     // }
 
     @Override
     protected Collection<AngularService> handleGetAllRestControllers() {
-        final Set<AngularService> allServices=new HashSet<AngularService>();
-        for(final DependencyFacade dependency: this.getServiceReferences())
-        {
-            if(AngularUtils.isWebService(dependency.getTargetElement()))
-            {
-                allServices.add((AngularService)dependency.getTargetElement());
+        final Set<AngularService> allServices = new HashSet<AngularService>();
+        for (final DependencyFacade dependency : this.getServiceReferences()) {
+            if (AngularUtils.isWebService(dependency.getTargetElement())) {
+                allServices.add((AngularService) dependency.getTargetElement());
             }
         }
-        for(final DependencyFacade dependency: this.getServicesPackagesReferences())
-        {
-            final PackageFacade pack=(PackageFacade)dependency.getTargetElement();
-            for(final ClassifierFacade clazz: pack.getClasses())
-            {
-                if(AngularUtils.isWebService(clazz))
-                {
-                    allServices.add((AngularService)clazz);
+        for (final DependencyFacade dependency : this.getServicesPackagesReferences()) {
+            final PackageFacade pack = (PackageFacade) dependency.getTargetElement();
+            for (final ClassifierFacade clazz : pack.getClasses()) {
+                if (AngularUtils.isWebService(clazz)) {
+                    allServices.add((AngularService) clazz);
                 }
             }
         }
-        for(final FrontEndAction action: getUseCase().getActions())
-        {
-            for(final FrontEndActionState as: action.getActionStates())
-            {
-                for(final OperationFacade operation: as.getServiceCalls())
-                {
-                    if(AngularUtils.isWebService(operation.getOwner()))
-                    {
-                        allServices.add((AngularService)operation.getOwner());
+        for (final FrontEndAction action : getUseCase().getActions()) {
+            for (final FrontEndActionState as : action.getActionStates()) {
+                for (final OperationFacade operation : as.getServiceCalls()) {
+                    if (AngularUtils.isWebService(operation.getOwner())) {
+                        allServices.add((AngularService) operation.getOwner());
                     }
                 }
             }
@@ -207,42 +204,58 @@ public class AngularControllerLogicImpl
     // @SuppressWarnings("unchecked")
     // @Override
     // protected List<PackageFacade> handleGetServicesPackagesReferences() {
-    //     return (List<PackageFacade>)new FilteredCollection(this.getSourceDependencies())
-    //     {
-    //         private static final long serialVersionUID = 134L;
-    //         @Override
-    //         public boolean evaluate(final Object object)
-    //         {
-    //             return ((DependencyFacade)object).getTargetElement() instanceof PackageFacade;
-    //         }
-    //     };
+    // return (List<PackageFacade>)new
+    // FilteredCollection(this.getSourceDependencies())
+    // {
+    // private static final long serialVersionUID = 134L;
+    // @Override
+    // public boolean evaluate(final Object object)
+    // {
+    // return ((DependencyFacade)object).getTargetElement() instanceof
+    // PackageFacade;
+    // }
+    // };
     // }
 
     @Override
     protected Collection<ModelElementFacade> handleGetImports() {
-        
+
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
-        for(OperationFacade operation : this.getOperations()) {
-            
-            if(operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
-                imports.add(operation.getReturnType());
+        for (OperationFacade operation : this.getOperations()) {
 
-                if(operation.getReturnType().isTemplateParametersPresent()) {
+            if (operation.getReturnType().isEnumeration() || !operation.getReturnType().getAttributes().isEmpty()) {
+                if (operation.getReturnType() != null) {
+                    imports.add(operation.getReturnType());
+                }
+
+                if (operation.getReturnType().isTemplateParametersPresent()) {
                     operation.getReturnType().getTemplateParameters().forEach(template -> {
-                        imports.add(template.getType());
+                        if (template.getType() != null) {
+                            imports.add(template.getType());
+                        }
                     });
                 }
             }
 
-            for(ParameterFacade parameter : operation.getArguments()) {
-                if(parameter.getType().isEnumeration() || !parameter.getType().getAttributes().isEmpty()) {
-                    imports.add(parameter.getType());
+            for (ParameterFacade parameter : operation.getArguments()) {
+                if (parameter.getType().isEnumeration() || !parameter.getType().getAttributes().isEmpty()) {
 
-                    if(parameter.getType().isTemplateParametersPresent()) {
+                    if (parameter.getType() != null) {
                         imports.add(parameter.getType());
+                    }
+
+                    if (parameter.getType().isTemplateParametersPresent()) {
+
+                        if (parameter.getType() != null) {
+                            imports.add(parameter.getType());
+                        }
+
                         parameter.getType().getTemplateParameters().forEach(template -> {
-                            imports.add(template.getType());
+
+                            if (template.getType() != null) {
+                                imports.add(template.getType());
+                            }
                         });
                     }
                 }
@@ -252,59 +265,66 @@ public class AngularControllerLogicImpl
         getUseCase().getActions().forEach(action -> {
 
             action.getFormFields().forEach(field -> {
-                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                if (field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
                     imports.add(field.getType());
                 }
 
-                if(field.getType().isTemplateParametersPresent()) {
+                if (field.getType().isTemplateParametersPresent()) {
                     imports.add(field.getType());
                     field.getType().getTemplateParameters().forEach(template -> {
 
-                        imports.add(template.getType());
+                        if (template.getType() != null) {
+                            imports.add(template.getType());
+                        }
                     });
                 }
             });
 
             action.getForwardParameters().forEach(field -> {
-                if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
+                if (field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
                     imports.add(field.getType());
                 }
 
-                if(field.getType().isTemplateParametersPresent()) {
+                if (field.getType().isTemplateParametersPresent()) {
                     imports.add(field.getType());
                     field.getType().getTemplateParameters().forEach(template -> {
-                        imports.add(template.getType());
+                        if (template.getType() != null) {
+                            imports.add(template.getType());
+                        }
                     });
                 }
             });
 
             // action.getActionStates().forEach(actionState -> {
-            //     AngularForward state = (AngularForward) actionState.getForward();
+            // AngularForward state = (AngularForward) actionState.getForward();
 
-            //     if(state == null) {
-            //         return;
-            //     }
+            // if(state == null) {
+            // return;
+            // }
 
-            //     state.getActions().forEach(forwardAction -> {
-            //         forwardAction.getFormFields().forEach(field -> {
-            //             if(field.getType().isEnumeration() || !field.getType().getAttributes().isEmpty()) {
-            //                 imports.add(field.getType());
-            //             }
+            // state.getActions().forEach(forwardAction -> {
+            // forwardAction.getFormFields().forEach(field -> {
+            // if(field.getType().isEnumeration() ||
+            // !field.getType().getAttributes().isEmpty()) {
+            // imports.add(field.getType());
+            // }
 
-            //             if(field.getType().isTemplateParametersPresent()) {
-            //                 field.getType().getTemplateParameters().forEach(template -> {
-            //                     imports.add(template.getType());
-            //                 });
-            //             }
-            //         });
-            //     });
+            // if(field.getType().isTemplateParametersPresent()) {
+            // field.getType().getTemplateParameters().forEach(template -> {
+            // imports.add(template.getType());
+            // });
+            // }
+            // });
+            // });
             // });
         });
 
-        for(AttributeFacade attribute : this.getAttributes()) {
+        for (AttributeFacade attribute : this.getAttributes()) {
 
-            if(attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
-                imports.add(attribute.getType());
+            if (attribute.getType().isEnumeration() || !attribute.getType().getAttributes().isEmpty()) {
+                if (attribute.getType() != null) {
+                    imports.add(attribute.getType());
+                }
             }
         }
 
@@ -342,33 +362,33 @@ public class AngularControllerLogicImpl
 
     @Override
     protected Collection handleGetOtherControllers() {
-        
+
         HashSet<AngularController> controllers = new HashSet<>();
 
-        for(FrontEndAction _action : this.getUseCase().getActions()) {
-            
-            for(FrontEndActionState actionState : _action.getActionStates()) {
+        for (FrontEndAction _action : this.getUseCase().getActions()) {
+
+            for (FrontEndActionState actionState : _action.getActionStates()) {
                 AngularForward state = (AngularForward) actionState.getForward();
-                if(state != null && state.isEnteringFinalState() && state.getTarget() != null) {
-                    
+                if (state != null && state.isEnteringFinalState() && state.getTarget() != null) {
+
                     AngularFinalState finalState = (AngularFinalState) state.getTarget();
                     AngularUseCase useCase = (AngularUseCase) finalState.getTargetElement();
 
-                    if(useCase != null && useCase.getController() != null) {
-                        if(!useCase.getController().getName().equals(this.getName())) {
+                    if (useCase != null && useCase.getController() != null) {
+                        if (!useCase.getController().getName().equals(this.getName())) {
                             controllers.add((AngularController) useCase.getController());
                         }
                     }
                 }
             }
-            
-            if(_action.getTarget() instanceof AngularFinalStateLogicImpl) {
-                
+
+            if (_action.getTarget() instanceof AngularFinalStateLogicImpl) {
+
                 AngularFinalStateLogicImpl state = (AngularFinalStateLogicImpl) _action.getTarget();
                 controllers.add((AngularController) state.getTargetController());
             }
         }
-        
+
         return controllers;
     }
 }

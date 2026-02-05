@@ -111,4 +111,10 @@ public class MetafacadeAttributeLogicImpl
 
         return val;
     }
+
+    @Override
+    public String getEnumerationLiteralDisplay() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEnumerationLiteralDisplay'");
+    }
 }

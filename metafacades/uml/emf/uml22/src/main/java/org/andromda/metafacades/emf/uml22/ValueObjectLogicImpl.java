@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.TreeSet;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.web.MetafacadeWebProfile;
 import org.apache.commons.lang3.StringUtils;
 
@@ -72,5 +73,13 @@ public class ValueObjectLogicImpl
         String component = StringUtils.stripToNull(((String) this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_PRESENTATION_COMPONENT)));
         
         return component;
+    }
+
+    @Override
+    protected boolean handleIsJavaRecord() {
+
+        String isRecord = StringUtils.stripToNull(((String) this.findTaggedValue(UMLProfile.TAGGEDVALUE_JAVA_RECORD)));
+        
+        return Boolean.valueOf(isRecord);
     }
 }

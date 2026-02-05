@@ -611,16 +611,16 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetEntityCompositePrimaryKeyName()
      */
-    @Override
-    protected String handleGetEntityCompositePrimaryKeyName()
-    {
-        String compPKPattern =
-            String.valueOf(this.getConfiguredProperty(ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN));
+    // @Override
+    // protected String handleGetEntityCompositePrimaryKeyName()
+    // {
+    //     String compPKPattern =
+    //         String.valueOf(this.getConfiguredProperty(ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN));
 
-        return MessageFormat.format(
-            compPKPattern,
-                StringUtils.trimToEmpty(this.getName()));
-    }
+    //     return MessageFormat.format(
+    //         compPKPattern,
+    //             StringUtils.trimToEmpty(this.getName()));
+    // }
 
     /**
      * @see EJB3EntityFacadeLogic#handleGetEntityListenerName()
@@ -638,16 +638,16 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleGetEntityEmbeddableName()
      */
-    @Override
-    protected String handleGetEntityEmbeddableName()
-    {
-        String embeddableSuperclassName =
-            (String)this.getConfiguredProperty(ENTITY_EMBEDDABLE_NAME_PATTERN);
+    // @Override
+    // protected String handleGetEntityEmbeddableName()
+    // {
+    //     String embeddableSuperclassName =
+    //         (String)this.getConfiguredProperty(ENTITY_EMBEDDABLE_NAME_PATTERN);
 
-        return MessageFormat.format(
-            embeddableSuperclassName,
-                StringUtils.trimToEmpty(this.getName()));
-    }
+    //     return MessageFormat.format(
+    //         embeddableSuperclassName,
+    //             StringUtils.trimToEmpty(this.getName()));
+    // }
 
     /**
      * @see EJB3EntityFacadeLogic#handleGetEntityName()
@@ -959,25 +959,25 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleIsEmbeddableSuperclass()
      */
-    @Override
-    protected boolean handleIsEmbeddableSuperclass()
-    {
-        boolean isEmbeddableSuperclass = this.hasStereotype(EJB3Profile.STEREOTYPE_MAPPED_SUPERCLASS);
+    // @Override
+    // protected boolean handleIsEmbeddableSuperclass()
+    // {
+    //     boolean isEmbeddableSuperclass = this.hasStereotype(EJB3Profile.STEREOTYPE_MAPPED_SUPERCLASS);
 
-        /**
-         * Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
-         */
-        return isEmbeddableSuperclass && isRoot();
-    }
+    //     /**
+    //      * Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
+    //      */
+    //     return isEmbeddableSuperclass && isRoot();
+    // }
 
     /**
      * @see EJB3EntityFacadeLogic#handleIsEmbeddableSuperclassGeneralizationExists()
      */
-    @Override
-    protected boolean handleIsEmbeddableSuperclassGeneralizationExists()
-    {
-        return (this.getSuperEntity() != null && this.getSuperEntity().isEmbeddableSuperclass());
-    }
+    // @Override
+    // protected boolean handleIsEmbeddableSuperclassGeneralizationExists()
+    // {
+    //     return (this.getSuperEntity() != null && this.getSuperEntity().isEmbeddableSuperclass());
+    // }
 
     /**
      * @see EJB3EntityFacadeLogic#handleGetAttributesAsList(Collection, boolean, boolean, boolean)
@@ -1081,16 +1081,16 @@ public class EJB3EntityFacadeLogicImpl
     /**
      * @see EJB3EntityFacadeLogic#handleIsCompositePrimaryKeyPresent()
      */
-    @Override
-    protected boolean handleIsCompositePrimaryKeyPresent()
-    {
-        boolean isCompositePK = false;
-        if (this.getIdentifiers().size() > 1)
-        {
-            isCompositePK = true;
-        }
-        return isCompositePK;
-    }
+    // @Override
+    // protected boolean handleIsCompositePrimaryKeyPresent()
+    // {
+    //     boolean isCompositePK = false;
+    //     if (this.getIdentifiers().size() > 1)
+    //     {
+    //         isCompositePK = true;
+    //     }
+    //     return isCompositePK;
+    // }
 
     /**
      * @see EJB3EntityFacadeLogic#handleIsListenerEnabled()

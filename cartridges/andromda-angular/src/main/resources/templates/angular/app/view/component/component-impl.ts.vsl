@@ -35,6 +35,7 @@ import { firstValueFrom, Observable, map, of, startWith } from "rxjs";
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
+
 #set($fields = [])
 #set($buttons = [])
 #foreach($import in $component.imports)
@@ -69,6 +70,8 @@ import { SearchObject } from '@models/search-object';
 import { $component.name } from './${component.fileName}';
 import { TableComponent } from '@components/table/table';
 import { FormField, PathKind, SchemaPathTree } from "@angular/forms/signals";
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @Component({
   selector: "app-${component.selectorName}",
@@ -81,6 +84,8 @@ import { FormField, PathKind, SchemaPathTree } from "@angular/forms/signals";
     MaterialModule,
     TableComponent,
     FormField,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule,
 #if($component.treePresent)
     AsTreeNodePipe,
     CdkTreeNodeToggle,

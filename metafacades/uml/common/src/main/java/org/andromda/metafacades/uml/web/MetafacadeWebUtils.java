@@ -655,6 +655,10 @@ public class MetafacadeWebUtils {
 
     public static Boolean isComponent(final ModelElementFacade element) {
 
+        if(element == null) {
+            return false;
+        }
+
         return element.hasStereotype(UMLProfile.STEREOTYPE_FRONT_END_COMPONENT);
     }
 

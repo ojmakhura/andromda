@@ -21,7 +21,6 @@ import org.springframework.context.MessageSource;
  * @see $service.fullyQualifiedName
  */
 @org.springframework.stereotype.Service("$stringUtils.uncapitalize($service.name)")
-@org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED, readOnly=false)
 #foreach($annotation in $service.additionalAnnotations)
 @$annotation
 #end

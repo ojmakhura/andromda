@@ -250,15 +250,20 @@ ${ident}    <mat-select#if ($multiSelect) multiple size="5"#end id="$propertyId"
 #if ($parameter.type.enumeration)
 ${ident}        <mat-option>
 ${ident}        </mat-option>
-${ident}        @for(key of ${parameter.type.name}Options; track key) {
-${ident}        <mat-option [value]="key">
-${ident}            {{ ${parameter.type.name}T[key] }}
+#foreach($da in $parameter.displayAttributes)
+${ident}        <mat-option [value]="${parameter.type.name}T['${da.name}']">
+${ident}            $da.enumerationLiteralDisplay
 ${ident}        </mat-option>
-${ident}        }
+#end
+## ${ident}        @for(key of ${parameter.type.name}Options; track key) {
+## ${ident}        <mat-option [value]="key">
+## ${ident}            {{ ${parameter.type.name}T[key] }}
+## ${ident}        </mat-option>
+## ${ident}        }
 #else
 ${ident}        <mat-option>
 #if($isComplex)
-${ident}            <ngx-mat-select-search placeholderLabel="'Search'" [formControl]="${propertyId}FilterControl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
+${ident}            <ngx-mat-select-search placeholderLabel="Search" [formControl]="${propertyId}FilterControl" (keyup.enter)="filter$stringUtils.capitalize(${propertyId})()"
 ${ident}                     noEntriesFoundLabel="'No Entries Found'"></ngx-mat-select-search>
 #end
 ${ident}        </mat-option>

@@ -227,4 +227,10 @@ public class EnumerationFacadeLogicImpl
         }
         return type;
     }
+
+    @Override
+    protected String handleGetDisplay() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleGetDisplay'");
+    }
 }

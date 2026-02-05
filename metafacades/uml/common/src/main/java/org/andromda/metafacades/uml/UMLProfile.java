@@ -369,6 +369,12 @@ public class UMLProfile {
                         "PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS");
 
         /**
+         * 'andromda_persistence_enumeration_literal_display'
+         * Used on an enumeration literal to define the enumeration literal parameters.
+         */
+        public static final String TAGGEDVALUE_PERSISTENCE_ENUMERATION_LITERAL_DISPLAY = profile.get(
+                        "PERSISTENCE_ENUMERATION_LITERAL_DISPLAY");
+        /**
          * 'andromda_presentation_controller_usecase'
          * Used to assign the controller to the activity (when it can not be assigned
          * explicitly).
@@ -502,6 +508,15 @@ public class UMLProfile {
          */
         public static final String TAGGEDVALUE_PRESENTATION_IS_TABLE = profile.get(
                         "PRESENTATION_IS_TABLE");
+
+        /**
+         * 'andromda_pjava_record'
+         * Used to indicate whether or not a parameter should be considered a table
+         * (used when no
+         * table columns are specified).
+         */
+        public static final String TAGGEDVALUE_JAVA_RECORD = profile.get(
+                        "JAVA_RECORD");
 
         /**
          * 'andromda_presentation_usecase_activity'

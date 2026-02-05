@@ -38,6 +38,8 @@ import { $import.componentImplementationName } from '@${import.implementationFil
 import { $import.implementationName } from '@components/${import.implementationFilePath}';
 #end
 #end
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @Component({
   selector: '${view.selectorName}',
@@ -51,6 +53,8 @@ import { $import.implementationName } from '@components/${import.implementationF
     TableComponent,
     Loader,
     FormField,
+    ReactiveFormsModule,
+    NgxMatSelectSearchModule,
 #foreach($import in $view.imports)
 #if ($import.restCount>0 && $stringUtils.isNotBlank($import.restPath))
 #elseif(${import.hasStereotype("FrontEndComponent")})

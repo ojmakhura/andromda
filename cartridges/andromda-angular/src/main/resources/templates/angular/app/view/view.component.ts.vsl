@@ -125,6 +125,7 @@ import { ${view.componentImplementationName} } from '@${view.implementationFileP
 #end
 import { ToastrService } from 'ngx-toastr';
 import { Page } from '@app/models/page.model';
+import { FormControl } from '@angular/forms';
 
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {

@@ -182,7 +182,6 @@ $attribute.getDocumentation("     * ")
 #else
 #set($generics = "")
 #end
-## @org.springframework.transaction.annotation.Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRED)
     $operation.visibility $generics$operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
         $operation.throwsClause

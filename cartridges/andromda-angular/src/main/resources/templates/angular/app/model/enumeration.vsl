@@ -27,7 +27,7 @@ export enum $enumeration.name {
 $literal.getDocumentation("     * ")
      */
 #else
-    /** $toDoTag: Model Documentation for Enumeration Literal $literal.name value $literal.enumerationValue */
+    /** $toDoTag: Model Documentation for Enumeration Literal $literal.name value $literal.enumerationValue: $literal.enumerationLiteralDisplay */
 #end
     ${literal.name} = ${literal.enumerationValue}$separator
 #end

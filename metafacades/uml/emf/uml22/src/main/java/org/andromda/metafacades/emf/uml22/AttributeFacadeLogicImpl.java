@@ -217,6 +217,22 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#getEnumerationLiteralDisplay()
+     */
+    @Override
+    protected String handleGetEnumerationLiteralDisplay()
+    {
+
+        String display = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ENUMERATION_LITERAL_DISPLAY);
+        if (StringUtils.isBlank(display))
+        {
+            display = this.getName();
+        }
+
+        return display;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isEnumerationLiteralParametersExist()
      */
     @Override
