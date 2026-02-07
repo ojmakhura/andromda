@@ -11,6 +11,8 @@ package ${service.packageName};
 #else
 #set ( $serviceName = "${service.name}")
 #end
+#set($carriageReturn = "
+")
 /**
  * 
 $service.getDocumentation(" * ")
@@ -21,8 +23,18 @@ public interface ${serviceName} {
 
 #set ($responseStatus = $operation.restResponseStatus)
 #set ($restPath = ${operation.restPath})
-    // $operation.restConsumes
-    $webServiceUtils.getRequestType(${operation.restRequestType})(#if($restPath.length() > 0)value = "${operation.restPath}"#end#if($operation.restConsumes.length() > 0), consumes = $operation.restConsumes#end)
+    $webServiceUtils.getRequestType(${operation.restRequestType})(
+        #if($restPath.length() > 0)value = "${operation.restPath}"#end#if($operation.restConsumes.length() > 0)
+        , consumes = $operation.restConsumes#end#if($operation.restProduces.length() > 0)
+        , produces = $operation.restProduces#end$carriageReturn    )
+## Pre authorise
+#if($operation.preAuthorize.length() > 0)
+    @org.springframework.security.access.prepost.PreAuthorize(value = "$operation.preAuthorize")
+#end
+## Post authorise
+#if($operation.postAuthorize.length() > 0)
+    @org.springframework.security.access.prepost.PostAuthorize(value = "$operation.postAuthorize")
+#end
 #if($operation.returnTypePresent)
 #set ($returnType = "#if($operation.returnType.primitive)$operation.returnType.wrapperName#else$operation.getterSetterReturnTypeName#end")
 #set ($return = "org.springframework.http.ResponseEntity<$returnType>")

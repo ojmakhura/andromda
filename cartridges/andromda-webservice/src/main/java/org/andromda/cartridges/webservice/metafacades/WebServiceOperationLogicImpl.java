@@ -390,7 +390,13 @@ public class WebServiceOperationLogicImpl
         }
         else
         {
-            produces = translateMediaType(produces);
+
+            if(isRest() && StringUtils.isBlank(produces)) {
+                produces = null;
+            } else {
+                produces = translateMediaType(produces);
+            }
+            
         }
         return produces;
     }
@@ -561,7 +567,8 @@ public class WebServiceOperationLogicImpl
         boolean restAtom = false;
         if (rest)
         {
-            restAtom = this.getRestProduces().contains("atom");
+            String produces = this.getRestProduces();
+            restAtom = StringUtils.isNotBlank(produces) ? produces.contains("atom") : false;
             if (!restAtom)
             {
                 restAtom = service.getRestProduces().indexOf("atom") > -1;
@@ -671,7 +678,7 @@ public class WebServiceOperationLogicImpl
 
     @Override
     protected String handleGetPostAuthorize() {
-        String postAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_PRE_AUTHORIZE);
+        String postAuth = (String)this.findTaggedValue(WebServiceGlobals.REST_POST_AUTHORIZE);
         if (!this.isRest() || StringUtils.isBlank(postAuth) || postAuth.equals(DEFAULT))
         {
             postAuth = null;
