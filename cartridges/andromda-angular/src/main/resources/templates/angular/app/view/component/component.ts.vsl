@@ -13,12 +13,8 @@ import {
 } from "@angular/core";
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {
-  FormsModule,
   ReactiveFormsModule,
-  FormGroup,
   FormControl,
-  Validators,
-  FormArray,
 } from "@angular/forms";
 import { SelectItem } from "@app/utils/select-item";
 import { 
@@ -61,7 +57,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@app/material.module';
 import { Page } from "@app/models/page.model";
-import { FormControl } from '@angular/forms';
 
 #set($fields = [])
 #set($buttons = [])

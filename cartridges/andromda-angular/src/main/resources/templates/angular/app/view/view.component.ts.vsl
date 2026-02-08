@@ -41,14 +41,10 @@ import {
 } from "@angular/forms/signals";
 import { ActivatedRoute, Router } from '@angular/router';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-## import { 
-##     FormGroup, 
-##     FormControl, 
-##     FormArray, 
-##     FormBuilder, 
-##     ReactiveFormsModule, 
-##     Validators 
-## } from '@angular/forms';
+import { 
+    FormControl, 
+    ReactiveFormsModule, 
+} from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -125,7 +121,6 @@ import { ${view.componentImplementationName} } from '@${view.implementationFileP
 #end
 import { ToastrService } from 'ngx-toastr';
 import { Page } from '@app/models/page.model';
-import { FormControl } from '@angular/forms';
 
 #if ($view.nonTableVariablesPresent)
 export class $stringUtils.capitalize(${view.varsFormName}) {
