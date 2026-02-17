@@ -44,6 +44,11 @@ public class CartridgeHibernateProfile extends UMLProfile {
         public static final String TAGGEDVALUE_HIBERNATE_QUERY = profile.get("HIBERNATE_QUERY");
 
         /**
+         * andromda_hibernate_query_native: Stores whether a hibernate query string is native.
+         */
+        public static final String TAGGEDVALUE_HIBERNATE_QUERY_NATIVE = profile.get("HIBERNATE_QUERY_NATIVE");
+
+        /**
          * andromda_hibernate_query_useNamedParameters Define whether the marked finder
          * will use named parameters or positional parameters.
          */

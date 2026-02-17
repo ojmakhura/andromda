@@ -140,4 +140,14 @@ public class HibernateFinderMethodLogicImpl
         }
         return useQueryCache;
     }
+
+    @Override
+    protected boolean handleIsNativeQuery() {
+
+        boolean isNativeQuery = Boolean.valueOf(
+                String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY_NATIVE))
+        ).booleanValue();
+
+        return isNativeQuery;
+    }
 }

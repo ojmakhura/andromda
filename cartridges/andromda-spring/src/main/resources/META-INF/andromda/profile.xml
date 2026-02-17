@@ -191,6 +191,17 @@
                     <code>query</code>.
                 </appliedOnElement>
             </element>
+            <element name="HIBERNATE_QUERY_NATIVE">
+                <documentation>
+                    Defines a hibernate query expression. Note that it's encouraged
+                    to model your query body as an OCL constraint (instead of using
+                    this tagged value).
+                </documentation>
+                <value>andromda_hibernate_query_native</value>
+                <appliedOnElement>An Entity operation marked as a
+                    <code>query</code> and <code>native</code>.
+                </appliedOnElement>
+            </element>
             <element name="HIBERNATE_USE_NAMED_PARAMETERS">
                 <documentation>
                     Defines whether the marked finder will use named parameters or not.

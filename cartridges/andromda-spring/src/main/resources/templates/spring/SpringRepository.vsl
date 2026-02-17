@@ -145,6 +145,9 @@ public interface ${entity.name}Repository extends
         value = """
             $finder.getQuery($entity)
         """
+#if($finder.nativeQuery)
+        , nativeQuery = true
+#end
     )
 #end
     $returnType $finder.getSignature(true);
@@ -155,6 +158,9 @@ public interface ${entity.name}Repository extends
         value = """
             $finder.getQuery($entity)
         """
+#if($finder.nativeQuery)
+        , nativeQuery = true
+#end
     )
 #end
     org.springframework.data.domain.Page<$finder.returnType.name> ${finder.name}($finder.typedArgumentList#if($finder.arguments.size() > 0), #{end}org.springframework.data.domain.Pageable pageable);

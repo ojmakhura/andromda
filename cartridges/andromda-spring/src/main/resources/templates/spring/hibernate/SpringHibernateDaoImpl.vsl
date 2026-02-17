@@ -20,8 +20,31 @@
 #if ($stringUtils.isNotBlank($entity.packageName))
 package $entity.packageName;
 #end
+#set ($generatorClass = $entity.findTaggedValue('andromda_hibernate_generator_class'))
+#set ($generationStatergy = $entity.hibernateGenerationTypeStrategy)
+#set ($isUUID = false)
+#if($generatorClass && $generatorClass.contains("uuid"))
+#set ($isUUID = true)
+#end
 ##
 #set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
+#if ($daoInheritance)
+#set ($rootEntityType = $entity.root.fullyQualifiedEntityName)
+#set ($rootDaoType = $entity.root.fullyQualifiedDaoName)
+#else
+#set ($rootEntityType = $entity.fullyQualifiedEntityName)
+#set ($rootDaoType = $entity.fullyQualifiedDaoName)
+#end
+##get entity collection type
+#if ($enableTemplating)
+#if ($daoInheritance)
+#set ($entityCollectionType = "java.util.Collection<? extends ${rootEntityType}>")
+#else
+#set ($entityCollectionType = "java.util.Collection<${rootEntityType}>")
+#end
+#else
+#set ($entityCollectionType = "java.util.Collection")
+#end
 ##
 /**
  * @see $entity.fullyQualifiedName
@@ -78,6 +101,87 @@ public class $entity.daoImplementationName
 
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
+#if($valueObjectRef.targetElement.javaRecord)
+
+    /**
+     * {@inheritDoc}
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
+    {
+
+#set ($entityProperties = $entity.allProperties)
+#foreach ($property in $valueObjectRef.targetElement.allProperties)
+#set ($propertyFound = false)
+#* *##foreach ($entityProperty in $entityProperties)
+#*    *##if ($property.name.equals($entityProperty.name) && (!$entity.compositeIdentifier || !$entityProperty.identifier))
+#set ($propertyFound = true)
+#*      *##set ($entityPropertyGetterValue = false)
+#*      *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "entity.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
+#*      *##if ($entityPropertyGetterValue)
+#*        *##if(${entityProperty.many} && $property.many && !${property.type.arrayType})
+        $property.type.fullyQualifiedName $property.name = new java.util.ArrayList<>())#if(${velocityHasNext}), #end // ${property.name}: optional primitive property - use default value
+#*        *##elseif(${entityProperty.many} != $property.many || ${entityProperty.type.fullyQualifiedName} != ${property.type.fullyQualifiedName})
+        // No conversion for target.${property.name} (can't convert entity.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
+#*        *##else
+        $property.type.fullyQualifiedName $property.name = $entityPropertyGetterValue#if($property.type.stringType && $entityProperty.identifier && $isUUID).toString()#end; 
+#*        *##end
+#*      *##else
+        // No conversion for target.${property.name} (can't convert entity.${entityProperty.getterName}():${entityProperty.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
+#if ($property.type.primitive)
+#set ($defaultValue = 0)
+#if($property.type.longType)
+#set ($defaultValue = "${defaultValue}L")
+#elseif($property.type.floatType)
+#set ($defaultValue = "${defaultValue}F")
+#elseif($property.type.doubleType)
+#set ($defaultValue = "${defaultValue}D")
+#elseif($property.type.booleanType)
+#set ($defaultValue = "false")
+#elseif($property.type.characterType)
+#set ($defaultValue = "'\\u0000'")
+#end
+        $property.type.fullyQualifiedName $property.name = $defaultValue;
+#else
+        $property.type.fullyQualifiedName $property.name = null;
+#end
+
+#*      *##end
+#*    *##end
+#* *##end
+#if(!$propertyFound)
+        // No matching property found for target.${property.name} in entity ${entity.fullyQualifiedName}
+#if ($property.type.primitive)
+#set ($defaultValue = 0)
+#if($property.type.longType)
+#set ($defaultValue = "${defaultValue}L")
+#elseif($property.type.floatType)
+#set ($defaultValue = "${defaultValue}F")
+#elseif($property.type.doubleType)
+#set ($defaultValue = "${defaultValue}D")
+#elseif($property.type.booleanType)
+#set ($defaultValue = "false")
+#elseif($property.type.characterType)
+#set ($defaultValue = "'\\u0000'")
+#end
+        $property.type.fullyQualifiedName $property.name = $defaultValue;
+#else
+        $property.type.fullyQualifiedName $property.name = null;
+#end
+#end
+#end
+
+        return new ${valueObjectRef.targetElement.fullyQualifiedName}(
+#foreach ($property in $valueObjectRef.targetElement.allProperties)
+            $property.name#if(${velocityHasNext}), 
+#end
+#end
+        );
+    }
+
+#else
     /**
      * {@inheritDoc}
      */
@@ -175,6 +279,7 @@ public class $entity.daoImplementationName
 #end
 #end
     }
+#end
 #end
 }
 #end

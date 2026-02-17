@@ -122,7 +122,8 @@ public class SpringQueryOperationLogicImpl
             Object value = this.findTaggedValue(CartridgeHibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY);
             if (value != null) {
                 // remove any excess whitespace
-                builder.append(((String) value).replaceAll("[$\\s]+", " "));
+                // builder.append(((String) value).replaceAll("[$\\s]+", " "));
+                builder.append(((String) value));
             }
         } else {
             builder.append(queryString);
@@ -275,5 +276,15 @@ public class SpringQueryOperationLogicImpl
         // }
 
         return builder.toString();
+    }
+
+    @Override
+    protected boolean handleIsNativeQuery() {
+        
+        boolean isNativeQuery = Boolean.valueOf(
+                String.valueOf(findTaggedValue(CartridgeHibernateProfile.TAGGEDVALUE_HIBERNATE_QUERY_NATIVE))
+        ).booleanValue();
+
+        return isNativeQuery;
     }
 }

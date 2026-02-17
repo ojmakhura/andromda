@@ -199,4 +199,12 @@ public class JavaClassLogicImpl
         }
         return fullName;
     }
+
+    @Override
+    protected Boolean handleGetJavaRecord() {
+
+        String taggedValue = (String) this.findTaggedValue("andromda_java_record");
+
+        return BooleanUtils.toBoolean(Objects.toString(taggedValue, ""));
+    }
 }

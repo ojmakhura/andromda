@@ -69,6 +69,23 @@ public interface $entity.daoName
     public void toEntities(final java.util.Collection#if($enableTemplating)<?>#end results);
 
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
+#if($valueObjectRef.targetElement.javaRecord)
+     /**
+     * Converts this DAO's entity to an object of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * @param entity
+     * @return $valueObjectRef.targetElement.fullyQualifiedName
+     */
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
+
+     /**
+     * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+     * @param entities
+     * @return Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end
+
+     */
+    public Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities);
+    
+#else
     /**
      * This constant is used as a transformation flag; entities can be converted automatically into value objects
      * or other types, different methods in a class implementing this interface support this feature: look for
@@ -138,6 +155,7 @@ public interface $entity.daoName
      */
     public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances);
 
+#end
 #end
 #set($identifierTypeName="${entity.fullyQualifiedIdentifierTypeName}")
 #set($identifierName="${entity.identifierName}")
@@ -245,8 +263,10 @@ $operation.getDocumentation("     * ")
      * <ul>
      *   <li>{@link $entity.fullyQualifiedName} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
+#if(!$valueObjectRef.targetElement.javaRecord)
 #set ($targetElement = $valueObjectRef.targetElement)
      *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${esc.hash}${valueObjectRef.transformationConstantName}}</li>
+#end
 #end
      * </ul>
 #end

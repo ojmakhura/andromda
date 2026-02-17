@@ -127,6 +127,11 @@ public class SpringProfile
     public static final String TAGGEDVALUE_HIBERNATE_QUERY = PROFILE.get("HIBERNATE_QUERY");
 
     /**
+     * Stores whether a hibernate query string is native.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_QUERY_NATIVE = PROFILE.get("HIBERNATE_QUERY_NATIVE");
+
+    /**
      * Stores the hibernate inheritance use for entities.
      */
     public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = PROFILE.get("HIBERNATE_INHERITANCE");

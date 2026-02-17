@@ -14,8 +14,7 @@
 package $class.packageName;
 #end
 
-// $useLombok
-
+#if(!$class.javaRecord)
 #if ($serializable && !$class.generalization)
 import java.io.Serializable;
 #end
@@ -747,4 +746,80 @@ $connectingEnd.getDocumentation("     * ")
 #end
     // ${class.fullyQualifiedName} value-object java merge-point
 }
+#else
+
+#set ($className = "$class.name")
+//$className
+public record $className (
+    // Record attributes
+#set ($i = 0)
+#foreach ($attribute in $class.attributes)
+#if ($stringUtils.isBlank($attribute.getDocumentation("", 9999, false)))
+    /** $toDoTag: Model Documentation for attribute $attribute.name */
+#else
+    /**
+$attribute.getDocumentation("     * ")
+     */
+#end
+#set ($returnType = $attribute.getterSetterTypeName)
+#foreach($annotation in $attribute.additionalAnnotations)
+    @$annotation
+#end
+#if (!$attribute.derived && !$attribute.primitive && ($attribute.required || $attribute.readOnly))
+    @lombok.NonNull
+#end
+    $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#if($attribute.type.longType)L#end#end#if($i < $class.attributes.size() - 1),#end
+#set ($i = $i + 1)
+#end
+
+) {
+##
+##  constructor taking only required properties
+##
+#if ($class.allProperties.size() > $class.allRequiredConstructorParameters.size() && ($class.allRequiredConstructorParameters.size() != 1 || !$class.allRequiredConstructorParameters.get(0).getterSetterTypeName.equals($class.fullyQualifiedName)))
+    /**
+     * Constructor taking only required properties
+#foreach ($property in $class.allRequiredConstructorParameters)
+     * @param ${property.name}In $property.getterSetterTypeName#if ($stringUtils.isNotBlank(${property.getDocumentation("")})) ${property.getDocumentation("")}#end
+
+#end
+     */
+    public ${className}(## no newline
+#foreach ($property in $class.allRequiredConstructorParameters)
+final ${property.getterSetterTypeName} ${property.name}In#if(${velocityHasNext}), #end## no newline
+#end
+)
+    {
+        this(
+#set ($i = 0)
+#foreach ($property in $class.allProperties)
+#if($property.required)
+            ${property.name}In#if(${velocityHasNext}), #end // ${property.name}: required property - use constructor argument
+#else
+#if ($attribute.type.primitive)
+#set ($defaultValue = 0)
+#if($attribute.type.longType)
+#set ($defaultValue = "${defaultValue}L")
+#elseif($attribute.type.floatType)
+#set ($defaultValue = "${defaultValue}F")
+#elseif($attribute.type.doubleType)
+#set ($defaultValue = "${defaultValue}D")
+#elseif($attribute.type.booleanType)
+#set ($defaultValue = "false")
+#elseif($attribute.type.characterType)
+#set ($defaultValue = "'\\u0000'")
+#end
+            $defaultValue#if(${velocityHasNext}), #end // ${property.name}: optional primitive property - use default value
+#else
+            null#if(${velocityHasNext}), #end // ${property.name}: optional non-primitive property - use null
+#end
+#end
+#set ($i = $i + 1)
+#end
+        );
+    }
+
+#end
+}
+#end
 #end
