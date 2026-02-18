@@ -732,31 +732,6 @@
                     The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
                 </documentation>
             </property>
-            <property name="hikariConnectionTimeout" required="false">
-                <documentation>
-                    Connection timeout for the HikariCP.
-                </documentation>
-            </property>
-            <property name="hikariIdleTimeout" required="false">
-                <documentation>
-                    Timeout for idle connections for the HikariCP.
-                </documentation>
-            </property>
-            <property name="hikariMaxLifetime" required="false">
-                <documentation>
-                    Maximum lifetime of a HikariCP.
-                </documentation>
-            </property>
-            <property name="hikariMinimumIdle" required="false">
-                <documentation>
-                    Minimum idle connections in the HikariCP.
-                </documentation>
-            </property>
-            <property name="hikariMaximumPoolsize" required="false">
-                <documentation>
-                    The maximum size of the HikariCP.
-                </documentation>
-            </property>
             <property name="sessionFactory">
                 <default>org.springframework.orm.hibernate5.LocalSessionFactoryBean</default>
                 <documentation>
@@ -1186,6 +1161,30 @@
             <property name="hibernateJndiName" required="false">
                 <documentation>
                     JNDI name bound to the SessionFactory.
+                </documentation>
+            </property><property name="hikariConnectionTimeout" required="false">
+                <documentation>
+                    This property controls the maximum number of milliseconds that a client will wait for a connection from the pool. If this time is exceeded without a connection becoming available, a SQLException will be thrown from DataSource.getConnection(). Default: 30000 (30 seconds).
+                </documentation>
+            </property>
+            <property name="hikariIdleTimeout" required="false">
+                <documentation>
+                    This property controls the maximum amount of time that a connection is allowed to sit idle in the pool. Whether or not an idle connection will be retired is subject to a maximum variation of +30 seconds, and average variation of +15 seconds. A connection will never be retired before this timeout. Default: 600000 (10 minutes).
+                </documentation>
+            </property>
+            <property name="hikariMaxLifetime" required="false">
+                <documentation>
+                    This property controls the maximum lifetime of a connection in the pool. Whether or not an idle connection will be retired is subject to a maximum variation of +30 seconds, and average variation of +15 seconds. A connection will never be retired before this timeout. Default: 1800000 (30 minutes).
+                </documentation>
+            </property>
+            <property name="hikariMinimumIdle" required="false">
+                <documentation>
+                    This property controls the minimum number of idle connections that HikariCP tries to maintain in the pool. If the idle connections dip below this value, HikariCP will make a best effort to add additional connections quickly and efficiently. Default: 10.
+                </documentation>
+            </property>
+            <property name="hikariMaximumPoolsize" required="false">
+                <documentation>
+                    This property controls the maximum number of connections that HikariCP will maintain in the pool. Default: 10.
                 </documentation>
             </property>
             <property name="hibernateDialect" required="false">

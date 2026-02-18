@@ -52,6 +52,11 @@
     <property reference="hibernateUseOuterJoin"/>
     <property reference="hibernateShowSql"/>
     <property reference="hibernateJndiName"/>
+    <property reference="hikariConnectionTimeout"/>
+    <property reference="hikariIdleTimeout"/>
+    <property reference="hikariMaxLifetime"/>
+    <property reference="hikariMinimumIdle"/>
+    <property reference="hikariMaximumPoolsize"/>
     <property reference="hibernateDialect"/>
     <property reference="hibernateDefaultSchema"/>
     <property reference="hibernateMaxFetchDepth"/>
