@@ -14,10 +14,11 @@
 package $class.packageName;
 #end
 
-#if(!$class.javaRecord)
 #if ($serializable && !$class.generalization)
 import java.io.Serializable;
 #end
+
+#if(!$class.javaRecord)
 #set ($XMLOutput=$XMLBindingAnnotations && !$class.hasStereotype("NoXml"))
 #if ($XMLOutput)
 import javax.xml.bind.annotation.XmlAccessType;
@@ -772,7 +773,7 @@ $attribute.getDocumentation("     * ")
 #set ($i = $i + 1)
 #end
 
-) {
+) implements Serializable {
 ##
 ##  constructor taking only required properties
 ##

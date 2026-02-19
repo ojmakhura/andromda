@@ -29,6 +29,9 @@ import org.springframework.context.MessageSource;
  *
  * @see $service.fullyQualifiedName
  */
+#foreach($annotation in $service.additionalAnnotations)
+@$annotation
+#end
 public abstract class $service.baseName
 #if($service.generalization)
     extends $service.generalization.fullyQualifiedImplementationName
@@ -181,6 +184,9 @@ $attribute.getDocumentation("     * ")
 #set($generics = "$umlMetafacadeUtils.getGenericTemplate($operation, $enableTemplating) ")
 #else
 #set($generics = "")
+#end
+#foreach($annotation in $operation.additionalAnnotations)
+    @$annotation
 #end
     $operation.visibility $generics$operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)

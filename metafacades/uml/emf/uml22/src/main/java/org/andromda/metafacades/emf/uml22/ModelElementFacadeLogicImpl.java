@@ -1299,7 +1299,17 @@ public class ModelElementFacadeLogicImpl
         Collection<String> annotations = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {
-            annotations.add(o.toString());
+            String annotation = o.toString();
+            if (StringUtils.isNotBlank(annotation))
+            {
+                if(annotation.startsWith("@"))
+                {
+                    annotation = annotation.substring(1);
+                }
+
+                annotations.add(annotation);
+            } 
+            
         }
         return annotations;
     }
@@ -1309,7 +1319,11 @@ public class ModelElementFacadeLogicImpl
         Collection<String> extensions = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_EXTENDS))
         {
-            extensions.add(o.toString());
+            String extension = o.toString();
+            if (StringUtils.isNotBlank(extension))
+            {
+                extensions.add(extension);
+            }
         }
         return extensions;
     }
@@ -1320,7 +1334,11 @@ public class ModelElementFacadeLogicImpl
         Collection<String> implementations = new ArrayList<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_IMPLEMENTS))
         {
-            implementations.add(o.toString());
+            String implementation = o.toString();
+            if (StringUtils.isNotBlank(implementation))
+            {
+                implementations.add(implementation);
+            }
         }
         return implementations;
     }
