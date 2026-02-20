@@ -9,6 +9,8 @@
 package $entity.packageName;
 #end
 #set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 #set ($generatorClass = $entity.findTaggedValue('andromda_hibernate_generator_class'))
 #set ($generationStatergy = $entity.hibernateGenerationTypeStrategy)
@@ -26,97 +28,8 @@ package $entity.packageName;
 #end
 #end
 #end
-public interface ${entity.name}Repository extends 
-        org.springframework.data.jpa.repository.JpaRepository<${entity.name}, $typeName>,
-        org.springframework.data.jpa.repository.JpaSpecificationExecutor<${entity.name}> {
+public interface ${entity.name}Repository extends JpaRepository<${entity.name}, $typeName>, JpaSpecificationExecutor<${entity.name}> {
 
-#set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
-#foreach($attribute in $entity.attributes)
-#set ($attributeTypeName = $attribute.getterSetterTypeName)
-#if($attribute.identifier) 
-#if($isUUID)
-#set ($attributeTypeName = "java.util.UUID")
-#end
-#end
-#if ($attribute.containsEmbeddedObject)
-#set ($attributeTypeName = $attribute.type.fullyQualifiedEntityName)
-#end
-#if (!$attribute.transient)
-#if(!$attribute.many)
-    // Generating pageable query method for $attribute.name
-#if($attribute.unique && $attribute.name != "id" && !$attribute.type.blobType && !$attribute.type.fileType)
-    $entity.name findBy${stringUtils.capitalize($attribute.name)}($attributeTypeName $attribute.name);
-
-#end
-#if($attribute.unique && $attribute.name != "id" && $attribute.type.clobType && $attribute.type.blobType && $attribute.type.fileType)
-    $entity.name findBy${stringUtils.capitalize($attribute.name)}($attributeTypeName $attribute.name);
-
-#elseif(!$attribute.required)
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Null(org.springframework.data.domain.Pageable pageable);
-
-#elseif(!$attribute.booleanType)
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-
-#else
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}False();
-
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}True();
-
-#end
-## Other derived queries
-#if($attribute.type.stringType)
-#if(!$attribute.identifier && !$isUUID)
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}StartingWithIgnoreCase($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}EndingWithIgnoreCase($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}ContainingIgnoreCase($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LikeIgnoreCase($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotLikeIgnoreCase($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Containing($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-#end
-#elseif($attribute.type.dateType)
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}After($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Before($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attributeTypeName ${attribute.name}Start, $attributeTypeName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
-    
-#elseif($attribute.type.integerType || 
-        $attribute.type.floatType || 
-        $attribute.type.doubleType || 
-        $attribute.type.longType)
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThanEqual($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThanEqual($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}LessThan($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}GreaterThan($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Between($attributeTypeName ${attribute.name}Start, $attributeTypeName ${attribute.name}End, org.springframework.data.domain.Pageable pageable);
-    
-#end
-#end
-## list as search parameter
-#if(!$attribute.type.primitive)
-    // Search by a list of parameters
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}Not($attributeTypeName $attribute.name);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}Not($attributeTypeName $attribute.name, org.springframework.data.domain.Pageable pageable);
-    
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attributeTypeName> ${attribute.name}s);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}In(java.util.List<$attributeTypeName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
-    
-    java.util.List<$entity.name> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attributeTypeName> ${attribute.name}s);
-    org.springframework.data.domain.Page<${entity.name}> findBy${stringUtils.capitalize($attribute.name)}NotIn(java.util.List<$attributeTypeName> ${attribute.name}s, org.springframework.data.domain.Pageable pageable);
-
-#end
-#end
-#end
 ## Deal with query operations
 #if ($daoInheritance)
 #set ($queryOperations = $entity.getQueryOperations(true))
@@ -128,7 +41,7 @@ public interface ${entity.name}Repository extends
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
 #if ($finder.returnTypePresent)
-#if ($finder.returnType.collectionType || $finder.returnParameter.many)
+#if ($finder.returnType.collectionType || $finder.returnParameter.many || $finder.returnType.setType || $finder.returnType.listType)
 #set ($returnType = "${finder.getterSetterReturnTypeName}")
 #elseif ($finder.many)
 #set ($returnType = "$finder.getterSetterReturnTypeName.substring(0,$finder.getterSetterReturnTypeName.indexOf('<'))<$finder.returnType.name>")
@@ -150,9 +63,12 @@ public interface ${entity.name}Repository extends
 #end
     )
 #end
+#if (!($finder.returnType.collectionType || $finder.returnParameter.many || $finder.returnType.setType || $finder.returnType.listType))
+#set ($returnType = "java.util.Optional<$returnType>")
+#end
     $returnType $finder.getSignature(true);
 
-#if ($finder.returnType.collectionType || $finder.returnParameter.many)
+#if ($finder.returnType.collectionType || $finder.returnParameter.many || $finder.returnType.setType || $finder.returnType.listType)
 #if($stringUtils.isNotBlank($finder.query))
     @org.springframework.data.jpa.repository.Query(
         value = """
@@ -188,7 +104,7 @@ public interface ${entity.name}Repository extends
 #end
 
     )
-#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many))
+#if ($finder.returnType.setType || !($finder.returnType.collectionType || $finder.many || $finder.returnType.setType || $finder.returnType.listType))
 #set ($rtype = "java.util.Set")
 #else
 #set ($rtype = "java.util.List") 

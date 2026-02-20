@@ -29,3 +29,6 @@ andromdapp:
 	mvn install -f andromda-andromdapp/ -Dmaven.test.skip=true
 
 full: clean-config clean-parent clean-model-archiver clean-maven clean maven-config maven-parent model-archiver install andromdapp
+
+cartridges: 
+	mvn install -f cartridges -Dmaven.test.skip=true
