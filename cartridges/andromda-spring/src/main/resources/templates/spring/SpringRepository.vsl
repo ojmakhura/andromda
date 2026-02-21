@@ -37,7 +37,6 @@ public interface ${entity.name}Repository extends JpaRepository<${entity.name}, 
 #set ($queryOperations = $entity.queryOperations)
 #end
 #foreach ($finder in $queryOperations)
-## #if($stringUtils.isNotBlank($finder.query))
 #set($criteriaArgument = $finder.criteriaArgument)
 #set($criteriaArgumentName = $criteriaArgument.name)
 #if ($finder.returnTypePresent)
@@ -83,7 +82,6 @@ public interface ${entity.name}Repository extends JpaRepository<${entity.name}, 
 
 #end
 #end
-## #end
 #if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
     @org.springframework.data.jpa.repository.Query(
