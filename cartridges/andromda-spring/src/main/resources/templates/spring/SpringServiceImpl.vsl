@@ -35,6 +35,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
         $ref.targetElement.fullyQualifiedDaoName ${ref.name}Dao,
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
+        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper,
 #end
         MessageSource messageSource
     ) {
@@ -46,6 +47,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #foreach($ref in $service.entityReferences)
             ${ref.name}Dao,
             ${stringUtils.uncapitalize($ref.name)}Repository,
+            ${stringUtils.uncapitalize($ref.name)}Mapper,
 #end
             messageSource
         );
