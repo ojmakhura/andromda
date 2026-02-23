@@ -46,6 +46,7 @@ public abstract class $service.baseName
     protected final $ref.targetElement.fullyQualifiedDaoName $ref.daoName;
 #set ($ent = $ref.targetElement)
     protected final ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
+    protected final ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper;
 #end
     protected final MessageSource messageSource;
 
@@ -57,6 +58,7 @@ public abstract class $service.baseName
         $ref.targetElement.fullyQualifiedDaoName $ref.daoName,
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
+        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper,
 #end
         MessageSource messageSource
     ) {
@@ -66,6 +68,7 @@ public abstract class $service.baseName
 #foreach($ref in $service.entityReferences)
         this.$ref.daoName = $ref.daoName;
         this.${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
+        this.${stringUtils.uncapitalize($ref.name)}Mapper = ${stringUtils.uncapitalize($ref.name)}Mapper;
 #end
         this.messageSource = messageSource;
     }
