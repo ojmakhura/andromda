@@ -55,7 +55,11 @@ export class $umlUtils.getClassDeclaration($class, $className, $enableTemplating
 #if($attribute.many || $attribute.type.listType|| $attribute.type.collectionType|| $attribute.type.arrayType|| $attribute.type.setType)
 #set($defaultValue = "[]")
 #else
+#if (!$attribute.many && $attribute.defaultValuePresent) 
+#set($defaultValue = ${attribute.defaultValue})
+#else
 #set($defaultValue = "null")
+#end
 #end
         this.$attribute.name = $defaultValue;
 #end
