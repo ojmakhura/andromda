@@ -95,7 +95,7 @@
 #if(!$enumerations.empty)
 #foreach($enumeration in $enumerations)
 #foreach ($literal in $enumeration.literals)
-  "${enumeration.messageKey}.${literal.name}": "$stringUtils.toPhrase($literal.name)",
+  "${enumeration.messageKey}.${literal.name}": "$stringUtils.upperCamelCaseName($stringUtils.toPhrase($literal.name))",
 #end
 #end
 #end
