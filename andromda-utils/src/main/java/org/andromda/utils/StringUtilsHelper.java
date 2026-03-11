@@ -195,6 +195,42 @@ public class StringUtilsHelper
     }
 
     /**
+     * Converts the argument into a string suitable as a human readable phrase,
+     * all lowercase characters, words are separated by a space.
+     *
+     * @param string any string
+     * @return the string converted to a value that would be well-suited for a
+     *         human readable phrase
+     */
+    public static String toLowerCasePhrase(final String string) 
+    {
+        if (StringUtils.isEmpty(string))
+        {
+            return string;
+        }
+
+        final String[] parts = splitAtNonWordCharacters(string);
+        final StringBuilder conversionBuffer = new StringBuilder();
+        for (String part : parts)
+        {
+            if (part.length() < 2)
+            {
+                conversionBuffer.append(part.toUpperCase());
+            }
+            else
+            {
+                if(conversionBuffer.length() > 0) {
+                    conversionBuffer.append(" ");
+                }
+
+                conversionBuffer.append(part.substring(0, 1).toUpperCase())
+                                .append(part.substring(1).toLowerCase());
+            }
+        }
+        return conversionBuffer.toString();
+    }
+
+    /**
      * Converts the argument to lowercase, removes all non-word characters, and
      * replaces each of those sequences by the separator.
      * @param string
