@@ -2849,8 +2849,8 @@ public class WebServiceUtils
             builder.append(required)
                     .append(") ");
 
-            if(param.isRequired()) {
-                builder.append("@org.jspecify.annotations.Nullable ");
+            if(!param.isRequired()) {
+                builder.append("@Nullable ");
             }
 
             if(isRequestBody) {

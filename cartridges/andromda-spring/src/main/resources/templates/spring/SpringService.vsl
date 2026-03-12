@@ -71,7 +71,7 @@ $operation.getDocumentation("     * ")
      * @throws $exception.fullyQualifiedName
 #end
      */
-    #if($enableTemplating && !$operation.templateParameters.empty)$umlMetafacadeUtils.getGenericTemplate($operation, $enableTemplating) #end$operation.getterSetterReturnTypeName $operation.signature#if ($operation.exceptionsPresent) $operation.throwsClause#end;
+    #if($enableTemplating && !$operation.templateParameters.empty)$umlMetafacadeUtils.getGenericTemplate($operation, $enableTemplating) #end#if(!$operation.returnParameter.required)@org.jspecify.annotations.Nullable #end$operation.getterSetterReturnTypeName $operation.signature#if ($operation.exceptionsPresent) $operation.throwsClause#end;
 
 #end
 #end

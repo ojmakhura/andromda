@@ -50,6 +50,6 @@ public interface ${serviceName} {
 #else
 #set ($return = "void")
 #end
-    $operation.visibility $return ${operation.name}(#getOperationArgs($operation)) throws Exception;
+    $operation.visibility #if(!$operation.returnParameter.required)@org.jspecify.annotations.Nullable #end$return ${operation.name}(#getOperationArgs($operation)) throws Exception;
 #end
 }

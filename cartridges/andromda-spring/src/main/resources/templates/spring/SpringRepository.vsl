@@ -9,8 +9,6 @@
 package $entity.packageName;
 #end
 #set ($daoInheritance = $entity.generalization && $daoInheritanceEnabled)
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 #set ($generatorClass = $entity.findTaggedValue('andromda_hibernate_generator_class'))
 #set ($generationStatergy = $entity.hibernateGenerationTypeStrategy)
@@ -20,7 +18,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 #end
 #if($entity.identifiers.size() == 1) 
 #if($isUUID)
-#set ($typeName = "java.util.UUID")
+#set ($typeName = "UUID")
+import java.util.UUID;
 #else
 #set ($typeName = $entity.identifiers.get(0).getterSetterTypeName)
 #if ($entity.identifiers.get(0).containsEmbeddedObject)
@@ -28,6 +27,14 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 #end
 #end
 #end
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
 public interface ${entity.name}Repository extends JpaRepository<${entity.name}, $typeName>, JpaSpecificationExecutor<${entity.name}> {
 
 ## Deal with query operations
@@ -53,7 +60,7 @@ public interface ${entity.name}Repository extends JpaRepository<${entity.name}, 
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
 #set ($typedAttributes = "")
 #if($stringUtils.isNotBlank($finder.query))
-    @org.springframework.data.jpa.repository.Query(
+    @Query(
         value = """
             $finder.getQuery($entity)
         """
@@ -63,13 +70,13 @@ public interface ${entity.name}Repository extends JpaRepository<${entity.name}, 
     )
 #end
 #if (!($finder.returnType.collectionType || $finder.returnParameter.many || $finder.returnType.setType || $finder.returnType.listType))
-#set ($returnType = "java.util.Optional<$returnType>")
+#set ($returnType = "Optional<$returnType>")
 #end
     $returnType $finder.getSignature(true);
 
 #if ($finder.returnType.collectionType || $finder.returnParameter.many || $finder.returnType.setType || $finder.returnType.listType)
 #if($stringUtils.isNotBlank($finder.query))
-    @org.springframework.data.jpa.repository.Query(
+    @Query(
         value = """
             $finder.getQuery($entity)
         """
@@ -78,13 +85,13 @@ public interface ${entity.name}Repository extends JpaRepository<${entity.name}, 
 #end
     )
 #end
-    org.springframework.data.domain.Page<$finder.returnType.name> ${finder.name}($finder.typedArgumentList#if($finder.arguments.size() > 0), #{end}org.springframework.data.domain.Pageable pageable);
+    Page<$finder.returnType.name> ${finder.name}($finder.typedArgumentList#if($finder.arguments.size() > 0), #{end}Pageable pageable);
 
 #end
 #end
 #if($entity.manageableDaoName && $entity.manageableAttributes.size() > 0)
 #set ($entityIdVariable = $stringUtils.uncapitalize(${entity.name}).substring(0,1))
-    @org.springframework.data.jpa.repository.Query(
+    @Query(
         value = "SELECT $entityIdVariable FROM ${entity.name} AS $entityIdVariable \n" +
         "WHERE \n" +
 #set ($i = 1)

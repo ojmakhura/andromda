@@ -278,6 +278,9 @@ public class MetafacadeUtils
                 //     type = sp[0] + parameter.getGenericTypeString();
 
                 // }
+
+                type = type.replaceAll("java.lang.", "");
+                
             }
 
             if (commaNeeded)
@@ -291,11 +294,11 @@ public class MetafacadeUtils
                 buffer.append(' ');
             }
 
-            if(!parameter.isRequired()) {
+            // if(!parameter.isRequired()) {
 
-                buffer.append(at);
-                buffer.append("org.jspecify.annotations.Nullable ");
-            }
+            //     buffer.append(at);
+            //     buffer.append("org.jspecify.annotations.Nullable ");
+            // }
 
             if(parameter.getType() != null && parameter.getType().getAttributes().size() > 0) {
                 buffer.append(at).append("jakarta.validation.Valid ");
