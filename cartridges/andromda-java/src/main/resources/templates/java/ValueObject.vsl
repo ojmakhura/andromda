@@ -233,7 +233,11 @@ $attribute.getDocumentation("     * ")
     @$annotation
 #end
 #if (!$attribute.derived && !$attribute.primitive && ($attribute.required || $attribute.readOnly))
-    @lombok.NonNull
+    @org.jspecify.annotations.NonNull
+#else
+#if (!$attribute.derived && !$attribute.primitive)
+    @org.jspecify.annotations.Nullable
+#end
 #end
     protected $returnType $attribute.name#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#if($attribute.type.longType)L#end#end;
 #if ($attribute.type.primitive)
@@ -767,7 +771,11 @@ $attribute.getDocumentation("     * ")
     @$annotation
 #end
 #if (!$attribute.derived && !$attribute.primitive && ($attribute.required || $attribute.readOnly))
-    @lombok.NonNull
+    @org.jspecify.annotations.NonNull
+#else
+#if (!$attribute.derived && !$attribute.primitive)
+    @org.jspecify.annotations.Nullable
+#end
 #end
     $returnType $attribute.name#if($i < $class.attributes.size() - 1),#end
 #set ($i = $i + 1)

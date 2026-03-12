@@ -223,6 +223,17 @@ public class MetafacadeUtils
                 buffer.append(modifier);
                 buffer.append(' ');
             }
+
+            if(!parameter.isRequired()) {
+
+                buffer.append(at);
+                buffer.append("org.jspecify.annotations.Nullable ");
+            }
+
+            if(parameter.getType() != null && parameter.getType().getAttributes().size() > 0) {
+                buffer.append(at).append("jakarta.validation.Valid ");
+            }
+
             buffer.append(type);
             if (withArgumentNames)
             {
@@ -273,11 +284,23 @@ public class MetafacadeUtils
             {
                 buffer.append(", ");
             }
+            
             if (StringUtils.isNotBlank(modifier))
             {
                 buffer.append(modifier);
                 buffer.append(' ');
             }
+
+            if(!parameter.isRequired()) {
+
+                buffer.append(at);
+                buffer.append("org.jspecify.annotations.Nullable ");
+            }
+
+            if(parameter.getType() != null && parameter.getType().getAttributes().size() > 0) {
+                buffer.append(at).append("jakarta.validation.Valid ");
+            }
+
             buffer.append(type);
             if (withArgumentNames)
             {

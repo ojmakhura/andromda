@@ -459,6 +459,21 @@
             </modelElement>
         </modelElements>
     </template>
+
+    <template
+        path="templates/spring/package-info.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
     <template
         path="templates/spring/EntityMapper.java.vsl"
         outputPattern="$generatedFile"
@@ -1071,6 +1086,36 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/package-info.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/package-info.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
                     <property name="richClient">true</property>
                 </type>
             </modelElement>

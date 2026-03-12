@@ -2840,20 +2840,24 @@ public class WebServiceUtils
                 }
             }
 
-            builder.append("@org.springframework.web.bind.annotation.");
-            builder.append(annotation);
+            builder.append("@org.springframework.web.bind.annotation.")
+                    .append(annotation);
 
             if(!isRequestBody)
-                builder.append(param.getName() + "\", ");
+                builder.append(param.getName()).append("\", ");
             
-            builder.append(required);
-            builder.append(")");
+            builder.append(required)
+                    .append(") ");
 
-            if(builder.length() > 0) {
-                builder.append(" ");
+            if(param.isRequired()) {
+                builder.append("@org.jspecify.annotations.Nullable ");
             }
 
-            builder.append(param.getGetterSetterTypeName() + " " + param.getName());
+            if(isRequestBody) {
+               builder.append("@jakarta.validation.Valid ");
+            }
+
+            builder.append(param.getGetterSetterTypeName()).append(" ").append(param.getName());
 
             args.add(builder.toString());
         }

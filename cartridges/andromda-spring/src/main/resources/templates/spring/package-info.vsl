@@ -1,0 +1,12 @@
+// license-header ${implementationLanguage} merge-point
+#set ($generatedFile = "${service.implementationPackagePath}/package-info.${implementationLanguage}")
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ * TEMPLATE:    package-info.vsl in andromda-spring cartridge
+ * MODEL CLASS: $service.validationName
+ */
+@NullMarked
+package $service.implementationPackageName;
+
+import org.jspecify.annotations.NullMarked;

@@ -1,5 +1,6 @@
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
@@ -29,6 +30,18 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!-- Hibernate Validator (Reference Implementation) -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.3.Final</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -64,7 +77,8 @@
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
-            <!--Perform xslt transformation of namespace.xml for site generation-->
+            <!--Perform
+            xslt transformation of namespace.xml for site generation-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
@@ -79,10 +93,13 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
-                            <pomFile>${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
+                            <file>
+                                ${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.jar</file>
+                            <pomFile>
+                                ${project.basedir}/../../../lib/org/andromda/bootstrap/translationlibraries/andromda-ocl-validation-library.pom</pomFile>
                             <version>${project.version}</version>
-                            <sources>${project.build.directory}/${project.artifactId}-${project.version}-sources.jar</sources>
+                            <sources>
+                                ${project.build.directory}/${project.artifactId}-${project.version}-sources.jar</sources>
                         </configuration>
                     </execution>
                 </executions>

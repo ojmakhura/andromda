@@ -1198,6 +1198,20 @@
             </modelElement>
         </modelElements>
     </template>
+    <template
+        path="templates/webservice/springws/package-info.vsl"
+        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/package-info.java"
+        outlet="webservice-impl"
+        overwrite="false"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
 
     <!-- cartridge-template merge-point -->
 
