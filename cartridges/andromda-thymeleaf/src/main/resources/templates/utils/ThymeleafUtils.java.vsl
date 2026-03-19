@@ -175,7 +175,7 @@ public class ThymeleafUtils implements java.io.Serializable
         {
             message = rootCause.toString();
         }
-        if (message == null || message.trim().length() == 0)
+        if (message == null || message.trim().isEmpty())
         {
             message = throwable.toString();
         }

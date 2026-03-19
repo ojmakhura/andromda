@@ -21,7 +21,7 @@ public class $enumeration.converterName
         Object value)
         throws ${jakartaNamespace}.faces.convert.ConverterException
     {
-        return (value == null || value.toString().trim().length() == 0) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
+        return (value == null || value.toString().trim().isEmpty()) ? "":  ((${enumeration.fullyQualifiedName})value).toString();
     }
 
     /**

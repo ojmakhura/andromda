@@ -185,7 +185,7 @@ public class JsfUtils
         {
             message = rootCause.toString();
         }
-        if (message == null || message.trim().length() == 0)
+        if (message == null || message.trim().isEmpty())
         {
             message = throwable.toString();
         }

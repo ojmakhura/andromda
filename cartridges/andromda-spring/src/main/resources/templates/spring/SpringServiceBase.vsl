@@ -206,7 +206,7 @@ $attribute.getDocumentation("     * ")
                 "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null");
         }
 #else
-        if ($argument.name == null || ${argument.name}.trim().length() == 0)
+        if ($argument.name == null || ${argument.name}.trim().isEmpty())
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '${argument.name}' can not be null or empty");
@@ -222,7 +222,7 @@ $attribute.getDocumentation("     * ")
                 "${service.fullyQualifiedName}.${operation.signature} - '$argument.name.$attribute.name' can not be null");
         }
 #else
-        if (${argument.name}.${attribute.getterName}() == null || ${argument.name}.${attribute.getterName}().trim().length() == 0)
+        if (${argument.name}.${attribute.getterName}() == null || ${argument.name}.${attribute.getterName}().trim().isEmpty())
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedName}.${operation.signature} - '$argument.name.$attribute.name' can not be null or empty");

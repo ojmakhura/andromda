@@ -183,7 +183,7 @@ $field.getDocumentation("     * ")
 
     public void ${field.setterName}(String ${fieldName})
     {
-        if (${fieldName} == null || ${fieldName}.trim().length() == 0)
+        if (${fieldName} == null || ${fieldName}.trim().isEmpty())
         {
             this.$fieldName = null;
         }
