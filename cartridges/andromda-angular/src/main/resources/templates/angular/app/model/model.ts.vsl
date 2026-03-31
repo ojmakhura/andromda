@@ -12,7 +12,6 @@
 #set ($className = "$class.name")
 #end
 #set ($attributes = [])
-import { FormBuilder } from "@angular/forms";
 #if($class.generalization)
 import {$class.generalization.name} from '@$class.generalization.filePath';
 #end
