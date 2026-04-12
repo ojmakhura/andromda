@@ -44,7 +44,7 @@ package $entity.packageName;
     }
 #end
 )
-public interface ${entity.name}Mapper {
+public abstract class ${entity.name}Mapper {
     
 #set ($entityAttributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
@@ -63,20 +63,21 @@ public interface ${entity.name}Mapper {
 #if($doMapping)
     @org.mapstruct.Mapping(source = "${entityProp.name}", target = "${property.name}")
 #else
-    // WARNING! No conversion for target.${property.name} (can't convert source.${entityProp.getterName}():${entityProp.type.fullyQualifiedName} to $property.type.fullyQualifiedName
+    // WARNING! No conversion for target.${property.name} (can't convert source.${entityProp.getterName}():${entityProp.type.fullyQualifiedName} to $property.type.fullyQualifiedName)
+    @org.mapstruct.Mapping(target = "${property.name}", ignore = true)
 #end
 #end
 #end
 #end
 #end
-    $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
+    public abstract $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
      /**
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      * @param entities
      * @return Collection#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end
      */
-    java.util.List#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities);
+    public abstract java.util.List#if($enableTemplating)<${valueObjectRef.targetElement.fullyQualifiedName}>#end ${valueObjectRef.transformationToCollectionMethodName}($entityCollectionType entities);
 
     /**
      * Converts an instance of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity.
@@ -91,13 +92,14 @@ public interface ${entity.name}Mapper {
 #set ($getVal = $converter.typeConvert($voProperty.type.fullyQualifiedName, "source.${voProperty.getterName}()", $attribute.type.fullyQualifiedName) )
 #if (!$getVal)
 #set ($doMapping = $springUtils.isEntity($entityProp.type) && $springUtils.isValueObject($property) )
-    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName
+    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName)
+    @org.mapstruct.Mapping(target = "${attribute.name}", ignore = true)
 #end
 #end
 #end
 #end
     @org.mapstruct.InheritInverseConfiguration
-    $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
+    public abstract $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
 
     @org.mapstruct.BeanMapping(nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
 #foreach ($attribute in $attributes)
@@ -106,13 +108,14 @@ public interface ${entity.name}Mapper {
 #set ($getVal = false)
 #set ($getVal = $converter.typeConvert($voProperty.type.fullyQualifiedName, "source.${voProperty.getterName}()", $attribute.type.fullyQualifiedName) )
 #if (!$getVal)
-    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName
+    // No conversion for target.${attribute.name} (can't convert source.${voProperty.getterName}():${voProperty.type.fullyQualifiedName} to $attribute.type.fullyQualifiedName )
+    @org.mapstruct.Mapping(target = "${attribute.name}", ignore = true)
 #end
 #end
 #end
 #end
     @org.mapstruct.InheritInverseConfiguration
-    void update${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.targetElement.name), @org.mapstruct.MappingTarget $entity.fullyQualifiedEntityName entity);
+    public abstract void update${entity.name}From${valueObjectRef.targetElement.name}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.targetElement.name), @org.mapstruct.MappingTarget $entity.fullyQualifiedEntityName entity);
 
 #end
 }
