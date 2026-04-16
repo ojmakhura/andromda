@@ -1,28 +1,53 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter, RouteReuseStrategy, withComponentInputBinding, withHashLocation } from '@angular/router';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
+import {
+  provideRouter,
+  RouteReuseStrategy,
+  withComponentInputBinding,
+  withHashLocation,
+} from '@angular/router';
+
+import { AppEnvStore } from './store/app-env.state';
 
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi, HttpClient } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+  withInterceptorsFromDi,
+  HttpClient,
+} from '@angular/common/http';
 import { DD_MM_YYYY_FORMAT } from './@shared/custom-date-formats';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 import { RouteReusableStrategy } from './@core/route-reusable-strategy';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
 import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, firstValueFrom, Observable, of, tap } from 'rxjs';
 import { provideToastr } from 'ngx-toastr';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { App } from './app';
 
 export class CustomTranslateLoader implements TranslateLoader {
   constructor(private http: HttpClient) {}
 
   getTranslation(lang: string): Observable<any> {
-    return this.http.get(`/i18n/${lang}.json`).pipe(
-      catchError(() => of({}))
-    );
+    return this.http.get(`/i18n/${lang}.json`).pipe(catchError(() => of({})));
   }
 }
 
@@ -30,53 +55,70 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new CustomTranslateLoader(http);
 }
 
-export const appConfig = (env: any) => {
-  return {
-    providers: [
-      provideRouter(routes, withComponentInputBinding(), withHashLocation()),
-      provideAnimations(),
-      provideHttpClient(
-        withFetch(),
-        withInterceptorsFromDi(),
-        withInterceptors([
-          apiPrefixInterceptor,
-          errorHandlerInterceptor,
-        ]),
-      ),
-      provideToastr({
-        timeOut: 3000,
-        positionClass: 'toast-top-right',
-        preventDuplicates: true,
-        progressBar: true,
-        closeButton: true,
-        newestOnTop: true,
-        enableHtml: true,
-        tapToDismiss: true,
-        maxOpened: 5,
-        autoDismiss: true
-      }),
-      importProvidersFrom(
-        TranslateModule.forRoot({
-          defaultLanguage: 'en',
-          loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-          }
+function initialiseEnv(env: any) {
+  return () => {
+    const appEnvStore = inject(AppEnvStore);
+
+    console.log(window.location.origin);
+    appEnvStore.setEnv(env);
+
+    return firstValueFrom(of(env));
+  };
+}
+
+export const initialiseApp = async () => {
+  const env = await fetch('/env.json').then((res) => res.json());
+  const appConfig = () => {
+    return {
+      providers: [
+        provideAppInitializer(initialiseEnv(env)),
+        provideRouter(routes, withComponentInputBinding(), withHashLocation()),
+        provideAnimations(),
+        provideHttpClient(
+          withFetch(),
+          withInterceptorsFromDi(),
+          withInterceptors([apiPrefixInterceptor, errorHandlerInterceptor]),
+        ),
+        provideToastr({
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          preventDuplicates: true,
+          progressBar: true,
+          closeButton: true,
+          newestOnTop: true,
+          enableHtml: true,
+          tapToDismiss: true,
+          maxOpened: 5,
+          autoDismiss: true,
         }),
-      ),
-      { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
-      {
-        provide: RouteReuseStrategy,
-        useClass: RouteReusableStrategy,
-      },
-      { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-      {
-        provide: DateAdapter,
-        useClass: MomentDateAdapter,
-        deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-      },
-      { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
-    ],
-  } as ApplicationConfig;
+        importProvidersFrom(
+          TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient],
+            },
+          }),
+        ),
+        {
+          provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+          useValue: { appearance: 'outline' },
+        },
+        {
+          provide: RouteReuseStrategy,
+          useClass: RouteReusableStrategy,
+        },
+        { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+        {
+          provide: DateAdapter,
+          useClass: MomentDateAdapter,
+          deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
+      ],
+    } as ApplicationConfig;
+  };
+
+  bootstrapApplication(App, appConfig).catch((err) => console.error(err));
 };
