@@ -259,18 +259,18 @@ public class AttributeFacadeLogicImpl
             final TypeMappings mappings = this.getLanguageMappings();
             //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
             // TODO: Fix Metafacade models to properly reflect Unique/Ordered in associations, and update Impl classes
-            /*if (this.handleIsUnique())
+            if (this.handleIsUnique())
             {
                 name =
                     this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
                                      : mappings.getTo(UMLProfile.SET_TYPE_NAME);
             }
             else
-            {*/
+            {
                 name =
                     this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
                                      : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
-            /*}*/
+            }
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(

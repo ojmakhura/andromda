@@ -1,6 +1,8 @@
 package org.andromda.cartridges.meta.metafacades;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
+
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
@@ -61,7 +63,7 @@ public class PSMmetaclassLogicImpl extends PSMmetaclassLogic
     }
     
 	@Override
-    public Collection<String> getAdditionalAnnotations() {
+    public Set<String> getAdditionalAnnotations() {
         HashSet<String> annotations = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {
@@ -76,7 +78,7 @@ public class PSMmetaclassLogicImpl extends PSMmetaclassLogic
     }
 
     @Override
-    public Collection<String> getGenericParameters() {
+    public Set<String> getGenericParameters() {
         
         HashSet<String> params = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
@@ -87,7 +89,7 @@ public class PSMmetaclassLogicImpl extends PSMmetaclassLogic
     }
 
     @Override
-    public Collection<String> getGenericTypes() {
+    public Set<String> getGenericTypes() {
         
         HashSet<String> types = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))

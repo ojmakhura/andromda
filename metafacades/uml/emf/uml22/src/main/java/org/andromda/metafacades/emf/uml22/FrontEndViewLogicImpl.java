@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -16,6 +18,7 @@ import org.andromda.metafacades.uml.FrontEndAttribute;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
@@ -485,9 +488,9 @@ public class FrontEndViewLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetFrontEndClasses() {
+    protected Set<String> handleGetFrontEndClasses() {
         
-        return UMLMetafacadeUtils.getPresentationClass(this);
+        return new LinkedHashSet<>(UMLMetafacadeUtils.getPresentationClass(this));
     }
 
     @Override

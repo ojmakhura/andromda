@@ -155,8 +155,8 @@ public class FrontEndParameterLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
      */
     @Override
-    protected Collection<String> handleGetTableColumnNames() {
-        final Collection<String> tableColumnNames = new LinkedHashSet<String>();
+    protected Set<String> handleGetTableColumnNames() {
+        final Set<String> tableColumnNames = new LinkedHashSet<String>();
         final Collection<Object> taggedValues = this
                 .findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
         
@@ -191,7 +191,7 @@ public class FrontEndParameterLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
     @Override
-    public Collection handleGetTableColumns() {
+    public Set handleGetTableColumns() {
         final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
         final Collection tableColumnNames = this.getTableColumnNames();
         CollectionUtils.filter(
@@ -254,7 +254,7 @@ public class FrontEndParameterLogicImpl
                 tableColumns.add(tableColumnsMap.get(columnObject));
             }
         }
-        return tableColumns;
+        return new LinkedHashSet<>(tableColumns);
     }
 
     /**
@@ -279,8 +279,8 @@ public class FrontEndParameterLogicImpl
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
      */
     @Override
-    protected Collection<String> handleGetTableAttributeNames() {
-        final Collection<String> tableAttributeNames = new ArrayList<String>();
+    protected Set<String> handleGetTableAttributeNames() {
+        final Set<String> tableAttributeNames = new LinkedHashSet<String>();
         for (AttributeFacade attribute : this.getNonArrayAttributes()) {
             tableAttributeNames.add(attribute.getName());
         }
@@ -1212,9 +1212,9 @@ public class FrontEndParameterLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetFrontEndClasses() {
+    protected Set<String> handleGetFrontEndClasses() {
 
-        return UMLMetafacadeUtils.getPresentationClass(this);
+        return new LinkedHashSet<>(UMLMetafacadeUtils.getPresentationClass(this));
     }
 
     @Override

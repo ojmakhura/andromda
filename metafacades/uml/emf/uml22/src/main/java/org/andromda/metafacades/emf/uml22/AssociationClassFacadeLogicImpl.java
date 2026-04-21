@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
@@ -42,7 +43,7 @@ public class AssociationClassFacadeLogicImpl
     }
     
     @Override
-    public Collection<String> getAdditionalAnnotations() {
+    public Set<String> getAdditionalAnnotations() {
         HashSet<String> annotations = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {

@@ -12,6 +12,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -1000,15 +1001,15 @@ public class FrontEndAttributeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetFrontEndClasses() {
+    protected Set<String> handleGetFrontEndClasses() {
         
-        return UMLMetafacadeUtils.getPresentationClass(this);
+        return new LinkedHashSet<>(UMLMetafacadeUtils.getPresentationClass(this));
     }
 
     @Override
-    protected Collection<String> handleGetTableColumnNames() {
+    protected Set<String> handleGetTableColumnNames() {
         // TODO Auto-generated method stub
-        final Collection<String> tableColumnNames = new LinkedHashSet<String>();
+        final Set<String> tableColumnNames = new LinkedHashSet<String>();
         
         String columnTag = Objects.toString(this.findTaggedValue(MetafacadeWebProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS), null);
         if (!StringUtils.isBlank(columnTag)) {
@@ -1049,7 +1050,7 @@ public class FrontEndAttributeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetTableColumns() {
+    protected Set<String> handleGetTableColumns() {
         final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
         final Collection tableColumnNames = this.getTableColumnNames();
         CollectionUtils.filter(
@@ -1080,7 +1081,7 @@ public class FrontEndAttributeLogicImpl
                 tableColumns.add(tableColumnsMap.get(columnObject));
             }
         }
-        return tableColumns;
+        return new LinkedHashSet<>(tableColumns);
     }
     
     /**
@@ -1102,8 +1103,8 @@ public class FrontEndAttributeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetTableAttributeNames() {
-        final Collection<String> tableAttributeNames = new ArrayList<String>();
+    protected Set<String> handleGetTableAttributeNames() {
+        final Set<String> tableAttributeNames = new LinkedHashSet<String>();
         for (AttributeFacade attribute : this.getNonArrayAttributes()) {
             tableAttributeNames.add(attribute.getName());
         }

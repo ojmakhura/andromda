@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActionState;
@@ -929,9 +930,9 @@ public class FrontEndActionLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetFrontEndClasses() {
+    protected Set<String> handleGetFrontEndClasses() {
         
-        return UMLMetafacadeUtils.getPresentationClass(this);
+        return new LinkedHashSet<>(UMLMetafacadeUtils.getPresentationClass(this));
     }
 
     @Override

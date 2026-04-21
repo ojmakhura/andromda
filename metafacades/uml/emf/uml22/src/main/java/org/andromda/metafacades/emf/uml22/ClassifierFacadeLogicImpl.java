@@ -824,9 +824,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
     @Override
-    protected Collection<Operation> handleGetImplementationOperations()
+    protected Set<Operation> handleGetImplementationOperations()
     {
-        final Collection<Operation> operations;
+        final Set<Operation> operations;
 
         if (this.metaObject instanceof Class)
         {
@@ -862,7 +862,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            operations = Collections.emptyList();
+            operations = Collections.emptySet();
         }
 
         return operations;
@@ -975,9 +975,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticAttributes()
      */
     @Override
-    protected Collection<AttributeFacade> handleGetStaticAttributes()
+    protected List<AttributeFacade> handleGetStaticAttributes()
     {
-        final Collection<AttributeFacade> attributes = this.getAttributes();
+        final List<AttributeFacade> attributes = this.getAttributes();
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -995,9 +995,9 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceAttributes()
      */
     @Override
-    protected Collection<AttributeFacade> handleGetInstanceAttributes()
+    protected List<AttributeFacade> handleGetInstanceAttributes()
     {
-        final Collection<AttributeFacade> attributes = this.getAttributes();
+        final List<AttributeFacade> attributes = this.getAttributes();
         CollectionUtils.filter(
             attributes,
             new Predicate()
@@ -1276,11 +1276,11 @@ public class ClassifierFacadeLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ClassifierFacadeLogic#handleGetAssociatedClasses()
      */
     @Override
-    protected Collection<ClassifierFacade> handleGetAssociatedClasses()
+    protected Set<ClassifierFacade> handleGetAssociatedClasses()
     {
         final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
 
-        final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
+        final Collection<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (final AssociationEndFacade associationEndFacade : associationEnds)
         {
             associatedClasses.add(associationEndFacade.getOtherEnd().getType());

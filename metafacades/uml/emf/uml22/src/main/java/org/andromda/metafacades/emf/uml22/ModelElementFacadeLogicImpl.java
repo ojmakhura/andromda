@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Pattern;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -290,9 +292,9 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
     @Override
-    protected Collection<String> handleGetStereotypeNames()
+    protected Set<String> handleGetStereotypeNames()
     {
-        return UmlUtilities.getStereotypeNames(this.metaObject);
+        return new LinkedHashSet<>(UmlUtilities.getStereotypeNames(this.metaObject));
     }
 
     /**
@@ -1019,9 +1021,9 @@ public class ModelElementFacadeLogicImpl
      * @see org.andromda.metafacades.uml.ModelElementFacade#getKeywords()
      */
     @Override
-    protected Collection<String> handleGetKeywords()
+    protected Set<String> handleGetKeywords()
     {
-        return this.metaObject.getKeywords();
+        return new LinkedHashSet<>(this.metaObject.getKeywords());
     }
 
     /**
@@ -1295,8 +1297,8 @@ public class ModelElementFacadeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetAdditionalAnnotations() {
-        Collection<String> annotations = new ArrayList<String>();
+    protected Set<String> handleGetAdditionalAnnotations() {
+        Set<String> annotations = new LinkedHashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {
             String annotation = o.toString();
@@ -1315,8 +1317,8 @@ public class ModelElementFacadeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetAdditionalExtends() {
-        Collection<String> extensions = new ArrayList<String>();
+    protected Set<String> handleGetAdditionalExtends() {
+        Set<String> extensions = new LinkedHashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_EXTENDS))
         {
             String extension = o.toString();
@@ -1329,9 +1331,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetAdditionalImplements() {
+    protected Set<String> handleGetAdditionalImplements() {
         
-        Collection<String> implementations = new ArrayList<String>();
+        Set<String> implementations = new LinkedHashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_IMPLEMENTS))
         {
             String implementation = o.toString();
@@ -1349,9 +1351,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetGenericParameters() {
+    protected Set<String> handleGetGenericParameters() {
         
-        Collection<String> params = new ArrayList<String>();
+        Set<String> params = new LinkedHashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
         {
             params.add(o.toString());
@@ -1360,9 +1362,9 @@ public class ModelElementFacadeLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetGenericTypes() {
+    protected Set<String> handleGetGenericTypes() {
         
-        Collection<String> types = new ArrayList<String>();
+        Set<String> types = new LinkedHashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))
         {
             types.add(o.toString());

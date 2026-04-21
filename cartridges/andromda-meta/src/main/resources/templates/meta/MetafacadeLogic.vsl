@@ -366,8 +366,24 @@ $associationEnd.getDocumentation("     * ")
         ${indent}// $associationEnd.name has no pre constraints
 #end
 #if ($otherEnd.many)
-       ${indent}#if($otherEnd.ordered) java.util.List#else java.util.Collection#end result = ${otherEnd.implementationOperationName}($typedArgumentList);
+#if($otherEnd.unique)
+#if($otherEnd.ordered)
+        ${indent}java.util.SortedSet result = ${otherEnd.implementationOperationName}($typedArgumentList);
+#else
+       ${indent}java.util.Set result = ${otherEnd.implementationOperationName}($typedArgumentList);
+#end
+#else
+        ${indent}#if($otherEnd.ordered) java.util.List#else java.util.Collection#end result = ${otherEnd.implementationOperationName}($typedArgumentList);
+#end
+#if($otherEnd.unique)
+#if($otherEnd.ordered)
+        ${indent}java.util.SortedSet shieldedResult = new java.util.TreeSet<>(this.shieldedElements(result));
+#else
+       ${indent}java.util.Set shieldedResult = new java.util.LinkedHashSet<>(this.shieldedElements(result));
+#end
+#else
         ${indent}java.util.List shieldedResult = this.shieldedElements(result);
+#end
 #else
         ${indent}Object result = ${otherEnd.implementationOperationName}($typedArgumentList);
         ${indent}org.andromda.core.metafacade.MetafacadeBase shieldedResult = this.shieldedElement(result);
@@ -403,7 +419,15 @@ $associationEnd.getDocumentation("     * ")
      * @return #if($otherEnd.ordered) java.util.List#else java.util.Collection#end
 
      */
+#if($otherEnd.unique)
+#if($otherEnd.ordered)
+    protected abstract java.util.SortedSet ${otherEnd.implementationOperationName}($typedArgumentList);
+#else
+    protected abstract java.util.Set ${otherEnd.implementationOperationName}($typedArgumentList);
+#end
+#else
     protected abstract#if($otherEnd.ordered) java.util.List#else Collection#end ${otherEnd.implementationOperationName}($typedArgumentList);
+#end
 #else
     /**
      * UML Specific type is transformed by shieldedElements to AndroMDA Metafacade type

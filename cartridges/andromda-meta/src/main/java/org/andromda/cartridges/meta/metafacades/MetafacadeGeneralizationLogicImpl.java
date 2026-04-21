@@ -2,6 +2,8 @@ package org.andromda.cartridges.meta.metafacades;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
+
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -110,7 +112,7 @@ public class MetafacadeGeneralizationLogicImpl
     }
     
 	@Override
-    public Collection<String> getAdditionalAnnotations() {
+    public Set<String> getAdditionalAnnotations() {
         HashSet<String> annotations = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_ADDITIONAL_ANNOTATION))
         {
@@ -125,7 +127,7 @@ public class MetafacadeGeneralizationLogicImpl
     }
 
     @Override
-    public Collection<String> getGenericParameters() {
+    public Set<String> getGenericParameters() {
         
         HashSet<String> params = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_PARAMETERS))
@@ -136,7 +138,7 @@ public class MetafacadeGeneralizationLogicImpl
     }
 
     @Override
-    public Collection<String> getGenericTypes() {
+    public Set<String> getGenericTypes() {
         
         HashSet<String> types = new HashSet<String>();
         for (Object o : this.findTaggedValues(UMLProfile.TAGGEDVALUE_GENERIC_TYPES))
