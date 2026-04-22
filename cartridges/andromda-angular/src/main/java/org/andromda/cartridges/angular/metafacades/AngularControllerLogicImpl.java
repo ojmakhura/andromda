@@ -198,27 +198,8 @@ public class AngularControllerLogicImpl
         return allServices;
     }
 
-    /**
-     * @see org.andromda.cartridges.angular.metafacades.AngularController#getServicesPackagesReferences()
-     */
-    // @SuppressWarnings("unchecked")
-    // @Override
-    // protected List<PackageFacade> handleGetServicesPackagesReferences() {
-    // return (List<PackageFacade>)new
-    // FilteredCollection(this.getSourceDependencies())
-    // {
-    // private static final long serialVersionUID = 134L;
-    // @Override
-    // public boolean evaluate(final Object object)
-    // {
-    // return ((DependencyFacade)object).getTargetElement() instanceof
-    // PackageFacade;
-    // }
-    // };
-    // }
-
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
 
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
@@ -361,7 +342,7 @@ public class AngularControllerLogicImpl
     }
 
     @Override
-    protected Collection handleGetOtherControllers() {
+    protected Set<AngularController> handleGetOtherControllers() {
 
         HashSet<AngularController> controllers = new HashSet<>();
 

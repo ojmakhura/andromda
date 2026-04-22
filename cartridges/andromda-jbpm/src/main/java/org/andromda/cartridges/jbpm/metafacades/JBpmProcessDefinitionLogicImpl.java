@@ -191,7 +191,7 @@ public class JBpmProcessDefinitionLogicImpl
             }
         }
         return forks;
-    }
+    } 
 
     /**
      * @see org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogic#handleGetJoins()

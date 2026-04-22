@@ -17,4 +17,4 @@ public class XSDComplexTypeLogicImpl
     {
         super (metaObject, context);
     }
-}
+} 

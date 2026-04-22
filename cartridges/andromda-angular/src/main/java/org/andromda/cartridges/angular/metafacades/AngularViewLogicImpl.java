@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
@@ -412,8 +413,8 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     // }
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
-        Collection<ModelElementFacade> imports = new HashSet<>();
+    protected Set<ModelElementFacade> handleGetImports() {
+        Set<ModelElementFacade> imports = new HashSet<>();
 
         for (FrontEndAction _action : this.getActions()) {
             AngularAction action = (AngularAction) _action;
@@ -692,8 +693,8 @@ public class AngularViewLogicImpl extends AngularViewLogic {
     }
 
     @Override
-    protected Collection<FrontEndController> handleGetTargetControllers() {
-        Collection<FrontEndController> targets = new HashSet<>();
+    protected Set<FrontEndController> handleGetTargetControllers() {
+        Set<FrontEndController> targets = new HashSet<>();
 
         for (FrontEndAction _action : this.getActions()) {
             AngularAction action = (AngularAction) _action;

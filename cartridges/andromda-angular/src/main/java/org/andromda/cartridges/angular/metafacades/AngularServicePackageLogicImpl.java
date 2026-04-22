@@ -154,7 +154,7 @@ public class AngularServicePackageLogicImpl
      * @return new AngularServiceUtils().getPackageReferences(this, true)
      * @see org.andromda.cartridges.webservice.AngularServiceUtils#getPackageReferences(PackageFacade, boolean)
      */
-    protected Collection<PackageFacade> handleGetPackages()
+    protected Collection<PackageFacade> handleGetPackages() 
     {
         return new AngularServiceUtils().getPackageReferences(this, true);
     }
@@ -225,9 +225,9 @@ public class AngularServicePackageLogicImpl
      * @see org.andromda.cartridges.webservice.metafacades.AngularServicePackageLogic#handleGetAllowedOperations()
      */
     @Override
-    protected Collection<AngularServiceOperation> handleGetAllowedOperations()
+    protected List<AngularServiceOperation> handleGetAllowedOperations()
     {
-        Collection<AngularServiceOperation> operations = new AngularServiceUtils().getAllowedOperations(this);
+        List<AngularServiceOperation> operations = new AngularServiceUtils().getAllowedOperations(this);
         // Log the actual offending operation name, since validator only shows the package name
         String webserviceStack = String.valueOf(this.getConfiguredProperty("webserviceStack"));
         if (webserviceStack.equals("cxf") || webserviceStack.equals("jaxws") || webserviceStack.equals("spring"))

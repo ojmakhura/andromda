@@ -285,7 +285,7 @@ public class ThymeleafControllerLogicImpl
     }
 
     @Override
-    protected Collection<String> handleGetRestContexts() {
+    protected List<String> handleGetRestContexts() {
         List<String> contexts = new ArrayList<String>();
         String context = (String)this.findTaggedValue(MetafacadeWebGlobals.REST_CONTEXT);
         if (!(this.getRestCount()>0) || StringUtils.isBlank(context) || context.equals(DEFAULT))

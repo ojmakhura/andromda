@@ -212,7 +212,7 @@ public class WebServicePackageLogicImpl
      * Allow sorting and use in TreeSet
      * @see Comparable#compareTo(Object)
      */
-    public int compareTo(Object object)
+    public int compareTo(Object object) 
     {
         if (object==null || !(object instanceof WebServicePackageLogic))
         {

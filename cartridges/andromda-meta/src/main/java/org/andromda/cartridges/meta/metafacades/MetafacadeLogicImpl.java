@@ -423,7 +423,7 @@ public class MetafacadeLogicImpl
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeLogic#getAllParents()
      */
     @Override
-    protected Collection<GeneralizableElementFacade> handleGetAllParents() {
+    protected Set<GeneralizableElementFacade> handleGetAllParents() {
         Set<GeneralizableElementFacade> allParents = new LinkedHashSet<GeneralizableElementFacade>();
         final Collection<GeneralizableElementFacade> parents = this.getGeneralizations();
         allParents.addAll(parents);

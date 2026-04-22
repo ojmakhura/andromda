@@ -341,7 +341,7 @@ public class WebServiceLogicImpl
 
                             if (type != null)
                             {
-                                final List<? extends ModelElementFacade> properties = type.getProperties();
+                                final Collection<? extends ModelElementFacade> properties = type.getProperties();
                                 if (properties != null && !properties.isEmpty())
                                 {
                                     for (final ModelElementFacade property : properties)

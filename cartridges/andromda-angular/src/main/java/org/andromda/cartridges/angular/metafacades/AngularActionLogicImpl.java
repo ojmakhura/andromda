@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
@@ -160,7 +161,7 @@ public class AngularActionLogicImpl
      */
     protected String handleGetFormImplementationInterfaceList()
     {
-        final List<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
+        final Collection<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
         for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             // - remove any forms that don't have arguments
@@ -833,7 +834,7 @@ public class AngularActionLogicImpl
     // }
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
 
         HashSet<ModelElementFacade> imports = new HashSet<>();
         

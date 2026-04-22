@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularGlobals;
 import org.andromda.cartridges.angular.AngularProfile;
@@ -38,7 +39,7 @@ public class AngularManageableEntityAttributeLogicImpl
     }
     
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
         // TODO Auto-generated method stub
         return null;
     }

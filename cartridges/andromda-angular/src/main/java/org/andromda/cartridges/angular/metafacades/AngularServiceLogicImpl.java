@@ -80,7 +80,7 @@ public class AngularServiceLogicImpl
      * @return operations filtered by ((AngularServiceOperation)object).isExposed()
      * @see org.andromda.cartridges.webservice.metafacades.WebService#getAllowedOperations()
      */
-    protected Collection<OperationFacade> handleGetAllowedOperations()
+    protected List<OperationFacade> handleGetAllowedOperations()
     {
         List<OperationFacade> operations = new ArrayList<OperationFacade>(this.getOperations());
         CollectionUtils.filter(
@@ -342,7 +342,7 @@ public class AngularServiceLogicImpl
 
                             if (type != null)
                             {
-                                final List<? extends ModelElementFacade> properties = type.getProperties();
+                                final Collection<? extends ModelElementFacade> properties = type.getProperties();
                                 if (properties != null && !properties.isEmpty())
                                 {
                                     for (final ModelElementFacade property : properties)
@@ -1706,10 +1706,9 @@ public class AngularServiceLogicImpl
     }
 
     @Override
-    protected Collection handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
 
-        Collection<ModelElementFacade> imports = new HashSet<>();
-        HashSet<String> nameSet = new HashSet<String>();
+        Set<ModelElementFacade> imports = new HashSet<>();
 
         for(OperationFacade _operation : this.getAllowedOperations()) {
             AngularServiceOperation operation = (AngularServiceOperation) _operation;

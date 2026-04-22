@@ -20,7 +20,7 @@ public class XSDAttributeLogicImpl
     public XSDAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
-    }
+    } 
 
     /**
      * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogic#handleGetMaxOccurs()

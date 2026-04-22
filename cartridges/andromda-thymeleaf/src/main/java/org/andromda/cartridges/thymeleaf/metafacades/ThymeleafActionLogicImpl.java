@@ -187,7 +187,7 @@ public class ThymeleafActionLogicImpl
      */
     protected String handleGetFormImplementationInterfaceList()
     {
-        final List<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
+        final Collection<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
         for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             // - remove any forms that don't have arguments

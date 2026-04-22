@@ -5,6 +5,7 @@ package org.andromda.cartridges.angular.metafacades;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -150,7 +151,7 @@ public class AngularComponentLogicImpl
     }
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
         
         HashSet<ModelElementFacade> imports = new HashSet<>();
 

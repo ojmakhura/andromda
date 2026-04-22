@@ -17,7 +17,7 @@ public class XSDAssociationEndLogicImpl
      */
     public XSDAssociationEndLogicImpl(Object metaObject, String context)
     {
-        super(metaObject, context);
+        super(metaObject, context); 
     }
 
     /**

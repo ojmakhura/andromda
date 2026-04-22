@@ -6,6 +6,7 @@ package org.andromda.cartridges.angular.metafacades;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.andromda.cartridges.angular.AngularUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -73,7 +74,7 @@ public class AngularAttributeLogicImpl
     }
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
         if (this.getType().getGeneralization() != null) {

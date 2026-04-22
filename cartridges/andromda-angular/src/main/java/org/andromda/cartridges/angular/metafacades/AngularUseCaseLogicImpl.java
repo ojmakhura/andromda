@@ -342,7 +342,7 @@ public class AngularUseCaseLogicImpl
     }
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
 
         HashSet<ModelElementFacade> imports = new HashSet<>();
 

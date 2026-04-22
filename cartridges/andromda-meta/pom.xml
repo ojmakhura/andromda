@@ -18,7 +18,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
+                <groupId>org.andromda.maven.plugins</groupId> 
                 <artifactId>andromda-bootstrap-plugin</artifactId>
                 <version>${andromda.version}</version>
                 <executions>

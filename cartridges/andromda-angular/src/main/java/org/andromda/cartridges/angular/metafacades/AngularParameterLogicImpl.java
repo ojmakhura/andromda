@@ -174,7 +174,7 @@ public class AngularParameterLogicImpl
     static final String AN_EQUALS = "@org.apache.myfaces.extensions.validator.crossval.annotation.Equals";
 
     @Override
-    protected Collection<ModelElementFacade> handleGetImports() {
+    protected Set<ModelElementFacade> handleGetImports() {
         HashSet<ModelElementFacade> imports = new HashSet<>();
 
         if (this.getType().getGeneralization() != null) {
@@ -313,7 +313,7 @@ public class AngularParameterLogicImpl
     }
 
     @Override
-    protected Collection handleGetRestControllers() {
+    protected Set<AngularService> handleGetRestControllers() {
         HashSet<AngularService> services = new HashSet<>();
 
         if(this.getAction() != null && this.getAction().getController() != null) {

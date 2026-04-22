@@ -26,26 +26,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
- * MetafacadeLogic implementation for org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity.
+ * MetafacadeLogic implementation for
+ * org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity.
  *
  * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity
  */
 public class ThymeleafManageableEntityLogicImpl
-    extends ThymeleafManageableEntityLogic
-{
+        extends ThymeleafManageableEntityLogic {
     private static final long serialVersionUID = 34L;
-    
+
     /**
      * The logger instance.
      */
-    private static final Logger LOGGER = Logger.getLogger(ThymeleafManageableEntityLogicImpl.class);    
-    
+    private static final Logger LOGGER = Logger.getLogger(ThymeleafManageableEntityLogicImpl.class);
+
     /**
      * @param metaObject
      * @param context
      */
-    public ThymeleafManageableEntityLogicImpl(Object metaObject, String context)
-    {
+    public ThymeleafManageableEntityLogicImpl(Object metaObject, String context) {
         super(metaObject, context);
     }
 
@@ -53,8 +52,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getName().toLowerCase() + "-crud"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getViewName()
      */
-    protected String handleGetViewName()
-    {
+    protected String handleGetViewName() {
         return this.getName().toLowerCase() + "-crud";
     }
 
@@ -62,8 +60,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return toResourceMessageKey(this.getName()) + ".view.title"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getViewTitleKey()
      */
-    protected String handleGetViewTitleKey()
-    {
+    protected String handleGetViewTitleKey() {
         return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".view.title";
     }
 
@@ -71,8 +68,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtilsHelper.toPhrase(getName())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getViewTitleValue()
      */
-    protected String handleGetViewTitleValue()
-    {
+    protected String handleGetViewTitleValue() {
         return StringUtilsHelper.toPhrase(getName());
     }
 
@@ -80,17 +76,16 @@ public class ThymeleafManageableEntityLogicImpl
      * @return "manageableList"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getListName()
      */
-    protected String handleGetListName()
-    {
+    protected String handleGetListName() {
         return "manageableList";
     }
 
     /**
-     * @return getManageablePackageName() + getNamespaceProperty() + this.getFormBeanClassName()
+     * @return getManageablePackageName() + getNamespaceProperty() +
+     *         this.getFormBeanClassName()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getFormBeanType()
      */
-    protected String handleGetFormBeanType()
-    {
+    protected String handleGetFormBeanType() {
         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getFormBeanClassName();
     }
 
@@ -98,8 +93,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return formBeanName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getFormBeanName()
      */
-    protected String handleGetFormBeanName()
-    {
+    protected String handleGetFormBeanName() {
         final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
         return formBeanName.replaceFirst("\\{1\\}", this.getName());
@@ -109,26 +103,25 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getExceptionKey()
      */
-    protected String handleGetExceptionKey()
-    {
+    protected String handleGetExceptionKey() {
         return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception";
     }
 
     /**
-     * @return getManageablePackageName() + getNamespaceProperty() + getActionClassName()
+     * @return getManageablePackageName() + getNamespaceProperty() +
+     *         getActionClassName()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionType()
      */
-    protected String handleGetActionType()
-    {
+    protected String handleGetActionType() {
         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getActionClassName();
     }
 
     /**
-     * @return '/' + StringUtils.replace(this.getActionType(), getNamespaceProperty(), "/")
+     * @return '/' + StringUtils.replace(this.getActionType(),
+     *         getNamespaceProperty(), "/")
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionFullPath()
      */
-    protected String handleGetActionFullPath()
-    {
+    protected String handleGetActionFullPath() {
         return '/' + StringUtils.replace(this.getActionType(), this.getNamespaceProperty(), "/");
     }
 
@@ -136,8 +129,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return '/' + getName() + "/Manage"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionPath()
      */
-    protected String handleGetActionPath()
-    {
+    protected String handleGetActionPath() {
         return super.getActionFullPath();
     }
 
@@ -145,8 +137,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return "Manage" + getName()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionClassName()
      */
-    protected String handleGetActionClassName()
-    {
+    protected String handleGetActionClassName() {
         return getName();
     }
 
@@ -154,8 +145,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getViewFullPath()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getExceptionPath()
      */
-    protected String handleGetExceptionPath()
-    {
+    protected String handleGetExceptionPath() {
         return this.getViewFullPath();
     }
 
@@ -163,18 +153,17 @@ public class ThymeleafManageableEntityLogicImpl
      * @return false
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isPreload()
      */
-    protected boolean handleIsPreload()
-    {
-        return false; //TODO think about...
-//        return this.isCreate() || this.isRead() || this.isUpdate() || this.isDelete();
+    protected boolean handleIsPreload() {
+        return false; // TODO think about...
+        // return this.isCreate() || this.isRead() || this.isUpdate() ||
+        // this.isDelete();
     }
 
     /**
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntityLogic#getManageableIdentifier()
      */
     @Override
-    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier()
-    {
+    public org.andromda.metafacades.uml.ManageableEntityAttribute getManageableIdentifier() {
         return super.getManageableIdentifier();
     }
 
@@ -182,8 +171,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtils.capitalize(this.getFormBeanName())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getFormBeanClassName()
      */
-    protected String handleGetFormBeanClassName()
-    {
+    protected String handleGetFormBeanClassName() {
         return StringUtils.capitalize(this.getFormBeanName());
     }
 
@@ -191,8 +179,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtils.replace(getFormBeanType(), getNamespaceProperty(), "/")
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getFormBeanFullPath()
      */
-    protected String handleGetFormBeanFullPath()
-    {
+    protected String handleGetFormBeanFullPath() {
         return StringUtils.replace(this.getFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
@@ -200,8 +187,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return "getManageableList"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getListGetterName()
      */
-    protected String handleGetListGetterName()
-    {
+    protected String handleGetListGetterName() {
         return "getManageableList";
     }
 
@@ -209,8 +195,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return "setManageableList"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getListSetterName()
      */
-    protected String handleGetListSetterName()
-    {
+    protected String handleGetListSetterName() {
         return "setManageableList";
     }
 
@@ -218,8 +203,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtilsHelper.toResourceMessageKey(this.getName())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getMessageKey()
      */
-    protected String handleGetMessageKey()
-    {
+    protected String handleGetMessageKey() {
         return StringUtilsHelper.toResourceMessageKey(this.getName());
     }
 
@@ -227,8 +211,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtilsHelper.toPhrase(this.getName())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getMessageValue()
      */
-    protected String handleGetMessageValue()
-    {
+    protected String handleGetMessageValue() {
         return StringUtilsHelper.toPhrase(this.getName());
     }
 
@@ -236,8 +219,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getMessageKey() + ".online.help"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getOnlineHelpKey()
      */
-    protected String handleGetOnlineHelpKey()
-    {
+    protected String handleGetOnlineHelpKey() {
         return this.getMessageKey() + ".online.help";
     }
 
@@ -245,8 +227,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return onlineHelpValue
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getOnlineHelpValue()
      */
-    protected String handleGetOnlineHelpValue()
-    {
+    protected String handleGetOnlineHelpValue() {
         final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
         return (value == null) ? "No entity documentation has been specified" : value;
     }
@@ -255,17 +236,16 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getActionPath() + "Help"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getOnlineHelpActionPath()
      */
-    protected String handleGetOnlineHelpActionPath()
-    {
+    protected String handleGetOnlineHelpActionPath() {
         return this.getActionPath() + "Help";
     }
 
     /**
-     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() + "_help"
+     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() +
+     *         "_help"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getOnlineHelpPagePath()
      */
-    protected String handleGetOnlineHelpPagePath()
-    {
+    protected String handleGetOnlineHelpPagePath() {
         return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase() + "_help";
     }
 
@@ -273,8 +253,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getTableExportTypes().indexOf("none") == -1
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isTableExportable()
      */
-    protected boolean handleIsTableExportable()
-    {
+    protected boolean handleIsTableExportable() {
         return this.getTableExportTypes().indexOf("none") == -1;
     }
 
@@ -282,30 +261,26 @@ public class ThymeleafManageableEntityLogicImpl
      * @return null
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getTableExportTypes()
      */
-    protected String handleGetTableExportTypes()
-    {
+    protected String handleGetTableExportTypes() {
         return null;
-        //TODO a resolver
-//        return CartridgeWebUtils.getDisplayTagExportTypes(
-//            this.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_TABLE_EXPORT),
-//            (String)getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES) );
+        // TODO a resolver
+        // return CartridgeWebUtils.getDisplayTagExportTypes(
+        // this.findTaggedValues(CartridgeWebProfile.TAGGEDVALUE_TABLE_EXPORT),
+        // (String)getConfiguredProperty(CartridgeWebGlobals.PROPERTY_DEFAULT_TABLE_EXPORT_TYPES)
+        // );
     }
 
     /**
      * @return tableMaxRows
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getTableMaxRows()
      */
-    protected int handleGetTableMaxRows()
-    {
+    protected int handleGetTableMaxRows() {
         final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_TABLE_MAXROWS);
         int pageSize;
 
-        try
-        {
+        try {
             pageSize = Integer.parseInt(String.valueOf(taggedValue));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             pageSize = CartridgeWebProfile.TAGGEDVALUE_TABLE_MAXROWS_DEFAULT_COUNT;
         }
 
@@ -316,38 +291,35 @@ public class ThymeleafManageableEntityLogicImpl
      * @return tableSortable
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isTableSortable()
      */
-    protected boolean handleIsTableSortable()
-    {
+    protected boolean handleIsTableSortable() {
         final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.TAGGEDVALUE_TABLE_SORTABLE);
         return (taggedValue == null)
-            ? CartridgeWebProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
-            : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
+                ? CartridgeWebProfile.TAGGEDVALUE_TABLE_SORTABLE_DEFAULT_VALUE
+                : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
     }
 
     /**
      * @return controllerType
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerType()
      */
-     protected String handleGetControllerType()
-     {
-         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getControllerName();
-     }
+    protected String handleGetControllerType() {
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getControllerName();
+    }
 
     /**
      * @return StringUtils.uncapitalize(this.getName()) + "ManageableController"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerBeanName()
      */
-    protected String handleGetControllerBeanName()
-    {
+    protected String handleGetControllerBeanName() {
         return StringUtils.uncapitalize(this.getName()) + "ManageableController";
     }
 
     /**
-     * @return '/' + StringUtils.replace(getControllerType(), getNamespaceProperty(), "/")
+     * @return '/' + StringUtils.replace(getControllerType(),
+     *         getNamespaceProperty(), "/")
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerFullPath()
      */
-    protected String handleGetControllerFullPath()
-    {
+    protected String handleGetControllerFullPath() {
         return '/' + StringUtils.replace(this.getControllerType(), this.getNamespaceProperty(), "/");
     }
 
@@ -355,17 +327,16 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getName() + "ManageableController"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getControllerName()
      */
-    protected String handleGetControllerName()
-    {
+    protected String handleGetControllerName() {
         return this.getName() + "ManageableController";
     }
 
     /**
-     * @return getName() + this.getConfiguredProperty(CartridgeWebGlobals.CRUD_VALUE_OBJECT_SUFFIX)
+     * @return getName() +
+     *         this.getConfiguredProperty(CartridgeWebGlobals.CRUD_VALUE_OBJECT_SUFFIX)
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getValueObjectClassName()
      */
-    protected String handleGetValueObjectClassName()
-    {
+    protected String handleGetValueObjectClassName() {
         return getName() + this.getConfiguredProperty(CartridgeWebGlobals.CRUD_VALUE_OBJECT_SUFFIX);
     }
 
@@ -373,8 +344,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return formSerialVersionUID
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getFormSerialVersionUID()
      */
-    protected String handleGetFormSerialVersionUID()
-    {
+    protected String handleGetFormSerialVersionUID() {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.getFormBeanType());
         addSerialUIDData(buffer);
@@ -385,8 +355,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return actionSerialVersionUID
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionSerialVersionUID()
      */
-    protected String handleGetActionSerialVersionUID()
-    {
+    protected String handleGetActionSerialVersionUID() {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(this.getActionFullPath());
         addSerialUIDData(buffer);
@@ -397,28 +366,27 @@ public class ThymeleafManageableEntityLogicImpl
      * @return populatorName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getPopulatorName()
      */
-    protected String handleGetPopulatorName()
-    {
+    protected String handleGetPopulatorName() {
         return Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.VIEW_POPULATOR_PATTERN)).replaceAll(
-            "\\{0\\}",
-            StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
+                "\\{0\\}",
+                StringUtilsHelper.upperCamelCaseName(this.getFormBeanClassName()));
     }
 
     /**
-     * @return '/' + StringUtils.replace(getPopulatorType(), getNamespaceProperty(), "/")
+     * @return '/' + StringUtils.replace(getPopulatorType(), getNamespaceProperty(),
+     *         "/")
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getPopulatorFullPath()
      */
-    protected String handleGetPopulatorFullPath()
-    {
+    protected String handleGetPopulatorFullPath() {
         return '/' + StringUtils.replace(this.getPopulatorType(), this.getNamespaceProperty(), "/");
     }
 
     /**
-     * @return getManageablePackageName() + getNamespaceProperty() + getPopulatorName()
+     * @return getManageablePackageName() + getNamespaceProperty() +
+     *         getPopulatorName()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getPopulatorType()
      */
-    protected String handleGetPopulatorType()
-    {
+    protected String handleGetPopulatorType() {
         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getPopulatorName();
     }
 
@@ -426,33 +394,28 @@ public class ThymeleafManageableEntityLogicImpl
      * @return '/' + getManageablePackagePath() + '/' + getViewName()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getViewFullPath()
      */
-    protected String handleGetViewFullPath()
-    {
+    protected String handleGetViewFullPath() {
         return this.getManageablePackagePath() + '/' + this.getViewName();
     }
 
     /**
-     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() + "-ods-export"
+     * @return '/' + getManageablePackagePath() + '/' + getName().toLowerCase() +
+     *         "-ods-export"
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getViewFullPath()
      */
-    protected String handleGetOdsExportFullPath()
-    {
-        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase()+".ods-export";
+    protected String handleGetOdsExportFullPath() {
+        return '/' + this.getManageablePackagePath() + '/' + this.getName().toLowerCase() + ".ods-export";
     }
 
     /**
      * @return isValidationRequired
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isValidationRequired()
      */
-    protected boolean handleIsValidationRequired()
-    {
-        for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
-        {
-            if(attribute instanceof ThymeleafManageableEntityAttribute)
-            {
-                final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute)attribute;
-                if (thymeleafAttribute.isValidationRequired())
-                {
+    protected boolean handleIsValidationRequired() {
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes()) {
+            if (attribute instanceof ThymeleafManageableEntityAttribute) {
+                final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute) attribute;
+                if (thymeleafAttribute.isValidationRequired()) {
                     return true;
                 }
             }
@@ -464,19 +427,17 @@ public class ThymeleafManageableEntityLogicImpl
      * @return searchFormBeanName
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getSearchFormBeanName()
      */
-    protected String handleGetSearchFormBeanName()
-    {
+    protected String handleGetSearchFormBeanName() {
         final String pattern = Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.FORM_BEAN_PATTERN));
         final String formBeanName = pattern.replaceFirst("\\{0\\}", "manage");
-        return formBeanName.replaceFirst("\\{1\\}",this.getName() + "Search");
+        return formBeanName.replaceFirst("\\{1\\}", this.getName() + "Search");
     }
 
     /**
      * @return searchFormBeanType
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getSearchFormBeanType()
      */
-    protected String handleGetSearchFormBeanType()
-    {
+    protected String handleGetSearchFormBeanType() {
         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getSearchFormBeanClassName();
     }
 
@@ -484,8 +445,7 @@ public class ThymeleafManageableEntityLogicImpl
      * @return searchFormBeanFullPath
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getSearchFormBeanFullPath()
      */
-    protected String handleGetSearchFormBeanFullPath()
-    {
+    protected String handleGetSearchFormBeanFullPath() {
         return StringUtils.replace(this.getSearchFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
@@ -493,70 +453,56 @@ public class ThymeleafManageableEntityLogicImpl
      * @return StringUtils.capitalize(this.getSearchFormBeanName())
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getSearchFormBeanClassName()
      */
-    protected String handleGetSearchFormBeanClassName()
-    {
+    protected String handleGetSearchFormBeanClassName() {
         return StringUtils.capitalize(this.getSearchFormBeanName());
     }
 
-    private Boolean usingManageableSearchable=null;
-    private boolean isUsingManageableSearchable()
-    {
-        if(usingManageableSearchable == null)
-        {
-            for(final ManageableEntityAttribute attr: getManageableAttributes())
-            {
-                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
-                {
-                    usingManageableSearchable=true;
+    private Boolean usingManageableSearchable = null;
+
+    private boolean isUsingManageableSearchable() {
+        if (usingManageableSearchable == null) {
+            for (final ManageableEntityAttribute attr : getManageableAttributes()) {
+                if (BooleanUtils.toBoolean(Objects.toString(
+                        attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))) {
+                    usingManageableSearchable = true;
                     break;
                 }
             }
-            if(usingManageableSearchable == null)
-            {
-                for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
-                {
-                    //TODO constant should go to CartridgeWebProfile of UMLPROFILE
-                    if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
-                    {
-                        usingManageableSearchable=true;
+            if (usingManageableSearchable == null) {
+                for (final ManageableEntityAssociationEnd end : getManageableAssociationEnds()) {
+                    // TODO constant should go to CartridgeWebProfile of UMLPROFILE
+                    if (BooleanUtils.toBoolean(Objects.toString(
+                            end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))) {
+                        usingManageableSearchable = true;
                         break;
                     }
                 }
             }
-            if(usingManageableSearchable == null)
-            {
+            if (usingManageableSearchable == null) {
                 usingManageableSearchable = false;
             }
         }
         return usingManageableSearchable;
     }
-    
-    
+
     /**
      * @return manageableSearchAttributes
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getManageableSearchAttributes()
      */
-    protected Collection<ThymeleafManageableEntityAttribute> handleGetManageableSearchAttributes()
-    {
-        final Collection<ThymeleafManageableEntityAttribute> searchAttributes=new ArrayList<ThymeleafManageableEntityAttribute>();
-        
-        if(isUsingManageableSearchable())
-        {
-            for(final ManageableEntityAttribute attr: getManageableAttributes())
-            {
-                if(BooleanUtils.toBoolean(Objects.toString(attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE))))
-                {
-                    searchAttributes.add((ThymeleafManageableEntityAttribute)attr);
+    protected Collection<ThymeleafManageableEntityAttribute> handleGetManageableSearchAttributes() {
+        final Collection<ThymeleafManageableEntityAttribute> searchAttributes = new ArrayList<ThymeleafManageableEntityAttribute>();
+
+        if (isUsingManageableSearchable()) {
+            for (final ManageableEntityAttribute attr : getManageableAttributes()) {
+                if (BooleanUtils.toBoolean(Objects.toString(
+                        attr.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))) {
+                    searchAttributes.add((ThymeleafManageableEntityAttribute) attr);
                 }
             }
-        }
-        else
-        {
-            for(ManageableEntityAttribute attr: getManageableAttributes())
-            {
-                if(attr.isDisplay() && !attr.getType().isBlobType() && !attr.getType().isClobType())
-                {
-                    searchAttributes.add((ThymeleafManageableEntityAttribute)attr);
+        } else {
+            for (ManageableEntityAttribute attr : getManageableAttributes()) {
+                if (attr.isDisplay() && !attr.getType().isBlobType() && !attr.getType().isClobType()) {
+                    searchAttributes.add((ThymeleafManageableEntityAttribute) attr);
                 }
             }
         }
@@ -568,27 +514,21 @@ public class ThymeleafManageableEntityLogicImpl
      * @return getManageableAssociationEnds()
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getManageableSearchAssociationEnds()
      */
-    protected Collection<ManageableEntityAssociationEnd> handleGetManageableSearchAssociationEnds()
-    {
-        final Collection<ManageableEntityAssociationEnd> searchAssociationEnds=new ArrayList<ManageableEntityAssociationEnd>();
-        
-        if(isUsingManageableSearchable())
-        {
-            for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
-            {
-                if(BooleanUtils.toBoolean(Objects.toString(end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
-                   || end.isComposition())
-                {
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableSearchAssociationEnds() {
+        final Collection<ManageableEntityAssociationEnd> searchAssociationEnds = new ArrayList<ManageableEntityAssociationEnd>();
+
+        if (isUsingManageableSearchable()) {
+            for (final ManageableEntityAssociationEnd end : getManageableAssociationEnds()) {
+                if (BooleanUtils
+                        .toBoolean(Objects.toString(
+                                end.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_SEARCHABLE)))
+                        || end.isComposition()) {
                     searchAssociationEnds.add(end);
                 }
             }
-        }
-        else
-        {
-            for(final ManageableEntityAssociationEnd end: getManageableAssociationEnds())
-            {
-                if(end.isDisplay() || end.isComposition())
-                {
+        } else {
+            for (final ManageableEntityAssociationEnd end : getManageableAssociationEnds()) {
+                if (end.isDisplay() || end.isComposition()) {
                     searchAssociationEnds.add(end);
                 }
             }
@@ -602,199 +542,169 @@ public class ThymeleafManageableEntityLogicImpl
      * @return isSearchable
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isSearchable(Object)
      */
-    protected boolean handleIsSearchable(Object element)
-    {
-       return getManageableSearchAttributes().contains(element) || getManageableSearchAssociationEnds().contains(element);
+    protected boolean handleIsSearchable(Object element) {
+        return getManageableSearchAttributes().contains(element)
+                || getManageableSearchAssociationEnds().contains(element);
     }
 
     /**
-     * @return the configured property denoting the character sequence to use for the separation of namespaces
+     * @return the configured property denoting the character sequence to use for
+     *         the separation of namespaces
      */
-    private String getNamespaceProperty()
-    {
-        return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
+    private String getNamespaceProperty() {
+        return (String) this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
-   private void addSerialUIDData(StringBuilder buffer)
-   {
-       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
-       {
-           buffer.append(attribute.getName());
-       }
-       for (final ManageableEntityAssociationEnd end : this.getManageableAssociationEnds())
-       {
-           buffer.append(end.getName());
-       }
-   }
+    private void addSerialUIDData(StringBuilder buffer) {
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes()) {
+            buffer.append(attribute.getName());
+        }
+        for (final ManageableEntityAssociationEnd end : this.getManageableAssociationEnds()) {
+            buffer.append(end.getName());
+        }
+    }
 
-   /**
-    * @return allRoles
-    * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getRoles()
-    */
-   @SuppressWarnings("rawtypes")
-protected Collection handleGetRoles()
-   {
-       //copied form the Service <<Metafacade>>
-       final Collection<DependencyFacade> roles = new ArrayList<DependencyFacade>(this.getTargetDependencies());
-       CollectionUtils.filter(roles, new Predicate()
-       {
-           public boolean evaluate(final Object object)
-           {
-               DependencyFacade dependency = (DependencyFacade)object;
-               return dependency != null && dependency.getSourceElement() instanceof Role;
-           }
-       });
-       CollectionUtils.transform(roles, new Transformer()
-       {
-           public Object transform(final Object object)
-           {
-               return ((DependencyFacade)object).getSourceElement();
-           }
-       });
-       @SuppressWarnings({ "unchecked" })
-    final Collection allRoles = new LinkedHashSet(roles);
-       // add all roles which are generalizations of this one
-       CollectionUtils.forAllDo(roles, new Closure()
-       {
-           @SuppressWarnings("unchecked")
-        public void execute(final Object object)
-           {
-               allRoles.addAll(((Role)object).getAllSpecializations());
-           }
-       });
-       return allRoles;
-   }
+    /**
+     * @return allRoles
+     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getRoles()
+     */
+    @SuppressWarnings("rawtypes")
+    protected Collection handleGetRoles() {
+        // copied form the Service <<Metafacade>>
+        final Collection<DependencyFacade> roles = new ArrayList<DependencyFacade>(this.getTargetDependencies());
+        CollectionUtils.filter(roles, new Predicate() {
+            public boolean evaluate(final Object object) {
+                DependencyFacade dependency = (DependencyFacade) object;
+                return dependency != null && dependency.getSourceElement() instanceof Role;
+            }
+        });
+        CollectionUtils.transform(roles, new Transformer() {
+            public Object transform(final Object object) {
+                return ((DependencyFacade) object).getSourceElement();
+            }
+        });
+        @SuppressWarnings({ "unchecked" })
+        final Collection allRoles = new LinkedHashSet(roles);
+        // add all roles which are generalizations of this one
+        CollectionUtils.forAllDo(roles, new Closure() {
+            @SuppressWarnings("unchecked")
+            public void execute(final Object object) {
+                allRoles.addAll(((Role) object).getAllSpecializations());
+            }
+        });
+        return allRoles;
+    }
 
-   /**
-    * @return actionRoles
-    * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionRoles()
-    */
-   protected String handleGetActionRoles()
-   {
-       //copied from ThymeleafUseCaseLogicImpl
-       final StringBuilder rolesBuffer = new StringBuilder();
-       boolean first = true;
-       for (final Role role : this.getRoles())
-       {
-           if (first)
-           {
-               first = false;
-           }
-           else
-           {
-               rolesBuffer.append(',');
-           }
-           rolesBuffer.append(role.getName());
-       }
-       return rolesBuffer.toString();
-   }
+    /**
+     * @return actionRoles
+     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getActionRoles()
+     */
+    protected String handleGetActionRoles() {
+        // copied from ThymeleafUseCaseLogicImpl
+        final StringBuilder rolesBuffer = new StringBuilder();
+        boolean first = true;
+        for (final Role role : this.getRoles()) {
+            if (first) {
+                first = false;
+            } else {
+                rolesBuffer.append(',');
+            }
+            rolesBuffer.append(role.getName());
+        }
+        return rolesBuffer.toString();
+    }
 
-   /**
-    * @return needsFileUpload
-    * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isNeedsFileUpload()
-    */
-   protected boolean handleIsNeedsFileUpload()
-   {
-       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
-       {
-           if(attribute instanceof ThymeleafManageableEntityAttribute)
-           {
-               final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute)attribute;
-               if(thymeleafAttribute.isNeedsFileUpload())
-               {
-                   return true;
-               }
-           }
-       }
-       return false;
-   }
+    /**
+     * @return needsFileUpload
+     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isNeedsFileUpload()
+     */
+    protected boolean handleIsNeedsFileUpload() {
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes()) {
+            if (attribute instanceof ThymeleafManageableEntityAttribute) {
+                final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute) attribute;
+                if (thymeleafAttribute.isNeedsFileUpload()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-   /**
-    * @return needsUserInterface
-    * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isNeedsUserInterface()
-    */
-   protected boolean handleIsNeedsUserInterface()
-   {
-       if(isAbstract())
-       {
-           return false;
-       }
-       for (final ManageableEntityAttribute attribute : this.getManageableAttributes())
-       {
-           if(attribute instanceof ThymeleafManageableEntityAttribute)
-           {
-               final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute)attribute;
-               if(!thymeleafAttribute.isHidden())
-               {
-                   return true;
-               }
-           }
-       }
-       for (final ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds())
-       {
-           if(associationEnd instanceof ThymeleafManageableEntityAssociationEnd)
-           {
-               final ThymeleafManageableEntityAssociationEnd thymeleafAssociationEnd = (ThymeleafManageableEntityAssociationEnd)associationEnd;
-               if(!thymeleafAssociationEnd.isDisplay())
-               {
-                   return true;
-               }
-           }
-       }
-       return false;
-   }
+    /**
+     * @return needsUserInterface
+     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#isNeedsUserInterface()
+     */
+    protected boolean handleIsNeedsUserInterface() {
+        if (isAbstract()) {
+            return false;
+        }
+        for (final ManageableEntityAttribute attribute : this.getManageableAttributes()) {
+            if (attribute instanceof ThymeleafManageableEntityAttribute) {
+                final ThymeleafManageableEntityAttribute thymeleafAttribute = (ThymeleafManageableEntityAttribute) attribute;
+                if (!thymeleafAttribute.isHidden()) {
+                    return true;
+                }
+            }
+        }
+        for (final ManageableEntityAssociationEnd associationEnd : this.getManageableAssociationEnds()) {
+            if (associationEnd instanceof ThymeleafManageableEntityAssociationEnd) {
+                final ThymeleafManageableEntityAssociationEnd thymeleafAssociationEnd = (ThymeleafManageableEntityAssociationEnd) associationEnd;
+                if (!thymeleafAssociationEnd.isDisplay()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-   /**
-    * @return converterClassName
-    * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getConverterClassName
-    */
-    public String handleGetConverterClassName()
-    {
+    /**
+     * @return converterClassName
+     * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getConverterClassName
+     */
+    public String handleGetConverterClassName() {
         return StringUtils.replace(
-            Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.CONVERTER_PATTERN)),
-            "{0}",
-            this.getName());
+                Objects.toString(this.getConfiguredProperty(CartridgeWebGlobals.CONVERTER_PATTERN)),
+                "{0}",
+                this.getName());
     }
 
     /**
      * @return converterType
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getConverterType
      */
-     public String handleGetConverterType()
-     {
-         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getConverterClassName();
-     }
+    public String handleGetConverterType() {
+        return this.getManageablePackageName() + this.getNamespaceProperty() + this.getConverterClassName();
+    }
 
     /**
      * @return converterFullPath
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getConverterFullPath
      */
-     public String handleGetConverterFullPath()
-     {
-         return StringUtils.replace(this.getConverterType(), this.getNamespaceProperty(), "/");
-     }
+    public String handleGetConverterFullPath() {
+        return StringUtils.replace(this.getConverterType(), this.getNamespaceProperty(), "/");
+    }
 
-    //TODO review
+    // TODO review
     @Override
     public ManageableEntityAttribute getDisplayAttribute() {
-        
-        for(final ManageableEntityAttribute attribute: getManageableAttributes())
-        {
-            if(BooleanUtils.toBoolean(Objects.toString(attribute.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY))))
-            {
+
+        for (final ManageableEntityAttribute attribute : getManageableAttributes()) {
+            if (BooleanUtils.toBoolean(Objects
+                    .toString(attribute.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_ATTRIBUTE_DISPLAY)))) {
                 return attribute;
             }
         }
-        
-        //associations ???
-//        for(final ManageableEntityAssociationEnd associationEnd: getManageableAssociationEnds())
-//        {
-//            if(BooleanUtils.toBoolean(Objects.toString(associationEnd.findTaggedValue("andromda_manageable_display"))))
-//            {
-//                return associationEnd;
-//            }
-//        }
-        
+
+        // associations ???
+        // for(final ManageableEntityAssociationEnd associationEnd:
+        // getManageableAssociationEnds())
+        // {
+        // if(BooleanUtils.toBoolean(Objects.toString(associationEnd.findTaggedValue("andromda_manageable_display"))))
+        // {
+        // return associationEnd;
+        // }
+        // }
+
         return super.getDisplayAttribute();
     }
 
@@ -804,23 +714,21 @@ protected Collection handleGetRoles()
      */
     @Override
     protected boolean handleIsNeedsImplementation() {
-        final Object generateCrudImpls=this.getConfiguredProperty(CartridgeWebGlobals.GENERATE_CRUD_IMPLS);
-        if(generateCrudImpls != null && Boolean.parseBoolean(generateCrudImpls.toString()))
-        {
+        final Object generateCrudImpls = this.getConfiguredProperty(CartridgeWebGlobals.GENERATE_CRUD_IMPLS);
+        if (generateCrudImpls != null && Boolean.parseBoolean(generateCrudImpls.toString())) {
             return true;
-        }
-        else
-        {
+        } else {
             final Object taggedValue = this.findTaggedValue(CartridgeWebProfile.ANDROMDA_MANAGEABLE_IMPLEMENTATION);
             return (taggedValue == null)
-                ? CartridgeWebProfile.TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE
-                : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
+                    ? CartridgeWebProfile.TAGGEDVALUE_MANAGEABLE_IMPLEMENTATION_DEFAULT_VALUE
+                    : Boolean.valueOf(String.valueOf(taggedValue)).booleanValue();
         }
     }
 
     @Override
     protected String handleGetSearchFilterFullPath() {
-        return '/' + StringUtils.replace(this.getManageablePackageName(), this.getNamespaceProperty(), "/") + '/' + getSearchFilterName();
+        return '/' + StringUtils.replace(this.getManageablePackageName(), this.getNamespaceProperty(), "/") + '/'
+                + getSearchFilterName();
     }
 
     @Override
@@ -831,26 +739,22 @@ protected Collection handleGetRoles()
     @Override
     protected String handleGetSearchFilterSerialVersionUID() {
         String serialVersionUID = String.valueOf(0L);
-        try
-        {
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             byte[] hashBytes = md.digest(getSearchFilterFullPath().getBytes());
 
             long hash = 0;
             for (int ctr = Math.min(
-                        hashBytes.length,
-                        8) - 1; ctr >= 0; ctr--)
-            {
+                    hashBytes.length,
+                    8) - 1; ctr >= 0; ctr--) {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
             serialVersionUID = String.valueOf(hash);
-        }
-        catch (final NoSuchAlgorithmException exception)
-        {
+        } catch (final NoSuchAlgorithmException exception) {
             final String message = "Error performing ManageableEntity.getSearchFilterSerialVersionUID";
             LOGGER.error(
-                message,
-                exception);
+                    message,
+                    exception);
         }
         return serialVersionUID;
     }
@@ -861,33 +765,29 @@ protected Collection handleGetRoles()
      */
     @Override
     protected Collection<ThymeleafManageableEntityAttribute> handleGetManageableEditAttributes() {
-        final Collection<ThymeleafManageableEntityAttribute> editAttributes=new ArrayList<ThymeleafManageableEntityAttribute>();
-        
-        for(final ManageableEntityAttribute attr: getManageableAttributes())
-        {
-            final ThymeleafManageableEntityAttribute thymeleafAttr=(ThymeleafManageableEntityAttribute)attr;
-            if(thymeleafAttr.isEditable())
-            {
+        final Collection<ThymeleafManageableEntityAttribute> editAttributes = new ArrayList<ThymeleafManageableEntityAttribute>();
+
+        for (final ManageableEntityAttribute attr : getManageableAttributes()) {
+            final ThymeleafManageableEntityAttribute thymeleafAttr = (ThymeleafManageableEntityAttribute) attr;
+            if (thymeleafAttr.isEditable()) {
                 editAttributes.add(thymeleafAttr);
             }
         }
         return editAttributes;
     }
-    
+
     /**
      * @return manageableDetailsAssociations
      * @see org.andromda.cartridges.thymeleaf.metafacades.ThymeleafManageableEntity#getManageableDetailsAssociations()
      */
     @Override
-    protected Collection<ManageableEntityAssociationEnd> handleGetManageableDetailsAssociationsEnds()
-    {
+    protected Collection<ManageableEntityAssociationEnd> handleGetManageableDetailsAssociationsEnds() {
         final Collection<ManageableEntityAssociationEnd> manageableDetailsAssociationsEnds = new ArrayList<ManageableEntityAssociationEnd>();
-        
-        for(ManageableEntityAssociationEnd associationEnd: (Collection<ManageableEntityAssociationEnd>)this.getManageableAssociationEnds())
-        {
-            if(associationEnd.isMany() && associationEnd.getType().hasStereotype(UMLProfile.STEREOTYPE_MANAGEABLE) && 
-               associationEnd.getOtherEnd().isNavigable() && associationEnd.getOtherEnd().isComposition())
-            {
+
+        for (ManageableEntityAssociationEnd associationEnd : (Collection<ManageableEntityAssociationEnd>) this
+                .getManageableAssociationEnds()) {
+            if (associationEnd.isMany() && associationEnd.getType().hasStereotype(UMLProfile.STEREOTYPE_MANAGEABLE) &&
+                    associationEnd.getOtherEnd().isNavigable() && associationEnd.getOtherEnd().isComposition()) {
                 manageableDetailsAssociationsEnds.add(associationEnd);
             }
         }
