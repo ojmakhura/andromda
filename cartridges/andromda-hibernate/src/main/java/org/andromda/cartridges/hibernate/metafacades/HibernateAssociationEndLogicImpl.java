@@ -191,7 +191,7 @@ public class HibernateAssociationEndLogicImpl
         {
             final boolean specificInterfaces =
                     Boolean.valueOf(
-                    ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)))
+                    Objects.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES), ""))
                        .booleanValue();
 
             final TypeMappings mappings = this.getLanguageMappings();
@@ -203,25 +203,40 @@ public class HibernateAssociationEndLogicImpl
                 }
                 else if (specificInterfaces)
                 {
-                    if (this.isSet())
+                    if (this.isUnique())
                     {
-                        getterSetterTypeName = mappings.getTo(UMLProfile.SET_TYPE_NAME);
+                        getterSetterTypeName =
+                            this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+                                            : mappings.getTo(UMLProfile.SET_TYPE_NAME);
                     }
-                    else if (this.isList())
+                    else
                     {
-                        getterSetterTypeName = mappings.getTo(UMLProfile.LIST_TYPE_NAME);
+                        getterSetterTypeName =
+                            this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                                            : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
                     }
                 }
                 else
                 {
-                    getterSetterTypeName =
-                        ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE));
+
+                    if (this.isUnique())
+                    {
+                        getterSetterTypeName =
+                            this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+                                            : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+                    }
+                    else
+                    {
+                        getterSetterTypeName =
+                            this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                                            : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+                    }
                 }
             }
             else
             {
                 getterSetterTypeName =
-                    ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE));
+                    Objects.toString(this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE), "");
             }
         }
         else
@@ -707,6 +722,20 @@ public class HibernateAssociationEndLogicImpl
             else if (this.isList())
             {
                 implementation.append(this.getConfiguredProperty(HibernateGlobals.LIST_TYPE_IMPLEMENTATION));
+            } else if(this.isUnique()) {
+
+                if(this.isOrdered()) {
+                    implementation.append("TreeSet<>()");
+                } else {
+                    implementation.append(this.getConfiguredProperty(HibernateGlobals.SET_TYPE_IMPLEMENTATION));
+                }
+            } else {
+
+                if(this.isOrdered()) {
+                    implementation.append("ArrayList<>()");
+                } else {
+                    implementation.append(this.getConfiguredProperty(HibernateGlobals.LIST_TYPE_IMPLEMENTATION));
+                }
             }
 
             // set this association end's type as a template parameter if required
