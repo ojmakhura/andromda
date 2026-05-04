@@ -594,7 +594,7 @@ $attribute.getDocumentation("     * ")
 ## Otherwise add the JoinColumn annotation.
 ##
 #*        *##if (!$target.type.compositePrimaryKeyPresent)
-    @jakarta.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @jakarta.persistence.JoinColumn(name = "${target.columnName}"#if(!$target.required), nullable = true#end#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end, unique = $target.unique)
 #*        *##else
 #*          *##set ($identifiers = $target.type.getIdentifiers())
     @jakarta.persistence.JoinColumns
