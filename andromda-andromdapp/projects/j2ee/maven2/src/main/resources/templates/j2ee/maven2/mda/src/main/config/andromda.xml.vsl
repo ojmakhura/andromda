@@ -346,6 +346,7 @@
                 <property name="client">${core.manual.java.dir}</property>
                 <property name="client-test">${core.manual.test.dir}</property>
                 <property name="osgi">${core.generated.dir}</property-->
+                <property name="generateDaos">true</property>
                 <property name="daos">${core.generated.dir}</property>
                 <property name="dao-impls">#if($groovy)${core.manual.groovy.dir}#else${core.manual.java.dir}#end</property>
                 <property name="spring-configuration">${core.generated.dir}</property>

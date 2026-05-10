@@ -1,3 +1,4 @@
+#if($generateDaos)
 #if(!$entity.embeddableSuperclass)
 #if ($recordType.equalsIgnoreCase("dao"))
 #set ($generatedFile = "${entity.packagePath}/${entity.daoImplementationName}")
@@ -282,5 +283,6 @@ public class $entity.daoImplementationName
 #end
 #end
 }
+#end
 #end
 #end

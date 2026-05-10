@@ -30,10 +30,10 @@ import {$import.name} from '@$import.filePath';
 #end
 #end
 export class $umlUtils.getClassDeclaration($class, $className, $enableTemplating)#if($class.generalization) extends $class.generalization.name#end {
+
 #foreach ($attribute in $class.attributes)
 #if(!$attribute.inputButton)
 #if($angularUtils.isComplex($attribute) && !$attribute.many && !$angularUtils.isArray($attribute.getterSetterTypeName) && !$attribute.type.enumeration)
-
     $attribute.name: ${attribute.getterSetterTypeName} | any;
 #else
 #set ($default = "$attribute.defaultValue")
@@ -41,10 +41,10 @@ export class $umlUtils.getClassDeclaration($class, $className, $enableTemplating
 #set ($default = "new Array()")
 #end 
     $attribute.name: $attribute.getterSetterTypeName | any#if (!$attribute.many && $attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
-    
 #end
 #end
 #end
+
     constructor() {
 #if($class.generalization)
         super();

@@ -139,6 +139,7 @@
     <property reference="session-ejb-interfaces"/>
     <property reference="advice-impls"/>
     <property reference="service-impls"/>
+    <property reference="generateDaos"/>
     <property reference="dao-impls"/>
     <property reference="daos"/>
     <property reference="daoInheritanceEnabled"/>
@@ -238,6 +239,7 @@
     <condition name="daoInheritanceEnabled">
         #if ($daoInheritanceEnabled.equalsIgnoreCase("true") &amp;&amp; !$enableTemplating.equalsIgnoreCase("true"))true#end
     </condition>
+    <condition name="generateDaos">$generateDaos.equalsIgnoreCase("true")</condition>
     <condition name="useLombok">$useLombok.equalsIgnoreCase("true")</condition>
     <condition name="serviceSecurity">$serviceSecurity.equalsIgnoreCase("true")</condition>
     <condition name="richClient">$richClient.equalsIgnoreCase("true")</condition>
@@ -411,7 +413,8 @@
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
-        outputOnEmptyElements="false">
+        outputOnEmptyElements="false"
+        outputCondition="generateDaos">
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
@@ -424,6 +427,7 @@
         outputPattern="$generatedFile"
         outlet="daos"
         overwrite="true"
+        outputCondition="generateDaos"
         outputOnEmptyElements="false">
         <modelElements variable="entity">
             <modelElement>
@@ -436,6 +440,7 @@
         path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl"
         outputPattern="$generatedFile"
         outlet="daos"
+        outputCondition="generateDaos"
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
@@ -450,6 +455,7 @@
         path="templates/spring/hibernate/SpringHibernateDaoImpl.vsl"
         outputPattern="$generatedFile"
         outlet="dao-impls"
+        outputCondition="generateDaos"
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>

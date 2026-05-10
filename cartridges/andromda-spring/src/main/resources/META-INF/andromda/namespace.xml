@@ -56,6 +56,13 @@
                     </p>
                 </documentation>
             </property>
+            <property name="generateDaos" required="false">
+                <default>true</default>
+                <documentation>
+                    The flag that authorises the generation of Spring DAOs. 
+                    If false, no DAOs will be generated and the <em>daos</em> outlet will not be used.
+                </documentation>
+            </property>
             <property name="dao-impls" required="false">
                 <documentation>
                     The location to which Spring DAO implementation

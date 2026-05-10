@@ -1,3 +1,4 @@
+#if($generateDaos)
 #if(!$entity.embeddableSuperclass)
 ##==== Local Macros
 #macro(renderEvictCollection $theEntity)
@@ -859,5 +860,6 @@ public abstract class $entity.daoBaseName
 ##
     // spring-hibernate-dao-base merge-point
 }
+#end
 #end
 #end

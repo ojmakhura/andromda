@@ -43,7 +43,7 @@ public abstract class $service.baseName
     protected final $ref.targetElement.fullyQualifiedName $ref.name;
 #end
 #foreach($ref in $service.entityReferences)
-    protected final $ref.targetElement.fullyQualifiedDaoName $ref.daoName;
+#if($generateDaos)    protected final $ref.targetElement.fullyQualifiedDaoName $ref.daoName;#end
 #set ($ent = $ref.targetElement)
     protected final ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
     protected final ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper;
@@ -55,7 +55,7 @@ public abstract class $service.baseName
         @org.springframework.context.annotation.Lazy $ref.targetElement.fullyQualifiedName $ref.name,
 #end
 #foreach($ref in $service.entityReferences)
-        $ref.targetElement.fullyQualifiedDaoName $ref.daoName,
+#if($generateDaos)        $ref.targetElement.fullyQualifiedDaoName $ref.daoName,#end
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
         ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper,
@@ -66,7 +66,7 @@ public abstract class $service.baseName
         this.$ref.name = $ref.name;
 #end
 #foreach($ref in $service.entityReferences)
-        this.$ref.daoName = $ref.daoName;
+#if($generateDaos)        this.$ref.daoName = $ref.daoName;#end
         this.${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
         this.${stringUtils.uncapitalize($ref.name)}Mapper = ${stringUtils.uncapitalize($ref.name)}Mapper;
 #end
@@ -111,6 +111,7 @@ $attribute.getDocumentation("     * ")
 
 #end
 #foreach($entityRef in $service.entityReferences)
+#if($generateDaos)
 	/**
      * Gets the reference to <code>$entityRef.name</code>'s DAO.
      * @return $entityRef.daoName
@@ -119,7 +120,8 @@ $attribute.getDocumentation("     * ")
     {
         return this.$entityRef.daoName;
     }
-
+    
+#end
 #set ($ent = $entityRef.targetElement)
     /**
      * Gets the reference to <code>$entityRef.name</code>'s repository.
