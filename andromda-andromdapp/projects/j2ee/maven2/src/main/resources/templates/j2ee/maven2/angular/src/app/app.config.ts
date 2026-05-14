@@ -3,7 +3,6 @@ import {
   importProvidersFrom,
   inject,
   provideAppInitializer,
-  provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import {
   provideRouter,
@@ -23,16 +22,11 @@ import {
   withInterceptorsFromDi,
   HttpClient,
 } from '@angular/common/http';
-import { DD_MM_YYYY_FORMAT } from './@shared/custom-date-formats';
 import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
+  MatDateFormats,
+  provideNativeDateAdapter,
 } from '@angular/material/core';
-import {
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
 import { RouteReusableStrategy } from './@core/route-reusable-strategy';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
@@ -65,6 +59,18 @@ function initialiseEnv(env: any) {
     return firstValueFrom(of(env));
   };
 }
+
+export const MY_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY', // how the input string is parsed
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY', // how it appears in the input
+    monthYearLabel: 'MMM YYYY', // month-year label in calendar
+    dateA11yLabel: 'LL', // accessibility label
+    monthYearA11yLabel: 'MMMM YYYY', // accessibility label for month/year
+  },
+};
 
 export const initialiseApp = async () => {
   const env = await fetch('/env.json').then((res) => res.json());
@@ -109,13 +115,8 @@ export const initialiseApp = async () => {
           provide: RouteReuseStrategy,
           useClass: RouteReusableStrategy,
         },
+        provideNativeDateAdapter(MY_DATE_FORMATS),
         { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-        {
-          provide: DateAdapter,
-          useClass: MomentDateAdapter,
-          deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-        },
-        { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
       ],
     } as ApplicationConfig;
   };

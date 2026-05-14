@@ -46,7 +46,7 @@ export const ${service.name}Store = signalStore(
 #set($methodParams = "{$angularUtils.getMethodSignatureArguments($operation.arguments)}")
 #end
       ${operation.name}: rxMethod<$methodParams>(
-        switchMap((#if(!$operation.arguments.empty)data: any#end) => {
+        switchMap((#if(!$operation.arguments.empty)data: $methodParams#end) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return ${serviceName}.${operation.name}(#foreach($args in $operation.arguments)data.${args.name}, #end).pipe(
             tapResponse({

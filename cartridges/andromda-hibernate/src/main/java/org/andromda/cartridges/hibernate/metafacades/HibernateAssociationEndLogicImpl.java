@@ -169,13 +169,13 @@ public class HibernateAssociationEndLogicImpl
     protected boolean handleIsOne2OnePrimary()
     {
         boolean primary  = !BooleanUtils.toBoolean(
-            ObjectUtils.toString(this.getOtherEnd().findTaggedValue(
-                HibernateProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY)));
+            Objects.toString(this.getOtherEnd().findTaggedValue(
+                HibernateProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY), ""));
         if (primary)
         {
             primary = (this.isOne2One() && (this.isAggregation() || this.isComposition()) ||
-                BooleanUtils.toBoolean(ObjectUtils.toString(
-                    this.findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY))));
+                BooleanUtils.toBoolean(Objects.toString(
+                    this.findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_PRIMARY), "")));
         }
         return primary;
     }
