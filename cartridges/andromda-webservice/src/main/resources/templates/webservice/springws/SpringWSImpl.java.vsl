@@ -113,7 +113,7 @@ public class ${serviceImplName} implements #if($isService)${service.name}WS#else
         } catch (Exception e) {
 
             logger.error("An error occurred while processing the request", e);
-            throw e.getCause() != null ? new Exception(e.getCause()) : e;
+            throw e.getCause() != null ? new Exception(e.getCause().getMessage()) : e;
         } 
     }
 #end
