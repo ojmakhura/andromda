@@ -1,14 +1,14 @@
-@if (isLoading) {
+@if (isLoading()) {
 <div class="loader-overlay" [class.has-backdrop]="overlay" [class.fullscreen]="fullScreen">
   <div class="loader-card" [attr.data-color]="color">
 
     <!-- Spinner Type -->
-    @if (type === 'spinner') {
+    @if (type() === 'spinner') {
       <mat-spinner [diameter]="diameter" [color]="spinnerColor"></mat-spinner>
     }
 
     <!-- Dots Type -->
-    @if (type === 'dots') {
+    @if (type() === 'dots') {
     <div class="dots-loader">
       <span class="dot"></span>
       <span class="dot"></span>
@@ -17,7 +17,7 @@
     }
 
     <!-- Pulse Type -->
-    @if (type === 'pulse') {
+    @if (type() === 'pulse') {
     <div class="pulse-loader">
       <span class="pulse-ring"></span>
       <span class="pulse-ring"></span>
@@ -25,7 +25,7 @@
     }
 
     <!-- Bars Type -->
-    @if (type === 'bars') {
+    @if (type() === 'bars') {
     <div class="bars-loader">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -35,8 +35,8 @@
     }
 
     <!-- Message -->
-    @if (message) {
-    <p class="loader-message">{{ message | translate }}</p>
+    @if (message()) {
+    <p class="loader-message">{{ message() }}</p>
     }
   </div>
 </div>

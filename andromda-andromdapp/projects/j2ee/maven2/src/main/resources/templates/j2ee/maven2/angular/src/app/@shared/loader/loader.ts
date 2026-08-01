@@ -1,30 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject, computed } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
-
-export type LoaderType = 'spinner' | 'dots' | 'pulse' | 'bars';
-export type LoaderColor = 'primary' | 'accent' | 'warn' | 'white';
+import { LoaderState } from './loader-state';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.html',
   styleUrls: ['./loader.scss'],
-  imports: [TranslateModule, CommonModule, MatProgressSpinnerModule, MatCardModule],
+  imports: [CommonModule, MatProgressSpinnerModule, MatCardModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class Loader {
-  @Input() isLoading = false;
-  @Input() type: LoaderType = 'spinner';
-  @Input() size: 'small' | 'medium' | 'large' = 'medium';
-  @Input() color: LoaderColor = 'primary';
-  @Input() message?: string;
-  @Input() overlay = true;
-  @Input() fullScreen = true;
+
+  loaderState = inject(LoaderState);
+
+  isLoading = computed(() => this.loaderState.isLoading());
+  type = computed(() => this.loaderState.type());
+  size = computed(() => this.loaderState.size());
+  color = computed(() => this.loaderState.color());
+  message = computed(() => this.loaderState.message());
+  overlay = computed(() => this.loaderState.overlay());
+  fullScreen = computed(() => this.loaderState.fullScreen());
 
   get diameter(): number {
-    switch (this.size) {
+    switch (this.size()) {
       case 'small': return 32;
       case 'medium': return 48;
       case 'large': return 64;
@@ -33,6 +34,6 @@ export class Loader {
   }
 
   get spinnerColor(): 'primary' | 'accent' | 'warn' {
-    return this.color === 'white' ? 'primary' : this.color as 'primary' | 'accent' | 'warn';
+    return this.color() === 'white' ? 'primary' : this.color() as 'primary' | 'accent' | 'warn';
   }
 }
