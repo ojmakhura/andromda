@@ -33,7 +33,6 @@ import { apiPrefixInterceptor } from './@core/http/api-prefix.interceptor';
 import { errorHandlerInterceptor } from './@core/http/error-handler.interceptor';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { catchError, firstValueFrom, Observable, of, tap } from 'rxjs';
-import { provideToastr } from 'ngx-toastr';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app';
 
@@ -85,18 +84,6 @@ export const initialiseApp = async () => {
           withInterceptorsFromDi(),
           withInterceptors([apiPrefixInterceptor, errorHandlerInterceptor]),
         ),
-        provideToastr({
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-          preventDuplicates: true,
-          progressBar: true,
-          closeButton: true,
-          newestOnTop: true,
-          enableHtml: true,
-          tapToDismiss: true,
-          maxOpened: 5,
-          autoDismiss: true,
-        }),
         importProvidersFrom(
           TranslateModule.forRoot({
             defaultLanguage: 'en',

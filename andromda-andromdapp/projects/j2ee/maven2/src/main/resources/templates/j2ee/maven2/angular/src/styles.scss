@@ -4,9 +4,6 @@
 // Common page styles
 @import 'styles/common';
 
-// regular style toast
-@import 'ngx-toastr/toastr';
-
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
@@ -16,10 +13,6 @@
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins';
-// bootstrap 4
-// @import 'ngx-toastr/toastr-bs4-alert';
-// boostrap 5
-@import 'ngx-toastr/toastr-bs5-alert';
 
 @include mat.core();
 
