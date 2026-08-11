@@ -19,8 +19,6 @@
 package $service.implementationPackageName;
 #end
 
-import org.springframework.context.MessageSource;
-
 /**
  * <p>
  * Spring Service base class for <code>$service.fullyQualifiedName</code>,
@@ -48,7 +46,6 @@ public abstract class $service.baseName
     protected final ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository;
     protected final ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper;
 #end
-    protected final MessageSource messageSource;
 
     public ${service.baseName}(
 #foreach($ref in $service.allServiceReferences)
@@ -58,9 +55,8 @@ public abstract class $service.baseName
 #if($generateDaos)        $ref.targetElement.fullyQualifiedDaoName $ref.daoName,#end
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
-        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper,
+        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper#if ($velocityHasNext), #end
 #end
-        MessageSource messageSource
     ) {
 #foreach($ref in $service.allServiceReferences)
         this.$ref.name = $ref.name;
@@ -70,7 +66,6 @@ public abstract class $service.baseName
         this.${stringUtils.uncapitalize($ref.name)}Repository = ${stringUtils.uncapitalize($ref.name)}Repository;
         this.${stringUtils.uncapitalize($ref.name)}Mapper = ${stringUtils.uncapitalize($ref.name)}Mapper;
 #end
-        this.messageSource = messageSource;
     }
 
 #foreach ($attribute in $service.attributes)
@@ -334,10 +329,10 @@ $attribute.getDocumentation("     * ")
 #end
 #set ($principalStoreType = "java.security.Principal")
 #end
-    protected $principalStoreType getPrincipal()
+    /**protected $principalStoreType getPrincipal()
     {
         return $principalStoreCall
-    }
+    }*/
 #if ($service.webServiceOutgoingAttachmentHandlerCall)
 
     /**
@@ -348,11 +343,11 @@ $attribute.getDocumentation("     * ")
      * @param contentType the type of the contents
      * @param dime whether or not DIME should be used (instead of MIME).
      */
-    protected void addOutgoingWebServiceAttachment(final Object content, final String contentType, boolean dime)
+    /**protected void addOutgoingWebServiceAttachment(final Object content, final String contentType, boolean dime)
         throws Exception
     {
         $service.webServiceOutgoingAttachmentHandlerCall;
-    }
+    }*/
 #end
 #if ($service.webServiceIncomingAttachmentHandlerCall)
 
@@ -368,55 +363,6 @@ $attribute.getDocumentation("     * ")
     }
 #end
 
-    /**
-     * Gets the message source available to this service.
-     * @return MessageSource
-     */
-    protected MessageSource getMessages()
-    {
-        return messageSource;
-    }
-
-    /**
-     * Gets the message having the given <code>key</code> in the underlying message bundle.
-     *
-     * @param key the key of the message in the ${messageBundlePath}.properties message bundle.
-     * @return String
-     */
-    protected String getMessage(final String key)
-    {
-        return this.getMessages().getMessage(key, null, null);
-    }
-
-    /**
-     * Gets the message having the given <code>key</code> and <code>arguments</code> in the
-     * underlying message bundle.
-     *
-     * @param key the key of the message in the ${messageBundlePath}.properties message bundle.
-     * @param arguments any arguments to substitute when resolving the message.
-     * @return String
-     */
-    protected String getMessage(final String key, final Object[] arguments)
-    {
-        return this.getMessages().getMessage(key, arguments, null);
-    }
-
-    /**
-     * Gets the message having the given <code>key</code> using the given <code>arguments</code>
-     * for the given <code>locale</code>.
-     *
-     * @param key the key of the message in the ${messageBundlePath}.properties message bundle.
-     * @param arguments any arguments to substitute when resolving the message.
-     * @param locale the locale of the messages to retrieve.
-     * @return String
-     */
-    protected String getMessage(
-        final String key, final Object[] arguments,
-        final java.util.Locale locale)
-    {
-        return this.getMessages().getMessage(key, arguments, locale);
-    }
-
 #end
 #if ($ejbSecurityEnabled)
 #set ($principalStoreClassName = $principalStoreName)
@@ -430,10 +376,10 @@ $attribute.getDocumentation("     * ")
      * Indicates whether or not the current principal plays the <strong>$role.name</strong> role in the application.
      * @return $principalStoreClassName.$isInRoleName()
      */
-    public boolean $isPrincipalInRoleName()
+    /**public boolean $isPrincipalInRoleName()
     {
         return $principalStoreClassName.$isInRoleName();
-    }
+    }*/
 
 #end
 
@@ -442,10 +388,10 @@ $attribute.getDocumentation("     * ")
      *
      * @return the names of the current principal roles.
      */
-    public String[] getPrincipalRoles()
+    /**public String[] getPrincipalRoles()
     {
         return ${principalStoreClassName}.getPrincipalRoles();
-    }
+    }*/
 #end
 
 // spring-service-base merge-point

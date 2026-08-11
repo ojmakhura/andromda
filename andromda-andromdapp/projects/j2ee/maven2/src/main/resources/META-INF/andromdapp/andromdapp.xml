@@ -49,6 +49,8 @@
         </conditions>
         <conditions>
             <condition id="springws" equal="true"/>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/FallbackExceptionHandler.java.vsl</output>
+            <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/ErrorResponse.java.vsl</output>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</output>
             <output>webservice/src/test/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplicationTests.java.vsl</output>
             <output>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/config/SpringRestConfiguration.java.vsl</output>
@@ -287,6 +289,14 @@
         </mapping>
         		
 		<!-- Spring REST Webservices -->
+        <mapping>
+            <from>webservice/FallbackExceptionHandler.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/FallbackExceptionHandler.java.vsl</to>
+        </mapping>
+        <mapping>
+            <from>webservice/ErrorResponse.java.vsl</from>
+            <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/ErrorResponse.java.vsl</to>
+        </mapping>
         <mapping>
             <from>webservice/SpringRestApplication.java.vsl</from>
             <to>webservice/src/main/java/$stringUtils.replace(${applicationPackage}, '.', '/')/SpringRestApplication.java.vsl</to>

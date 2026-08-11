@@ -100,21 +100,15 @@ public class ${serviceImplName} implements #if($isService)${service.name}WS#else
 #set ($call = "// TODO: Add custom code here")
 #set ($optional = "null;")
 #end
-        try {
 #if ($operation.returnTypePresent)
 #if($isService)
-            return ResponseEntity.ok($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
+        return ResponseEntity.ok($stringUtils.uncapitalize(${service.name}).${operation.name}($operation.argumentNames));
 #else
-            return ResponseEntity.ok(null);
+        return ResponseEntity.ok(null);
 #end
 #else
-            $call;
+        $call;
 #end
-        } catch (Exception e) {
-
-            logger.error("An error occurred while processing the request", e);
-            throw e.getCause() != null ? new Exception(e.getCause().getMessage()) : e;
-        } 
     }
 #end
 #foreach($serviceRef in $service.serviceReferences)

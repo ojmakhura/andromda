@@ -5,7 +5,7 @@
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
-    <templateObject name="stringUtils" className="org.apache.commons.lang3.StringUtils"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="escapeUtils" className="org.apache.commons.text.StringEscapeUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
@@ -14,6 +14,7 @@
 
     <templatePostProcessor className="org.andromda.core.common.ImportBeautifierPostProcessorImpl"/>
 
+    <property reference="applicationPackage"/>
     <property reference="generateRefFiles"/>
     <property reference="overwriteAll"/>
     <property reference="applicationName"/>
@@ -1203,6 +1204,20 @@
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/package-info.java"
         outlet="webservice-impl"
         overwrite="false"
+        outputCondition="springws">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    <template
+        path="templates/webservice/springws/controller-advice.java.vsl"
+        outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceControllerAdviceName}.java"
+        outlet="webservice-impl"
+        overwrite="true"
         outputCondition="springws">
         <modelElements variable="service">
             <modelElement>
