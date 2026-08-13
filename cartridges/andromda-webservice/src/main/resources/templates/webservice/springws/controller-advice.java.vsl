@@ -11,10 +11,10 @@ package $service.packageName;
 #set ($isService = $webServiceUtils.isService($service))
 #if($isService)
 #set ($serviceControllerAdviceName = "${service.name}WSControllerAdvice")
-#set ($serviceImplName = "${service.fullyQualifiedName}WSImpl")
+#set ($serviceImplName = "${service.name}WSImpl")
 #else
-#set ($serviceControllerAdviceName = "${service.name}ControllerAdvice")
-#set ($serviceImplName = "${service.fullyQualifiedName}")
+#set ($serviceControllerAdviceName = "${service.fullImplementationName}ControllerAdvice")
+#set ($serviceImplName = "${service.fullImplementationName}Impl")
 #end
 
 import org.slf4j.Logger;
@@ -22,18 +22,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
+import java.net.URI;
 import java.time.Instant;
-import java.util.Arrays;
-
-import ${applicationPackage}.ErrorResponse;
+import java.util.List;
 
 /**
- * Translates the errors thrown by {@link ${service.name}ServiceBase}
- * into human-readable API responses for the $stringUtils.uncapitalize($service.name) endpoints.
+ * Translates errors thrown by {@link ${service.name}ServiceBase} into RFC 9457 compliant
+ * {@link ProblemDetail} payloads for the $stringUtils.uncapitalize($service.name) endpoints.
  *
  * Scoped to {@link ${serviceImplName}} only, and ordered ahead
  * of global exception handlers so that this advice's friendlier messages take precedence.
@@ -43,96 +45,199 @@ import ${applicationPackage}.ErrorResponse;
 public class ${serviceControllerAdviceName} {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(${serviceControllerAdviceName}.class);
+    private static final String PROBLEM_BASE_URL = "https://api.cohortix.co.bw/errors/";
+    private static final MediaType PROBLEM_JSON_MEDIA_TYPE = MediaType.parseMediaType("application/problem+json");
+
+    /**
+     * Ordered list of validation-message mappings.
+     * Each entry matches a method-name substring and (optionally) a
+     * field-name substring against the raw exception message, and
+     * supplies the user-facing replacement text (RFC 9457 'detail').
+     *
+     * Entries are checked in order — more specific field matches
+     * (nested attribute paths) are listed ahead of their less specific
+     * parent-field counterparts within the same operation.
+     */
+    private static final List<ValidationMapping> VALIDATION_MAPPINGS = List.of(
+#set($mappingIndex = 0)
+#foreach($op in $service.operations)
+#foreach($param in $op.parameters)
+#if($param.type.complex)
+#foreach($attribute in $param.type.attributes)
+#if($mappingIndex > 0),
+#end
+            new ValidationMapping(".${op.name}(", "'${param.name}.${attribute.name}'",
+                    "A valid $stringUtils.uncapitalize($attribute.name) is required for the $stringUtils.uncapitalize($param.name).")
+#set($mappingIndex = $mappingIndex + 1)
+#end
+#end
+#if($mappingIndex > 0),
+#end
+            new ValidationMapping(".${op.name}(", "'${param.name}'",
+                    "Please provide a valid $stringUtils.uncapitalize($param.name) for ${op.name}.")
+#set($mappingIndex = $mappingIndex + 1)
+#end
+#end
+    );
 
     /**
      * Handles manual argument validation checks thrown by ${service.name}ServiceBase.
-     * Maps generated validation messages to friendly human-readable descriptions.
+     * Maps generated validation messages to friendly human-readable descriptions (RFC 9457 Bad Request).
      */
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
+    public ResponseEntity<ProblemDetail> handleIllegalArgument(IllegalArgumentException ex, WebRequest request) {
+
         String message = ex.getMessage() == null ? "" : ex.getMessage();
         String friendly = toFriendlyMessage(message);
 
+        List<String> errors = message.isBlank()
+                ? List.of()
+                : List.of(message);
+
         LOGGER.warn("${service.name} validation failed: {}", message);
 
-        ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST.name(),
+        ProblemDetail problemDetail = buildProblemDetail(
+                HttpStatus.BAD_REQUEST,
+                "validation-error",
+                "Bad Request",
                 friendly,
-                Arrays.asList(ex.getMessage()),
-                Instant.now()
+                request,
+                errors
         );
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(errorResponse);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(PROBLEM_JSON_MEDIA_TYPE)
+                .body(problemDetail);
     }
 
 #if($isService)
     /**
-     * Handles {@link ${service.name}Exception} thrown by the service layer. // 99999
+     * Handles {@link ${service.name}Exception} thrown by the service layer (RFC 9457 Internal Server Error).
      */
     @ExceptionHandler(${service.name}Exception.class)
-    public ResponseEntity<ErrorResponse> handle${service.name}Exception(${service.name}Exception ex) {
+    public ResponseEntity<ProblemDetail> handle${service.name}Exception(${service.name}Exception ex, WebRequest request) {
+
         LOGGER.error("${service.name} service error", ex);
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                        "We couldn't process your $stringUtils.uncapitalize($service.name) request right now. Please try again shortly.",
-                        null,
-                        Instant.now()
-                ));
-    }
+        ProblemDetail problemDetail = buildProblemDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "internal-server-error",
+                "Internal Server Error",
+                "We couldn't process your $stringUtils.uncapitalize($service.name) request right now. Please try again shortly.",
+                request,
+                List.of()
+        );
 
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(PROBLEM_JSON_MEDIA_TYPE)
+                .body(problemDetail);
+    }
+#else
+    /**
+     * Handles {@link ${service.name}ServiceException} thrown by the service layer (RFC 9457 Internal Server Error).
+     */
+    @ExceptionHandler(${service.name}ServiceException.class)
+    public ResponseEntity<ProblemDetail> handle${service.name}ServiceException(${service.name}ServiceException ex, WebRequest request) {
+
+        LOGGER.error("${service.name} service error", ex);
+
+        ProblemDetail problemDetail = buildProblemDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "internal-server-error",
+                "Internal Server Error",
+                "We couldn't process your $stringUtils.uncapitalize($service.name) request right now. Please try again shortly.",
+                request,
+                List.of()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(PROBLEM_JSON_MEDIA_TYPE)
+                .body(problemDetail);
+    }
 #end
+
 #foreach($ref in $service.allServiceReferences)
     /**
-     * Handles {@link ${ref.targetElement.name}Exception} thrown by referenced services.
+     * Handles {@link ${ref.targetElement.name}Exception} thrown by referenced services (RFC 9457 Internal Server Error).
      */
     @ExceptionHandler(${ref.targetElement.name}Exception.class)
-    public ResponseEntity<ErrorResponse> handle${ref.targetElement.name}Exception(${ref.targetElement.name}Exception ex) {
+    public ResponseEntity<ProblemDetail> handle${ref.targetElement.name}Exception(${ref.targetElement.name}Exception ex, WebRequest request) {
+
         LOGGER.error("Referenced service error (${ref.targetElement.name})", ex);
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse(
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                        "An error occurred while communicating with dependent services. Please try again shortly.",
-                        null,
-                        Instant.now()
-                ));
+        ProblemDetail problemDetail = buildProblemDetail(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "dependency-error",
+                "Dependency Error",
+                "An error occurred while communicating with dependent services. Please try again shortly.",
+                request,
+                List.of()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(PROBLEM_JSON_MEDIA_TYPE)
+                .body(problemDetail);
     }
 #end
 
     /**
-     * Maps validation messages thrown by ${service.name}ServiceBase to plain-language equivalents.
+     * Builds an RFC 9457 {@link ProblemDetail} response body, with
+     * {@code timestamp} and {@code errors} as extension members (RFC 9457 Section 3.2).
+     */
+    private ProblemDetail buildProblemDetail(
+            HttpStatus status,
+            String typeSuffix,
+            String title,
+            String detail,
+            WebRequest request,
+            List<String> errors) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
+        problemDetail.setType(URI.create(PROBLEM_BASE_URL + typeSuffix));
+        problemDetail.setTitle(title);
+        problemDetail.setInstance(URI.create(getInstanceUri(request)));
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setProperty("errors", errors);
+
+        return problemDetail;
+    }
+
+    /**
+     * Extracts the request URI from the Spring WebRequest.
+     */
+    private String getInstanceUri(WebRequest request) {
+        return request.getDescription(false)
+                .replace("uri=", "");
+    }
+
+    /**
+     * Maps validation messages thrown by ${service.name}ServiceBase to
+     * plain-language equivalents for RFC 9457 'detail', using {@link #VALIDATION_MAPPINGS}.
      */
     private String toFriendlyMessage(String message) {
-#foreach($operation in $service.operations)
-#foreach ($argument in $operation.arguments)
-#set($argumentPhrase = "$stringUtils.toPhrase($argument.name)")
-#if ($argument.required && !$argument.type.primitive)
-        if (message.contains(".${operation.name}(") && message.contains("'${argument.name}'")) {
-            return "$stringUtils.capitalize($argumentPhrase) is required.";
+
+        return VALIDATION_MAPPINGS.stream()
+                .filter(mapping -> mapping.matches(message))
+                .map(ValidationMapping::friendlyMessage)
+                .findFirst()
+                .orElse("The $stringUtils.uncapitalize($service.name) details provided are invalid.");
+    }
+
+    /**
+     * A single method/field validation-message mapping.
+     */
+    private record ValidationMapping(
+            String methodMarker,
+            String fieldMarker,
+            String friendlyMessage) {
+
+        boolean matches(String message) {
+            return message.contains(methodMarker)
+                    && message.contains(fieldMarker);
         }
-
-#end
-#end
-#if (!$argument.many && !$argument.type.enumeration && !$argument.type.entityMetaType)
-#foreach ($attribute in $argument.type.getAttributes(true))
-#set($attributePhrase = "$stringUtils.toPhrase($attribute.name)")
-#if ($attribute.required && !$attribute.type.primitive && !$attribute.static)
-        if (message.contains(".${operation.name}(") && message.contains("'${argument.name}.${attribute.name}'")) {
-            return "$stringUtils.capitalize($argumentPhrase)'s $attributePhrase is required.";
-        }
-
-#end
-#end
-#end
-#end
-
-        // Fallback for any unmapped validation message
-        return "The $stringUtils.uncapitalize($service.name) details provided are invalid.";
     }
 }

@@ -1217,7 +1217,7 @@
         path="templates/webservice/springws/controller-advice.java.vsl"
         outputPattern="$stringUtils.replace($service.packageName, '.', '/')/${serviceControllerAdviceName}.java"
         outlet="webservice-impl"
-        overwrite="true"
+        overwrite="false"
         outputCondition="springws">
         <modelElements variable="service">
             <modelElement>
