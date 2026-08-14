@@ -11,10 +11,10 @@ package $service.packageName;
 #set ($isService = $webServiceUtils.isService($service))
 #if($isService)
 #set ($serviceControllerAdviceName = "${service.name}WSControllerAdvice")
-#set ($serviceImplName = "${service.name}WSImpl")
+#set ($serviceImplName = "${service.name}WS")
 #else
-#set ($serviceControllerAdviceName = "${service.fullImplementationName}ControllerAdvice")
-#set ($serviceImplName = "${service.fullImplementationName}Impl")
+#set ($serviceControllerAdviceName = "${service.name}ControllerAdvice")
+#set ($serviceImplName = "${service.name}")
 #end
 
 import org.slf4j.Logger;
@@ -45,7 +45,6 @@ import java.util.List;
 public class ${serviceControllerAdviceName} {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(${serviceControllerAdviceName}.class);
-    private static final String PROBLEM_BASE_URL = "https://api.cohortix.co.bw/errors/";
     private static final MediaType PROBLEM_JSON_MEDIA_TYPE = MediaType.parseMediaType("application/problem+json");
 
     /**
@@ -58,27 +57,33 @@ public class ${serviceControllerAdviceName} {
      * (nested attribute paths) are listed ahead of their less specific
      * parent-field counterparts within the same operation.
      */
-    private static final List<ValidationMapping> VALIDATION_MAPPINGS = List.of(
+    private static final List<${applicationPackage}.ValidationMapping> VALIDATION_MAPPINGS = List.of(
 #set($mappingIndex = 0)
 #foreach($op in $service.operations)
-#foreach($param in $op.parameters)
-#if($param.type.complex)
-#foreach($attribute in $param.type.attributes)
+#foreach($argument in $op.arguments)
+#if($argument.type.complex)
+#foreach($attribute in $argument.type.attributes)
 #if($mappingIndex > 0),
 #end
-            new ValidationMapping(".${op.name}(", "'${param.name}.${attribute.name}'",
-                    "A valid $stringUtils.uncapitalize($attribute.name) is required for the $stringUtils.uncapitalize($param.name).")
+        new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}.${attribute.name}'",
+                HttpStatus.BAD_REQUEST,
+                "missing-parameter",
+                "$stringUtils.capitalize($stringUtils.toPhrase($attribute.name)) is required for the $stringUtils.uncapitalize($stringUtils.toPhrase($argument.name)).")
 #set($mappingIndex = $mappingIndex + 1)
 #end
 #end
 #if($mappingIndex > 0),
 #end
-            new ValidationMapping(".${op.name}(", "'${param.name}'",
-                    "Please provide a valid $stringUtils.uncapitalize($param.name) for ${op.name}.")
+        new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}'",
+                    HttpStatus.BAD_REQUEST,
+                    "missing-parameter",
+                "$stringUtils.capitalize($stringUtils.toPhrase($argument.name)) is required.")
 #set($mappingIndex = $mappingIndex + 1)
 #end
 #end
     );
+
+    private static final String FALLBACK_MESSAGE = "Unknown error has occurred. Please contact administrator.";
 
     /**
      * Handles manual argument validation checks thrown by ${service.name}ServiceBase.
@@ -88,7 +93,18 @@ public class ${serviceControllerAdviceName} {
     public ResponseEntity<ProblemDetail> handleIllegalArgument(IllegalArgumentException ex, WebRequest request) {
 
         String message = ex.getMessage() == null ? "" : ex.getMessage();
-        String friendly = toFriendlyMessage(message);
+        ${applicationPackage}.ValidationMapping mapping = findMapping(message).orElse(null);
+        String friendly = mapping == null
+                ? FALLBACK_MESSAGE
+                : mapping.friendlyMessage();
+
+        HttpStatus status = mapping == null
+                ? HttpStatus.INTERNAL_SERVER_ERROR
+                : mapping.status();
+
+        String type = mapping == null
+                ? "service-error"
+                : mapping.type();
 
         List<String> errors = message.isBlank()
                 ? List.of()
@@ -97,8 +113,8 @@ public class ${serviceControllerAdviceName} {
         LOGGER.warn("${service.name} validation failed: {}", message);
 
         ProblemDetail problemDetail = buildProblemDetail(
-                HttpStatus.BAD_REQUEST,
-                "validation-error",
+                status,
+                type,
                 "Bad Request",
                 friendly,
                 request,
@@ -106,7 +122,7 @@ public class ${serviceControllerAdviceName} {
         );
 
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(status)
                 .contentType(PROBLEM_JSON_MEDIA_TYPE)
                 .body(problemDetail);
     }
@@ -115,45 +131,40 @@ public class ${serviceControllerAdviceName} {
     /**
      * Handles {@link ${service.name}Exception} thrown by the service layer (RFC 9457 Internal Server Error).
      */
-    @ExceptionHandler(${service.name}Exception.class)
+    @ExceptionHandler(${service.fullyQualifiedName}Exception.class)
     public ResponseEntity<ProblemDetail> handle${service.name}Exception(${service.name}Exception ex, WebRequest request) {
 
-        LOGGER.error("${service.name} service error", ex);
+        String message = ex.getMessage() == null ? "" : ex.getMessage();
+        ${applicationPackage}.ValidationMapping mapping = findMapping(message).orElse(null);
+        String friendly = mapping == null
+                ? FALLBACK_MESSAGE
+                : mapping.friendlyMessage();
+
+        HttpStatus status = mapping == null
+                ? HttpStatus.INTERNAL_SERVER_ERROR
+                : mapping.status();
+
+        String type = mapping == null
+                ? "service-error"
+                : mapping.type();
+                
+        List<String> errors = message.isBlank()
+                ? List.of()
+                : List.of(message);
+
+        LOGGER.error("${service.name} service error", message);
 
         ProblemDetail problemDetail = buildProblemDetail(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "internal-server-error",
+                status,
+                type,
                 "Internal Server Error",
-                "We couldn't process your $stringUtils.uncapitalize($service.name) request right now. Please try again shortly.",
+                friendly,
                 request,
-                List.of()
+                errors
         );
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .contentType(PROBLEM_JSON_MEDIA_TYPE)
-                .body(problemDetail);
-    }
-#else
-    /**
-     * Handles {@link ${service.name}ServiceException} thrown by the service layer (RFC 9457 Internal Server Error).
-     */
-    @ExceptionHandler(${service.name}ServiceException.class)
-    public ResponseEntity<ProblemDetail> handle${service.name}ServiceException(${service.name}ServiceException ex, WebRequest request) {
-
-        LOGGER.error("${service.name} service error", ex);
-
-        ProblemDetail problemDetail = buildProblemDetail(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "internal-server-error",
-                "Internal Server Error",
-                "We couldn't process your $stringUtils.uncapitalize($service.name) request right now. Please try again shortly.",
-                request,
-                List.of()
-        );
-
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(status)
                 .contentType(PROBLEM_JSON_MEDIA_TYPE)
                 .body(problemDetail);
     }
@@ -161,24 +172,40 @@ public class ${serviceControllerAdviceName} {
 
 #foreach($ref in $service.allServiceReferences)
     /**
-     * Handles {@link ${ref.targetElement.name}Exception} thrown by referenced services (RFC 9457 Internal Server Error).
+     * Handles {@link ${ref.targetElement.fullyQualifiedName}Exception} thrown by referenced services (RFC 9457 Internal Server Error).
      */
-    @ExceptionHandler(${ref.targetElement.name}Exception.class)
-    public ResponseEntity<ProblemDetail> handle${ref.targetElement.name}Exception(${ref.targetElement.name}Exception ex, WebRequest request) {
+    @ExceptionHandler(${ref.targetElement.fullyQualifiedName}Exception.class)
+    public ResponseEntity<ProblemDetail> handle${ref.targetElement.name}Exception(${ref.targetElement.fullyQualifiedName}Exception ex, WebRequest request) {
 
+        String message = ex.getMessage() == null ? "" : ex.getMessage();
+        ${applicationPackage}.ValidationMapping mapping = findMapping(message).orElse(null);
+        String friendly = mapping == null
+                ? FALLBACK_MESSAGE
+                : mapping.friendlyMessage();
+        HttpStatus status = mapping == null
+                ? HttpStatus.INTERNAL_SERVER_ERROR
+                : mapping.status();
+
+        String type = mapping == null
+                ? "service-error"
+                : mapping.type();
+                
+        List<String> errors = message.isBlank()
+                ? List.of()
+                : List.of(message);
         LOGGER.error("Referenced service error (${ref.targetElement.name})", ex);
 
         ProblemDetail problemDetail = buildProblemDetail(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "dependency-error",
+                status,
+                type,
                 "Dependency Error",
-                "An error occurred while communicating with dependent services. Please try again shortly.",
+                friendly,
                 request,
-                List.of()
+                errors
         );
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .status(status)
                 .contentType(PROBLEM_JSON_MEDIA_TYPE)
                 .body(problemDetail);
     }
@@ -197,7 +224,7 @@ public class ${serviceControllerAdviceName} {
             List<String> errors) {
 
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
-        problemDetail.setType(URI.create(PROBLEM_BASE_URL + typeSuffix));
+        problemDetail.setType(URI.create(typeSuffix));
         problemDetail.setTitle(title);
         problemDetail.setInstance(URI.create(getInstanceUri(request)));
         problemDetail.setProperty("timestamp", Instant.now());
@@ -215,29 +242,14 @@ public class ${serviceControllerAdviceName} {
     }
 
     /**
-     * Maps validation messages thrown by ${service.name}ServiceBase to
-     * plain-language equivalents for RFC 9457 'detail', using {@link #VALIDATION_MAPPINGS}.
+     * Finds the first validation mapping that matches the given message.
+     *
+     * @param message the validation message to match
+     * @return an {@link Optional} containing the matching {@link ValidationMapping}, or empty if none found
      */
-    private String toFriendlyMessage(String message) {
-
+    private java.util.Optional<${applicationPackage}.ValidationMapping> findMapping(String message) {
         return VALIDATION_MAPPINGS.stream()
                 .filter(mapping -> mapping.matches(message))
-                .map(ValidationMapping::friendlyMessage)
-                .findFirst()
-                .orElse("The $stringUtils.uncapitalize($service.name) details provided are invalid.");
-    }
-
-    /**
-     * A single method/field validation-message mapping.
-     */
-    private record ValidationMapping(
-            String methodMarker,
-            String fieldMarker,
-            String friendlyMessage) {
-
-        boolean matches(String message) {
-            return message.contains(methodMarker)
-                    && message.contains(fieldMarker);
-        }
+                .findFirst();
     }
 }
