@@ -10,10 +10,10 @@ package $service.packageName;
 #set ($componentPath = $stringUtils.replaceChars(${service.packageName}, "\\.", "\\/"))
 #set ($isService = $webServiceUtils.isService($service))
 #if($isService)
-#set ($serviceControllerAdviceName = "${service.name}WSControllerAdvice")
+#set ($serviceControllerAdviceName = "${service.name}WSAdvice")
 #set ($serviceImplName = "${service.name}WS")
 #else
-#set ($serviceControllerAdviceName = "${service.name}ControllerAdvice")
+#set ($serviceControllerAdviceName = "${service.name}Advice")
 #set ($serviceImplName = "${service.name}")
 #end
 
