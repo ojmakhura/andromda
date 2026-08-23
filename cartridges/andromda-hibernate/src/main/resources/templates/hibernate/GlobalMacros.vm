@@ -250,7 +250,7 @@
 #*      *##if ($attribute.identifier && !$entity.compositeIdentifier)
     @jakarta.persistence.Id
 #*        *##if ($entity.sequenceHibernateGeneratorClass)
-    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}") // 1
+    @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy}, generator="${sequencePrefix}${entity.sequenceName}")
     @jakarta.persistence.SequenceGenerator(name="${sequencePrefix}${entity.sequenceName}", sequenceName="${sequencePrefix}${entity.sequenceName}", allocationSize=1)
 #*        *##elseif ($attribute.generatorTypeTable)
     @jakarta.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
