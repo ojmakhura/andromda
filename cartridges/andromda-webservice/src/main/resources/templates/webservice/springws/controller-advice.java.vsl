@@ -61,23 +61,24 @@ public class ${serviceControllerAdviceName} {
 #set($mappingIndex = 0)
 #foreach($op in $service.operations)
 #foreach($argument in $op.arguments)
-#if($argument.type.complex)
-#foreach($attribute in $argument.type.attributes)
-#if($mappingIndex > 0),
+#if ($argument.required)
+        #if($mappingIndex > 0),#end new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}'",
+                HttpStatus.BAD_REQUEST,
+                "missing-parameter",
+                "$stringUtils.capitalize($stringUtils.toPhrase($argument.name)) is required.")
 #end
-        new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}.${attribute.name}'",
+#if (!$argument.many && !$argument.type.enumeration && !$argument.type.entityMetaType)
+#set($attributeIndex = 0)
+#foreach ($attribute in $argument.type.getAttributes(true))
+#if ($attribute.required && !$attribute.static)
+        #if($attributeIndex > 0 || $mappingIndex > 0),#end new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}.${attribute.name}'",
                 HttpStatus.BAD_REQUEST,
                 "missing-parameter",
                 "$stringUtils.capitalize($stringUtils.toPhrase($attribute.name)) is required for the $stringUtils.uncapitalize($stringUtils.toPhrase($argument.name)).")
-#set($mappingIndex = $mappingIndex + 1)
+#end
+#set($attributeIndex = $attributeIndex + 1)
 #end
 #end
-#if($mappingIndex > 0),
-#end
-        new ${applicationPackage}.ValidationMapping(".${op.name}(", "'${argument.name}'",
-                    HttpStatus.BAD_REQUEST,
-                    "missing-parameter",
-                "$stringUtils.capitalize($stringUtils.toPhrase($argument.name)) is required.")
 #set($mappingIndex = $mappingIndex + 1)
 #end
 #end
@@ -182,6 +183,7 @@ public class ${serviceControllerAdviceName} {
         String friendly = mapping == null
                 ? ex.getMessage()
                 : mapping.friendlyMessage();
+
         HttpStatus status = mapping == null
                 ? HttpStatus.INTERNAL_SERVER_ERROR
                 : mapping.status();
