@@ -1178,11 +1178,11 @@ public class EntityLogicImpl
                 EntityAttribute attribute = (EntityAttribute)attr;
                 if(StringUtilsHelper.isNotBlank(attribute.getUniqueGroup())) {
                     
-                    Collection<String> uqs = uniqueConstraints.get(attribute.getUniqueGroup());
+                    Collection<String> uqs = uniqueConstraints.get(attribute.getUniqueGroup().toUpperCase());
 
                     if(uqs == null) {
                         uqs = new ArrayList<>();
-                        uniqueConstraints.put(attribute.getUniqueGroup(), uqs);
+                        uniqueConstraints.put(attribute.getUniqueGroup().toUpperCase(), uqs);
                     }
 
                     uqs.add(attribute.getColumnName());
