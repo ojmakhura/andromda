@@ -1195,11 +1195,11 @@ public class EntityLogicImpl
 
                 EntityAssociationEnd assEnd = (EntityAssociationEnd)ae.getOtherEnd();
                 if(StringUtilsHelper.isNotBlank(assEnd.getUniqueGroup())) {
-                    Collection<String> uqs = uniqueConstraints.get(assEnd.getUniqueGroup());
+                    Collection<String> uqs = uniqueConstraints.get(assEnd.getUniqueGroup().toUpperCase());
 
                     if(uqs == null) {
                         uqs = new ArrayList<>();
-                        uniqueConstraints.put(assEnd.getUniqueGroup(), uqs);
+                        uniqueConstraints.put(assEnd.getUniqueGroup().toUpperCase(), uqs);
                     }
 
                     uqs.add(assEnd.getColumnName());
