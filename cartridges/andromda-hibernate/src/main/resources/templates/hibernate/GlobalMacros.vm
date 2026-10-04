@@ -220,6 +220,7 @@
 #set ($isUUID = $generationStatergy.contains("GenerationType.UUID"))
 #if($isUUID)
 #set ($typeName = "java.util.UUID")
+#set ($isUUID = true)
 #end
 #end
 #if ($attribute.containsEmbeddedObject)
@@ -262,7 +263,11 @@
     @org.hibernate.annotations.GenericGenerator(name="${attribute.generatorName}", strategy = "${attribute.generatorGenericStrategy}")
 #*            *##end
 #*          *##elseif (!$entity.sequenceHibernateGeneratorClass)
+#if($isUUID)
+    @org.hibernate.annotations.UuidGenerator(style = org.hibernate.annotations.UuidGenerator.Style.VERSION_7)
+#else
     @jakarta.persistence.GeneratedValue(strategy = ${entity.hibernateGenerationTypeStrategy})
+#end
 #*          *##end 
 #*        *##end
 #*      *##end
