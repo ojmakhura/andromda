@@ -35,9 +35,8 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #if($generateDaos)        $ref.targetElement.fullyQualifiedDaoName ${ref.name}Dao,#end
 #set ($ent = $ref.targetElement)
         ${ent.fullyQualifiedName}Repository ${stringUtils.uncapitalize($ent.name)}Repository,
-        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper,
+        ${ent.fullyQualifiedName}Mapper ${stringUtils.uncapitalize($ent.name)}Mapper#if(${velocityHasNext}), #end
 #end
-        MessageSource messageSource
     ) {
         
         super(
@@ -47,9 +46,8 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #foreach($ref in $service.entityReferences)
 #if($generateDaos)            ${ref.name}Dao,#end
             ${stringUtils.uncapitalize($ref.name)}Repository,
-            ${stringUtils.uncapitalize($ref.name)}Mapper,
+            ${stringUtils.uncapitalize($ref.name)}Mapper#if(${velocityHasNext}), #end
 #end
-            messageSource
         );
     }
 
